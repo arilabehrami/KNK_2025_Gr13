@@ -1,4 +1,4 @@
-package models.DTO.Orari;
+package models.Dto.Orari;
 
 public class CreateOrariDto {
     private int femijaId;

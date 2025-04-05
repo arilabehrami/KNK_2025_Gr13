@@ -1,4 +1,4 @@
-package models.DTO.Orari;
+package models.Dto.Orari;
 
 public class UpdateOrariDto {
     private int orariId;

@@ -1,4 +1,4 @@
-package models.DTO.Prania;
+package models.Dto.Prania;
 
 public class UpdatePraniaDto {
     private int praniaId;

@@ -1,4 +1,4 @@
-package models.DTO.Aktivitetet;
+package models.Dto.Aktivitetet;
 
 public class UpdateAktivitetetDto {
     private int aktivitetiId;
