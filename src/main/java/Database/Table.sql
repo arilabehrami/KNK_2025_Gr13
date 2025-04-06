@@ -95,5 +95,12 @@ CREATE TABLE PreferencaDietike (
     FOREIGN KEY (FemijaID) REFERENCES Femijet(FemijaID) ON DELETE CASCADE
 );
 
-
+CREATE TABLE Orari (
+    OrariID INT PRIMARY KEY AUTO_INCREMENT,
+    FemijaID INT,
+    dita VARCHAR(10),
+    ora_hyrjes TIME,
+    ora_daljes TIME,
+    FOREIGN KEY (FemijaID) REFERENCES Femijet(FemijaID)
+);
 
