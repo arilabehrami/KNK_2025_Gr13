@@ -68,3 +68,32 @@ CREATE TABLE KontaktetEmergjente (
     Telefoni VARCHAR(50) NOT NULL,
     FOREIGN KEY (FemijaID) REFERENCES Femijet(FemijaID) ON DELETE CASCADE
 );
+
+
+
+CREATE TABLE Ushqimet (
+    UshqimiID INT AUTO_INCREMENT PRIMARY KEY,
+    EmriUshqimit VARCHAR(100) NOT NULL,
+    Kategoria ENUM('Mëngjes', 'Drekë', 'Darkë', 'Snacks') NOT NULL,
+    Pershkrimi TEXT
+);
+
+CREATE TABLE MenyjaDitore (
+    MenuID INT AUTO_INCREMENT PRIMARY KEY,
+    Dita ENUM('E Hënë', 'E Martë', 'E Mërkurë', 'E Enjte', 'E Premte', 'E Shtunë', 'E Diel') NOT NULL,
+    GrupiID INT NOT NULL,
+    UshqimiID INT NOT NULL,
+    FOREIGN KEY (GrupiID) REFERENCES Grupet(GrupiID) ON DELETE CASCADE,
+    FOREIGN KEY (UshqimiID) REFERENCES LlojetUshqimeve(UshqimiID) ON DELETE CASCADE
+);
+
+CREATE TABLE PreferencaDietike (
+    PreferencaID INT AUTO_INCREMENT PRIMARY KEY,
+    FemijaID INT NOT NULL,
+    LlojiPreferencës ENUM('Alergji', 'Intolerancë', 'Vegjetarian', 'Vegan', 'Tjetër') NOT NULL,
+    Detaje TEXT,
+    FOREIGN KEY (FemijaID) REFERENCES Femijet(FemijaID) ON DELETE CASCADE
+);
+
+
+
