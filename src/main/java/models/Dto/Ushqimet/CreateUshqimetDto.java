@@ -2,10 +2,6 @@ package models.Dto.Ushqimet;
 
 public class CreateUshqimetDto {
 
-    /////////////////////////
-
-
-
         private String emriUshqimit;
         private String kategoria;
         private String pershkrimi;

@@ -1,12 +1,12 @@
-package models.dto;
+package models.dto.Pagesa;
 
-public class UpdatePagesaDto {
+public class CreatePagesaDto {
     private int pagesaId;
     private int femijaId;
     private double shuma;
     private String data;
     private String pershkrimi;
-    public UpdatePagesaDto(int pagesaId, int femijaId, double shuma, String data, String pershkrimi){
+    public CreatePagesaDto(int pagesaId, int femijaId, double shuma, String data, String pershkrimi){
         this.pagesaId = pagesaId;
         this.femijaId = femijaId;
         this.shuma = shuma;
