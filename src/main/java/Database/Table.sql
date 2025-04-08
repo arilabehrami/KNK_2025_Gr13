@@ -9,6 +9,25 @@ CREATE TABLE Femijet(
     KontaktiPrindit VARCHAR(100) NOT NULL
 );
 
+CREATE TABLE Prinderit (
+    PrindiID INT AUTO_INCREMENT PRIMARY KEY,
+    Emri VARCHAR(50) NOT NULL,
+    Mbiemri VARCHAR(50) NOT NULL,
+    Telefoni VARCHAR(50) NOT NULL,
+    Email VARCHAR(100),
+    Adresa TEXT,
+    LlojiLidhjes ENUM('Nene', 'Babe', 'Kujdestar') NOT NULL
+);
+
+CREATE TABLE FemijetPrinderit (
+    ID INT AUTO_INCREMENT PRIMARY KEY,
+    FemijaID INT NOT NULL,
+    PrindiID INT NOT NULL,
+    FOREIGN KEY (FemijaID) REFERENCES Femijet(FemijaID) ON DELETE CASCADE,
+    FOREIGN KEY (PrindiID) REFERENCES Prinderit(PrindiID) ON DELETE CASCADE
+);
+
+
 CREATE TABLE Pagesat(
 	PagesaID INT AUTO_INCREMENT PRIMARY KEY,
 	FemijaID INT NOT NULL,
