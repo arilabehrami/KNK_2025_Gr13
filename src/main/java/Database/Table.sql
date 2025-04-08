@@ -1,12 +1,12 @@
 CREATE TABLE Femijet(
-FemijaID INT AUTO_INCREMENT PRIMARY KEY,
-Emri VARCHAR(50) NOT NULL,
-Mbiemri VARCHAR(50) NOT NULL,
-DataLindjes DATE NOT NULL,
-Gjinia ENUM('M','F') NOT NULL,
-Adresa TEXT NOT NULL,
-EmriPrindit VARCHAR(100) NOT NULL,
-KontaktiPrindit VARCHAR(100) NOT NULL
+    FemijaID INT AUTO_INCREMENT PRIMARY KEY,
+    Emri VARCHAR(50) NOT NULL,
+    Mbiemri VARCHAR(50) NOT NULL,
+    DataLindjes DATE NOT NULL,
+    Gjinia ENUM('M','F') NOT NULL,
+    Adresa TEXT NOT NULL,
+    EmriPrindit VARCHAR(100) NOT NULL,
+    KontaktiPrindit VARCHAR(100) NOT NULL
 );
 
 CREATE TABLE Pagesat(
@@ -19,37 +19,37 @@ CREATE TABLE Pagesat(
 	);
 
 CREATE TABLE Grupet(
-GrupiID INT AUTO_INCREMENT PRIMARY KEY,
-EmriGrupit VARCHAR(50) NOT NULL,
-MoshaMin INT NOT NULL,
-MoshaMax INT NOT NULL,
-EdukatoriID INT,
-FOREIGN KEY (EdukatoriID) REFERENCES Edukatoret(EdukatoriID) ON DELETE SET NULL
+    GrupiID INT AUTO_INCREMENT PRIMARY KEY,
+    EmriGrupit VARCHAR(50) NOT NULL,
+    MoshaMin INT NOT NULL,
+    MoshaMax INT NOT NULL,
+    EdukatoriID INT,
+    FOREIGN KEY (EdukatoriID) REFERENCES Edukatoret(EdukatoriID) ON DELETE SET NULL
 );
 
 CREATE TABLE Edukatoret(
-EdukatoriID INT AUTO_INCREMENT PRIMARY KEY,
-Emri VARCHAR(50) NOT NULL,
-Mbiemri VARCHAR(50) NOT NULL,
-Kontakti VARCHAR(50),
-Kualifikimet TEXT
+    EdukatoriID INT AUTO_INCREMENT PRIMARY KEY,
+    Emri VARCHAR(50) NOT NULL,
+    Mbiemri VARCHAR(50) NOT NULL,
+    Kontakti VARCHAR(50),
+    Kualifikimet TEXT
 );
 
 CREATE TABLE Prania(
-PraniaID INT AUTO_INCREMENT PRIMARY KEY,
-FemijaID INT NOT NULL,
-Data DATE NOT NULL,
-Statusi ENUM('I pranishem','Mungon') NOT NULL,
-FOREIGN KEY (FemijaID) REFERENCES Femijet(FemijaID) ON DELETE CASCADE
+    PraniaID INT AUTO_INCREMENT PRIMARY KEY,
+    FemijaID INT NOT NULL,
+    Data DATE NOT NULL,
+    Statusi ENUM('I pranishem','Mungon') NOT NULL,
+    FOREIGN KEY (FemijaID) REFERENCES Femijet(FemijaID) ON DELETE CASCADE
 );
 
 CREATE TABLE Aktivitetet(
-AktivitetiID INT AUTO_INCREMENT PRIMARY KEY,
-EmriAktivitetit VARCHAR(100) NOT NULL,
-Pershkrimi TEXT,
-Data DATE NOT NULL,
-GrupiID INT,
-FOREIGN KEY (GrupiID) REFERENCES Grupet(GrupiID) ON DELETE CASCADE
+    AktivitetiID INT AUTO_INCREMENT PRIMARY KEY,
+    EmriAktivitetit VARCHAR(100) NOT NULL,
+    Pershkrimi TEXT,
+    Data DATE NOT NULL,
+    GrupiID INT,
+    FOREIGN KEY (GrupiID) REFERENCES Grupet(GrupiID) ON DELETE CASCADE
 );
 
 CREATE TABLE ShenimetShendetesore (
