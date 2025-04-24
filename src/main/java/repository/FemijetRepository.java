@@ -40,7 +40,7 @@ public class FemijetRepository extends BaseRepository<Femijet, CreateFemijetDto,
             ResultSet res = pstm.getGeneratedKeys();
             if (res.next()) {
                 int id = res.getInt(1);
-                return this.getByfemijaId(id);
+                return this.getById(id);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -61,7 +61,7 @@ public class FemijetRepository extends BaseRepository<Femijet, CreateFemijetDto,
             pstm.setInt(2, femijetDto.getFemijaID());
             int updatedRecords = pstm.executeUpdate();
             if (updatedRecords == 1) {
-                return this.getByfemijaId(femijetDto.getFemijaID());
+                return this.getById(femijetDto.getFemijaID());
             }
         } catch (SQLException e) {
             e.printStackTrace();
