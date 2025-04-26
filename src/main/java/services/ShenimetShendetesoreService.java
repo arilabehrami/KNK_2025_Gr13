@@ -5,11 +5,11 @@ import models.Dto.ShenimetShendetsore.CreateShenimetShendetsoreDto;
 import models.Dto.ShenimetShendetsore.UpdateShenimetShendetsoreDto;
 import repository.ShenimiShendetesoreRepository;
 
-public class ShenimerShendetesoreService {
+public class ShenimetShendetesoreService {
 
     private ShenimiShendetesoreRepository shenimiShendetesoreRepository;
 
-    public ShenimerShendetesoreService() {
+    public ShenimetShendetesoreService() {
         this.shenimiShendetesoreRepository = new ShenimiShendetesoreRepository();
     }
 
