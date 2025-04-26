@@ -9,9 +9,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class ShenimiShendetesoreRepository extends BaseRepository<ShenimetShendetesore, CreateShenimetShendetsoreDto, UpdateShenimetShendetsoreDto> {
+public class ShenimetShendetesoreRepository extends BaseRepository<ShenimetShendetesore, CreateShenimetShendetsoreDto, UpdateShenimetShendetsoreDto> {
 
-    public ShenimiShendetesoreRepository() {
+    public ShenimetShendetesoreRepository() {
         super("ShenimetShendetesore");
     }
 
