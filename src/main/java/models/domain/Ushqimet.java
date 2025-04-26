@@ -10,7 +10,7 @@ public class Ushqimet {
     private String kategoria;
     private String pershkrimi;
 
-    private Ushqimet(int ushqimiID, String emriUshqimit, String kategoria, String pershkrimi) {
+    public Ushqimet(int ushqimiID, String emriUshqimit, String kategoria, String pershkrimi) {
         this.ushqimiID = ushqimiID;
         this.emriUshqimit = emriUshqimit;
         this.kategoria = kategoria;

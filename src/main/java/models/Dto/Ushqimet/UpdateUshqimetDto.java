@@ -15,21 +15,24 @@ public class UpdateUshqimetDto {
             this.pershkrimi = pershkrimi;
         }
 
-        public int getUshqimiID() {
+    public int getUshqimiID() {
+
             return ushqimiID;
-        }
+    }
 
-        public String getEmriUshqimit() {
+    public String getEmriUshqimit() {
+
             return emriUshqimit;
-        }
+    }
 
-        public String getKategoria() {
-            return kategoria;
-        }
+    public String getKategoria() {
+        return kategoria;
+    }
 
-        public String getPershkrimi() {
+    public String getPershkrimi() {
+
             return pershkrimi;
-        }
+    }
 
 
 }
