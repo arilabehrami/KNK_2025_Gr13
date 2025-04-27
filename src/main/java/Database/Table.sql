@@ -88,8 +88,6 @@ CREATE TABLE KontaktetEmergjente (
     FOREIGN KEY (FemijaID) REFERENCES Femijet(FemijaID) ON DELETE CASCADE
 );
 
-
-
 CREATE TABLE Ushqimet (
     UshqimiID INT AUTO_INCREMENT PRIMARY KEY,
     EmriUshqimit VARCHAR(100) NOT NULL,
@@ -103,7 +101,7 @@ CREATE TABLE MenyjaDitore (
     GrupiID INT NOT NULL,
     UshqimiID INT NOT NULL,
     FOREIGN KEY (GrupiID) REFERENCES Grupet(GrupiID) ON DELETE CASCADE,
-    FOREIGN KEY (UshqimiID) REFERENCES LlojetUshqimeve(UshqimiID) ON DELETE CASCADE
+    FOREIGN KEY (UshqimiID) REFERENCES Ushqimet(UshqimiID) ON DELETE CASCADE
 );
 
 CREATE TABLE PreferencaDietike (
@@ -113,6 +111,8 @@ CREATE TABLE PreferencaDietike (
     Detaje TEXT,
     FOREIGN KEY (FemijaID) REFERENCES Femijet(FemijaID) ON DELETE CASCADE
 );
+
+
 
 CREATE TABLE Orari (
     OrariID INT PRIMARY KEY AUTO_INCREMENT,
