@@ -123,3 +123,20 @@ CREATE TABLE Orari (
     FOREIGN KEY (FemijaID) REFERENCES Femijet(FemijaID)
 );
 
+CREATE TABLE Financat (
+    FinancatID INT AUTO_INCREMENT PRIMARY KEY,
+    Data DATE NOT NULL,
+    TeArdhura DECIMAL(10,2) DEFAULT 0,
+    Shpenzime DECIMAL(10,2) DEFAULT 0,
+    Pershkrimi TEXT
+);
+
+CREATE TABLE PagatPunetoreve (
+    PagaID INT AUTO_INCREMENT PRIMARY KEY,
+    EdukatoriID INT NOT NULL,
+    Muaji ENUM('Janar','Shkurt','Mars','Prill','Maj','Qershor','Korrik','Gusht','Shtator','Tetor','Nentor','Dhjetor') NOT NULL,
+    Viti YEAR NOT NULL,
+    ShumaPaga DECIMAL(10,2) NOT NULL,
+    DataPageses DATE NOT NULL,
+    FOREIGN KEY (EdukatoriID) REFERENCES Edukatoret(EdukatoriID) ON DELETE CASCADE
+);
