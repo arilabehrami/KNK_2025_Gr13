@@ -126,7 +126,7 @@ CREATE TABLE Orari (
 CREATE TABLE Financat (
     FinancatID INT AUTO_INCREMENT PRIMARY KEY,
     Data DATE NOT NULL,
-    TeArdhura DECIMAL(10,2) DEFAULT 0,
+    teArdhura DECIMAL(10,2) DEFAULT 0,
     Shpenzime DECIMAL(10,2) DEFAULT 0,
     Pershkrimi TEXT
 );
