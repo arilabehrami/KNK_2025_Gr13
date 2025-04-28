@@ -2,6 +2,7 @@ package services;
 
 import models.domain.Pagesa;
 import models.dto.Pagesa.CreatePagesaDto;
+import models.dto.Pagesa.UpdatePagesaDto;
 import repository.PagesaRepository;
 
 public class PagesaService {
@@ -21,7 +22,7 @@ public class PagesaService {
     }
 
     public Pagesa create(CreatePagesaDto createPagesaDto) throws Exception{
-        if(createPagesaDto.getFemijaId() == null()){
+        if(createPagesaDto.getFemijaId() <= 0){
             throw new Exception("ID-ja e femijes nuk mund te jete bosh");
         }
         if(createPagesaDto.getData()==null || createPagesaDto.getData().isEmpty()){
@@ -34,5 +35,11 @@ public class PagesaService {
         return pagesa;
     }
 
-    
+    public Pagesa update(UpdatePagesaDto updatePagesaDto) throws Exception{
+        Pagesa pag = this.getById(updatePagesaDto.getPagesaId());
+        if(pag == null){
+            throw new Exception("Pagesa per perditesim nuk ekziston!");
+        }
+        return this.pagesaRepository.update(updatePagesaDto);
+    }
 }
