@@ -6,6 +6,7 @@ public class CreatePagesaDto {
     private double shuma;
     private String data;
     private String pershkrimi;
+    
     public CreatePagesaDto(int pagesaId, int femijaId, double shuma, String data, String pershkrimi){
         this.pagesaId = pagesaId;
         this.femijaId = femijaId;
