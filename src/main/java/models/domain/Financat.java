@@ -24,6 +24,7 @@ public class Financat {
         float teArdhura = result.getFloat("teArdhura");
         float shpenzime = result.getFloat("Shpenzime");
         String pershkrimi = result.getString("Pershkrimi");
+        return new Financat(financatID, date, teArdhura, shpenzime, pershkrimi);
     }
 
     public int getFinancatID() {
