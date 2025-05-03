@@ -1,6 +1,7 @@
 package models.dto.Donacionet;
 
 public class CreateDonacionetDto {
+    private Integer donacioniId;
     private String emriOrganizates;
     private String llojiDonatori;
     private String kontakti;
@@ -11,9 +12,10 @@ public class CreateDonacionetDto {
     private String llojiDonacionit;
     private String pershkrimi;
 
-    public CreateDonacionetDto(String emriOrganizates, String llojiDonatori, String kontakti,
+    public CreateDonacionetDto(Integer donacioniId,String emriOrganizates, String llojiDonatori, String kontakti,
                                String email, String adresa, String dataDonacionit,
                                Double shuma, String llojiDonacionit, String pershkrimi) {
+        this.donacioniId = donacioniId;
         this.emriOrganizates = emriOrganizates;
         this.llojiDonatori = llojiDonatori;
         this.kontakti = kontakti;
@@ -23,6 +25,9 @@ public class CreateDonacionetDto {
         this.shuma = shuma;
         this.llojiDonacionit = llojiDonacionit;
         this.pershkrimi = pershkrimi;
+    }
+    public int donacioniId() {
+        return donacioniId;
     }
 
     public String getEmriOrganizates() {
