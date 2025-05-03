@@ -1,4 +1,4 @@
-package models.Dto.Donacionet;
+package models.dto.Donacionet;
 
 public class CreateDonacionetDto {
     private String emriOrganizates;
