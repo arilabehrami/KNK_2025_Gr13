@@ -140,3 +140,16 @@ CREATE TABLE PagatPunetoreve (
     DataPageses DATE NOT NULL,
     FOREIGN KEY (EdukatoriID) REFERENCES Edukatoret(EdukatoriID) ON DELETE CASCADE
 );
+CREATE TABLE Donacionet (
+    DonacioniID INT AUTO_INCREMENT PRIMARY KEY,
+    EmriOrganizates VARCHAR(100) NOT NULL,
+    LlojiDonatori ENUM('Organizate','Qeveri','Individ','Biznes','Tjeter') NOT NULL,
+    Kontakti VARCHAR(100),
+    Email VARCHAR(100),
+    Adresa TEXT,
+    DataDonacionit DATE NOT NULL,
+    Shuma DECIMAL(10,2),
+    LlojiDonacionit ENUM('Financiar','Material','Sherbim') NOT NULL,
+    Pershkrimi TEXT
+);
+
