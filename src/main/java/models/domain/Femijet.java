@@ -4,69 +4,70 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class Femijet {
-    private int FemijaID;
-    private String Emri;
-    private String Mbiemri;
-    private String DataLindjes;
-    private boolean Gjinia;
-    private String Adresa;
-    private String EmriPrindit;
-    private String KontaktiPrindit;
+    private int femijaID;
+    private String emri;
+    private String mbiemri;
+    private String dataLindjes;
+    private String gjinia;
+    private String adresa;
+    private String emriPrindit;
+    private String kontaktiPrindit;
 
-    public Femijet(int femijaID, String emri, String mbiemri, String dataLindjes, boolean gjinia, String adresa, String emriPrindit, String kontaktiPrindit) {
-        FemijaID = femijaID;
-        Emri = emri;
-        Mbiemri = mbiemri;
-        DataLindjes = dataLindjes;
-        Gjinia = gjinia;
-        Adresa = adresa;
-        EmriPrindit = emriPrindit;
-        KontaktiPrindit = kontaktiPrindit;
+    public Femijet(int femijaID, String emri, String mbiemri, String dataLindjes,
+                   String gjinia, String adresa, String emriPrindit, String kontaktiPrindit) {
+        this.femijaID = femijaID;
+        this.emri = emri;
+        this.mbiemri = mbiemri;
+        this.dataLindjes = dataLindjes;
+        this.gjinia = gjinia;
+        this.adresa = adresa;
+        this.emriPrindit = emriPrindit;
+        this.kontaktiPrindit = kontaktiPrindit;
     }
+
     public static Femijet getInstance(ResultSet result) throws SQLException {
-        int femijaId = result.getInt("FemijaId");
+        int femijaId = result.getInt("FemijaID");
         String emri = result.getString("Emri");
         String mbiemri = result.getString("Mbiemri");
-        String datalindjes=result.getString("Datalindjes");
-        Boolean gjinia = result.getBoolean("Gjinia");
+        String datalindjes = result.getString("DataLindjes");
+        String gjinia = result.getString("Gjinia");
         String adresa = result.getString("Adresa");
-        String emriPrindit=result.getString("EmriPrindit");
+        String emriPrindit = result.getString("EmriPrindit");
         String kontaktiPrindit = result.getString("KontaktiPrindit");
-        return new Femijet(femijaId, emri,mbiemri,datalindjes,gjinia,adresa,emriPrindit,kontaktiPrindit);
 
+        return new Femijet(femijaId, emri, mbiemri, datalindjes, gjinia, adresa, emriPrindit, kontaktiPrindit);
     }
 
     public int getFemijaID() {
-        return FemijaID;
+        return femijaID;
     }
 
     public String getEmri() {
-        return Emri;
+        return emri;
     }
 
     public String getMbiemri() {
-        return Mbiemri;
+        return mbiemri;
     }
 
     public String getDataLindjes() {
-        return DataLindjes;
+        return dataLindjes;
     }
 
-    public boolean isGjinia() {
-        return Gjinia;
+    public String getGjinia() {
+        return gjinia;
     }
 
     public String getAdresa() {
-        return Adresa;
+        return adresa;
     }
 
     public String getEmriPrindit() {
-        return EmriPrindit;
+        return emriPrindit;
     }
 
     public String getKontaktiPrindit() {
-        return KontaktiPrindit;
+        return kontaktiPrindit;
     }
 }
-
 
