@@ -26,10 +26,11 @@ public class UpdateDonacionetDto {
         this.llojiDonacionit = llojiDonacionit;
         this.pershkrimi = pershkrimi;
     }
-    public Integer donacioniId() {
+    public Integer getDonacioniID() {
         return donacioniId;
     }
-    
+
+
     public String getEmriOrganizates() {
         return emriOrganizates;
     }
