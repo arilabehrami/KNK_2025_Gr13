@@ -47,7 +47,7 @@ public class Donacionet {
                 adresa, dataDonacionit, shuma, llojiDonacionit, pershkrimi);
     }
 
-    
+
     public int getDonacioniId() {
         return donacioniId;
     }
