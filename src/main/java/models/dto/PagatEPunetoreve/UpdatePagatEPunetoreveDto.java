@@ -48,7 +48,7 @@ public class UpdatePagatEPunetoreveDto {
         this.viti = viti;
     }
 
-    public BigDecimal getShumaPaga() {
+    public double getShumaPaga() {
         return shumaPaga;
     }
 

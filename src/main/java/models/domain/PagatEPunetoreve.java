@@ -9,10 +9,10 @@ public class PagatEPunetoreve {
     private int edukatoriID;
     private String muaji;
     private int viti;
-    private BigDecimal shumaPaga;
+    private double shumaPaga;
     private String dataEPageses;
 
-    private PagatEPunetoreve(int pagaID, int edukatoriID, String muaji, int viti, BigDecimal shumaPaga, String dataEPageses) {
+    private PagatEPunetoreve(int pagaID, int edukatoriID, String muaji, int viti, double shumaPaga, String dataEPageses) {
         this.pagaID = pagaID;
         this.edukatoriID = edukatoriID;
         this.muaji = muaji;
@@ -26,7 +26,7 @@ public class PagatEPunetoreve {
         int edukatoriID = result.getInt("EdukatoriID");
         String muaji = result.getString("Muaji");
         int viti = result.getInt("Viti");
-        BigDecimal shumaPaga = result.getBigDecimal("a");
+        double shumaPaga = result.getDouble("a");
         String dataEPageses = result.getString("DataEPageses");
         return new PagatEPunetoreve(pagaId, edukatoriID, muaji, viti, shumaPaga, dataEPageses);
     }
@@ -47,7 +47,7 @@ public class PagatEPunetoreve {
         return viti;
     }
 
-    public BigDecimal getShumaPaga() {
+    public double getShumaPaga() {
         return shumaPaga;
     }
 
