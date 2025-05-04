@@ -11,7 +11,7 @@ public class PagesaService {
         this.pagesaRepository = new PagesaRepository();
     }
     public Pagesa getById(int id) throws Exception{
-        if(id>=0){
+        if(id<=0){
             throw new Exception("Id duhet te jete me e madhe se 0");
         }
         Pagesa pagesa = this.pagesaRepository.getById(id);
