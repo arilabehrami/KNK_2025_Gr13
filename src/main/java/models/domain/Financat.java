@@ -10,8 +10,8 @@ public class Financat {
     private float shpenzime;
     private String pershkrimi;
 
-    public Financat(int financatID, String date, float teArdhura, float shpenzime, String pershkrimi) {
-        financatID = financatID;
+    private Financat(int financatID, String date, float teArdhura, float shpenzime, String pershkrimi) {
+        this.financatID = financatID;
         this.date = date;
         this.teArdhura = teArdhura;
         this.shpenzime = shpenzime;
