@@ -1,4 +1,4 @@
-package models.Dto.Femijet;
+package models.dto.Femijet;
 
 public class CreateFemijetDto {
     private int FemijaID;
