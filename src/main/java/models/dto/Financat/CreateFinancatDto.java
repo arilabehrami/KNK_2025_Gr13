@@ -1,4 +1,4 @@
-package models.dto.Financat;
+package models.Dto.Financat;
 
 public class CreateFinancatDto {
     private int financatID;

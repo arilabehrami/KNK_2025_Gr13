@@ -153,3 +153,10 @@ CREATE TABLE Donacionet (
     Pershkrimi TEXT
 );
 
+CREATE TABLE Sugjerimet (
+    SugjerimiID INT AUTO_INCREMENT PRIMARY KEY,
+    EmriSugjeruesit VARCHAR(100),
+    Roli ENUM('Prind', 'Edukator', 'Staf tjeter') NOT NULL,
+    Data DATE NOT NULL,
+    Pershkrimi TEXT NOT NULL
+);

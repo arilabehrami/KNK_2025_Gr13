@@ -3,14 +3,14 @@ package services;
 import models.domain.ShenimetShendetesore;
 import models.Dto.ShenimetShendetsore.CreateShenimetShendetsoreDto;
 import models.Dto.ShenimetShendetsore.UpdateShenimetShendetsoreDto;
-import repository.ShenimiShendetesoreRepository;
+import repository.ShenimetShendetesoreRepository;
 
 public class ShenimetShendetesoreService {
 
-    private ShenimiShendetesoreRepository shenimiShendetesoreRepository;
+    private ShenimetShendetesoreRepository shenimiShendetesoreRepository;
 
     public ShenimetShendetesoreService() {
-        this.shenimiShendetesoreRepository = new ShenimiShendetesoreRepository();
+        this.shenimiShendetesoreRepository = new ShenimetShendetesoreRepository();
     }
 
     public ShenimetShendetesore getById(int id) throws Exception {

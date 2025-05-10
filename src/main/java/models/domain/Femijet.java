@@ -70,4 +70,3 @@ public class Femijet {
         return kontaktiPrindit;
     }
 }
-

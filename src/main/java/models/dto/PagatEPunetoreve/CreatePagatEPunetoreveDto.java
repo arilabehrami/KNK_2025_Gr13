@@ -1,4 +1,4 @@
-package models.dto.PagatEPunetoreve;
+package models.Dto.PagatEPunetoreve;
 
 import java.math.BigDecimal;
 
@@ -47,7 +47,7 @@ public class CreatePagatEPunetoreveDto {
         this.viti = viti;
     }
 
-    public double getShumaPaga() {
+    public BigDecimal getShumaPaga() {
         return shumaPaga;
     }
 

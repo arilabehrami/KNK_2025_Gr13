@@ -1,4 +1,4 @@
-package models.dto.Femijet;
+package models.Dto.Femijet;
 
 public class CreateFemijetDto {
     private int FemijaID;
@@ -85,4 +85,3 @@ public class CreateFemijetDto {
         KontaktiPrindit = kontaktiPrindit;
     }
 }
-
