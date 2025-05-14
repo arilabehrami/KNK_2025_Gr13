@@ -1,4 +1,4 @@
-module com.example.knk_2025_gr13 {
+module com.example.knk_2025_gr {
     requires javafx.controls;
     requires javafx.fxml;
     requires java.sql;
@@ -16,4 +16,3 @@ module com.example.knk_2025_gr13 {
 }
 
 
-}
