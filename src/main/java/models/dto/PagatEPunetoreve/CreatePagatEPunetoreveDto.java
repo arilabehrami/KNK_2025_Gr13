@@ -1,16 +1,14 @@
-package models.Dto.PagatEPunetoreve;
-
-import java.math.BigDecimal;
+package models.dto.PagatEPunetoreve;
 
 public class CreatePagatEPunetoreveDto {
     private int pagaID;
     private int edukatoriID;
     private String muaji;
     private int viti;
-    private BigDecimal shumaPaga;
+    private Double shumaPaga;
     private String dataEPageses;
 
-    public CreatePagatEPunetoreveDto(int pagaID, int edukatoriID, String muaji, int viti, BigDecimal shumaPaga, String dataEPageses) {
+    public CreatePagatEPunetoreveDto(int pagaID, int edukatoriID, String muaji, int viti, Double shumaPaga, String dataEPageses) {
         this.pagaID = pagaID;
         this.edukatoriID = edukatoriID;
         this.muaji = muaji;
@@ -47,11 +45,11 @@ public class CreatePagatEPunetoreveDto {
         this.viti = viti;
     }
 
-    public BigDecimal getShumaPaga() {
+    public Double getShumaPaga() {
         return shumaPaga;
     }
 
-    public void setShumaPaga(BigDecimal shumaPaga) {
+    public void setShumaPaga(Double shumaPaga) {
         this.shumaPaga = shumaPaga;
     }
 

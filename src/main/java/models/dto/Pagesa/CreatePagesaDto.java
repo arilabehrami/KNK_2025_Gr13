@@ -1,4 +1,4 @@
-package models.Dto.Pagesa;
+package models.dto.Pagesa;
 
 public class CreatePagesaDto {
     private int pagesaId;
