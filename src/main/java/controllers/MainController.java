@@ -6,7 +6,7 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.Label;
 
-public class MenuController {
+public class MainController {
 
     @FXML
     private Button button1;
