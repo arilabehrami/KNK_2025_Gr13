@@ -2,8 +2,8 @@ package services;
 
 
 import models.domain.Grupet;
-import models.dto.Grupet.CreateGrupetDto;
-import models.dto.Grupet.UpdateGrupetDto;
+import models.Dto.Grupet.CreateGrupetDto;
+import models.Dto.Grupet.UpdateGrupetDto;
 import repository.GrupetRepository;
 
 public class GrupetService {

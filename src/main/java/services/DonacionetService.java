@@ -1,8 +1,8 @@
 package services;
 
 import models.domain.Donacionet;
-import models.dto.Donacionet.CreateDonacionetDto;
-import models.dto.Donacionet.UpdateDonacionetDto;
+import models.Dto.Donacionet.CreateDonacionetDto;
+import models.Dto.Donacionet.UpdateDonacionetDto;
 import repository.DonacionetRepository;
 
 public class DonacionetService {

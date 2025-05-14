@@ -7,79 +7,95 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
+<fx:root prefHeight="400.0" prefWidth="600.0" type="BorderPane" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.MainController">
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
-   <left>
-      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
-         <children>
-            <Button mnemonicParsing="false" text="Button">
-               <VBox.margin>
-                  <Insets bottom="35.0" left="25.0" right="20.0" top="30.0" />
-               </VBox.margin>
-               <padding>
-                  <Insets bottom="7.0" left="7.0" right="7.0" top="7.0" />
-               </padding>
-            </Button>
-            <Button mnemonicParsing="false" text="Button">
-               <VBox.margin>
-                  <Insets bottom="5.0" left="25.0" right="20.0" top="5.0" />
-               </VBox.margin>
-               <padding>
-                  <Insets bottom="7.0" left="7.0" right="7.0" top="7.0" />
-               </padding>
-            </Button>
-            <Button mnemonicParsing="false" text="Button">
-               <VBox.margin>
-                  <Insets bottom="35.0" left="25.0" right="20.0" top="35.0" />
-               </VBox.margin>
-               <padding>
-                  <Insets bottom="7.0" left="7.0" right="7.0" top="7.0" />
-               </padding>
-            </Button>
-         </children>
-      </VBox>
-   </left>
-   <top>
-      <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-         <children>
-            <VBox prefHeight="100.0" prefWidth="621.0">
-               <children>
-                  <MenuBar>
-                    <menus>
-                      <Menu mnemonicParsing="false" text="File">
-                        <items>
-                          <MenuItem mnemonicParsing="false" text="Close" />
-                        </items>
-                      </Menu>
-                      <Menu mnemonicParsing="false" text="Edit">
-                        <items>
-                          <MenuItem mnemonicParsing="false" text="Delete" />
-                        </items>
-                      </Menu>
-                      <Menu mnemonicParsing="false" text="Help">
-                        <items>
-                          <MenuItem mnemonicParsing="false" text="About" />
-                        </items>
-                      </Menu>
-                    </menus>
-                  </MenuBar>
-                  <DatePicker>
-                     <VBox.margin>
-                        <Insets left="450.0" />
-                     </VBox.margin>
-                  </DatePicker>
-                  <Label prefHeight="17.0" prefWidth="166.0" text="Kopshti i Femijeve">
-                     <VBox.margin>
-                        <Insets bottom="20.0" left="250.0" right="250.0" top="20.0" />
-                     </VBox.margin>
-                  </Label>
-               </children>
-            </VBox>
-         </children>
-      </HBox>
-   </top>
-</BorderPane>
+    <left>
+        <VBox prefHeight="278.0" prefWidth="173.0" BorderPane.alignment="CENTER">
+            <children>
+                <Button fx:id="button1" onAction="#handleButton1Click" text="Ushqimet">
+                    <VBox.margin>
+                        <Insets bottom="35.0" left="25.0" right="20.0" top="30.0" />
+                    </VBox.margin>
+                    <padding>
+                        <Insets bottom="7.0" left="7.0" right="7.0" top="7.0" />
+                    </padding>
+                </Button>
+
+                <Button fx:id="button2" onAction="#handleButton2Click" text="Menyja Ditore">
+                    <VBox.margin>
+                        <Insets bottom="5.0" left="25.0" right="20.0" top="5.0" />
+                    </VBox.margin>
+                    <padding>
+                        <Insets bottom="7.0" left="7.0" right="7.0" top="7.0" />
+                    </padding>
+                </Button>
+
+                <Button fx:id="button3" onAction="#handleButton3Click" text="Preferencat Dietike ">
+                    <VBox.margin>
+                        <Insets bottom="35.0" left="25.0" right="20.0" top="35.0" />
+                    </VBox.margin>
+                    <padding>
+                        <Insets bottom="7.0" left="7.0" right="7.0" top="7.0" />
+                    </padding>
+                </Button>
+            </children>
+        </VBox>
+    </left>
+
+    <top>
+        <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+            <children>
+                <VBox prefHeight="100.0" prefWidth="621.0">
+                    <children>
+
+                        <MenuBar>
+                            <menus>
+                                <Menu text="File">
+                                    <items>
+                                        <MenuItem fx:id="closeMenuItem" onAction="#handleCloseMenu" text="Close" />
+                                    </items>
+                                </Menu>
+                                <Menu text="Edit">
+                                    <items>
+                                        <MenuItem fx:id="deleteMenuItem" onAction="#handleDeleteMenu" text="Delete" />
+                                    </items>
+                                </Menu>
+                                <Menu text="Help">
+                                    <items>
+                                        <MenuItem fx:id="aboutMenuItem" onAction="#handleAboutMenu" text="About" />
+                                    </items>
+                                </Menu>
+                            </menus>
+                        </MenuBar>
+                        <DatePicker>
+                            <VBox.margin>
+                                <Insets left="450.0" />
+                            </VBox.margin>
+                        </DatePicker>
+
+                        <Label fx:id="titleLabel" prefHeight="31.0" prefWidth="193.0" text="Kopshti i Femijeve">
+                            <VBox.margin>
+                                <Insets bottom="20.0" left="170.0" right="150.0" top="20.0" />
+                            </VBox.margin>
+                            <font>
+                                <Font size="21.0" />
+                            </font>
+                        </Label>
+
+                    </children>
+                </VBox>
+            </children>
+        </HBox>
+    </top>
+
+    <center>
+        <AnchorPane fx:id="contentPane" />
+    </center>
+
+</fx:root>
