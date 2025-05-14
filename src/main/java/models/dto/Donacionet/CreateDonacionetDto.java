@@ -1,4 +1,4 @@
-package models.dto.Donacionet;
+package models.Dto.Donacionet;
 
 public class CreateDonacionetDto {
     private Integer donacioniId;

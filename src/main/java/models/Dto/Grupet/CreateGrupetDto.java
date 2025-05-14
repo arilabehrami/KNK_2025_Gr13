@@ -1,4 +1,4 @@
-package models.dto.Grupet;
+package models.Dto.Grupet;
 
 public class CreateGrupetDto {
     private int grupiId;
