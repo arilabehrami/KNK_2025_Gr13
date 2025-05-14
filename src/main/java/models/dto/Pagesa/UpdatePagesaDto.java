@@ -1,4 +1,4 @@
-package models.Dto.Pagesa;
+package models.dto.Pagesa;
 
 public class UpdatePagesaDto {
     private int pagesaId;
