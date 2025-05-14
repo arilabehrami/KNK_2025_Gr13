@@ -2,8 +2,8 @@ package services;
 
 
 import models.domain.Femijet;
-import models.dto.Femijet.CreateFemijetDto;
-import models.dto.Femijet.UpdateFemijetDto;
+import models.Dto.Femijet.CreateFemijetDto;
+import models.Dto.Femijet.UpdateFemijetDto;
 
 import repository.FemijetRepository;
 
