@@ -1,8 +1,8 @@
 package repository;
 
 import models.domain.PagatEPunetoreve;
-import models.dto.PagatEPunetoreve.CreatePagatEPunetoreveDto;
-import models.dto.PagatEPunetoreve.UpdatePagatEPunetoreveDto;
+import models.Dto.PagatEPunetoreve.CreatePagatEPunetoreveDto;
+import models.Dto.PagatEPunetoreve.UpdatePagatEPunetoreveDto;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
