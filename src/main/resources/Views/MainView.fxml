@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
@@ -9,13 +10,19 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.MenuController">
+<?import javafx.scene.layout.AnchorPane?>
+<BorderPane prefHeight="400.0" prefWidth="600.0"
+            xmlns="http://javafx.com/javafx/23.0.1"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="controllers.MainController"
+>
 
     <left>
-        <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+        <VBox prefHeight="278.0" prefWidth="173.0" BorderPane.alignment="CENTER">
             <children>
-                <Button fx:id="button1" onAction="#handleButton1Click" text="Button 1">
+                <Button fx:id="button1" onAction="#handleButton1Click" text="Ushqimet">
                     <VBox.margin>
                         <Insets bottom="35.0" left="25.0" right="20.0" top="30.0" />
                     </VBox.margin>
@@ -24,7 +31,7 @@
                     </padding>
                 </Button>
 
-                <Button fx:id="button2" onAction="#handleButton2Click" text="Button 2">
+                <Button fx:id="button2" onAction="#handleButton2Click" text="Menyja Ditore">
                     <VBox.margin>
                         <Insets bottom="5.0" left="25.0" right="20.0" top="5.0" />
                     </VBox.margin>
@@ -33,7 +40,7 @@
                     </padding>
                 </Button>
 
-                <Button fx:id="button3" onAction="#handleButton3Click" text="Button 3">
+                <Button fx:id="button3" onAction="#handleButton3Click" text="Preferencat Dietike ">
                     <VBox.margin>
                         <Insets bottom="35.0" left="25.0" right="20.0" top="35.0" />
                     </VBox.margin>
@@ -70,11 +77,19 @@
                                 </Menu>
                             </menus>
                         </MenuBar>
+                  <DatePicker>
+                     <VBox.margin>
+                        <Insets left="450.0" />
+                     </VBox.margin>
+                  </DatePicker>
 
-                        <Label fx:id="titleLabel" prefHeight="17.0" prefWidth="166.0" text="Kopshti i Femijeve">
+                        <Label fx:id="titleLabel" prefHeight="31.0" prefWidth="193.0" text="Kopshti i Femijeve">
                             <VBox.margin>
-                                <Insets bottom="20.0" left="250.0" right="250.0" top="20.0" />
+                                <Insets bottom="20.0" left="170.0" right="150.0" top="20.0" />
                             </VBox.margin>
+                     <font>
+                        <Font size="21.0" />
+                     </font>
                         </Label>
 
                     </children>
@@ -82,4 +97,9 @@
             </children>
         </HBox>
     </top>
+
+    <center>
+        <AnchorPane fx:id="contentPane" />
+    </center>
+
 </BorderPane>

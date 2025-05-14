@@ -1,10 +1,15 @@
 package controllers;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.Label;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
+
+import java.io.IOException;
 
 public class MainController {
 
@@ -31,17 +36,30 @@ public class MainController {
 
     @FXML
     private Label titleLabel;
+    @FXML
+    private AnchorPane contentPane;
+
 
     @FXML
     private void initialize() {
-        // Mund të vendosësh inicializime këtu
         System.out.println("Kontrolluesi u inicializua.");
     }
 
     @FXML
+
     private void handleButton1Click() {
-        System.out.println("Button 1 u klikua");
+        try {
+            System.out.println("Klikimi i butonit Ushqimet po funksionon.");
+            AnchorPane ushqimetView = FXMLLoader.load(getClass().getResource("/Views/UshqimetView.fxml"));
+            contentPane.getChildren().setAll(ushqimetView);
+        } catch (IOException e) {
+            System.out.println("Gabim gjatë ngarkimit të UshqimetView.fxml");
+            e.printStackTrace();
+        }
     }
+
+
+
 
     @FXML
     private void handleButton2Click() {
