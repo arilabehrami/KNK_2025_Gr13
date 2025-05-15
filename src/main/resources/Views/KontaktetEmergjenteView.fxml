@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+
+<VBox xmlns:fx="http://javafx.com/fxml"
+      xmlns="http://javafx.com/javafx"
+      fx:controller="controllers.KontaktetEmergjenteController"
+      spacing="10" alignment="CENTER" style="-fx-padding: 20;">
+
+    <HBox spacing="10" alignment="CENTER_RIGHT">
+        <Label text="Gjuha/Language:"/>
+        <ComboBox fx:id="languageSelector" onAction="#onLanguageChange"/>
+    </HBox>
+
+    <Label text="%label.femijaid"/>
+    <TextField fx:id="femijaIdField"/>
+
+    <Label text="%label.emri"/>
+    <TextField fx:id="emriField"/>
+
+    <Label text="%label.mbiemri"/>
+    <TextField fx:id="mbiemriField"/>
+
+    <Label text="%label.telefoni"/>
+    <TextField fx:id="telefoniField"/>
+
+    <Button text="%button.shtokontakt" onAction="#onShtoKontakti"/>
+    <Label fx:id="statusLabel"/>
+</VBox>

@@ -20,7 +20,7 @@ import java.io.IOException;
 public class CreateAktivitetetController {
 
     @FXML
-    private TextField emriAktiviteteriTextField;
+    private ComboBox<String> emriAktiviteteriComboBox;
 
     @FXML
     private TextArea pershkrimiTextArea;
@@ -36,7 +36,7 @@ public class CreateAktivitetetController {
 
     @FXML
     private void shtoAktivitet() {
-        String emriAktiviteteri = emriAktiviteteriTextField.getText();
+        String emriAktiviteteri = emriAktiviteteriComboBox.getValue();
         String pershkrimi = pershkrimiTextArea.getText();
         String data = dataDatePicker.getValue().toString();
         String grupiID = grupiComboBox.getValue();
@@ -51,7 +51,13 @@ public class CreateAktivitetetController {
 
     @FXML
     private void initialize() {
+
         grupiComboBox.getItems().addAll("Grupi 1", "Grupi 2", "Grupi 3");
+        emriAktiviteteriComboBox.getItems().addAll(
+                "Notim",
+                "Lojra per femije",
+                "Kendim"
+        );
     }
     @FXML
     private void goToOrari(ActionEvent event) throws IOException {

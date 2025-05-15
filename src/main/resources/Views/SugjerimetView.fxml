@@ -11,24 +11,35 @@
 <?import javafx.collections.FXCollections?>
 <?import javafx.scene.control.*?>
 
+<?import javafx.scene.layout.HBox?>
 <?import java.lang.String?>
-<AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="controllers.SugjerimetController">
+<AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="controllers.SugjerimetController"
+            prefHeight="400" prefWidth="400">
   <children>
     <VBox alignment="CENTER" spacing="10.0" layoutX="14.0" layoutY="14.0"
-          AnchorPane.topAnchor="10" AnchorPane.leftAnchor="10">
-      <TextField fx:id="emriSugjeruesitField" promptText="Emri i Sugjeruesit"/>
-      <ComboBox fx:id="roliComboBox" promptText="Roli">
+          AnchorPane.topAnchor="10" AnchorPane.leftAnchor="10" AnchorPane.rightAnchor="10">
+
+      <HBox alignment="CENTER_RIGHT">
+        <Label text="Gjuha/Language:"/>
+        <ComboBox fx:id="languageSelector" onAction="#onLanguageChange"/>
+      </HBox>
+
+      <TextField fx:id="emriSugjeruesitField" promptText="%label.emrisugjeruesit"/>
+
+      <ComboBox fx:id="roliComboBox" promptText="%label.roli">
         <items>
           <FXCollections fx:factory="observableArrayList">
-            <String fx:value="Prind"/>
-            <String fx:value="Edukator"/>
-            <String fx:value="Staf tjetër"/>
+            <String fx:value="%roli.prind"/>
+            <String fx:value="%roli.edukator"/>
+            <String fx:value="%roli.staf"/>
           </FXCollections>
         </items>
       </ComboBox>
+
       <DatePicker fx:id="dataPicker"/>
-      <TextArea fx:id="pershkrimiField" promptText="Përshkrimi" prefRowCount="5"/>
-      <Button text="Shto Sugjerim" onAction="#onShtoSugjerim"/>
+      <TextArea fx:id="pershkrimiField" promptText="%label.pershkrimi" prefRowCount="5"/>
+
+      <Button text="%button.shto" onAction="#onShtoSugjerim"/>
       <Label fx:id="statusLabel" textFill="RED"/>
     </VBox>
   </children>
