@@ -52,11 +52,12 @@
     </MenuBar>
     <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
          <children>
-            <TableView layoutX="35.0" layoutY="32.0" prefHeight="200.0" prefWidth="237.0">
+            <TableView layoutX="35.0" layoutY="12.0" prefHeight="220.0" prefWidth="313.0">
               <columns>
                 <TableColumn prefWidth="75.0" text="Aktiviteti" />
                   <TableColumn prefWidth="85.33333333333334" text="Ora e daljes" />
                 <TableColumn prefWidth="75.0" text="Ora e hyrjes" />
+                  <TableColumn prefWidth="75.0" text="Dita" />
               </columns>
             </TableView>
          </children>
