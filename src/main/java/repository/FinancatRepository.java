@@ -20,7 +20,7 @@ public class FinancatRepository extends BaseRepository<Financat, CreateFinancatD
     }
 
     @Override
-    Financat create(CreateFinancatDto createDto) {
+    public Financat create(CreateFinancatDto createDto) {
         String query = """
                 INSERT INTO Financa (financatID, date, teArdhura, shpenzime, pershkrimi)
                 VALUES (?, ?, ?, ?, ?)
@@ -45,7 +45,7 @@ public class FinancatRepository extends BaseRepository<Financat, CreateFinancatD
     }
 
     @Override
-    Financat update(UpdateFinancatDto updateDto) {
+    public Financat update(UpdateFinancatDto updateDto) {
         String query = """
                 UPDATE Financa
                 SET date = ?, teArdhura = ?, shpenzime = ?, Pershkrimi = ?
