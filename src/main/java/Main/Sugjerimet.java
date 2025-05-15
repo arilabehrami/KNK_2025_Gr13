@@ -5,10 +5,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-public class Main4 extends Application {
+public class Sugjerimet extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/SugjerimetView.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/SugjerimetView.fxml"));
         primaryStage.setScene(new Scene(loader.load()));
         primaryStage.setTitle("Sugjerimet");
         primaryStage.show();
