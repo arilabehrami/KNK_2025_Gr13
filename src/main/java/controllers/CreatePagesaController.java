@@ -51,4 +51,9 @@ public class CreatePagesaController {
         stage.setScene(new Scene(root));
         stage.show();
     }
+    @FXML
+    private void handleRuaj() {
+        System.out.println("u ruajten!");
+    }
+
 }
