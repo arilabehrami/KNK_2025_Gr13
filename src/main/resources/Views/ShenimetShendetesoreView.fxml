@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.DatePicker?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="controllers.ShenimetShendetesoreController"
+      spacing="10" alignment="CENTER" style="-fx-padding: 20;">
+
+    <HBox spacing="10" alignment="CENTER_RIGHT">
+        <Label text="Gjuha/Language:"/>
+        <ComboBox fx:id="languageSelector" onAction="#onLanguageChange"/>
+    </HBox>
+
+    <Label text="%label.femijaid"/>
+    <TextField fx:id="femijaIdField"/>
+
+    <Label text="%label.data"/>
+    <DatePicker fx:id="dataPicker"/>
+
+    <Label text="%label.pershkrimi"/>
+    <TextArea fx:id="pershkrimiField"/>
+
+    <Button text="%button.shtoshenim" onAction="#onShtoShenim"/>
+    <Label fx:id="statusLabel"/>
+</VBox>
