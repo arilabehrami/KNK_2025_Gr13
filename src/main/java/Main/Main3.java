@@ -7,17 +7,15 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 public class Main3 extends Application {
+
     @Override
-    public void start(Stage primaryStage) {
-        try {
-            BorderPane root = FXMLLoader.load(getClass().getResource("/Views/MainView.fxml"));
-            Scene scene = new Scene(root, 600, 400);
-            primaryStage.setTitle("Kopshti i Femijeve");
-            primaryStage.setScene(scene);
-            primaryStage.show();
-        } catch(Exception e) {
-            e.printStackTrace();
-        }
+    public void start(Stage primaryStage) throws Exception {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/MainView.fxml"));
+        BorderPane root = loader.load();
+        Scene scene = new Scene(root);
+        primaryStage.setScene(scene);
+        primaryStage.setTitle("KNK Projekti");
+        primaryStage.show();
     }
 
     public static void main(String[] args) {

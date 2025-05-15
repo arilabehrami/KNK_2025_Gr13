@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<fx:root prefHeight="400.0" prefWidth="600.0" type="BorderPane" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.MainController">
+<BorderPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.MainController">
 
     <left>
         <VBox prefHeight="278.0" prefWidth="173.0" BorderPane.alignment="CENTER">
@@ -98,4 +98,4 @@
         <AnchorPane fx:id="contentPane" />
     </center>
 
-</fx:root>
+</BorderPane>
