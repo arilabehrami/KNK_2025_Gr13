@@ -11,7 +11,7 @@ public class CreateSugjerimetDto {
     private java.sql.Date data;
     private String pershkrimi;
 
-    private CreateSugjerimetDto(int sugjerimiID, String emriSugjeruesit, String roli, java.sql.Date data, String pershkrimi) {
+    public CreateSugjerimetDto(int sugjerimiID, String emriSugjeruesit, String roli, java.sql.Date data, String pershkrimi) {
         this.sugjerimiID = sugjerimiID;
         this.emriSugjeruesit = emriSugjeruesit;
         this.roli = roli;

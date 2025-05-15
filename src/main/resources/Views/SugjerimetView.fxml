@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.scene.control.*?>
+
+<?import java.lang.String?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="controllers.SugjerimetController">
+  <children>
+    <VBox alignment="CENTER" spacing="10.0" layoutX="14.0" layoutY="14.0"
+          AnchorPane.topAnchor="10" AnchorPane.leftAnchor="10">
+      <TextField fx:id="emriSugjeruesitField" promptText="Emri i Sugjeruesit"/>
+      <ComboBox fx:id="roliComboBox" promptText="Roli">
+        <items>
+          <FXCollections fx:factory="observableArrayList">
+            <String fx:value="Prind"/>
+            <String fx:value="Edukator"/>
+            <String fx:value="Staf tjetër"/>
+          </FXCollections>
+        </items>
+      </ComboBox>
+      <DatePicker fx:id="dataPicker"/>
+      <TextArea fx:id="pershkrimiField" promptText="Përshkrimi" prefRowCount="5"/>
+      <Button text="Shto Sugjerim" onAction="#onShtoSugjerim"/>
+      <Label fx:id="statusLabel" textFill="RED"/>
+    </VBox>
+  </children>
+</AnchorPane>
