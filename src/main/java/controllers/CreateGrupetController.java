@@ -28,6 +28,7 @@ public class CreateGrupetController {
             int edukatoriId = Integer.parseInt(edukatoriIdField.getText());
 
             CreateGrupetDto dto = new CreateGrupetDto(emri, moshaMin, moshaMax, edukatoriId);
+
             Grupet grupi = grupetService.create(dto);
 
             showAlert(Alert.AlertType.INFORMATION, "Sukses", "Grupi u shtua me ID: " + grupi.getGrupiId());
