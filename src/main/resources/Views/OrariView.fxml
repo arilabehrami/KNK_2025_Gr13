@@ -1,68 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.SeparatorMenuItem?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.VBox?>
-
-<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.OrariController">
+<VBox xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="controllers.OrariController" prefWidth="640.0" prefHeight="400.0">
   <children>
-    <MenuBar VBox.vgrow="NEVER">
+    <MenuBar fx:id="menuBar">
       <menus>
-        <Menu mnemonicParsing="false" text="File">
+        <Menu fx:id="fileMenu" text="%menu.file">
           <items>
-            <MenuItem mnemonicParsing="false" text="New" />
-            <MenuItem mnemonicParsing="false" text="Open…" />
-            <Menu mnemonicParsing="false" text="Open Recent" />
-            <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" text="Close" />
-            <MenuItem mnemonicParsing="false" text="Save" />
-            <MenuItem mnemonicParsing="false" text="Save As…" />
-            <MenuItem mnemonicParsing="false" text="Revert" />
-            <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" text="Preferences…" />
-            <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" text="Quit" />
+            <MenuItem text="%menuitem.close"/>
           </items>
         </Menu>
-        <Menu mnemonicParsing="false" text="Edit">
+        <Menu fx:id="editMenu" text="%menu.edit"/>
+        <Menu fx:id="helpMenu" text="%menu.help">
           <items>
-            <MenuItem mnemonicParsing="false" text="Undo" />
-            <MenuItem mnemonicParsing="false" text="Redo" />
-            <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" text="Cut" />
-            <MenuItem mnemonicParsing="false" text="Copy" />
-            <MenuItem mnemonicParsing="false" text="Paste" />
-            <MenuItem mnemonicParsing="false" text="Delete" />
-            <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" text="Select All" />
-            <MenuItem mnemonicParsing="false" text="Unselect All" />
+            <MenuItem text="%menuitem.about"/>
           </items>
         </Menu>
-        <Menu mnemonicParsing="false" text="Help">
+        <Menu fx:id="languageMenu" text="🌐">
           <items>
-            <MenuItem mnemonicParsing="false" text="About MyHelloApp" />
+            <MenuItem fx:id="switchLanguageItem" text="EN / SQ" onAction="#onSwitchLanguage"/>
           </items>
         </Menu>
       </menus>
     </MenuBar>
-    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
-         <children>
-            <TableView layoutX="99.0" layoutY="31.0" prefHeight="156.0" prefWidth="307.0">
-              <columns>
-                <TableColumn prefWidth="75.0" text="Aktiviteti" />
-                  <TableColumn prefWidth="85.33333333333334" text="Ora e daljes" />
-                <TableColumn prefWidth="75.0" text="Ora e hyrjes" />
-                  <TableColumn prefWidth="75.0" text="Dita" />
-              </columns>
-            </TableView>
-            <Button layoutX="120.0" layoutY="257.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="129.0" text="Kthehu" />
-         </children>
+
+    <AnchorPane VBox.vgrow="ALWAYS">
+      <children>
+        <TableView fx:id="orariTable" layoutX="20.0" layoutY="20.0" prefWidth="600" prefHeight="250">
+          <columns>
+            <TableColumn fx:id="ditaColumn" text="%column.dita" prefWidth="100"/>
+            <TableColumn fx:id="oraHyrjesColumn" text="%column.oraHyrjes" prefWidth="150"/>
+            <TableColumn fx:id="oraDaljesColumn" text="%column.oraDaljes" prefWidth="150"/>
+            <TableColumn fx:id="femijaIdColumn" text="%column.femijaId" prefWidth="100"/>
+          </columns>
+        </TableView>
+        <Button fx:id="backButton" layoutX="260.0" layoutY="290.0" text="%button.back"/>
+      </children>
     </AnchorPane>
   </children>
 </VBox>
