@@ -1,32 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.VBox?>
-
-<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.OrariController">
+<VBox xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="controllers.OrariController" prefWidth="640.0" prefHeight="400.0">
   <children>
     <MenuBar fx:id="menuBar">
       <menus>
         <Menu fx:id="fileMenu" text="%menu.file">
           <items>
-            <MenuItem text="%menuitem.close" />
+            <MenuItem text="%menuitem.close"/>
           </items>
         </Menu>
-        <Menu fx:id="editMenu" text="%menu.edit" />
+        <Menu fx:id="editMenu" text="%menu.edit"/>
         <Menu fx:id="helpMenu" text="%menu.help">
           <items>
-            <MenuItem text="%menuitem.about" />
+            <MenuItem text="%menuitem.about"/>
           </items>
         </Menu>
         <Menu fx:id="languageMenu" text="🌐">
           <items>
-            <MenuItem fx:id="switchLanguageItem" onAction="#onSwitchLanguage" text="EN / SQ" />
+            <MenuItem fx:id="switchLanguageItem" text="EN / SQ" onAction="#onSwitchLanguage"/>
           </items>
         </Menu>
       </menus>
@@ -34,15 +28,15 @@
 
     <AnchorPane VBox.vgrow="ALWAYS">
       <children>
-        <TableView fx:id="orariTable" layoutX="69.0" layoutY="33.0" prefHeight="250" prefWidth="501.0">
+        <TableView fx:id="orariTable" layoutX="20.0" layoutY="20.0" prefWidth="600" prefHeight="250">
           <columns>
-            <TableColumn fx:id="ditaColumn" prefWidth="100" text="%column.dita" />
-            <TableColumn fx:id="oraHyrjesColumn" prefWidth="150" text="%column.oraHyrjes" />
-            <TableColumn fx:id="oraDaljesColumn" prefWidth="150" text="%column.oraDaljes" />
-            <TableColumn fx:id="femijaIdColumn" prefWidth="100" text="%column.femijaId" />
+            <TableColumn fx:id="ditaColumn" text="%column.dita" prefWidth="100"/>
+            <TableColumn fx:id="oraHyrjesColumn" text="%column.oraHyrjes" prefWidth="150"/>
+            <TableColumn fx:id="oraDaljesColumn" text="%column.oraDaljes" prefWidth="150"/>
+            <TableColumn fx:id="femijaIdColumn" text="%column.femijaId" prefWidth="100"/>
           </columns>
         </TableView>
-        <Button fx:id="backButton" layoutX="79.0" layoutY="303.0" text="%button.back" />
+        <Button fx:id="backButton" layoutX="260.0" layoutY="290.0" text="%button.back"/>
       </children>
     </AnchorPane>
   </children>
