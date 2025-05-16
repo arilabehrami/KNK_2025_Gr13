@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="500.0" prefWidth="600.0" style="-fx-background-color: #f9f9f9;" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/17.0.12" fx:controller="controllers.CreateGrupetController">
+
+    <VBox alignment="TOP_CENTER" spacing="25.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="20.0">
+
+        <Label style="-fx-font-size: 26px; -fx-font-weight: bold; -fx-text-fill: #333;" text="Shto Grup të Ri" />
+
+        <GridPane hgap="15.0" vgap="15.0">
+            <columnConstraints>
+                <ColumnConstraints minWidth="180.0" />
+                <ColumnConstraints minWidth="350.0" />
+            </columnConstraints>
+
+            <Label style="-fx-font-size: 14px; -fx-text-fill: #444;" text="Emri i Grupit:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+            <TextField fx:id="emriGrupitField" promptText="Shkruaj emrin e grupit" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+
+            <Label style="-fx-font-size: 14px; -fx-text-fill: #444;" text="Mosha Minimale:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+            <TextField fx:id="moshaMinField" promptText="Shkruaj moshën minimale" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+
+            <Label style="-fx-font-size: 14px; -fx-text-fill: #444;" text="Mosha Maksimale:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+            <TextField fx:id="moshaMaxField" promptText="Shkruaj moshën maksimale" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+
+            <Label style="-fx-font-size: 14px; -fx-text-fill: #444;" text="Edukatori ID:" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+            <TextField fx:id="edukatoriIdField" promptText="Shkruaj ID e edukatorit" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+         <rowConstraints>
+            <RowConstraints />
+            <RowConstraints />
+            <RowConstraints />
+            <RowConstraints />
+         </rowConstraints>
+        </GridPane>
+
+        <HBox alignment="CENTER" spacing="20.0">
+            <Button fx:id="ruajButton" onAction="#ruajGrupin" style="-fx-background-color: #28a745; -fx-text-fill: white; -fx-font-weight: bold;" text="Ruaj" />
+            <Button fx:id="pastroButton" onAction="#pastroFushat" style="-fx-background-color: #dc3545; -fx-text-fill: white; -fx-font-weight: bold;" text="Pastro" />
+        </HBox>
+    </VBox>
+</AnchorPane>

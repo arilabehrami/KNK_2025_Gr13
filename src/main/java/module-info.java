@@ -14,6 +14,8 @@ module com.example.knk_2025_gr {
     opens Views to javafx.fxml;
 
     exports Main;
+    exports models.domain;
+
 }
 
 

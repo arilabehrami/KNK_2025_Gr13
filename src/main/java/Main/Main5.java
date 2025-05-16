@@ -2,19 +2,18 @@ package Main;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
-public class Main3 extends Application {
+public class Main5 extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/UshqimetView.fxml"));
-        AnchorPane root = loader.load();
+        Parent root = FXMLLoader.load(getClass().getResource("/Views/GrupetView.fxml"));
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
-        primaryStage.setTitle("KNK Projekti - Ushqimet");
+        primaryStage.setTitle("Menaxhimi i Grupeve");
         primaryStage.show();
     }
 
