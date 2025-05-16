@@ -23,12 +23,13 @@ public class LoginController {
         String password = passwordField.getText();
 
         if (email.equals("admin") && password.equals("1234")) {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/AktivitetetView.fxml"));
-            Parent root = loader.load();
-            Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.setTitle("Aktivitetet");
-            stage.show();
+            System.out.println("Login me sukses!");
+//            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/AktivitetetView.fxml"));
+//            Parent root = loader.load();
+//            Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+//            stage.setScene(new Scene(root));
+//            stage.setTitle("Aktivitetet");
+//            stage.show();
         } else {
             System.out.println("Kyçja dështoi!");
         }
