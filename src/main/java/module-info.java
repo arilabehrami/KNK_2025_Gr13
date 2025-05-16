@@ -2,6 +2,7 @@ module com.example.knk_2025_gr {
     requires javafx.controls;
     requires javafx.fxml;
     requires java.sql;
+    requires jdk.compiler;
 
 
     opens com.example.knk_2025_gr13 to javafx.fxml;
