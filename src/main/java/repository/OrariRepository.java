@@ -43,7 +43,7 @@ public class OrariRepository extends BaseRepository<Orari, CreateOrariDto, Updat
                 """;
         try {
             PreparedStatement pstm = this.connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
-            pstm.setInt(1, createDto.getFemijaId());
+            pstm.setInt(1, createDto.getFemijaID());
             pstm.setString(2, createDto.getDita());
             pstm.setString(3, createDto.getOraHyrjes());
             pstm.setString(4, createDto.getOraDaljes());
@@ -68,7 +68,7 @@ public class OrariRepository extends BaseRepository<Orari, CreateOrariDto, Updat
                 """;
         try {
             PreparedStatement pstm = this.connection.prepareStatement(query);
-            pstm.setInt(1, updateDto.getFemijaId());
+            pstm.setInt(1, updateDto.getFemijaID());
             pstm.setString(2, updateDto.getDita());
             pstm.setString(3, updateDto.getOraHyrjes());
             pstm.setString(4, updateDto.getOraDaljes());
