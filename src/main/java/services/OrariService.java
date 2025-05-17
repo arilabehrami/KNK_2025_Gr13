@@ -5,8 +5,14 @@ import models.Dto.Orari.CreateOrariDto;
 import models.Dto.Orari.UpdateOrariDto;
 import repository.OrariRepository;
 
+import java.util.List;
+
 public class OrariService {
     private OrariRepository orariRepository;
+    public List<Orari> getAll() {
+        return this.orariRepository.getAll();
+    }
+
 
     public OrariService() {
         this.orariRepository = new OrariRepository();
