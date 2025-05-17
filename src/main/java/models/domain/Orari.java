@@ -29,6 +29,8 @@ public class Orari {
         return new Orari(orariID, femijaID, dita, oraHyrjes, oraDaljes);
     }
 
+
+
     public int getOrariID() {
         return orariID;
     }
