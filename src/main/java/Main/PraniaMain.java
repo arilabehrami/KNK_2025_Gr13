@@ -2,28 +2,28 @@ package Main;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class PraniaMain extends Application {
-
     @Override
-    public void start(Stage stage) throws Exception {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/PraniaView.fxml"));
-        Parent root = loader.load();
+    public void start(Stage primaryStage) throws Exception {
+        Locale locale = new Locale("sq"); 
+        ResourceBundle bundle = ResourceBundle.getBundle("languages.messages", locale);
 
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.setTitle("Prania");
-        stage.show();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/PraniaView.fxml"), bundle);
+        BorderPane root = loader.load();
+
+        primaryStage.setTitle("Menaxhimi i Pranisë");
+        primaryStage.setScene(new Scene(root));
+        primaryStage.show();
     }
 
-
     public static void main(String[] args) {
-        launch();
+        launch(args);
     }
 }

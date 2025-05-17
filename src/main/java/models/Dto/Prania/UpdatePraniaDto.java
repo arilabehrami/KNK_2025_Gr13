@@ -1,47 +1,22 @@
 package models.Dto.Prania;
 
+import java.time.LocalDate;
+
 public class UpdatePraniaDto {
     private int praniaId;
     private int femijaId;
-    private String data;
+    private LocalDate data;
     private String statusi;
 
-    public UpdatePraniaDto(int praniaId, int femijaId, String data, String statusi) {
-        this.praniaId = praniaId;
-        this.femijaId = femijaId;
-        this.data = data;
-        this.statusi = statusi;
-    }
+    public int getPraniaId() { return praniaId; }
+    public void setPraniaId(int praniaId) { this.praniaId = praniaId; }
 
-    public int getPraniaId() {
-        return praniaId;
-    }
+    public int getFemijaId() { return femijaId; }
+    public void setFemijaId(int femijaId) { this.femijaId = femijaId; }
 
-    public void setPraniaId(int praniaId) {
-        this.praniaId = praniaId;
-    }
+    public LocalDate getData() { return data; }
+    public void setData(LocalDate data) { this.data = data; }
 
-    public int getFemijaId() {
-        return femijaId;
-    }
-
-    public void setFemijaId(int femijaId) {
-        this.femijaId = femijaId;
-    }
-
-    public String getData() {
-        return data;
-    }
-
-    public void setData(String data) {
-        this.data = data;
-    }
-
-    public String getStatusi() {
-        return statusi;
-    }
-
-    public void setStatusi(String statusi) {
-        this.statusi = statusi;
-    }
+    public String getStatusi() { return statusi; }
+    public void setStatusi(String statusi) { this.statusi = statusi; }
 }

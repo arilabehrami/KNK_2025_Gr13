@@ -1,44 +1,22 @@
 package models.domain;
 
-import java.sql.Date;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.time.LocalDate;
 
 public class Prania {
-
-    private int praniaID;
-    private int femijaID;
-    private Date data;
+    private int praniaId;
+    private int femijaId;
+    private LocalDate data;
     private String statusi;
 
-    private Prania(int praniaID, int femijaID, Date data, String statusi) {
-        this.praniaID = praniaID;
-        this.femijaID = femijaID;
-        this.data = data;
-        this.statusi = statusi;
-    }
+    public int getPraniaId() { return praniaId; }
+    public void setPraniaId(int praniaId) { this.praniaId = praniaId; }
 
-    public static Prania getInstance(ResultSet result) throws SQLException {
-        int praniaID = result.getInt("PraniaID");
-        int femijaID = result.getInt("FemijaID");
-        Date data = result.getDate("Data");
-        String statusi = result.getString("Statusi");
-        return new Prania(praniaID, femijaID, data, statusi);
-    }
+    public int getFemijaId() { return femijaId; }
+    public void setFemijaId(int femijaId) { this.femijaId = femijaId; }
 
-    public int getPraniaID() {
-        return praniaID;
-    }
+    public LocalDate getData() { return data; }
+    public void setData(LocalDate data) { this.data = data; }
 
-    public int getFemijaID() {
-        return femijaID;
-    }
-
-    public Date getData() {
-        return data;
-    }
-
-    public String getStatusi() {
-        return statusi;
-    }
+    public String getStatusi() { return statusi; }
+    public void setStatusi(String statusi) { this.statusi = statusi; }
 }
