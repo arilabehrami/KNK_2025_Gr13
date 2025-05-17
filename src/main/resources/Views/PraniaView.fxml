@@ -3,35 +3,46 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.geometry.Insets?>
 
-<BorderPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
-            fx:controller="controllers.PraniaController">
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="controllers.PraniaController"
+            style="-fx-background-color: #e8f5e9;">
+
   <top>
-    <ToolBar>
-      <Button fx:id="btnLanguage" text="%language"/>
+    <ToolBar style="-fx-background-color: transparent;">
+      <Button fx:id="btnLanguage" text="%language"
+              style="-fx-background-color: #64b5f6; -fx-text-fill: white; -fx-font-weight: bold;"/>
     </ToolBar>
   </top>
+
   <center>
-    <TableView fx:id="tableView">
+    <TableView fx:id="tableView" style="-fx-background-color: white; -fx-border-color: #a5d6a7; -fx-border-radius: 5;">
       <columns>
-        <TableColumn fx:id="colId" text="ID"/>
-        <TableColumn fx:id="colFemija" text="%femijaId"/>
-        <TableColumn fx:id="colData" text="Data"/>
-        <TableColumn fx:id="colStatusi" text="%status"/>
+        <TableColumn fx:id="colId" text="ID" prefWidth="50"/>
+        <TableColumn fx:id="colFemija" text="%femijaId" prefWidth="150"/>
+        <TableColumn fx:id="colData" text="Data" prefWidth="150"/>
+        <TableColumn fx:id="colStatusi" text="%status" prefWidth="150"/>
       </columns>
     </TableView>
   </center>
+
   <bottom>
     <VBox spacing="5">
       <padding>
         <Insets top="10" right="10" bottom="10" left="10"/>
       </padding>
+
       <TextField fx:id="txtFemijaId" promptText="%femijaId"/>
       <DatePicker fx:id="datePicker"/>
       <TextField fx:id="txtStatusi" promptText="%status"/>
+
       <HBox spacing="10">
-        <Button fx:id="btnSave" text="%save"/>
-        <Button fx:id="btnDelete" text="%delete"/>
+        <Button fx:id="btnSave" text="%save"
+                style="-fx-background-color: #66bb6a; -fx-text-fill: white; -fx-font-weight: bold;"/>
+        <Button fx:id="btnDelete" text="%delete"
+                style="-fx-background-color: #ef5350; -fx-text-fill: white; -fx-font-weight: bold;"/>
       </HBox>
     </VBox>
   </bottom>
+
 </BorderPane>

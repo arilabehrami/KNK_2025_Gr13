@@ -20,7 +20,9 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.Locale;
 import java.util.Optional;
+import java.util.ResourceBundle;
 
 public class MainController {
 
@@ -135,9 +137,14 @@ public class MainController {
     }
 
     // Ngarkon një pamje të caktuar në contentArea
+    private Locale currentLocale = new Locale("sq");
     private void loadView(String fxmlFileName) {
         try {
-            Node node = FXMLLoader.load(getClass().getResource("/Views/" + fxmlFileName));
+            ResourceBundle bundle = ResourceBundle.getBundle("languages.messages", currentLocale);
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/" + fxmlFileName), bundle);
+            Node node = loader.load();
+
             contentArea.getChildren().clear();
             contentArea.getChildren().add(node);
         } catch (IOException e) {
