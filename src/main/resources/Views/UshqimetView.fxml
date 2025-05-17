@@ -4,43 +4,54 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
 
-<?import java.lang.String?>
-<?import javafx.collections.FXCollections?>
 <AnchorPane xmlns="http://javafx.com/javafx/23.0.1"
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="controllers.UshqimetController"
-            prefHeight="450.0" prefWidth="620.0"
-            style="-fx-background-color: #f9f9f9">
+            prefHeight="500.0" prefWidth="680.0"
+            style="-fx-background-color: #e8f5e9;">
 
     <children>
-        <Label layoutX="30.0" layoutY="20.0" text="Ushqimet">
+        <!-- Titulli -->
+        <Label layoutX="30.0" layoutY="20.0" text="🍀 Ushqimet" style="-fx-text-fill: #2e7d32;">
             <font>
-                <Font size="30.0" />
+                <Font name="Arial" size="28.0" />
             </font>
         </Label>
 
-        <TableView fx:id="ushqimetTable" layoutX="30.0" layoutY="70.0" prefHeight="200.0" prefWidth="560.0">
+        <!-- Tabela -->
+        <TableView fx:id="ushqimetTable" layoutX="30.0" layoutY="70.0"
+                   prefHeight="220.0" prefWidth="620.0"
+                   style="-fx-background-color: white; -fx-border-color: #a5d6a7; -fx-border-radius: 5;">
+
             <columns>
-                <TableColumn fx:id="idColumn" prefWidth="50.0" text="ID" />
-                <TableColumn fx:id="emriColumn" prefWidth="130.0" text="Emri" />
-                <TableColumn fx:id="kategoriaColumn" prefWidth="130.0" text="Kategoria" />
-                <TableColumn fx:id="pershkrimiColumn" prefWidth="250.0" text="Përshkrimi" />
+                <TableColumn fx:id="idColumn" prefWidth="50.0" text="ID"/>
+                <TableColumn fx:id="emriColumn" prefWidth="130.0" text="Emri"/>
+                <TableColumn fx:id="kategoriaColumn" prefWidth="130.0" text="Kategoria"/>
+                <TableColumn fx:id="pershkrimiColumn" prefWidth="280.0" text="Përshkrimi"/>
             </columns>
         </TableView>
 
-        <Label layoutX="30.0" layoutY="280.0" text="Emri:" />
-        <ComboBox fx:id="emriComboBox" layoutX="90.0" layoutY="275.0" prefWidth="150.0" />
+        <!-- Fushat dhe përshkrimet -->
+        <Label layoutX="30.0" layoutY="310.0" text="Emri:" style="-fx-text-fill: #2e7d32;"/>
+        <ComboBox fx:id="emriComboBox" layoutX="90.0" layoutY="305.0" prefWidth="160.0"/>
 
-        <Label layoutX="250.0" layoutY="280.0" text="Kategoria:" />
-        <ComboBox fx:id="kategoriaComboBox" layoutX="320.0" layoutY="275.0" prefWidth="150.0" />
+        <Label layoutX="270.0" layoutY="310.0" text="Kategoria:" style="-fx-text-fill: #2e7d32;"/>
+        <ComboBox fx:id="kategoriaComboBox" layoutX="350.0" layoutY="305.0" prefWidth="160.0"/>
 
-        <Label layoutX="30.0" layoutY="320.0" text="Përshkrimi:" />
-        <ComboBox fx:id="pershkrimiComboBox" layoutX="90.0" layoutY="315.0" prefWidth="380.0" />
+        <Label layoutX="30.0" layoutY="350.0" text="Përshkrimi:" style="-fx-text-fill: #2e7d32;"/>
+        <ComboBox fx:id="pershkrimiComboBox" layoutX="110.0" layoutY="345.0" prefWidth="400.0"/>
 
-        <Button fx:id="shtoButton" layoutX="110.0" layoutY="360.0" text="Shto" onAction="#handleShto" />
-        <Button fx:id="fshijButton" layoutX="190.0" layoutY="360.0" text="Fshij" onAction="#handleFshij" />
-        <Button fx:id="pastroButton" layoutX="270.0" layoutY="360.0" text="Pastro" onAction="#handlePastro" />
+        <!-- Butonat -->
+        <Button fx:id="shtoButton" layoutX="110.0" layoutY="400.0" text="Shto"
+                style="-fx-background-color: #66bb6a; -fx-text-fill: white; -fx-font-weight: bold;"
+                onAction="#handleShto"/>
 
+        <Button fx:id="fshijButton" layoutX="210.0" layoutY="400.0" text="Fshij"
+                style="-fx-background-color: #ef5350; -fx-text-fill: white; -fx-font-weight: bold;"
+                onAction="#handleFshij"/>
+
+        <Button fx:id="pastroButton" layoutX="310.0" layoutY="400.0" text="Pastro"
+                style="-fx-background-color: #42a5f5; -fx-text-fill: white; -fx-font-weight: bold;"
+                onAction="#handlePastro"/>
     </children>
 </AnchorPane>
-

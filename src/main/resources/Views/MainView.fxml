@@ -1,101 +1,54 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.DatePicker?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
+<BorderPane fx:id="rootPane" xmlns:fx="http://javafx.com/fxml" fx:controller="controllers.MainController">
 
-<BorderPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.MainController">
-
-    <left>
-        <VBox prefHeight="278.0" prefWidth="173.0" BorderPane.alignment="CENTER">
-            <children>
-                <Button fx:id="button1" onAction="#handleButton1Click" text="Ushqimet">
-                    <VBox.margin>
-                        <Insets bottom="35.0" left="25.0" right="20.0" top="30.0" />
-                    </VBox.margin>
-                    <padding>
-                        <Insets bottom="7.0" left="7.0" right="7.0" top="7.0" />
-                    </padding>
-                </Button>
-
-                <Button fx:id="button2" onAction="#handleButton2Click" text="Menyja Ditore">
-                    <VBox.margin>
-                        <Insets bottom="5.0" left="25.0" right="20.0" top="5.0" />
-                    </VBox.margin>
-                    <padding>
-                        <Insets bottom="7.0" left="7.0" right="7.0" top="7.0" />
-                    </padding>
-                </Button>
-
-                <Button fx:id="button3" onAction="#handleButton3Click" text="Preferencat Dietike ">
-                    <VBox.margin>
-                        <Insets bottom="35.0" left="25.0" right="20.0" top="35.0" />
-                    </VBox.margin>
-                    <padding>
-                        <Insets bottom="7.0" left="7.0" right="7.0" top="7.0" />
-                    </padding>
-                </Button>
-            </children>
-        </VBox>
-    </left>
-
+    <!-- TOP: Header -->
     <top>
-        <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-            <children>
-                <VBox prefHeight="100.0" prefWidth="621.0">
-                    <children>
-
-                        <MenuBar>
-                            <menus>
-                                <Menu text="File">
-                                    <items>
-                                        <MenuItem fx:id="closeMenuItem" onAction="#handleCloseMenu" text="Close" />
-                                    </items>
-                                </Menu>
-                                <Menu text="Edit">
-                                    <items>
-                                        <MenuItem fx:id="deleteMenuItem" onAction="#handleDeleteMenu" text="Delete" />
-                                    </items>
-                                </Menu>
-                                <Menu text="Help">
-                                    <items>
-                                        <MenuItem fx:id="aboutMenuItem" onAction="#handleAboutMenu" text="About" />
-                                    </items>
-                                </Menu>
-                            </menus>
-                        </MenuBar>
-                        <DatePicker>
-                            <VBox.margin>
-                                <Insets left="450.0" />
-                            </VBox.margin>
-                        </DatePicker>
-
-                        <Label fx:id="titleLabel" prefHeight="31.0" prefWidth="193.0" text="Kopshti i Femijeve">
-                            <VBox.margin>
-                                <Insets bottom="20.0" left="170.0" right="150.0" top="20.0" />
-                            </VBox.margin>
-                            <font>
-                                <Font size="21.0" />
-                            </font>
-                        </Label>
-
-                    </children>
-                </VBox>
-            </children>
+        <HBox spacing="20" style="-fx-background-color: #2c3e50; -fx-padding: 10;">
+            <ImageView fitHeight="40" fitWidth="40">
+                <image>
+                    <Image url="@../Images/Figura1.jpg" />
+                </image>
+            </ImageView>
+            <Label text="Paneli Kryesor" style="-fx-text-fill: white; -fx-font-size: 18px; -fx-font-weight: bold;" />
+            <Pane HBox.hgrow="ALWAYS" />
+            <Label fx:id="userLabel" text="Përdoruesi: Admin" style="-fx-text-fill: white; -fx-font-size: 14px;" />
+            <Button fx:id="logoutBtn" text="Dil" styleClass="logout-button" />
         </HBox>
     </top>
 
+    <!-- LEFT: Sidebar Navigation -->
+    <left>
+        <VBox spacing="10" style="-fx-background-color: #34495e; -fx-padding: 15;">
+            <Button text="Ballina" onAction="#loadHome" styleClass="nav-button" />
+            <Button text="Fëmijët" onAction="#loadFemijet" styleClass="nav-button" />
+            <Button text="Ushqimet" onAction="#loadUshqimet" styleClass="nav-button" />
+            <Button text="Menyja Ditore" onAction="#loadMenyjaDitore" styleClass="nav-button" />
+            <Button text="Prania" onAction="#loadPrania" styleClass="nav-button" />
+            <Button text="Pagesat" onAction="#loadPagesa" styleClass="nav-button" />
+            <Button text="Orari" onAction="#loadOrari" styleClass="nav-button" />
+            <Button text="Sugjerimet" onAction="#loadSugjerimet" styleClass="nav-button" />
+            <Button text="Donacionet" onAction="#loadDonacionet" styleClass="nav-button" />
+            <Button text="Shënimet Shëndetësore" onAction="#loadShenimetShendetesore" styleClass="nav-button" />
+            <Button text="Kontaktet Emergjente" onAction="#loadKontaktetEmergjente" styleClass="nav-button" />
+            <Button text="Aktivitetet" onAction="#loadAktivitetet" styleClass="nav-button" />
+        </VBox>
+    </left>
+
+    <!-- CENTER: Dynamic content -->
     <center>
-        <AnchorPane fx:id="contentPane" />
+        <StackPane fx:id="contentArea" style="-fx-background-color: white; -fx-padding: 20;">
+            <Label text="Mirësevini në panelin kryesor!" style="-fx-font-size: 24px; -fx-text-fill: #2c3e50;" />
+        </StackPane>
     </center>
 
+    <!-- BOTTOM: Footer -->
+    <bottom>
+        <HBox alignment="CENTER" style="-fx-background-color: #2c3e50; -fx-padding: 8;">
+            <Label text="© 2025 Kopshti Modern - Të gjitha të drejtat e rezervuara" style="-fx-text-fill: white; -fx-font-size: 12px;" />
+        </HBox>
+    </bottom>
 </BorderPane>
