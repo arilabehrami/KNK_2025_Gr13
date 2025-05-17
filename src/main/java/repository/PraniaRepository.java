@@ -1,84 +1,95 @@
 package repository;
 
+import Database.DBConnection;
 import models.domain.Prania;
-import models.Dto.Prania.CreatePraniaDto;
-import models.Dto.Prania.UpdatePraniaDto;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PraniaRepository extends BaseRepository<Prania, CreatePraniaDto, UpdatePraniaDto> {
-
-    public PraniaRepository() {
-        super("prania");
-    }
-
-    @Override
-    Prania fromResultSet(ResultSet res) throws SQLException {
-        return Prania.getInstance(res);
-    }
-
-    @Override
-    public Prania create(CreatePraniaDto createDto) {
-        String query = """
-                INSERT INTO prania (FemijaID, Data, Statusi)
-                VALUES (?, ?, ?)
-                """;
-        try {
-            PreparedStatement pstm = this.connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
-            pstm.setInt(1, createDto.getFemijaId());
-            pstm.setString(2, createDto.getData());
-            pstm.setString(3, createDto.getStatusi());
-            pstm.execute();
-            ResultSet res = pstm.getGeneratedKeys();
-            if (res.next()) {
-                int id = res.getInt(1);
-                return this.getById(id);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    @Override
-    public Prania update(UpdatePraniaDto updateDto) {
-        String query = """
-                UPDATE prania
-                SET FemijaID = ?, Data = ?, Statusi = ?
-                WHERE PraniaID = ?
-                """;
-        try {
-            PreparedStatement pstm = this.connection.prepareStatement(query);
-            pstm.setInt(1, updateDto.getFemijaId());
-            pstm.setString(2, updateDto.getData());
-            pstm.setString(3, updateDto.getStatusi());
-            pstm.setInt(4, updateDto.getPraniaId());
-            int updatedRecords = pstm.executeUpdate();
-            if (updatedRecords == 1) {
-                return this.getById(updateDto.getPraniaId());
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
+public class PraniaRepository {
     public List<Prania> getAll() {
         List<Prania> list = new ArrayList<>();
-        String query = "SELECT * FROM Prania";
-        try (PreparedStatement stmt = this.connection.prepareStatement(query);
-             ResultSet res = stmt.executeQuery()) {
-            while (res.next()) {
-                list.add(fromResultSet(res));
+        String sql = "SELECT * FROM Prania";
+
+        try (Connection conn = DBConnection.getConnection();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
+
+            while (rs.next()) {
+                Prania p = new Prania();
+                p.setPraniaId(rs.getInt("PraniaID"));
+                p.setFemijaId(rs.getInt("FemijaID"));
+                p.setData(rs.getDate("Data").toLocalDate());
+                p.setStatusi(rs.getString("Statusi"));
+                list.add(p);
             }
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
         return list;
     }
+
+    public void insert(Prania prania) {
+        String sql = "INSERT INTO Prania (FemijaID, Data, Statusi) VALUES (?, ?, ?)";
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, prania.getFemijaId());
+            stmt.setDate(2, Date.valueOf(prania.getData()));
+            stmt.setString(3, prania.getStatusi());
+            stmt.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void update(Prania prania) {
+        String sql = "UPDATE Prania SET FemijaID = ?, Data = ?, Statusi = ? WHERE PraniaID = ?";
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, prania.getFemijaId());
+            stmt.setDate(2, Date.valueOf(prania.getData()));
+            stmt.setString(3, prania.getStatusi());
+            stmt.setInt(4, prania.getPraniaId());
+            stmt.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void delete(int id) {
+        String sql = "DELETE FROM prania WHERE praniaid = ?";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, id);
+            int affectedRows = stmt.executeUpdate();
+            System.out.println("Rows deleted: " + affectedRows);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    public void save(Prania prania) {
+        String sql = "INSERT INTO prania (femijaId, statusi, data) VALUES (?, ?, ?)";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, prania.getFemijaId());
+            stmt.setString(2, prania.getStatusi());
+            stmt.setDate(3, java.sql.Date.valueOf(prania.getData()));
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException("Gabim gjatë ruajtjes në DB", e);
+        }
+    }
+
 }
