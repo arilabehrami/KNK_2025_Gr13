@@ -12,7 +12,7 @@ import java.util.ResourceBundle;
 public class PraniaMain extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Locale locale = new Locale("sq"); 
+        Locale locale = new Locale("sq");
         ResourceBundle bundle = ResourceBundle.getBundle("languages.messages", locale);
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/PraniaView.fxml"), bundle);
