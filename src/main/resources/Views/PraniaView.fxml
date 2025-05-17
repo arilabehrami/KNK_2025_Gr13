@@ -1,36 +1,64 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 
-<VBox spacing="10" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
-      fx:controller="controllers.CreatePraniaController">
+<VBox prefHeight="338.0" prefWidth="609.0" spacing="10" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.CreatePraniaController">
 
   <padding>
-    <Insets top="10" right="10" bottom="10" left="10"/>
+    <Insets bottom="10" left="10" right="10" top="10" />
   </padding>
+   <MenuBar>
+     <menus>
+       <Menu mnemonicParsing="false" text="File">
+         <items>
+           <MenuItem mnemonicParsing="false" text="Close" />
+         </items>
+       </Menu>
+       <Menu mnemonicParsing="false" text="Edit">
+         <items>
+           <MenuItem mnemonicParsing="false" text="Delete" />
+         </items>
+       </Menu>
+       <Menu mnemonicParsing="false" text="Help">
+         <items>
+           <MenuItem mnemonicParsing="false" text="About" />
+         </items>
+       </Menu>
+     </menus>
+   </MenuBar>
 
-  <TableView fx:id="praniaTable" prefHeight="200">
+  <TableView fx:id="praniaTable" prefHeight="127.0" prefWidth="589.0">
     <columns>
-      <TableColumn fx:id="colPraniaId" text="PraniaID" prefWidth="80"/>
-      <TableColumn fx:id="colFemijaId" text="FemijaID" prefWidth="80"/>
-      <TableColumn fx:id="colData" text="Data" prefWidth="120"/>
-      <TableColumn fx:id="colStatusi" text="Statusi" prefWidth="120"/>
+      <TableColumn fx:id="colPraniaId" prefWidth="80" text="PraniaID" />
+      <TableColumn fx:id="colFemijaId" prefWidth="80" text="FemijaID" />
+      <TableColumn fx:id="colData" prefWidth="120" text="Data" />
+      <TableColumn fx:id="colStatusi" prefWidth="120" text="Statusi" />
     </columns>
   </TableView>
 
-  <HBox spacing="10" alignment="CENTER_LEFT">
-    <Label fx:id="lblFemijaId" text="FemijaID:"/>
-    <TextField fx:id="tfFemijaId" prefWidth="80"/>
-    <Label fx:id="lblData" text="Data:"/>
-    <DatePicker fx:id="dpData"/>
-    <Label fx:id="lblStatusi" text="Statusi:"/>
-    <ComboBox fx:id="cbStatusi" prefWidth="120"/>
-    <Button fx:id="btnSave" text="Ruaj"/>
+  <HBox alignment="CENTER_LEFT" spacing="10">
+    <Label fx:id="lblFemijaId" text="FemijaID:" />
+    <TextField fx:id="tfFemijaId" prefWidth="80" />
+    <Label fx:id="lblData" text="Data:" />
+    <DatePicker fx:id="dpData" />
+    <Label fx:id="lblStatusi" text="Statusi:" />
+    <ComboBox fx:id="cbStatusi" prefWidth="120" />
+    <Button fx:id="btnSave" text="Ruaj" />
   </HBox>
 
 
-  <Button fx:id="btnChangeLanguage" text="Ndrysho Gjuhën" maxWidth="150" />
+  <Button fx:id="btnChangeLanguage" maxWidth="150" text="Ndrysho Gjuhën" />
 
 </VBox>
