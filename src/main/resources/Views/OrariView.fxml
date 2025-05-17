@@ -4,8 +4,11 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="controllers.OrariController" spacing="10">
+<VBox xmlns="http://javafx.com/javafx/11.0.2"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="controllers.OrariController"
+      spacing="10"
+      style="-fx-background-color: #e8f5e9;">
 
   <padding>
     <Insets top="10" right="10" bottom="10" left="10"/>
@@ -13,11 +16,11 @@
 
   <TableView fx:id="tableOrari" prefHeight="200">
     <columns>
-      <TableColumn fx:id="colOrariID" text="ID"/>
-      <TableColumn fx:id="colFemijaID" text="Femija ID"/>
-      <TableColumn fx:id="colDita" text="Dita"/>
-      <TableColumn fx:id="colOraHyrjes" text="Ora Hyrjes"/>
-      <TableColumn fx:id="colOraDaljes" text="Ora Daljes"/>
+      <TableColumn fx:id="colOrariID" text="ID" prefWidth="50"/>
+      <TableColumn fx:id="colFemijaID" text="Femija ID" prefWidth="100"/>
+      <TableColumn fx:id="colDita" text="Dita" prefWidth="100"/>
+      <TableColumn fx:id="colOraHyrjes" text="Ora Hyrjes" prefWidth="120"/>
+      <TableColumn fx:id="colOraDaljes" text="Ora Daljes" prefWidth="120"/>
     </columns>
   </TableView>
 
@@ -35,17 +38,22 @@
     <TextField fx:id="tfOraDaljes" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
   </GridPane>
 
-
   <HBox spacing="10">
-    <Button fx:id="btnAdd" text="Add" onAction="#addOrari"/>
-    <Button fx:id="btnUpdate" text="Update" onAction="#updateOrari"/>
-    <Button fx:id="btnDelete" text="Delete" onAction="#deleteOrari"/>
-    <Button fx:id="btnClear" text="Clear" onAction="#clearForm"/>
+    <Button fx:id="btnAdd" text="Add" onAction="#addOrari"
+            style="-fx-background-color: #66bb6a; -fx-text-fill: white; -fx-font-weight: bold;"/>
+    <Button fx:id="btnUpdate" text="Update" onAction="#updateOrari"
+            style="-fx-background-color: #42a5f5; -fx-text-fill: white; -fx-font-weight: bold;"/>
+    <Button fx:id="btnDelete" text="Delete" onAction="#deleteOrari"
+            style="-fx-background-color: #ef5350; -fx-text-fill: white; -fx-font-weight: bold;"/>
+    <Button fx:id="btnClear" text="Clear" onAction="#clearForm"
+            style="-fx-background-color: #9e9e9e; -fx-text-fill: white; -fx-font-weight: bold;"/>
   </HBox>
 
   <HBox spacing="10" alignment="CENTER_RIGHT">
-    <Button text="Shqip" onAction="#switchToAlbanian"/>
-    <Button text="English" onAction="#switchToEnglish"/>
+    <Button text="Shqip" onAction="#switchToAlbanian"
+            style="-fx-background-color: #81c784; -fx-text-fill: white;"/>
+    <Button text="English" onAction="#switchToEnglish"
+            style="-fx-background-color: #64b5f6; -fx-text-fill: white;"/>
   </HBox>
 
 </VBox>
