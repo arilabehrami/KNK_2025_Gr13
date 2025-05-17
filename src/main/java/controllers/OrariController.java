@@ -8,6 +8,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import models.Dto.Orari.UpdateOrariDto;
 import models.domain.Orari;
 import services.OrariService;
 import helpers.LanguageContext;
@@ -65,4 +66,28 @@ public class OrariController {
             e.printStackTrace();
         }
     }
+    @FXML
+    private void onSave() {
+        try {
+            ObservableList<Orari> updatedList = orariTable.getItems();
+            for (Orari orari : updatedList) {
+                UpdateOrariDto dto = new UpdateOrariDto(
+                        orari.getOrariID(),
+                        orari.getFemijaID(),
+                        orari.getDita(),
+                        orari.getOraHyrjes().toString(),
+                        orari.getOraDaljes().toString()
+                );
+                orariService.update(dto);
+            }
+            Alert alert = new Alert(Alert.AlertType.INFORMATION, "Orari u ruajt me sukses!");
+            alert.showAndWait();
+        } catch (Exception e) {
+            e.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Gabim gjatë ruajtjes së orarit.");
+            alert.showAndWait();
+        }
+    }
+
+
 }
