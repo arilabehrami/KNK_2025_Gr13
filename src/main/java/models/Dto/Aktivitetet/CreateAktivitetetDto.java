@@ -4,13 +4,13 @@ public class CreateAktivitetetDto {
     private String emriAktivitetit;
     private String pershkrimi;
     private String data;
-    private int grupiId;
+    private int grupiID;
 
-    public CreateAktivitetetDto(String emriAktivitetit, String pershkrimi, String data, int grupiId) {
+    public CreateAktivitetetDto(String emriAktivitetit, String pershkrimi, String data, int grupiID) {
         this.emriAktivitetit = emriAktivitetit;
         this.pershkrimi = pershkrimi;
         this.data = data;
-        this.grupiId = grupiId;
+        this.grupiID = grupiID;
     }
 
     public String getEmriAktivitetit() {
@@ -37,11 +37,11 @@ public class CreateAktivitetetDto {
         this.data = data;
     }
 
-    public int getGrupiId() {
-        return grupiId;
+    public int getGrupiID() {
+        return grupiID;
     }
 
-    public void setGrupiId(int grupiId) {
-        this.grupiId = grupiId;
+    public void setGrupiID(int grupiID) {
+        this.grupiID = grupiID;
     }
 }
