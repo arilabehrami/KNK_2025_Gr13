@@ -61,14 +61,14 @@
                </font>
             </Label>
             <Label layoutX="182.0" layoutY="178.0" text="Shuma: " />
-            <TextField layoutX="239.0" layoutY="174.0" prefHeight="26.0" prefWidth="72.0" />
-            <TextField layoutX="239.0" layoutY="133.0" prefHeight="26.0" prefWidth="72.0" />
-            <TextField layoutX="239.0" layoutY="214.0" prefHeight="54.0" prefWidth="126.0" />
-            <Label layoutX="440.0" layoutY="36.0" text="Data" />
+             <TextField fx:id="pagesaIdField" layoutX="239.0" layoutY="133.0" prefHeight="26.0" prefWidth="72.0" />
+             <TextField fx:id= "FemijaID" layoutX="239.0" layoutY="133.0" prefHeight="26.0" prefWidth="72.0" />
+            <TextField fx:id="txtShuma" layoutX="239.0" layoutY="214.0" prefHeight="54.0" prefWidth="126.0" />
+            <Label fx:id="data" layoutX="440.0" layoutY="36.0" text="Data" />
             <DatePicker layoutX="474.0" layoutY="31.0" prefHeight="26.0" prefWidth="137.0" />
-            <Label layoutX="165.0" layoutY="218.0" text="Pershkrimi:" />
-            <Label layoutX="203.0" layoutY="137.0" text="ID:" />
-            <Button layoutX="239.0" layoutY="282.0" mnemonicParsing="false" text="Ruaj" />
+            <Label fx:id="pershkrimi" layoutX="165.0" layoutY="218.0" text="Pershkrimi:" />
+            <Label fx:id="sdi" layoutX="203.0" layoutY="137.0" text="ID:" />
+             <Button fx:id="ruajButton" layoutX="239.0" layoutY="282.0" mnemonicParsing="false" text="Ruaj" onAction="#handleRuaj" />
          </children>
     </AnchorPane>
   </children>

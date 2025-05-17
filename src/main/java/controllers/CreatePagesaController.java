@@ -1,59 +1,91 @@
 package controllers;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
-import javafx.stage.Stage;
+import javafx.scene.control.*;
+import javafx.scene.control.Alert.AlertType;
+import services.PagesaService;
+import models.dto.Pagesa.CreatePagesaDto;
+import models.domain.Pagesa;
 
-import java.io.IOException;
+import java.time.LocalDate;
 
 public class CreatePagesaController {
-    @FXML
-    private TextField pagesaIDTextField;
 
     @FXML
-    private TextField shumaTextField;
+    private TextField txtId;
 
     @FXML
-    private TextArea pershkrimiTextArea;
+    private TextField txtFemijaId;
 
     @FXML
-    private DatePicker dataDatePicker;
+    private TextField txtShuma;
+
+    @FXML
+    private TextField txtPershkrimi;
+
+    @FXML
+    private DatePicker datePicker;
 
     @FXML
     private Button ruajButton;
 
-    @FXML
-    private void ruajPagesen(){
-        String pagesaID = pagesaIDTextField.getText();
-        String shuma = shumaTextField.getText();
-        String pershkrimi = pershkrimiTextArea.getText();
-        String data = dataDatePicker.getValue().toString();
+    private PagesaService pagesaService;
 
-        System.out.println("ID: " + pagesaID);
-        System.out.println("Shuma: " + shuma);
-        System.out.println("Pershkrimi: " + pershkrimi);
-        System.out.println("Data: " + data);
+    public CreatePagesaController() {
+        this.pagesaService = new PagesaService();
     }
 
     @FXML
-    private void goToFinancat(ActionEvent ae) throws IOException{
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/Views/FinancatView.fxml"));
-        Parent root = fxmlLoader.load();
-        Stage stage = (Stage) ((Node) ae.getSource()).getScene().getWindow();
-        stage.setScene(new Scene(root));
-        stage.show();
+    public void initialize() {
+        ruajButton.setOnAction(e -> handleRuaj());
     }
+
     @FXML
     private void handleRuaj() {
-        System.out.println("u ruajten!");
+        try {
+            int pagesaId = Integer.parseInt(txtId.getText());
+            int femijaId = Integer.parseInt(txtFemijaId.getText());
+            double shuma = Double.parseDouble(txtShuma.getText());
+            String pershkrimi = txtPershkrimi.getText();
+            LocalDate data = datePicker.getValue();
+
+            if (pershkrimi == null || pershkrimi.isEmpty()) {
+                throw new Exception("Përshkrimi nuk mund të jetë bosh.");
+            }
+
+            if (data == null) {
+                throw new Exception("Ju lutem zgjidhni një datë.");
+            }
+
+            CreatePagesaDto dto = new CreatePagesaDto(
+                    pagesaId,
+                    femijaId,
+                    shuma,
+                    data.toString(),
+                    pershkrimi
+            );
+
+            Pagesa pagesa = pagesaService.create(dto);
+            showSuccess("Pagesa u ruajt me sukses!");
+
+        } catch (NumberFormatException ex) {
+            showError("ID, ID e fëmijës dhe Shuma duhet të jenë numra.");
+        } catch (Exception ex) {
+            showError(ex.getMessage());
+        }
     }
 
+    private void showError(String message) {
+        Alert alert = new Alert(AlertType.ERROR);
+        alert.setTitle("Gabim");
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+
+    private void showSuccess(String message) {
+        Alert alert = new Alert(AlertType.INFORMATION);
+        alert.setTitle("Sukses");
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
 }
