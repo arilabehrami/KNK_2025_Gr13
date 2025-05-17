@@ -24,6 +24,29 @@ public class LoginController {
 
     @FXML
     private Label errorLabel;
+    @FXML
+    private Button loginButton;
+
+    @FXML
+    private Button signupButton;
+
+    @FXML
+    public void initialize() {
+        // Hover effect për loginButton
+        loginButton.setOnMouseEntered(e -> loginButton.setStyle(
+                "-fx-background-color: #f4511e; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 12; -fx-padding: 10 25;"));
+
+        loginButton.setOnMouseExited(e -> loginButton.setStyle(
+                "-fx-background-color: #ff7043; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 12; -fx-padding: 10 25;"));
+
+        // Hover effect për signupButton
+        signupButton.setOnMouseEntered(e -> signupButton.setStyle(
+                "-fx-background-color: #ffccbc; -fx-border-color: #ff7043; -fx-text-fill: #ff7043; -fx-border-radius: 12; -fx-padding: 10 25;"));
+
+        signupButton.setOnMouseExited(e -> signupButton.setStyle(
+                "-fx-background-color: transparent; -fx-border-color: #ff7043; -fx-text-fill: #ff7043; -fx-border-radius: 12; -fx-padding: 10 25;"));
+    }
+
 
 
     @FXML
@@ -98,5 +121,8 @@ public class LoginController {
     private void showError(String message) {
         errorLabel.setText(message);
         errorLabel.setVisible(true);
+    }
+
+    public void forgotPassword(ActionEvent actionEvent) {
     }
 }
