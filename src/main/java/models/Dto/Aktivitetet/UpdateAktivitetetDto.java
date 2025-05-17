@@ -1,26 +1,26 @@
 package models.Dto.Aktivitetet;
 
 public class UpdateAktivitetetDto {
-    private int aktivitetiId;
+    private int aktivitetiID;
     private String emriAktivitetit;
     private String pershkrimi;
     private String data;
-    private int grupiId;
+    private int grupiID;
 
-    public UpdateAktivitetetDto(int aktivitetiId, String emriAktivitetit, String pershkrimi, String data, int grupiId) {
-        this.aktivitetiId = aktivitetiId;
+    public UpdateAktivitetetDto(int aktivitetiID, String emriAktivitetit, String pershkrimi, String data, int grupiID) {
+        this.aktivitetiID = aktivitetiID;
         this.emriAktivitetit = emriAktivitetit;
         this.pershkrimi = pershkrimi;
         this.data = data;
-        this.grupiId = grupiId;
+        this.grupiID = grupiID;
     }
 
-    public int getAktivitetiId() {
-        return aktivitetiId;
+    public int getAktivitetiID() {
+        return aktivitetiID;
     }
 
-    public void setAktivitetiId(int aktivitetiId) {
-        this.aktivitetiId = aktivitetiId;
+    public void setAktivitetiID(int aktivitetiID) {
+        this.aktivitetiID = aktivitetiID;
     }
 
     public String getEmriAktivitetit() {
@@ -47,11 +47,11 @@ public class UpdateAktivitetetDto {
         this.data = data;
     }
 
-    public int getGrupiId() {
-        return grupiId;
+    public int getGrupiID() {
+        return grupiID;
     }
 
-    public void setGrupiId(int grupiId) {
-        this.grupiId = grupiId;
+    public void setGrupiID(int grupiID) {
+        this.grupiID = grupiID;
     }
 }

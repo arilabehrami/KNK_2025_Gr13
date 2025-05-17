@@ -1,18 +1,19 @@
 package models.domain;
 
-import java.sql.Date;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.time.LocalDate;
 
 public class Aktivitetet {
-
     private int aktivitetiID;
     private String emriAktivitetit;
     private String pershkrimi;
-    private Date data;
+    private LocalDate data;
     private int grupiID;
 
-    private Aktivitetet(int aktivitetiID, String emriAktivitetit, String pershkrimi, Date data, int grupiID) {
+    // Konstruktor bosh për raste të veçanta (opsionale)
+    public Aktivitetet() {
+    }
+
+    public Aktivitetet(int aktivitetiID, String emriAktivitetit, String pershkrimi, LocalDate data, int grupiID) {
         this.aktivitetiID = aktivitetiID;
         this.emriAktivitetit = emriAktivitetit;
         this.pershkrimi = pershkrimi;
@@ -20,32 +21,19 @@ public class Aktivitetet {
         this.grupiID = grupiID;
     }
 
-    public static Aktivitetet getInstance(ResultSet result) throws SQLException {
-        int aktivitetiID = result.getInt("AktivitetiID");
-        String emriAktivitetit = result.getString("EmriAktivitetit");
-        String pershkrimi = result.getString("Pershkrimi");
-        Date data = result.getDate("Data");
-        int grupiID = result.getInt("GrupiID");
-        return new Aktivitetet(aktivitetiID, emriAktivitetit, pershkrimi, data, grupiID);
+    public Aktivitetet(String emriAktivitetit, String pershkrimi, LocalDate data, int grupiID) {
+        this(0, emriAktivitetit, pershkrimi, data, grupiID);
     }
 
-    public int getAktivitetiID() {
-        return aktivitetiID;
-    }
-
-    public String getEmriAktivitetit() {
-        return emriAktivitetit;
-    }
-
-    public String getPershkrimi() {
-        return pershkrimi;
-    }
-
-    public Date getData() {
-        return data;
-    }
-
-    public int getGrupiID() {
-        return grupiID;
-    }
+    // Getters & Setters
+    public int getAktivitetiID() { return aktivitetiID; }
+    public void setAktivitetiID(int aktivitetiID) { this.aktivitetiID = aktivitetiID; }
+    public String getEmriAktivitetit() { return emriAktivitetit; }
+    public void setEmriAktivitetit(String emriAktivitetit) { this.emriAktivitetit = emriAktivitetit; }
+    public String getPershkrimi() { return pershkrimi; }
+    public void setPershkrimi(String pershkrimi) { this.pershkrimi = pershkrimi; }
+    public LocalDate getData() { return data; }
+    public void setData(LocalDate data) { this.data = data; }
+    public int getGrupiID() { return grupiID; }
+    public void setGrupiID(int grupiID) { this.grupiID = grupiID; }
 }

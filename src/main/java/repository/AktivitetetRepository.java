@@ -1,86 +1,69 @@
 package repository;
 
+import Database.DBConnection;
 import models.domain.Aktivitetet;
-import models.Dto.Aktivitetet.CreateAktivitetetDto;
-import models.Dto.Aktivitetet.UpdateAktivitetetDto;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AktivitetetRepository extends BaseRepository<Aktivitetet, CreateAktivitetetDto, UpdateAktivitetetDto> {
+public class AktivitetetRepository {
 
-    public AktivitetetRepository() {
-        super("Aktivitetet");
+    private Connection connection;
+
+    public AktivitetetRepository(Connection connection) {
+        this.connection = connection;
     }
 
-    @Override
-    Aktivitetet fromResultSet(ResultSet res) throws SQLException {
-        return Aktivitetet.getInstance(res);
-    }
-
-    @Override
-    public Aktivitetet create(CreateAktivitetetDto createDto) {
-        String query = """
-                INSERT INTO Aktivitetet (EmriAktivitetit, Pershkrimi, Data, GrupiID)
-                VALUES (?, ?, ?, ?)
-                """;
-        try {
-            PreparedStatement pstm = this.connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
-            pstm.setString(1, createDto.getEmriAktivitetit());
-            pstm.setString(2, createDto.getPershkrimi());
-            pstm.setDate(3, java.sql.Date.valueOf(createDto.getData()));
-            pstm.setInt(4, createDto.getGrupiId());
-            pstm.execute();
-            ResultSet res = pstm.getGeneratedKeys();
-            if (res.next()) {
-                int id = res.getInt(1);
-                return this.getById(id);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    @Override
-    public Aktivitetet update(UpdateAktivitetetDto updateDto) {
-        String query = """
-                UPDATE Aktivitetet
-                SET EmriAktivitetit = ?, Pershkrimi = ?, Data = ?, GrupiID = ?
-                WHERE AktivitetiID = ?
-                """;
-        try {
-            PreparedStatement pstm = this.connection.prepareStatement(query);
-            pstm.setString(1, updateDto.getEmriAktivitetit());
-            pstm.setString(2, updateDto.getPershkrimi());
-            pstm.setDate(3, java.sql.Date.valueOf(updateDto.getData()));
-            pstm.setInt(4, updateDto.getGrupiId());
-            pstm.setInt(5, updateDto.getAktivitetiId());
-            int updatedRecords = pstm.executeUpdate();
-            if (updatedRecords == 1) {
-                return this.getById(updateDto.getAktivitetiId());
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    public List<Aktivitetet> getAll() {
+    public List<Aktivitetet> findAll() throws SQLException {
         List<Aktivitetet> list = new ArrayList<>();
-        String query = "SELECT * FROM Aktivitetet";
-        try (PreparedStatement stmt = this.connection.prepareStatement(query);
-             ResultSet res = stmt.executeQuery()) {
-            while (res.next()) {
-                list.add(fromResultSet(res));
+        String sql = "SELECT * FROM Aktivitetet";
+        try (Statement stmt = connection.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
+
+            while (rs.next()) {
+                Aktivitetet a = new Aktivitetet();
+                a.setAktivitetiID(rs.getInt("AktivitetiID"));
+                a.setEmriAktivitetit(rs.getString("EmriAktivitetit"));
+                a.setPershkrimi(rs.getString("Pershkrimi"));
+                a.setData(rs.getDate("Data").toLocalDate());
+                a.setGrupiID(rs.getInt("GrupiID"));
+
+                list.add(a);
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
         return list;
+    }
+
+    public void add(Aktivitetet a) throws SQLException {
+        String sql = "INSERT INTO Aktivitetet (EmriAktivitetit, Pershkrimi, Data, GrupiID) VALUES (?, ?, ?, ?)";
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setString(1, a.getEmriAktivitetit());
+            stmt.setString(2, a.getPershkrimi());
+            stmt.setDate(3, Date.valueOf(a.getData()));
+            stmt.setInt(4, a.getGrupiID());
+            stmt.executeUpdate();
+        }
+    }
+
+    public void update(Aktivitetet a) throws SQLException {
+        String sql = "UPDATE Aktivitetet SET EmriAktivitetit=?, Pershkrimi=?, Data=?, GrupiID=? WHERE AktivitetiID=?";
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setString(1, a.getEmriAktivitetit());
+            stmt.setString(2, a.getPershkrimi());
+            stmt.setDate(3, Date.valueOf(a.getData()));
+            stmt.setInt(4, a.getGrupiID());
+            stmt.setInt(5, a.getAktivitetiID());
+            stmt.executeUpdate();
+        }
+    }
+
+    public void delete(int id) throws SQLException {
+        String sql = "DELETE FROM Aktivitetet WHERE AktivitetiID=?";
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setInt(1, id);
+            stmt.executeUpdate();
+        }
     }
 }

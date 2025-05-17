@@ -5,45 +5,44 @@ import models.Dto.Aktivitetet.CreateAktivitetetDto;
 import models.Dto.Aktivitetet.UpdateAktivitetetDto;
 import repository.AktivitetetRepository;
 
+import java.sql.SQLException;
+import java.time.LocalDate;
+import java.util.List;
+
 public class AktivitetetService {
-    private AktivitetetRepository aktivitetetRepository;
 
-    public AktivitetetService() {
-        this.aktivitetetRepository = new AktivitetetRepository();
+    private AktivitetetRepository repository;
+
+    public AktivitetetService(AktivitetetRepository repository) {
+        this.repository = repository;
     }
 
-    public Aktivitetet getById(int id) throws Exception {
-        if (id <= 0) {
-            throw new Exception("ID duhet të jetë më i madh se 0.");
-        }
-        Aktivitetet aktiviteti = this.aktivitetetRepository.getById(id);
-        if (aktiviteti == null) {
-            throw new Exception("Aktiviteti me ID " + id + " nuk u gjet.");
-        }
-        return aktiviteti;
+    public List<Aktivitetet> getAllAktivitetet() throws SQLException {
+        return repository.findAll();
     }
 
-    public Aktivitetet create(CreateAktivitetetDto createAktivitet) throws Exception {
-        if (createAktivitet.getEmriAktivitetit() == null || createAktivitet.getEmriAktivitetit().isEmpty()) {
-            throw new Exception("Emri i aktivitetit nuk mund të jetë bosh.");
-        }
-        if (createAktivitet.getData() == null || createAktivitet.getData().isEmpty()) {
-            throw new Exception("Data e aktivitetit është e detyrueshme.");
-        }
-
-        Aktivitetet aktiviteti = this.aktivitetetRepository.create(createAktivitet);
-        if (aktiviteti == null) {
-            throw new Exception("Aktiviteti nuk u krijua.");
-        }
-        return aktiviteti;
+    public void addAktivitet(CreateAktivitetetDto dto) throws SQLException {
+        Aktivitetet a = new Aktivitetet(
+                dto.getEmriAktivitetit(),
+                dto.getPershkrimi(),
+                LocalDate.parse(dto.getData()),
+                dto.getGrupiID()
+        );
+        repository.add(a);
     }
 
-    public Aktivitetet update(UpdateAktivitetetDto updateAktivitet) throws Exception {
-        Aktivitetet ekzistues = this.getById(updateAktivitet.getAktivitetiId());
-        if (ekzistues == null) {
-            throw new Exception("Aktiviteti për përditësim nuk ekziston.");
-        }
+    public void updateAktivitet(UpdateAktivitetetDto dto) throws SQLException {
+        Aktivitetet a = new Aktivitetet(
+                dto.getAktivitetiID(),
+                dto.getEmriAktivitetit(),
+                dto.getPershkrimi(),
+                LocalDate.parse(dto.getData()),
+                dto.getGrupiID()
+        );
+        repository.update(a);
+    }
 
-        return this.aktivitetetRepository.update(updateAktivitet);
+    public void deleteAktivitet(int id) throws SQLException {
+        repository.delete(id);
     }
 }

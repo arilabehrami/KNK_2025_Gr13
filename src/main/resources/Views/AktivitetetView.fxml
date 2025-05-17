@@ -1,53 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.DatePicker?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.TextArea?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.VBox?>
 
-<VBox spacing="10" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.CreateAktivitetetController">
-    <padding>
-        <Insets bottom="10" left="10" right="10" top="10" />
-    </padding>
-   <MenuBar prefHeight="27.0" prefWidth="479.0">
-     <menus>
-       <Menu mnemonicParsing="false" text="File">
-         <items>
-           <MenuItem mnemonicParsing="false" text="Close" />
-         </items>
-       </Menu>
-       <Menu mnemonicParsing="false" text="Edit">
-         <items>
-           <MenuItem mnemonicParsing="false" text="Delete" />
-         </items>
-       </Menu>
-       <Menu mnemonicParsing="false" text="Help">
-         <items>
-           <MenuItem mnemonicParsing="false" text="About" />
-         </items>
-       </Menu>
-     </menus>
-   </MenuBar>
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="controllers.AktivitetetController"
+      spacing="10" padding="10">
 
-    <Label text="%label.aktivitetet.emri" />
-    <TextField fx:id="emriField" />
+    <!-- Butonat për zgjedhjen e gjuhës -->
+    <HBox spacing="10">
+        <Label text="%language.select"/>
+        <Button fx:id="btnAlbanian" text="Shqip" onAction="#switchToAlbanian"/>
+        <Button fx:id="btnEnglish" text="English" onAction="#switchToEnglish"/>
+    </HBox>
 
-    <Label text="%label.aktivitetet.pershkrimi" />
-    <TextArea fx:id="pershkrimiArea" />
+    <!-- TableView për listën e aktiviteteve -->
+    <TableView fx:id="tableAktivitetet" prefHeight="200" VBox.vgrow="ALWAYS">
+        <columns>
+            <TableColumn fx:id="colID" text="%aktivitetet.col.id" prefWidth="50"/>
+            <TableColumn fx:id="colEmri" text="%aktivitetet.col.emri" prefWidth="150"/>
+            <TableColumn fx:id="colPershkrimi" text="%aktivitetet.col.pershkrimi" prefWidth="200"/>
+            <TableColumn fx:id="colData" text="%aktivitetet.col.data" prefWidth="120"/>
+            <TableColumn fx:id="colGrupiID" text="%aktivitetet.col.grupiid" prefWidth="80"/>
+        </columns>
+    </TableView>
 
-    <Label text="%label.aktivitetet.data" />
-    <DatePicker fx:id="dataPicker" />
+    <!-- Forma për hyrje të të dhënave -->
+    <GridPane hgap="10" vgap="10">
+        <Label text="%aktivitetet.label.emri" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+        <TextField fx:id="tfEmriAktivitetit" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
 
-    <Label text="%label.aktivitetet.grupi" />
-    <TextField fx:id="grupiField" />
+        <Label text="%aktivitetet.label.pershkrimi" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+        <TextArea fx:id="taPershkrimi" prefRowCount="3" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
 
-    <Button onAction="#onCreate" text="%button.aktivitetet.shto" />
-    <Button fx:id="languageButton" onAction="#toggleLanguage" text="%button.language" />
+        <Label text="%aktivitetet.label.data" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+        <DatePicker fx:id="dpData" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
 
+        <Label text="%aktivitetet.label.grupiid" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
+        <TextField fx:id="tfGrupiID" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+    </GridPane>
+
+    <!-- Butonat për CRUD dhe Clear -->
+    <HBox spacing="10" alignment="CENTER_RIGHT">
+        <Button fx:id="btnAdd" text="%aktivitetet.btn.add" onAction="#addAktivitet"/>
+        <Button fx:id="btnUpdate" text="%aktivitetet.btn.update" onAction="#updateAktivitet"/>
+        <Button fx:id="btnDelete" text="%aktivitetet.btn.delete" onAction="#deleteAktivitet"/>
+        <Button fx:id="btnClear" text="%aktivitetet.btn.clear" onAction="#clearForm"/>
+    </HBox>
 </VBox>
