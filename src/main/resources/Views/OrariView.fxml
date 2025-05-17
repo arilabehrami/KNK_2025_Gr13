@@ -1,50 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 
-<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.OrariController">
-  <children>
-    <MenuBar fx:id="menuBar">
-      <menus>
-        <Menu fx:id="fileMenu" text="%menu.file">
-          <items>
-            <MenuItem text="%menuitem.close" />
-          </items>
-        </Menu>
-        <Menu fx:id="editMenu" text="%menu.edit" />
-        <Menu fx:id="helpMenu" text="%menu.help">
-          <items>
-            <MenuItem text="%menuitem.about" />
-          </items>
-        </Menu>
-        <Menu fx:id="languageMenu" text="🌐">
-          <items>
-            <MenuItem fx:id="switchLanguageItem" onAction="#onSwitchLanguage" text="EN / SQ" />
-          </items>
-        </Menu>
-      </menus>
-    </MenuBar>
+<VBox xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="controllers.OrariController" spacing="10">
 
-    <AnchorPane VBox.vgrow="ALWAYS">
-      <children>
-        <TableView fx:id="orariTable" layoutX="20.0" layoutY="20.0" prefHeight="250" prefWidth="499.0">
-          <columns>
-            <TableColumn fx:id="ditaColumn" prefWidth="100" text="%column.dita" />
-            <TableColumn fx:id="oraHyrjesColumn" prefWidth="150" text="%column.oraHyrjes" />
-            <TableColumn fx:id="oraDaljesColumn" prefWidth="150" text="%column.oraDaljes" />
-            <TableColumn fx:id="femijaIdColumn" prefWidth="100" text="%column.femijaId" />
-          </columns>
-        </TableView>
-        <Button fx:id="backButton" layoutX="69.0" layoutY="293.0" text="%button.back" />
-        <Button fx:id="saveButton" layoutX="160.0" layoutY="293.0" text="%btn.save.orari" onAction="#onSave" />
-      </children>
-    </AnchorPane>
-  </children>
+  <padding>
+    <Insets top="10" right="10" bottom="10" left="10"/>
+  </padding>
+
+  <TableView fx:id="tableOrari" prefHeight="200">
+    <columns>
+      <TableColumn fx:id="colOrariID" text="ID"/>
+      <TableColumn fx:id="colFemijaID" text="Femija ID"/>
+      <TableColumn fx:id="colDita" text="Dita"/>
+      <TableColumn fx:id="colOraHyrjes" text="Ora Hyrjes"/>
+      <TableColumn fx:id="colOraDaljes" text="Ora Daljes"/>
+    </columns>
+  </TableView>
+
+  <GridPane fx:id="gridPane" hgap="10" vgap="10">
+    <Label fx:id="lblFemijaID" text="Femija ID:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+    <TextField fx:id="tfFemijaID" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+    <Label fx:id="lblDita" text="Dita:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+    <TextField fx:id="tfDita" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+    <Label fx:id="lblOraHyrjes" text="Ora Hyrjes:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+    <TextField fx:id="tfOraHyrjes" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+
+    <Label fx:id="lblOraDaljes" text="Ora Daljes:" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+    <TextField fx:id="tfOraDaljes" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+  </GridPane>
+
+
+  <HBox spacing="10">
+    <Button fx:id="btnAdd" text="Add" onAction="#addOrari"/>
+    <Button fx:id="btnUpdate" text="Update" onAction="#updateOrari"/>
+    <Button fx:id="btnDelete" text="Delete" onAction="#deleteOrari"/>
+    <Button fx:id="btnClear" text="Clear" onAction="#clearForm"/>
+  </HBox>
+
+  <HBox spacing="10" alignment="CENTER_RIGHT">
+    <Button text="Shqip" onAction="#switchToAlbanian"/>
+    <Button text="English" onAction="#switchToEnglish"/>
+  </HBox>
+
 </VBox>

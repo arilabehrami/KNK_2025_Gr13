@@ -1,21 +1,34 @@
 package Main;
 
-import helpers.LanguageContext;
+import controllers.OrariController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import services.OrariService;
 
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class OrariMain extends Application {
+
+    private OrariService orariService = new OrariService();
+
     @Override
     public void start(Stage primaryStage) throws Exception {
-        ResourceBundle bundle = ResourceBundle.getBundle("languages.messages", LanguageContext.currentLocale);
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/OrariView.fxml"), bundle);
+        // Vendosja e gjuhës fillestare - shqip
+        Locale locale = new Locale("sq");
+        ResourceBundle bundle = ResourceBundle.getBundle("languages.messages", locale);
 
-        primaryStage.setScene(new Scene(loader.load()));
-        primaryStage.setTitle(bundle.getString("label.title2")); // Shkruaje këtë në messages.properties si p.sh. label.title2=Orari
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/OrariView.fxml"), bundle);
+        Scene scene = new Scene(loader.load());
+
+        OrariController controller = loader.getController();
+        controller.setService(orariService);
+        controller.setResources(bundle);
+
+        primaryStage.setScene(scene);
+        primaryStage.setTitle(bundle.getString("orari.title.window"));
         primaryStage.show();
     }
 

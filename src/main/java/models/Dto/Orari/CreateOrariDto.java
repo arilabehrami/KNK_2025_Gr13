@@ -1,5 +1,8 @@
 package models.Dto.Orari;
 
+import java.time.LocalTime;
+import java.time.format.DateTimeParseException;
+
 public class CreateOrariDto {
     private int femijaID;
     private String dita;
@@ -13,35 +16,17 @@ public class CreateOrariDto {
         this.oraDaljes = oraDaljes;
     }
 
-    public int getFemijaID() {
-        return femijaID;
-    }
+    // Getters
+    public int getFemijaID() { return femijaID; }
+    public String getDita() { return dita; }
+    public String getOraHyrjes() { return oraHyrjes; }
+    public String getOraDaljes() { return oraDaljes; }
 
-    public void setFemijaID(int femijaID) {
-        this.femijaID = femijaID;
+    // Ndihmë për kthimin në LocalTime
+    public LocalTime getOraHyrjesAsLocalTime() throws DateTimeParseException {
+        return LocalTime.parse(oraHyrjes);
     }
-
-    public String getDita() {
-        return dita;
-    }
-
-    public void setDita(String dita) {
-        this.dita = dita;
-    }
-
-    public String getOraHyrjes() {
-        return oraHyrjes;
-    }
-
-    public void setOraHyrjes(String oraHyrjes) {
-        this.oraHyrjes = oraHyrjes;
-    }
-
-    public String getOraDaljes() {
-        return oraDaljes;
-    }
-
-    public void setOraDaljes(String oraDaljes) {
-        this.oraDaljes = oraDaljes;
+    public LocalTime getOraDaljesAsLocalTime() throws DateTimeParseException {
+        return LocalTime.parse(oraDaljes);
     }
 }
