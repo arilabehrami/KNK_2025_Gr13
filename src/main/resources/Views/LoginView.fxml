@@ -1,50 +1,76 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.geometry.*?>
+<?import javafx.scene.text.Text?>
 
 <BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="controllers.LoginController"
             style="-fx-background-color: linear-gradient(to bottom, #fbe9e7, #fff3e0);">
 
   <top>
-    <VBox alignment="CENTER" spacing="10" BorderPane.alignment="CENTER">
-      <ImageView fitWidth="100" fitHeight="100">
-        <image>
-          <Image url="@../Images/Figura2.jpg" />
-        </image>
-      </ImageView>
+    <VBox alignment="CENTER" spacing="5" BorderPane.alignment="CENTER"
+          style="-fx-padding: 10 0 10 0;">
       <Label text="MiniEdu - Kopshti i Ëndrrave"
-             style="-fx-font-size: 26px; -fx-font-weight: bold; -fx-text-fill: #e65100;" />
+             style="-fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: #e65100;" />
       <Label text="Një hapësirë kreative, edukative dhe e sigurt për fëmijët"
-             style="-fx-font-size: 14px; -fx-text-fill: #6d4c41;" />
+             style="-fx-font-size: 16px; -fx-text-fill: #6d4c41;" />
     </VBox>
   </top>
 
+  <left >
+    <VBox spacing="20" alignment="TOP_LEFT" BorderPane.alignment="CENTER_LEFT"
+          prefWidth="300" minWidth="300" maxWidth="300"
+          style="-fx-background-color: linear-gradient(to bottom, #ffccbc, #ffab91);
+                 -fx-padding: 30; -fx-background-radius: 20; -fx-border-radius: 20;
+                 -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 0, 2);">
+
+      <Label text="Çfarë ofron MiniEdu?"
+             style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #bf360c;"
+      />
+
+      <VBox spacing="15">
+        <HBox spacing="10" alignment="CENTER_LEFT">
+          <Label text="👶" style="-fx-font-size: 18px;" />
+          <Label text="Menaxhim i fëmijëve" style="-fx-font-size: 14px; -fx-text-fill: #4e342e;" />
+        </HBox>
+        <HBox spacing="10" alignment="CENTER_LEFT">
+          <Label text="🕒" style="-fx-font-size: 18px;" />
+          <Label text="Orari dhe aktivitetet ditore" style="-fx-font-size: 14px; -fx-text-fill: #4e342e;" />
+        </HBox>
+        <HBox spacing="10" alignment="CENTER_LEFT">
+          <Label text="📞" style="-fx-font-size: 18px;" />
+          <Label text="Komunikim me prindërit" style="-fx-font-size: 14px; -fx-text-fill: #4e342e;" />
+        </HBox>
+        <HBox spacing="10" alignment="CENTER_LEFT">
+          <Label text="📝" style="-fx-font-size: 18px;" />
+          <Label text="Regjistrim dhe frekuentim" style="-fx-font-size: 14px; -fx-text-fill: #4e342e;" />
+        </HBox>
+        <HBox spacing="10" alignment="CENTER_LEFT">
+          <Label text="🍎" style="-fx-font-size: 18px;" />
+          <Label text="Kujdes shëndetësor dhe dieta" style="-fx-font-size: 14px; -fx-text-fill: #4e342e;" />
+        </HBox>
+      </VBox>
+
+      <Label text="MiniEdu - Kopshti i ëndrrave" wrapText="true"
+             style="-fx-font-size: 12px; -fx-font-style: italic; -fx-text-fill: #6d4c41; -fx-padding: 20 0 0 0;" />
+    </VBox>
+  </left>
+
   <center>
-    <VBox spacing="20" alignment="CENTER" prefWidth="420"
-          style="-fx-background-color: #ffffff; -fx-padding: 35; -fx-background-radius: 20; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 10, 0.2, 0, 4);"
+    <VBox spacing="20" alignment="CENTER" prefWidth="460" minWidth="460" maxWidth="460"
+          style="-fx-background-color: #ffffff; -fx-padding: 35; -fx-background-radius: 20;
+                 -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 10, 0.2, 0, 4);"
           BorderPane.alignment="CENTER">
 
       <Label text="Kyçu në Llogarinë Tënde"
              style="-fx-font-size: 22px; -fx-text-fill: #d84315; -fx-font-weight: bold;" />
 
-      <HBox spacing="10" alignment="CENTER_LEFT">
-        <ImageView fitWidth="20" fitHeight="20">
-          <image>
-            <Image url="@../Images/Figura2.jpg" />
-          </image>
-        </ImageView>
+      <HBox spacing="20" alignment="CENTER">
         <TextField fx:id="usernameField" promptText="Emri i përdoruesit"
                    style="-fx-background-radius: 10; -fx-border-color: #ffe0b2; -fx-border-radius: 10; -fx-padding: 10;" />
       </HBox>
 
-      <HBox spacing="10" alignment="CENTER_LEFT">
-        <ImageView fitWidth="20" fitHeight="20">
-          <image>
-            <Image url="@../Images/Figura2.jpg" />
-          </image>
-        </ImageView>
+      <HBox spacing="20" alignment="CENTER">
         <PasswordField fx:id="passwordField" promptText="Fjalëkalimi"
                        style="-fx-background-radius: 10; -fx-border-color: #ffe0b2; -fx-border-radius: 10; -fx-padding: 10;" />
       </HBox>
@@ -60,58 +86,85 @@
                 style="-fx-background-color: transparent; -fx-border-color: #ff7043; -fx-text-fill: #ff7043; -fx-border-radius: 12; -fx-padding: 10 25;" />
       </HBox>
 
-
       <Hyperlink text="Ke harruar fjalëkalimin?" onAction="#forgotPassword"
                  style="-fx-text-fill: #bf360c; -fx-font-size: 11px;" />
     </VBox>
   </center>
 
   <right>
-    <VBox spacing="16" alignment="TOP_LEFT" BorderPane.alignment="CENTER_RIGHT"
-          style="-fx-background-color: #fff3e0; -fx-background-radius: 0 20 20 0;">
-      <padding>
-        <Insets top="30" right="30" bottom="30" left="30" />
-      </padding>
+    <VBox spacing="20" alignment="TOP_LEFT" BorderPane.alignment="CENTER_RIGHT"
+          prefWidth="300" minWidth="300" maxWidth="300"
+          style="-fx-background-color: #ffe0b2; -fx-padding: 30; -fx-background-radius: 20; -fx-border-radius: 20;
+                 -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 0, 2);">
 
-      <Label text="Çfarë Ofron MiniEdu?"
-             style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #e64a19;" />
+      <Label text="Vlerat tona"
+             style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #bf360c;" />
 
-      <VBox spacing="12">
+      <VBox spacing="15">
         <HBox spacing="10" alignment="CENTER_LEFT">
-          <Label text="👶" style="-fx-font-size: 16px;" />
-          <Label text="Menaxhim i fëmijëve" style="-fx-font-size: 14px; -fx-text-fill: #5d4037;" />
+          <Label text="💖" style="-fx-font-size: 18px;" />
+          <Label text="Dashuria dhe kujdesi ndaj fëmijëve" style="-fx-font-size: 14px; -fx-text-fill: #6d4c41;" />
         </HBox>
 
         <HBox spacing="10" alignment="CENTER_LEFT">
-          <Label text="🕒" style="-fx-font-size: 16px;" />
-          <Label text="Orari dhe aktivitetet ditore" style="-fx-font-size: 14px; -fx-text-fill: #5d4037;" />
+          <Label text="🎨" style="-fx-font-size: 18px;" />
+          <Label text="Krijimtaria dhe zhvillimi i talentit" style="-fx-font-size: 14px; -fx-text-fill: #6d4c41;" />
         </HBox>
 
         <HBox spacing="10" alignment="CENTER_LEFT">
-          <Label text="📞" style="-fx-font-size: 16px;" />
-          <Label text="Komunikim me prindërit" style="-fx-font-size: 14px; -fx-text-fill: #5d4037;" />
+          <Label text="📚" style="-fx-font-size: 18px;" />
+          <Label text="Edukimi cilësor dhe interaktiv" style="-fx-font-size: 14px; -fx-text-fill: #6d4c41;" />
         </HBox>
 
         <HBox spacing="10" alignment="CENTER_LEFT">
-          <Label text="📝" style="-fx-font-size: 16px;" />
-          <Label text="Regjistrim dhe frekuentim" style="-fx-font-size: 14px; -fx-text-fill: #5d4037;" />
+          <Label text="🌿" style="-fx-font-size: 18px;" />
+          <Label text="Njohuri për natyrën dhe mjedisin" style="-fx-font-size: 14px; -fx-text-fill: #6d4c41;" />
         </HBox>
 
         <HBox spacing="10" alignment="CENTER_LEFT">
-          <Label text="🍎" style="-fx-font-size: 16px;" />
-          <Label text="Kujdes shëndetësor dhe dieta" style="-fx-font-size: 14px; -fx-text-fill: #5d4037;" />
+          <Label text="🤝" style="-fx-font-size: 18px;" />
+          <Label text="Bashkëpunimi me prindërit dhe komunitetin" style="-fx-font-size: 14px; -fx-text-fill: #6d4c41;" />
         </HBox>
       </VBox>
+
+      <Text wrappingWidth="260"
+            style="-fx-font-size: 13px; -fx-font-style: italic; -fx-fill: #4e342e; -fx-line-spacing: 4;"
+            text="Misioni ynë është të krijojmë një ambient të ngrohtë, të sigurt dhe edukativ ku çdo fëmijë të ndihet i vlerësuar dhe të zhvillohet në mënyrë gjithëpërfshirëse." />
     </VBox>
   </right>
-
-
   <bottom>
-    <VBox alignment="CENTER" spacing="5" BorderPane.alignment="CENTER">
-      <Separator />
-      <Label text="© 2025 MiniEdu | info@miniedu.com | +383 45 123 456"
-             style="-fx-font-size: 10px; -fx-text-fill: #a1887f;" />
-    </VBox>
+    <HBox alignment="CENTER" spacing="40" BorderPane.alignment="CENTER"
+          style="-fx-padding: 15 30; -fx-background-color: linear-gradient(to right, #ffccbc, #ffab91);
+                 -fx-background-radius: 0 0 20 20; -fx-border-radius: 0 0 20 20;
+                 -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 5, 0, 0, -1);">
+
+      <Label text="© 2025 MiniEdu"
+             style="-fx-font-size: 12px; -fx-text-fill: #6d4c41; -fx-font-weight: bold;" />
+
+      <Label text=" | " style="-fx-font-size: 14px; -fx-text-fill: #6d4c41;"/>
+
+      <Label text="info@miniedu.com"
+             style="-fx-font-size: 12px; -fx-text-fill: #6d4c41;"
+            ></Label>
+
+      <Label text=" | " style="-fx-font-size: 14px; -fx-text-fill: #6d4c41;"/>
+
+      <Label text="+383 45 123 456"
+             style="-fx-font-size: 12px; -fx-text-fill: #6d4c41;" />
+
+      <Region HBox.hgrow="ALWAYS"/>
+
+      <HBox spacing="15" alignment="CENTER_RIGHT">
+        <!-- Social media icons as Labels with emojis -->
+        <Label text="👍" style="-fx-font-size: 20px;"
+                />
+        <Label text="🐦" style="-fx-font-size: 20px; "
+               />
+        <Label text="📸" style="-fx-font-size: 20px; "
+                />
+      </HBox>
+    </HBox>
   </bottom>
+
 
 </BorderPane>

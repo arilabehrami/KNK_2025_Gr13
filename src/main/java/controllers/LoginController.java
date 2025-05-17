@@ -29,6 +29,12 @@ public class LoginController {
 
     @FXML
     private Button signupButton;
+    @FXML
+    public void emailHoverOff(javafx.scene.input.MouseEvent event) {
+        Label label = (Label) event.getSource();
+        label.setStyle("-fx-underline: false; -fx-text-fill: #6d4c41;");
+    }
+
 
     @FXML
     public void initialize() {
@@ -101,7 +107,7 @@ public class LoginController {
             // Dergo username ne MainController
             MainController controller = loader.getController();
             controller.setUsername(username);
-            controller.setPrimaryStage((Stage) usernameField.getScene().getWindow());
+            controller.stage((Stage) usernameField.getScene().getWindow());
 
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
