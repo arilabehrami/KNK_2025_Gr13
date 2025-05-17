@@ -8,16 +8,31 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 public class OrariRepository extends BaseRepository<Orari, CreateOrariDto, UpdateOrariDto> {
 
+    public List<Orari> getAll() {
+        List<Orari> list = new ArrayList<>();
+        String query = "SELECT * FROM Orari";
+        try (PreparedStatement stmt = this.connection.prepareStatement(query);
+             ResultSet res = stmt.executeQuery()) {
+            while (res.next()) {
+                list.add(fromResultSet(res));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
     public OrariRepository() {
         super("Orari");
     }
 
     @Override
     Orari fromResultSet(ResultSet res) throws SQLException {
-        return Orari.getInstance(res);  // Nevojitet implementimi i metodës getInstance në klasën Orari
+        return Orari.getInstance(res);
     }
 
     @Override
@@ -67,4 +82,6 @@ public class OrariRepository extends BaseRepository<Orari, CreateOrariDto, Updat
         }
         return null;
     }
+
+
 }

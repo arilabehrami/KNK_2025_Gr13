@@ -5,8 +5,14 @@ import models.Dto.Orari.CreateOrariDto;
 import models.Dto.Orari.UpdateOrariDto;
 import repository.OrariRepository;
 
+import java.util.List;
+
 public class OrariService {
     private OrariRepository orariRepository;
+    public List<Orari> getAll() {
+        return this.orariRepository.getAll();
+    }
+
 
     public OrariService() {
         this.orariRepository = new OrariRepository();
@@ -42,11 +48,32 @@ public class OrariService {
     }
 
     public Orari update(UpdateOrariDto updateOrariDto) throws Exception {
+        if (updateOrariDto == null) {
+            throw new Exception("Të dhënat për përditësim nuk mund të jenë null.");
+        }
+
+        if (updateOrariDto.getDita() == null || updateOrariDto.getDita().isEmpty()) {
+            throw new Exception("Dita nuk mund të jetë bosh.");
+        }
+
+        if (updateOrariDto.getOraHyrjes() == null || updateOrariDto.getOraHyrjes().isEmpty()) {
+            throw new Exception("Ora e hyrjes nuk mund të jetë bosh.");
+        }
+
+        if (updateOrariDto.getOraDaljes() == null || updateOrariDto.getOraDaljes().isEmpty()) {
+            throw new Exception("Ora e daljes nuk mund të jetë bosh.");
+        }
+
+        if (updateOrariDto.getFemijaID() <= 0) {
+            throw new Exception("ID e fëmijës duhet të jetë më i madh se 0.");
+        }
+
         Orari ekzistues = this.getById(updateOrariDto.getOrariId());
         if (ekzistues == null) {
-            throw new Exception("Orari për përditësim nuk ekziston.");
+            throw new Exception("Orari me ID " + updateOrariDto.getOrariId() + " nuk ekziston.");
         }
 
         return this.orariRepository.update(updateOrariDto);
     }
+
 }

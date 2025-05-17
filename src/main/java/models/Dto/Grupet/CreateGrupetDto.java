@@ -14,6 +14,12 @@ public class CreateGrupetDto {
         this.moshaMax = moshaMax;
         this.edukatoriId = edukatoriId;
     }
+    public CreateGrupetDto(String emriGrupit, int moshaMin, int moshaMax, int edukatoriId) {
+        this.emriGrupit = emriGrupit;
+        this.moshaMin = moshaMin;
+        this.moshaMax = moshaMax;
+        this.edukatoriId = edukatoriId;
+    }
 
     public int getGrupiId() {
         return grupiId;

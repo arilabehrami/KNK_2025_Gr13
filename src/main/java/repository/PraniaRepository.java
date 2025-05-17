@@ -8,6 +8,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 public class PraniaRepository extends BaseRepository<Prania, CreatePraniaDto, UpdatePraniaDto> {
 
@@ -64,5 +66,19 @@ public class PraniaRepository extends BaseRepository<Prania, CreatePraniaDto, Up
             e.printStackTrace();
         }
         return null;
+    }
+
+    public List<Prania> getAll() {
+        List<Prania> list = new ArrayList<>();
+        String query = "SELECT * FROM Prania";
+        try (PreparedStatement stmt = this.connection.prepareStatement(query);
+             ResultSet res = stmt.executeQuery()) {
+            while (res.next()) {
+                list.add(fromResultSet(res));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
     }
 }

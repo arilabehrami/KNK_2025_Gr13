@@ -8,6 +8,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 public class AktivitetetRepository extends BaseRepository<Aktivitetet, CreateAktivitetetDto, UpdateAktivitetetDto> {
 
@@ -17,7 +19,7 @@ public class AktivitetetRepository extends BaseRepository<Aktivitetet, CreateAkt
 
     @Override
     Aktivitetet fromResultSet(ResultSet res) throws SQLException {
-        return Aktivitetet.getInstance(res);  // Nevojiten detajet për implementimin e kësaj metode.
+        return Aktivitetet.getInstance(res);
     }
 
     @Override
@@ -30,7 +32,7 @@ public class AktivitetetRepository extends BaseRepository<Aktivitetet, CreateAkt
             PreparedStatement pstm = this.connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             pstm.setString(1, createDto.getEmriAktivitetit());
             pstm.setString(2, createDto.getPershkrimi());
-            pstm.setString(3, createDto.getData());
+            pstm.setDate(3, java.sql.Date.valueOf(createDto.getData()));
             pstm.setInt(4, createDto.getGrupiId());
             pstm.execute();
             ResultSet res = pstm.getGeneratedKeys();
@@ -55,7 +57,7 @@ public class AktivitetetRepository extends BaseRepository<Aktivitetet, CreateAkt
             PreparedStatement pstm = this.connection.prepareStatement(query);
             pstm.setString(1, updateDto.getEmriAktivitetit());
             pstm.setString(2, updateDto.getPershkrimi());
-            pstm.setString(3, updateDto.getData());
+            pstm.setDate(3, java.sql.Date.valueOf(updateDto.getData()));
             pstm.setInt(4, updateDto.getGrupiId());
             pstm.setInt(5, updateDto.getAktivitetiId());
             int updatedRecords = pstm.executeUpdate();
@@ -66,5 +68,19 @@ public class AktivitetetRepository extends BaseRepository<Aktivitetet, CreateAkt
             e.printStackTrace();
         }
         return null;
+    }
+
+    public List<Aktivitetet> getAll() {
+        List<Aktivitetet> list = new ArrayList<>();
+        String query = "SELECT * FROM Aktivitetet";
+        try (PreparedStatement stmt = this.connection.prepareStatement(query);
+             ResultSet res = stmt.executeQuery()) {
+            while (res.next()) {
+                list.add(fromResultSet(res));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
     }
 }

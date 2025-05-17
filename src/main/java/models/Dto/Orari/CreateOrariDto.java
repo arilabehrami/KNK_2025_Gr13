@@ -1,24 +1,24 @@
 package models.Dto.Orari;
 
 public class CreateOrariDto {
-    private int femijaId;
+    private int femijaID;
     private String dita;
     private String oraHyrjes;
     private String oraDaljes;
 
-    public CreateOrariDto(int femijaId, String dita, String oraHyrjes, String oraDaljes) {
-        this.femijaId = femijaId;
+    public CreateOrariDto(int femijaID, String dita, String oraHyrjes, String oraDaljes) {
+        this.femijaID = femijaID;
         this.dita = dita;
         this.oraHyrjes = oraHyrjes;
         this.oraDaljes = oraDaljes;
     }
 
-    public int getFemijaId() {
-        return femijaId;
+    public int getFemijaID() {
+        return femijaID;
     }
 
-    public void setFemijaId(int femijaId) {
-        this.femijaId = femijaId;
+    public void setFemijaID(int femijaID) {
+        this.femijaID = femijaID;
     }
 
     public String getDita() {

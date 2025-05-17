@@ -29,22 +29,21 @@ public class Orari {
         return new Orari(orariID, femijaID, dita, oraHyrjes, oraDaljes);
     }
 
+
+
     public int getOrariID() {
         return orariID;
     }
-
+    public void setOrariID(int orariID) {this.orariID = orariID;}
     public int getFemijaID() {
         return femijaID;
     }
-
     public String getDita() {
         return dita;
     }
-
     public Time getOraHyrjes() {
         return oraHyrjes;
     }
-
     public Time getOraDaljes() {
         return oraDaljes;
     }
