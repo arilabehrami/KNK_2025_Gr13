@@ -25,7 +25,6 @@ public class AktivitetetController {
     @FXML private TableColumn<Aktivitetet, String> colPershkrimi;
     @FXML private TableColumn<Aktivitetet, LocalDate> colData;
     @FXML private TableColumn<Aktivitetet, Integer> colGrupiID;
-
     @FXML private TextField tfEmriAktivitetit;
     @FXML private TextArea taPershkrimi;
     @FXML private DatePicker dpData;
