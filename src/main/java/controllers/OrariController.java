@@ -58,7 +58,6 @@ public class OrariController {
         colDita.setCellValueFactory(new PropertyValueFactory<>("dita"));
         colOraHyrjes.setCellValueFactory(new PropertyValueFactory<>("oraHyrjes"));
         colOraDaljes.setCellValueFactory(new PropertyValueFactory<>("oraDaljes"));
-
         tableOrari.getSelectionModel().selectedItemProperty().addListener(
                 (obs, oldSelection, newSelection) -> fillForm(newSelection));
     }
@@ -88,22 +87,36 @@ public class OrariController {
 
     @FXML
     private void addOrari() {
+        String oraHyrjesString = tfOraHyrjes.getText().trim();
+        String oraDaljesString = tfOraDaljes.getText().trim();
+
+        // Vetëm validim i formatit HH:mm
+        if (!oraHyrjesString.matches("^\\d{1,2}:\\d{2}$")) {
+            showAlert(Alert.AlertType.ERROR, "Ora hyrëse duhet të jetë në formatin HH:mm, p.sh. 12:00");
+            return;
+        }
+        if (!oraDaljesString.matches("^\\d{1,2}:\\d{2}$")) {
+            showAlert(Alert.AlertType.ERROR, "Ora dalëse duhet të jetë në formatin HH:mm, p.sh. 12:00");
+            return;
+        }
+
         try {
             CreateOrariDto dto = new CreateOrariDto(
                     Integer.parseInt(tfFemijaID.getText()),
                     tfDita.getText(),
-                    tfOraHyrjes.getText(),
-                    tfOraDaljes.getText()
+                    oraHyrjesString,
+                    oraDaljesString
             );
             service.addOrari(dto);
             loadData();
             clearForm();
-            showAlert(Alert.AlertType.INFORMATION, getMessage("orari.info.added", "Orari u shtua!"));
+            showAlert(Alert.AlertType.INFORMATION, "Orari u shtua!");
         } catch (Exception e) {
-            showAlert(Alert.AlertType.ERROR, getMessage("orari.error.add", "Gabim gjatë shtimit!"));
+            showAlert(Alert.AlertType.ERROR, "Gabim gjatë shtimit!");
             e.printStackTrace();
         }
     }
+
 
     @FXML
     private void updateOrari() {
