@@ -3,19 +3,13 @@ package controllers;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
+import services.FinancaService;
 import models.Dto.Financat.CreateFinancatDto;
 import models.domain.Financat;
-import services.FinancaService;
 
 import java.time.LocalDate;
 
 public class FinancaController {
-
-    @FXML
-    private TextField txtId;
-
-    @FXML
-    private DatePicker datePicker;
 
     @FXML
     private TextField txtTeArdhura;
@@ -27,6 +21,9 @@ public class FinancaController {
     private TextArea txtPershkrimi;
 
     @FXML
+    private DatePicker datePicker;
+
+    @FXML
     private Button btnRuaj;
 
     @FXML
@@ -35,7 +32,10 @@ public class FinancaController {
     @FXML
     private Button btnKerko;
 
-    private final FinancaService financatService;
+    @FXML
+    private TextField txtId;
+
+    private FinancaService financatService;
 
     public FinancaController() {
         this.financatService = new FinancaService();
@@ -50,33 +50,45 @@ public class FinancaController {
 
     private void handleRuaj() {
         try {
-            int id = Integer.parseInt(txtId.getText());
-            float teArdhura = Float.parseFloat(txtTeArdhura.getText());
-            float shpenzime = Float.parseFloat(txtShpenzime.getText());
-            String pershkrimi = txtPershkrimi.getText();
-            LocalDate date = datePicker.getValue();
+            // Lexojmë ID (nëse do përdoret)
+            int financatID = 0;
+            if (txtId != null && !txtId.getText().isEmpty()) {
+                financatID = Integer.parseInt(txtId.getText());
+            }
 
-            if (pershkrimi == null || pershkrimi.trim().isEmpty()) {
+            // Kontrollojmë të dhënat tjera
+            String teArdhuraStr = txtTeArdhura.getText();
+            String shpenzimeStr = txtShpenzime.getText();
+            String pershkrimi = txtPershkrimi.getText();
+            LocalDate data = datePicker.getValue();
+
+            if (pershkrimi == null || pershkrimi.isEmpty()) {
                 throw new Exception("Pershkrimi nuk mund te jete bosh.");
             }
 
-            if (date == null) {
+            if (data == null) {
                 throw new Exception("Ju lutem zgjidhni nje date.");
             }
 
+            float teArdhura = Float.parseFloat(teArdhuraStr);
+            float shpenzime = Float.parseFloat(shpenzimeStr);
+
             CreateFinancatDto dto = new CreateFinancatDto(
-                    id,
-                    date.toString(),
+                    financatID,
+                    data.toString(),
                     teArdhura,
                     shpenzime,
                     pershkrimi
             );
 
-            financatService.create(dto);
-            showSuccess("Financa u ruajt me sukses!");
-
+            Financat financa = financatService.create(dto);
+            if (financa != null) {
+                showSuccess("Financa u ruajt me sukses!");
+            } else {
+                showError("Nuk u krye ruajtja e financave.");
+            }
         } catch (NumberFormatException ex) {
-            showError("ID, Të ardhurat dhe Shpenzimet duhet te jene numra.");
+            showError("Te ardhurat dhe shpenzimet duhet te jene numra.");
         } catch (Exception ex) {
             showError(ex.getMessage());
         }
@@ -86,12 +98,11 @@ public class FinancaController {
         try {
             int id = Integer.parseInt(txtId.getText());
             financatService.delete(id);
-            showSuccess("Financa u fshi me sukses!");
-            clearFields();
-        } catch (NumberFormatException ex) {
-            showError("ID duhet te jete numër.");
-        } catch (Exception ex) {
-            showError("Nuk u arrit te fshihet financa: " + ex.getMessage());
+            showSuccess("Financa u fshi me sukses.");
+        } catch (NumberFormatException e) {
+            showError("ID duhet te jete numer.");
+        } catch (Exception e) {
+            showError(e.getMessage());
         }
     }
 
@@ -99,30 +110,19 @@ public class FinancaController {
         try {
             int id = Integer.parseInt(txtId.getText());
             Financat financa = financatService.getById(id);
-            if (financa == null) {
-                showError("Nuk u gjet asnje finance me kete ID.");
-                return;
+            if (financa != null) {
+                txtTeArdhura.setText(String.valueOf(financa.getTeArdhura()));
+                txtShpenzime.setText(String.valueOf(financa.getShpenzime()));
+                txtPershkrimi.setText(financa.getPershkrimi());
+                datePicker.setValue(LocalDate.parse(financa.getDate()));
+            } else {
+                showError("Financa me kete ID nuk u gjet.");
             }
-
-            txtTeArdhura.setText(String.valueOf(financa.getTeArdhura()));
-            txtShpenzime.setText(String.valueOf(financa.getShpenzime()));
-            txtPershkrimi.setText(financa.getPershkrimi());
-            datePicker.setValue(LocalDate.parse(financa.getDate()));
-            showSuccess("Financa u gjet me sukses!");
-
-        } catch (NumberFormatException ex) {
+        } catch (NumberFormatException e) {
             showError("ID duhet te jete numer.");
-        } catch (Exception ex) {
-            showError("Gabim gjate kerkimit: " + ex.getMessage());
+        } catch (Exception e) {
+            showError(e.getMessage());
         }
-    }
-
-    private void clearFields() {
-        txtId.clear();
-        txtTeArdhura.clear();
-        txtShpenzime.clear();
-        txtPershkrimi.clear();
-        datePicker.setValue(null);
     }
 
     private void showError(String message) {
