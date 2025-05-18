@@ -4,15 +4,12 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
 import services.PagesaService;
-import models.dto.Pagesa.CreatePagesaDto;
+import models.Dto.Pagesa.CreatePagesaDto;
 import models.domain.Pagesa;
 
 import java.time.LocalDate;
 
 public class CreatePagesaController {
-
-    @FXML
-    private TextField txtId;
 
     @FXML
     private TextField txtFemijaId;
@@ -43,33 +40,39 @@ public class CreatePagesaController {
     @FXML
     private void handleRuaj() {
         try {
-            int pagesaId = Integer.parseInt(txtId.getText());
             int femijaId = Integer.parseInt(txtFemijaId.getText());
             double shuma = Double.parseDouble(txtShuma.getText());
             String pershkrimi = txtPershkrimi.getText();
             LocalDate data = datePicker.getValue();
 
             if (pershkrimi == null || pershkrimi.isEmpty()) {
-                throw new Exception("Përshkrimi nuk mund të jetë bosh.");
+                throw new Exception("Pershkrimi nuk mund te jete bosh.");
             }
 
             if (data == null) {
-                throw new Exception("Ju lutem zgjidhni një datë.");
+                throw new Exception("Ju lutem zgjidhni nje date.");
             }
 
             CreatePagesaDto dto = new CreatePagesaDto(
-                    pagesaId,
                     femijaId,
                     shuma,
                     data.toString(),
                     pershkrimi
             );
+            System.out.println("Thirrja e create ne service...");
 
             Pagesa pagesa = pagesaService.create(dto);
             showSuccess("Pagesa u ruajt me sukses!");
+            System.out.println("Kthimi nga create: " + pagesa);
+
+            if (pagesa != null) {
+                showSuccess("Pagesa u ruajt me sukses!");
+            } else {
+                showError("Nuk u krijua pagesa.");
+            }
 
         } catch (NumberFormatException ex) {
-            showError("ID, ID e fëmijës dhe Shuma duhet të jenë numra.");
+            showError("ID, ID e femijes dhe Shuma duhet te jene numra.");
         } catch (Exception ex) {
             showError(ex.getMessage());
         }

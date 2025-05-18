@@ -47,4 +47,16 @@ public class FinancaService {
         }
         return this.financatRepository.update(updateDto);
     }
+
+    public void delete(int id) throws Exception {
+        if (id <= 0) {
+            throw new Exception("ID duhet të jetë më e madhe se 0.");
+        }
+        boolean success = this.financatRepository.delete(id);
+        if (!success) {
+            throw new Exception("Fshirja e financës dështoi. Mund të mos ekzistojë.");
+        }
+    }
+
+
 }

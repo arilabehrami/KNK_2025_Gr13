@@ -1,8 +1,8 @@
 package services;
 
 import models.domain.Pagesa;
-import models.dto.Pagesa.CreatePagesaDto;
-import models.dto.Pagesa.UpdatePagesaDto;
+import models.Dto.Pagesa.CreatePagesaDto;
+import models.Dto.Pagesa.UpdatePagesaDto;
 import repository.PagesaRepository;
 
 public class PagesaService {

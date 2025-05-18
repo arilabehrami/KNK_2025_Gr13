@@ -1,8 +1,8 @@
 package repository;
 
 import models.domain.Pagesa;
-import models.dto.Pagesa.CreatePagesaDto;
-import models.dto.Pagesa.UpdatePagesaDto;
+import models.Dto.Pagesa.CreatePagesaDto;
+import models.Dto.Pagesa.UpdatePagesaDto;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -20,7 +20,7 @@ public class PagesaRepository extends BaseRepository<Pagesa, CreatePagesaDto, Up
 
     public Pagesa create(CreatePagesaDto createPagesaDto){
         String query = """
-                INSERT INTO Pagesat (PagesaID, FemijaID, Shuma, DataPageses, Pershkrimi)
+                INSERT INTO Pagesat (FemijaID, Shuma, DataPageses, Pershkrimi)
                 VALUES (?, ?, ?, ?, ?)
                 """;
         try{

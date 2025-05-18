@@ -1,22 +1,16 @@
-package models.dto.Pagesa;
+package models.Dto.Pagesa;
 
 public class CreatePagesaDto {
-    private int pagesaId;
     private int femijaId;
     private double shuma;
     private String data;
     private String pershkrimi;
     
-    public CreatePagesaDto(int pagesaId, int femijaId, double shuma, String data, String pershkrimi){
-        this.pagesaId = pagesaId;
+    public CreatePagesaDto( int femijaId, double shuma, String data, String pershkrimi){
         this.femijaId = femijaId;
         this.shuma = shuma;
         this.data = data;
         this.pershkrimi = pershkrimi;
-    }
-
-    public int getPagesaId(){
-        return pagesaId;
     }
 
     public void setFemijaId(int femijaId){
