@@ -8,42 +8,53 @@
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="controllers.CreateDonacionetController"
-            prefWidth="600" prefHeight="600">
-    <VBox alignment="CENTER" spacing="15" style="-fx-background-color: #f4f4f4; -fx-padding: 20;">
-        <Label text="Forma për Shtim të Donacioneve" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #333;" />
+            prefWidth="1000" prefHeight="700"
+            style="-fx-background-color: #e8f5e9;">
 
-        <GridPane hgap="10" vgap="10" alignment="CENTER">
-            <Label text="Emri i Organizatës:" GridPane.rowIndex="0" GridPane.columnIndex="0" style="-fx-font-size: 14px;"/>
-            <TextField fx:id="emriOrganizatesField" promptText="Shkruaj emrin e organizatës" GridPane.rowIndex="0" GridPane.columnIndex="1" prefWidth="300"/>
+    <VBox alignment="TOP_CENTER" spacing="20"
+          AnchorPane.leftAnchor="100.0"
+          AnchorPane.rightAnchor="100.0"
+          AnchorPane.topAnchor="40.0"
+          AnchorPane.bottomAnchor="40.0"
+          style="-fx-background-color: white; -fx-padding: 30; -fx-background-radius: 15; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, 4);">
 
-            <Label text="Lloji i Donatorit:" GridPane.rowIndex="1" GridPane.columnIndex="0" style="-fx-font-size: 14px;"/>
-            <ComboBox fx:id="llojiDonatoriCombo" promptText="Zgjidh llojin e donatorit" GridPane.rowIndex="1" GridPane.columnIndex="1" prefWidth="300"/>
+        <Label text="Forma për Shtim të Donacioneve"
+               style="-fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: #2e7d32;" />
 
-            <Label text="Kontakti:" GridPane.rowIndex="2" GridPane.columnIndex="0" style="-fx-font-size: 14px;"/>
-            <TextField fx:id="kontaktiField" promptText="Shkruaj numrin e kontaktit" GridPane.rowIndex="2" GridPane.columnIndex="1" prefWidth="300"/>
+        <GridPane hgap="20" vgap="15" alignment="CENTER">
+            <Label text="Emri i Organizatës:" GridPane.rowIndex="0" GridPane.columnIndex="0" style="-fx-font-size: 15px; -fx-text-fill: #333;" />
+            <TextField fx:id="emriOrganizatesField" promptText="Shkruaj emrin e organizatës" GridPane.rowIndex="0" GridPane.columnIndex="1" prefWidth="400" style="-fx-background-radius: 6;" />
 
-            <Label text="Email:" GridPane.rowIndex="3" GridPane.columnIndex="0" style="-fx-font-size: 14px;"/>
-            <TextField fx:id="emailField" promptText="Shkruaj email-in (shembull@domain.com)" GridPane.rowIndex="3" GridPane.columnIndex="1" prefWidth="300"/>
+            <Label text="Lloji i Donatorit:" GridPane.rowIndex="1" GridPane.columnIndex="0" style="-fx-font-size: 15px; -fx-text-fill: #333;" />
+            <ComboBox fx:id="llojiDonatoriCombo" promptText="Zgjidh llojin e donatorit" GridPane.rowIndex="1" GridPane.columnIndex="1" prefWidth="400" style="-fx-background-radius: 6;" />
 
-            <Label text="Adresa:" GridPane.rowIndex="4" GridPane.columnIndex="0" style="-fx-font-size: 14px;"/>
-            <TextField fx:id="adresaField" promptText="Shkruaj adresën" GridPane.rowIndex="4" GridPane.columnIndex="1" prefWidth="300"/>
+            <Label text="Kontakti:" GridPane.rowIndex="2" GridPane.columnIndex="0" style="-fx-font-size: 15px; -fx-text-fill: #333;" />
+            <TextField fx:id="kontaktiField" promptText="Shkruaj numrin e kontaktit" GridPane.rowIndex="2" GridPane.columnIndex="1" prefWidth="400" style="-fx-background-radius: 6;" />
 
-            <Label text="Data e Donacionit:" GridPane.rowIndex="5" GridPane.columnIndex="0" style="-fx-font-size: 14px;"/>
-            <DatePicker fx:id="dataDonacionitPicker" promptText="Zgjidh datën" GridPane.rowIndex="5" GridPane.columnIndex="1" prefWidth="300"/>
+            <Label text="Email:" GridPane.rowIndex="3" GridPane.columnIndex="0" style="-fx-font-size: 15px; -fx-text-fill: #333;" />
+            <TextField fx:id="emailField" promptText="Shkruaj email-in (shembull@domain.com)" GridPane.rowIndex="3" GridPane.columnIndex="1" prefWidth="400" style="-fx-background-radius: 6;" />
 
-            <Label text="Shuma:" GridPane.rowIndex="6" GridPane.columnIndex="0" style="-fx-font-size: 14px;"/>
-            <TextField fx:id="shumaField" promptText="Shkruaj shumën (vetëm numra)" GridPane.rowIndex="6" GridPane.columnIndex="1" prefWidth="300"/>
+            <Label text="Adresa:" GridPane.rowIndex="4" GridPane.columnIndex="0" style="-fx-font-size: 15px; -fx-text-fill: #333;" />
+            <TextField fx:id="adresaField" promptText="Shkruaj adresën" GridPane.rowIndex="4" GridPane.columnIndex="1" prefWidth="400" style="-fx-background-radius: 6;" />
 
-            <Label text="Lloji i Donacionit:" GridPane.rowIndex="7" GridPane.columnIndex="0" style="-fx-font-size: 14px;"/>
-            <ComboBox fx:id="llojiDonacionitCombo" promptText="Zgjidh llojin e donacionit" GridPane.rowIndex="7" GridPane.columnIndex="1" prefWidth="300"/>
+            <Label text="Data e Donacionit:" GridPane.rowIndex="5" GridPane.columnIndex="0" style="-fx-font-size: 15px; -fx-text-fill: #333;" />
+            <DatePicker fx:id="dataDonacionitPicker" promptText="Zgjidh datën" GridPane.rowIndex="5" GridPane.columnIndex="1" prefWidth="400" style="-fx-background-radius: 6;" />
 
-            <Label text="Përshkrimi:" GridPane.rowIndex="8" GridPane.columnIndex="0" style="-fx-font-size: 14px;"/>
-            <TextArea fx:id="pershkrimiArea" promptText="Shkruaj përshkrimin e donacionit" prefRowCount="4" GridPane.rowIndex="8" GridPane.columnIndex="1" prefWidth="300"/>
+            <Label text="Shuma:" GridPane.rowIndex="6" GridPane.columnIndex="0" style="-fx-font-size: 15px; -fx-text-fill: #333;" />
+            <TextField fx:id="shumaField" promptText="Shkruaj shumën (vetëm numra)" GridPane.rowIndex="6" GridPane.columnIndex="1" prefWidth="400" style="-fx-background-radius: 6;" />
+
+            <Label text="Lloji i Donacionit:" GridPane.rowIndex="7" GridPane.columnIndex="0" style="-fx-font-size: 15px; -fx-text-fill: #333;" />
+            <ComboBox fx:id="llojiDonacionitCombo" promptText="Zgjidh llojin e donacionit" GridPane.rowIndex="7" GridPane.columnIndex="1" prefWidth="400" style="-fx-background-radius: 6;" />
+
+            <Label text="Përshkrimi:" GridPane.rowIndex="8" GridPane.columnIndex="0" style="-fx-font-size: 15px; -fx-text-fill: #333;" />
+            <TextArea fx:id="pershkrimiArea" promptText="Shkruaj përshkrimin e donacionit" GridPane.rowIndex="8" GridPane.columnIndex="1" prefWidth="400" prefRowCount="4" style="-fx-background-radius: 6;" />
         </GridPane>
 
-        <HBox spacing="10" alignment="CENTER" style="-fx-padding: 20 0 0 0;">
-            <Button fx:id="ruajButton" text="Ruaj Donacionin" onAction="#ruajDonacionin" style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10 20;"/>
-            <Button fx:id="anuloButton" text="Anulo" onAction="#anulo" style="-fx-background-color: #f44336; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10 20;"/>
+        <HBox spacing="20" alignment="CENTER" style="-fx-padding: 30 0 0 0;">
+            <Button fx:id="ruajButton" text="Ruaj Donacionin" onAction="#ruajDonacionin"
+                    style="-fx-background-color: #66bb6a; -fx-text-fill: white; -fx-font-size: 15px; -fx-padding: 10 24; -fx-background-radius: 8;" />
+            <Button fx:id="anuloButton" text="Anulo" onAction="#anulo"
+                    style="-fx-background-color: #ef5350; -fx-text-fill: white; -fx-font-size: 15px; -fx-padding: 10 24; -fx-background-radius: 8;" />
         </HBox>
     </VBox>
 </AnchorPane>
