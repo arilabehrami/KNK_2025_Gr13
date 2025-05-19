@@ -14,9 +14,15 @@ public class OrariService {
 
     private final OrariRepository repository;
 
+    // Konstruktor pa parametra që krijon vetë repo-n
     public OrariService() {
         Connection connection = DBConnection.getConnection();
         this.repository = new OrariRepository(connection);
+    }
+
+    // Konstruktor me parametër për injektim të repo-së nga jashtë
+    public OrariService(OrariRepository repository) {
+        this.repository = repository;
     }
 
     public List<Orari> getAllOrari() throws SQLException {

@@ -3,13 +3,17 @@ package controllers;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import models.domain.Orari;
 import models.Dto.Orari.CreateOrariDto;
 import models.Dto.Orari.UpdateOrariDto;
+import repository.OrariRepository;
 import services.OrariService;
+import Database.DBConnection;
 
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.time.LocalTime;
 import java.util.List;
@@ -41,10 +45,12 @@ public class OrariController {
     private ObservableList<Orari> orariObservableList;
     private ResourceBundle resources;
 
+    // Kjo metodë e vendos shërbimin (duhet të thirret nga jashtë me repo të krijuar)
     public void setService(OrariService service) {
         this.service = service;
     }
 
+    // Vendos resource bundle dhe rifreskon UI-në dhe të dhënat
     public void setResources(ResourceBundle resources) {
         this.resources = resources;
         updateUILanguage();
@@ -58,6 +64,7 @@ public class OrariController {
         colDita.setCellValueFactory(new PropertyValueFactory<>("dita"));
         colOraHyrjes.setCellValueFactory(new PropertyValueFactory<>("oraHyrjes"));
         colOraDaljes.setCellValueFactory(new PropertyValueFactory<>("oraDaljes"));
+
         tableOrari.getSelectionModel().selectedItemProperty().addListener(
                 (obs, oldSelection, newSelection) -> fillForm(newSelection));
     }
@@ -90,13 +97,12 @@ public class OrariController {
         String oraHyrjesString = tfOraHyrjes.getText().trim();
         String oraDaljesString = tfOraDaljes.getText().trim();
 
-        // Vetëm validim i formatit HH:mm
         if (!oraHyrjesString.matches("^\\d{1,2}:\\d{2}$")) {
-            showAlert(Alert.AlertType.ERROR, "Ora hyrëse duhet të jetë në formatin HH:mm, p.sh. 12:00");
+            showAlert(Alert.AlertType.ERROR, getMessage("orari.error.invalidStartTime", "Ora hyrëse duhet të jetë në formatin HH:mm, p.sh. 12:00"));
             return;
         }
         if (!oraDaljesString.matches("^\\d{1,2}:\\d{2}$")) {
-            showAlert(Alert.AlertType.ERROR, "Ora dalëse duhet të jetë në formatin HH:mm, p.sh. 12:00");
+            showAlert(Alert.AlertType.ERROR, getMessage("orari.error.invalidEndTime", "Ora dalëse duhet të jetë në formatin HH:mm, p.sh. 12:00"));
             return;
         }
 
@@ -110,13 +116,12 @@ public class OrariController {
             service.addOrari(dto);
             loadData();
             clearForm();
-            showAlert(Alert.AlertType.INFORMATION, "Orari u shtua!");
+            showAlert(Alert.AlertType.INFORMATION, getMessage("orari.info.added", "Orari u shtua!"));
         } catch (Exception e) {
-            showAlert(Alert.AlertType.ERROR, "Gabim gjatë shtimit!");
+            showAlert(Alert.AlertType.ERROR, getMessage("orari.error.add", "Gabim gjatë shtimit!"));
             e.printStackTrace();
         }
     }
-
 
     @FXML
     private void updateOrari() {
