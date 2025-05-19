@@ -33,12 +33,14 @@
             <Button text="Menyja Ditore" onAction="#loadMenyjaDitore" styleClass="nav-button" />
             <Button text="Prania" onAction="#loadPrania" styleClass="nav-button" />
             <Button text="Pagesat" onAction="#loadPagesa" styleClass="nav-button" />
-            <Button text="Orari" onAction="#loadOrari" styleClass="nav-button" />
+            <Button text="Orari" onAction="#loadOrariInsideMain" styleClass="nav-button" />
             <Button text="Sugjerimet" onAction="#loadSugjerimet" styleClass="nav-button" />
             <Button text="Donacionet" onAction="#loadDonacionet" styleClass="nav-button" />
             <Button text="Shënimet Shëndetësore" onAction="#loadShenimetShendetesore" styleClass="nav-button" />
             <Button text="Kontaktet Emergjente" onAction="#loadKontaktetEmergjente" styleClass="nav-button" />
-            <Button text="Aktivitetet" onAction="#loadAktivitetet" styleClass="nav-button" />
+            <Button text="Aktivitetet" onAction="#loadAktivitetetInsideMain" styleClass="nav-button" />
+
+
         </VBox>
     </left>
 

@@ -14,6 +14,10 @@ import javafx.stage.Stage;
 import javafx.event.ActionEvent;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import repository.AktivitetetRepository;
+import repository.OrariRepository;
+import services.AktivitetetService;
+import services.OrariService;
 import utils.PasswordUtils;
 
 import java.io.IOException;
@@ -42,7 +46,57 @@ public class MainController {
     private TextField passwordField;
 
     private Stage primaryStage;
+    @FXML
+    private void loadAktivitetetInsideMain(ActionEvent event) {
+        try {
+            Locale locale = new Locale("en");
 
+            Connection conn = DBConnection.getConnection();
+            AktivitetetRepository repo = new AktivitetetRepository(conn);
+            AktivitetetService service = new AktivitetetService(repo);
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/AktivitetetView.fxml"));
+            loader.setResources(ResourceBundle.getBundle("languages.messages", locale));
+            Node view = loader.load();
+
+            AktivitetetController controller = loader.getController();
+            controller.setService(service);
+            controller.setResources(loader.getResources());
+
+            contentArea.getChildren().clear();
+            contentArea.getChildren().add(view);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            showError("Nuk mund të ngarkohet pamja për Aktivitetet.");
+        }
+    }
+    @FXML
+    private void loadOrariInsideMain(ActionEvent event) {
+        try {
+            Locale locale = new Locale("sq");
+
+            Connection conn = DBConnection.getConnection();
+            OrariRepository repo = new OrariRepository(conn);
+            OrariService service = new OrariService(repo);
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/OrariView.fxml"));
+            loader.setResources(ResourceBundle.getBundle("languages.messages", locale));
+            Node view = loader.load();
+
+            OrariController controller = loader.getController();
+            controller.setService(service);
+            controller.setResources(loader.getResources());
+
+            contentArea.getChildren().clear();
+            contentArea.getChildren().add(view);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            showError("Nuk mund të ngarkohet pamja për Orarin.");
+        }
+    }
+    
     // Për të vendosur referencën e skenës kryesore
     public void setPrimaryStage(Stage stage) {
         this.primaryStage = stage;
