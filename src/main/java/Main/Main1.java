@@ -14,7 +14,7 @@ public class Main1 extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("/Views/FemijetView.fxml"));
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
-        primaryStage.setTitle("Titulli i aplikacionit");
+        primaryStage.setTitle("Femijet");
         primaryStage.show();
     }
 
