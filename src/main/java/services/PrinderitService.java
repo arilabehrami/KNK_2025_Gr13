@@ -5,6 +5,8 @@ import models.Dto.Prinderit.CreatePrinderitDto;
 import models.Dto.Prinderit.UpdatePrinderitDto;
 import repository.PrinderitRepository;
 
+import java.util.List;
+
 public class PrinderitService {
 
     private final PrinderitRepository prinderitRepository;
@@ -44,4 +46,16 @@ public class PrinderitService {
 
         return prinderitRepository.update(dto);
     }
+    public List<Prinderit> getAll() throws Exception {
+        return prinderitRepository.getAll();
+    }
+    public boolean delete(int id) {
+        if (id <= 0) {
+            return false;
+        }
+        return prinderitRepository.delete(id);
+    }
+
+
+
 }
