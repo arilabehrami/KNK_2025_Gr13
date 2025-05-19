@@ -160,6 +160,7 @@ public class MainController {
     }
 
     @FXML private void loadFemijet(ActionEvent event) { loadView("FemijetView.fxml"); }
+    @FXML private void loadGrupet(ActionEvent event) { loadView("GrupetView.fxml"); }
     @FXML private void loadUshqimet(ActionEvent event) { loadView("UshqimetView.fxml"); }
     @FXML private void loadMenyjaDitore(ActionEvent event) { loadView("MenyjaDitoreView.fxml"); }
     @FXML private void loadPrania(ActionEvent event) { loadView("PraniaView.fxml"); }

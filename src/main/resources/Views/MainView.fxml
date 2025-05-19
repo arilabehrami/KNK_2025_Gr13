@@ -7,24 +7,28 @@
 
     <!-- TOP: Header -->
     <top>
-        <HBox spacing="20" style="-fx-background-color: #2c3e50; -fx-padding: 10;">
+        <HBox spacing="20" style="-fx-background-color: #2d3e50; -fx-padding: 12; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 4, 0, 0, 2);">
             <ImageView fitHeight="40" fitWidth="40">
                 <image>
                     <Image url="@../Images/Figura1.jpg" />
                 </image>
             </ImageView>
-            <Label text="Paneli Kryesor" style="-fx-text-fill: white; -fx-font-size: 18px; -fx-font-weight: bold;" />
+            <Label text="Paneli Kryesor"
+                   style="-fx-text-fill: white; -fx-font-size: 22px; -fx-font-weight: bold;" />
             <Pane HBox.hgrow="ALWAYS" />
-            <Label fx:id="userLabel" text="Përdoruesi: Admin" style="-fx-text-fill: white; -fx-font-size: 14px;" />
-            <Button fx:id="logoutBtn" text="Dil" styleClass="logout-button" />
+            <Label fx:id="userLabel" text="Përdoruesi: Admin"
+                   style="-fx-text-fill: white; -fx-font-size: 14px;" />
+            <Button fx:id="logoutBtn" text="Dil"
+                    style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-background-radius: 20; -fx-padding: 6 14;" />
         </HBox>
     </top>
 
     <!-- LEFT: Sidebar Navigation -->
     <left>
-        <VBox spacing="10" style="-fx-background-color: #34495e; -fx-padding: 15;">
+        <VBox spacing="10" style="-fx-background-color: #34495e; -fx-padding: 20; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 4, 0, 0, 2);">
             <Button text="Ballina" onAction="#loadHome" styleClass="nav-button" />
             <Button text="Fëmijët" onAction="#loadFemijet" styleClass="nav-button" />
+            <Button text="Grupet" onAction="#loadGrupet" styleClass="nav-button" />
             <Button text="Ushqimet" onAction="#loadUshqimet" styleClass="nav-button" />
             <Button text="Menyja Ditore" onAction="#loadMenyjaDitore" styleClass="nav-button" />
             <Button text="Prania" onAction="#loadPrania" styleClass="nav-button" />
@@ -40,15 +44,17 @@
 
     <!-- CENTER: Dynamic content -->
     <center>
-        <StackPane fx:id="contentArea" style="-fx-background-color: white; -fx-padding: 20;">
-            <Label text="Mirësevini në panelin kryesor!" style="-fx-font-size: 24px; -fx-text-fill: #2c3e50;" />
+        <StackPane fx:id="contentArea" style="-fx-background-color: #f9f9f9; -fx-padding: 30;">
+            <Label text="Mirësevini në panelin kryesor!"
+                   style="-fx-font-size: 26px; -fx-font-weight: bold; -fx-text-fill: #2d3e50;" />
         </StackPane>
     </center>
 
     <!-- BOTTOM: Footer -->
     <bottom>
-        <HBox alignment="CENTER" style="-fx-background-color: #2c3e50; -fx-padding: 8;">
-            <Label text="© 2025 Kopshti Modern - Të gjitha të drejtat e rezervuara" style="-fx-text-fill: white; -fx-font-size: 12px;" />
+        <HBox alignment="CENTER" style="-fx-background-color: #2d3e50; -fx-padding: 8;">
+            <Label text="© 2025 Kopshti Modern - Të gjitha të drejtat e rezervuara"
+                   style="-fx-text-fill: white; -fx-font-size: 13px;" />
         </HBox>
     </bottom>
 </BorderPane>
