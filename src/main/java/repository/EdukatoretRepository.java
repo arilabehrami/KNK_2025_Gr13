@@ -6,10 +6,10 @@ import models.domain.Edukatoret;
 
 import java.sql.*;
 
-public class EdukatoretRepository extends BaseRepository<Edukatoret, CreateEdukatoretDto, UpdateEdukatoretDto> {
+public class EdukatoretRepository extends CustomBaseRepository<Edukatoret, CreateEdukatoretDto, UpdateEdukatoretDto> {
 
     public EdukatoretRepository() {
-        super("Edukatoret");
+        super("Edukatoret", "EdukatoriID");
     }
 
     @Override
