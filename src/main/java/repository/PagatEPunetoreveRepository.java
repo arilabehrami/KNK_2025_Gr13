@@ -16,7 +16,7 @@ public class PagatEPunetoreveRepository extends BaseRepository<PagatEPunetoreve,
     public PagatEPunetoreve getById(int id) {
         System.out.println("Attempting to fetch record with ID: " + id);
 
-        String query = "SELECT * FROM PagatEPunetoreve WHERE PagaID = ?";
+        String query = "SELECT * FROM \"PagatEPunetoreve\" WHERE PagaID = ?";
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement pst = conn.prepareStatement(query)) {
 
@@ -47,7 +47,7 @@ public class PagatEPunetoreveRepository extends BaseRepository<PagatEPunetoreve,
 
     public PagatEPunetoreve create(CreatePagatEPunetoreveDto createDto){
         String query = """
-                INSERT INTO PagatEPunetoreve(edukatoriID, muaji, viti, shumaPaga, DataPageses)
+                INSERT INTO \"PagatEPunetoreve\"(edukatoriID, muaji, viti, shumaPaga, DataPageses)
                 VALUES (?, ?, ?, ?, ?)
                 """;
         try{
@@ -70,7 +70,7 @@ public class PagatEPunetoreveRepository extends BaseRepository<PagatEPunetoreve,
     }
     public PagatEPunetoreve update(UpdatePagatEPunetoreveDto updateDto){
         String query = """
-                UPDATE PagatEPunetoreve
+                UPDATE \"PagatEPunetoreve\"
                 SET edukatoriID = ?, muaji = ?, viti = ?, shumaPaga = ?, DataPageses = ?
                 WHERE pagaID = ?
                 """;
@@ -94,7 +94,7 @@ public class PagatEPunetoreveRepository extends BaseRepository<PagatEPunetoreve,
 
     public ArrayList<PagatEPunetoreve> getAll(){
         ArrayList<PagatEPunetoreve> pagat = new ArrayList<>();
-        String query = "SELECT * FROM PagatEPunetoreve";
+        String query = "SELECT * FROM \"PagatEPunetoreve\"";
         try{
             Statement stm = this.connection.createStatement();
             ResultSet res = stm.executeQuery(query);
@@ -108,7 +108,7 @@ public class PagatEPunetoreveRepository extends BaseRepository<PagatEPunetoreve,
     }
 
     public boolean delete(int pagaID){
-        String query = "DELETE FROM PagatEPunetoreve WHERE PagaID = ?";
+        String query = "DELETE FROM \"PagatEPunetoreve\" WHERE PagaID = ?";
         try{
             PreparedStatement pstm = this.connection.prepareStatement(query);
             pstm.setInt(1, pagaID);
