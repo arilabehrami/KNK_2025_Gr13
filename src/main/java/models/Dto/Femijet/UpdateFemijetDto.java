@@ -5,12 +5,12 @@ public class UpdateFemijetDto {
     private String emri;
     private String mbiemri;
     private String dataLindjes;
-    private boolean gjinia;
+    private String gjinia;
     private String adresa;
     private String emriPrindit;
     private String kontaktiPrindit;
 
-    public UpdateFemijetDto(int femijaID, String emri, String mbiemri, String dataLindjes, boolean gjinia, String adresa, String emriPrindit, String kontaktiPrindit) {
+    public UpdateFemijetDto(int femijaID, String emri, String mbiemri, String dataLindjes, String gjinia, String adresa, String emriPrindit, String kontaktiPrindit) {
         this.femijaID = femijaID;
         this.emri = emri;
         this.mbiemri = mbiemri;
@@ -53,11 +53,11 @@ public class UpdateFemijetDto {
         this.dataLindjes = dataLindjes;
     }
 
-    public boolean isGjinia() {
+    public String isGjinia() {
         return gjinia;
     }
 
-    public void setGjinia(boolean gjinia) {
+    public void setGjinia(String gjinia) {
         this.gjinia = gjinia;
     }
 

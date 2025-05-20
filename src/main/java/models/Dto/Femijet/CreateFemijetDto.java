@@ -5,12 +5,12 @@ public class CreateFemijetDto {
     private String Emri;
     private String Mbiemri;
     private String DataLindjes;
-    private boolean Gjinia;
+    private String Gjinia;
     private String Adresa;
     private String EmriPrindit;
     private String KontaktiPrindit;
 
-    public CreateFemijetDto(int femijaID, String emri, String mbiemri, String dataLindjes, boolean gjinia, String adresa, String emriPrindit, String kontaktiPrindit) {
+    public CreateFemijetDto(int femijaID, String emri, String mbiemri, String dataLindjes, String gjinia, String adresa, String emriPrindit, String kontaktiPrindit) {
         FemijaID = femijaID;
         Emri = emri;
         Mbiemri = mbiemri;
@@ -53,11 +53,11 @@ public class CreateFemijetDto {
         DataLindjes = dataLindjes;
     }
 
-    public boolean isGjinia() {
+    public String isGjinia() {
         return Gjinia;
     }
 
-    public void setGjinia(boolean gjinia) {
+    public void setGjinia(String gjinia) {
         Gjinia = gjinia;
     }
 

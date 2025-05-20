@@ -25,6 +25,9 @@ public class Femijet {
         this.kontaktiPrindit = kontaktiPrindit;
     }
 
+    public Femijet(String text, String text1, String text2, String value, String text3) {
+    }
+
     public static Femijet getInstance(ResultSet result) throws SQLException {
         int femijaId = result.getInt("FemijaID");
         String emri = result.getString("Emri");
@@ -42,23 +45,23 @@ public class Femijet {
         return femijaID;
     }
 
-    public String getEmri() {
+    public String getEmri(String text) {
         return emri;
     }
 
-    public String getMbiemri() {
+    public String getMbiemri(String text) {
         return mbiemri;
     }
 
-    public String getDataLindjes() {
+    public String getDataLindjes(String text) {
         return dataLindjes;
     }
 
-    public String getGjinia() {
+    public String getGjinia(String value) {
         return gjinia;
     }
 
-    public String getAdresa() {
+    public String getAdresa(String text) {
         return adresa;
     }
 
