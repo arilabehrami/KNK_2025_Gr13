@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.control.cell.*?>
 <?import javafx.scene.control.DatePicker?>
 
 <VBox xmlns="http://javafx.com/javafx"
@@ -9,7 +10,7 @@
       spacing="10" alignment="CENTER" style="-fx-padding: 20;">
 
     <HBox spacing="10" alignment="CENTER_RIGHT">
-        <Label fx:id="languageLabel" text="Gjuha/Language:"/>
+        <Label fx:id="languageLabel" text="%label.language"/>
         <ComboBox fx:id="languageSelector" onAction="#onLanguageChange"/>
     </HBox>
 
@@ -24,4 +25,19 @@
 
     <Button fx:id="shtoButton" text="%button.shtoshenim" onAction="#onShtoShenim"/>
     <Label fx:id="statusLabel"/>
+
+    <TableView fx:id="shenimetTable" prefHeight="200" prefWidth="600">
+        <columns>
+            <TableColumn fx:id="idColumn" text="%table.id"/>
+            <TableColumn fx:id="femijaIdColumn" text="%label.femijaid"/>
+            <TableColumn fx:id="dataColumn" text="%label.data"/>
+            <TableColumn fx:id="pershkrimiColumn" text="%label.pershkrimi"/>
+        </columns>
+    </TableView>
+
+    <HBox spacing="10">
+        <Button fx:id="ngarkoButton" text="%button.load_all" onAction="#onNgarkoShenimet"/>
+        <Button fx:id="fshijButton" text="%button.delete_note" onAction="#onFshijShenim"/>
+        <Button fx:id="perditesoButton" text="%button.update_note" onAction="#onPerditesoShenim"/>
+    </HBox>
 </VBox>

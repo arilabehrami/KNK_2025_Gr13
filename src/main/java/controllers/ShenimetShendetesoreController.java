@@ -3,32 +3,39 @@ package controllers;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.StringConverter;
 import models.Dto.ShenimetShendetsore.CreateShenimetShendetsoreDto;
 import models.domain.ShenimetShendetesore;
+import services.FemijetService;
 import services.ShenimetShendetesoreService;
 
+import java.sql.Date;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Locale;
+import java.util.Optional;
 import java.util.ResourceBundle;
-import services.FemijetService;
 
 public class ShenimetShendetesoreController {
 
     @FXML private ComboBox<String> languageSelector;
     @FXML private Label languageLabel;
-
     @FXML private Label femijaIdLabel;
     @FXML private TextField femijaIdField;
-
     @FXML private Label dataLabel;
     @FXML private DatePicker dataPicker;
-
     @FXML private Label pershkrimiLabel;
     @FXML private TextArea pershkrimiField;
-
     @FXML private Button shtoButton;
     @FXML private Label statusLabel;
+    @FXML private TableView<ShenimetShendetesore> shenimetTable;
+    @FXML private TableColumn<ShenimetShendetesore, Integer> idColumn;
+    @FXML private TableColumn<ShenimetShendetesore, Integer> femijaIdColumn;
+    @FXML private TableColumn<ShenimetShendetesore, String> dataColumn;
+    @FXML private TableColumn<ShenimetShendetesore, String> pershkrimiColumn;
+    @FXML private Button ngarkoButton;
+    @FXML private Button fshijButton;
 
     private ResourceBundle bundle;
     private ShenimetShendetesoreService service;
@@ -40,7 +47,7 @@ public class ShenimetShendetesoreController {
         femijetService = new FemijetService();
 
         languageSelector.getItems().addAll("Shqip", "English");
-        languageSelector.setValue("Shqip"); // Default
+        languageSelector.setValue("Shqip");
         loadLanguage("sq");
 
         dataPicker.setConverter(new StringConverter<>() {
@@ -54,29 +61,116 @@ public class ShenimetShendetesoreController {
                 return (string != null && !string.isEmpty()) ? LocalDate.parse(string) : null;
             }
         });
-    }
 
-    @FXML
-    private void onLanguageChange(ActionEvent event) {
-        String selectedLang = languageSelector.getValue();
-        if ("English".equals(selectedLang)) {
-            loadLanguage("en");
-        } else {
-            loadLanguage("sq");
-        }
+        idColumn.setCellValueFactory(new PropertyValueFactory<>("shenimiID"));
+        femijaIdColumn.setCellValueFactory(new PropertyValueFactory<>("femijaID"));
+        dataColumn.setCellValueFactory(new PropertyValueFactory<>("data"));
+        pershkrimiColumn.setCellValueFactory(new PropertyValueFactory<>("pershkrimi"));
     }
 
     private void loadLanguage(String lang) {
         Locale locale = new Locale(lang);
         bundle = ResourceBundle.getBundle("languages.messages", locale);
 
-        // Update labels and buttons manually
+        // Përkthimet ekzistuese
         languageLabel.setText(bundle.getString("label.language"));
         femijaIdLabel.setText(bundle.getString("label.femijaid"));
         dataLabel.setText(bundle.getString("label.data"));
         pershkrimiLabel.setText(bundle.getString("label.pershkrimi"));
         shtoButton.setText(bundle.getString("button.shtoshenim"));
         statusLabel.setText("");
+
+        // Përkthimet për kokën e tabelës
+        idColumn.setText(bundle.getString("table.id"));
+        femijaIdColumn.setText(bundle.getString("label.femijaid"));
+        dataColumn.setText(bundle.getString("label.data"));
+        pershkrimiColumn.setText(bundle.getString("label.pershkrimi"));
+
+        // Përkthimet për butonat në fund
+        ngarkoButton.setText(bundle.getString("button.load_all"));
+        fshijButton.setText(bundle.getString("button.delete_note"));
+    }
+
+    @FXML
+    private void onLanguageChange(ActionEvent event) {
+        String selectedLang = languageSelector.getValue();
+        loadLanguage(selectedLang.equals("English") ? "en" : "sq");
+    }
+
+    @FXML
+    private void onShtoShenim() {
+        try {
+            int femijaId = Integer.parseInt(femijaIdField.getText());
+
+            if (femijaIdField.getText().isEmpty()) {
+                showSimpleAlert("error.empty_child_id");
+                return;
+            }
+
+            if (!femijetService.checkIfFemijaExists(femijaId)) {
+                showSimpleAlert("error.child_not_found");
+                return;
+            }
+
+            LocalDate date = dataPicker.getValue();
+            String pershkrimi = pershkrimiField.getText();
+
+            if (date == null) {
+                showSimpleAlert("error.date_required");
+                return;
+            }
+
+            if (pershkrimi.isEmpty()) {
+                showSimpleAlert("error.description_required");
+                return;
+            }
+
+            CreateShenimetShendetsoreDto dto = new CreateShenimetShendetsoreDto(
+                    femijaId,
+                    Date.valueOf(date),
+                    pershkrimi
+            );
+
+            ShenimetShendetesore shenimi = service.create(dto);
+            showSuccessAlert("success.note_added");
+            clearFields();
+            onNgarkoShenimet();
+        } catch (NumberFormatException e) {
+            showSimpleAlert("error.invalid_id");
+        } catch (Exception e) {
+            showSimpleAlert("error.general");
+        }
+    }
+
+    @FXML
+    private void onNgarkoShenimet() {
+        List<ShenimetShendetesore> lista = service.getAll();
+        shenimetTable.getItems().setAll(lista);
+    }
+
+    @FXML
+    private void onFshijShenim() {
+        ShenimetShendetesore shenimi = shenimetTable.getSelectionModel().getSelectedItem();
+        if (shenimi == null) {
+            showSimpleAlert("warning.select_note");
+            return;
+        }
+
+        Alert confirm = new Alert(Alert.AlertType.CONFIRMATION);
+        confirm.setTitle(bundle.getString("alert.confirm"));
+        confirm.setHeaderText(null);
+        confirm.setContentText(bundle.getString("confirm.delete"));
+
+        Optional<ButtonType> result = confirm.showAndWait();
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+            boolean uFshi = service.delete(shenimi.getShenimiID());
+            if (uFshi) {
+                showSuccessAlert("success.deleted");
+                onNgarkoShenimet();
+            } else {
+                showSimpleAlert("error.delete_failed");
+            }
+        }
     }
 
     private void clearFields() {
@@ -85,68 +179,63 @@ public class ShenimetShendetesoreController {
         pershkrimiField.clear();
     }
 
+    private void showSimpleAlert(String messageKey) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(bundle.getString("alert.error"));
+        alert.setHeaderText(null);
+        alert.setContentText(bundle.getString(messageKey));
+        alert.showAndWait();
+    }
+
+    private void showSuccessAlert(String messageKey) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(bundle.getString("alert.success"));
+        alert.setHeaderText(null);
+        alert.setContentText(bundle.getString(messageKey));
+        alert.showAndWait();
+    }
+
     @FXML
-    private void onShtoShenim() {
+    private void onPerditesoShenim() {
+        ShenimetShendetesore shenimi = shenimetTable.getSelectionModel().getSelectedItem();
+        if (shenimi == null) {
+            showSimpleAlert("warning.select_note");
+            return;
+        }
+
         try {
             int femijaId = Integer.parseInt(femijaIdField.getText());
 
-            // Kontrollo nëse fusha e ID-së është e zbrazët
-            if (femijaIdField.getText().isEmpty()) {
-                showSimpleAlert("Ju lutem shkruani ID-në e fëmijës!");
-                return;
-            }
-
-            // Kontrollo ekzistencën e fëmijës
             if (!femijetService.checkIfFemijaExists(femijaId)) {
-                showSimpleAlert("Fëmija me ID " + femijaId + " nuk ekziston në sistem!");
+                showSimpleAlert("error.child_not_found");
                 return;
             }
 
             LocalDate date = dataPicker.getValue();
             String pershkrimi = pershkrimiField.getText();
 
-            if (date == null) {
-                showSimpleAlert("Ju lutem zgjidhni një datë!");
+            if (date == null || pershkrimi.isEmpty()) {
+                showSimpleAlert("error.missing_fields");
                 return;
             }
 
-            if (pershkrimi.isEmpty()) {
-                showSimpleAlert("Ju lutem shkruani një përshkrim!");
-                return;
-            }
-
-            CreateShenimetShendetsoreDto dto = new CreateShenimetShendetsoreDto(
+            var dto = new models.Dto.ShenimetShendetsore.UpdateShenimetShendetsoreDto(
+                    shenimi.getShenimiID(),
                     femijaId,
-                    date.toString(),
-                    pershkrimi
+                    pershkrimi,
+                    Date.valueOf(date)
             );
 
-            ShenimetShendetesore shenimi = service.create(dto);
-
-            showSuccessAlert("Shënimi u krijua me sukses!\nID: " + shenimi.getShenimiID());
+            service.update(dto);
+            showSuccessAlert("success.note_updated");
             clearFields();
+            onNgarkoShenimet();
+
         } catch (NumberFormatException e) {
-            showSimpleAlert("ID e fëmijës duhet të jetë një numër!");
+            showSimpleAlert("error.invalid_id");
         } catch (Exception e) {
-            showSimpleAlert("Gabim: " + e.getMessage());
+            e.printStackTrace();
+            showSimpleAlert("error.general");
         }
-    }
-
-    // Metodë për alert të thjeshtë gabimi
-    private void showSimpleAlert(String message) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Gabim");
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-        alert.showAndWait();
-    }
-
-    // Metodë për alert suksesi
-    private void showSuccessAlert(String message) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Sukses");
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-        alert.showAndWait();
     }
 }

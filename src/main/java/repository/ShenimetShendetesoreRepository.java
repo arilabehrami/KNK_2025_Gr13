@@ -4,12 +4,10 @@ import models.Dto.ShenimetShendetsore.CreateShenimetShendetsoreDto;
 import models.Dto.ShenimetShendetsore.UpdateShenimetShendetsoreDto;
 import models.domain.ShenimetShendetesore;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 
-public class ShenimetShendetesoreRepository extends BaseRepository<ShenimetShendetesore, CreateShenimetShendetsoreDto, UpdateShenimetShendetsoreDto> {
+public class ShenimetShendetesoreRepository
+        extends BaseRepository<ShenimetShendetesore, CreateShenimetShendetsoreDto, UpdateShenimetShendetsoreDto> {
 
     public ShenimetShendetesoreRepository() {
         super("ShenimetShendetesore", "ShenimiID");
@@ -20,22 +18,22 @@ public class ShenimetShendetesoreRepository extends BaseRepository<ShenimetShend
         return ShenimetShendetesore.getInstance(result);
     }
 
-    public ShenimetShendetesore create(CreateShenimetShendetsoreDto shenimiDto) {
+    @Override
+    public ShenimetShendetesore create(CreateShenimetShendetsoreDto dto) {
         String query = """
-                INSERT INTO ShenimetShendetesore (FemijaID, Data, Pershkrimi)
-                VALUES (?, ?, ?)
-                """;
+            INSERT INTO ShenimetShendetesore (FemijaID, Data, Pershkrimi)
+            VALUES (?, ?, ?)
+        """;
         try {
             PreparedStatement pstm = this.connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
-            pstm.setInt(1, shenimiDto.getFemijaId());
-            pstm.setDate(2, java.sql.Date.valueOf(shenimiDto.getData()));
-            pstm.setString(3, shenimiDto.getPershkrimi());
+            pstm.setInt(1, dto.getFemijaId());
+            pstm.setDate(2, dto.getData());
+            pstm.setString(3, dto.getPershkrimi());
             pstm.execute();
 
             ResultSet res = pstm.getGeneratedKeys();
             if (res.next()) {
-                int id = res.getInt(1);
-                return this.getById(id);
+                return getById(res.getInt(1));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -43,25 +41,28 @@ public class ShenimetShendetesoreRepository extends BaseRepository<ShenimetShend
         return null;
     }
 
-    public ShenimetShendetesore update(UpdateShenimetShendetsoreDto shenimiDto) {
-        String query = """
-                UPDATE ShenimetShendetesore 
-                SET Data = ?, Pershkrimi = ?
-                WHERE ShenimiID = ?
-                """;
+    @Override
+    public ShenimetShendetesore update(UpdateShenimetShendetsoreDto dto) {
         try {
+            String query = """
+            UPDATE ShenimetShendetesore 
+            SET Data = ?, Pershkrimi = ?, FemijaID = ? 
+            WHERE ShenimiID = ?
+        """;
+
             PreparedStatement pstm = this.connection.prepareStatement(query);
-            pstm.setDate(1, java.sql.Date.valueOf(shenimiDto.getData()));
-            pstm.setString(2, shenimiDto.getPershkrimi());
-            pstm.setInt(3, shenimiDto.getShenimiId());
-            int updatedRecords = pstm.executeUpdate();
-            if (updatedRecords == 1) {
-                return this.getById(shenimiDto.getShenimiId());
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
+            pstm.setDate(1, dto.getData());
+            pstm.setString(2, dto.getPershkrimi());
+            pstm.setInt(3, dto.getFemijaId());
+            pstm.setInt(4, dto.getShenimiID());
+
+            pstm.executeUpdate();
+
+            return getById(dto.getShenimiID());
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            return null; // ose handle më mirë nëse dëshiron
         }
-        return null;
     }
 }
-

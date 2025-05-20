@@ -1,11 +1,13 @@
 package models.Dto.ShenimetShendetsore;
 
+import java.sql.Date;
+
 public class CreateShenimetShendetsoreDto {
     private int femijaId;
-    private String data;
+    private Date data;
     private String pershkrimi;
 
-    public CreateShenimetShendetsoreDto(int femijaId, String data, String pershkrimi) {
+    public CreateShenimetShendetsoreDto(int femijaId, Date data, String pershkrimi) {
         this.femijaId = femijaId;
         this.data = data;
         this.pershkrimi = pershkrimi;
@@ -19,11 +21,11 @@ public class CreateShenimetShendetsoreDto {
         this.femijaId = femijaId;
     }
 
-    public String getData() {
+    public Date getData() {
         return data;
     }
 
-    public void setData(String data) {
+    public void setData(Date data) {
         this.data = data;
     }
 

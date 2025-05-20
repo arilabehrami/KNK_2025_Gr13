@@ -1,17 +1,22 @@
 package models.Dto.ShenimetShendetsore;
 
-public class UpdateShenimetShendetsoreDto {
-    private int shenimiId;
-    private String pershkrimi;
-    private String data;
+import java.sql.Date;
 
-    public UpdateShenimetShendetsoreDto(int shenimiId, String pershkrimi) {
-        this.shenimiId = shenimiId;
+public class UpdateShenimetShendetsoreDto {
+    private int shenimiID;
+    private String pershkrimi;
+    private Date data;
+    private int femijaId;
+
+    public UpdateShenimetShendetsoreDto(int shenimiId, int femijaId, String pershkrimi, Date data) {
+        this.shenimiID = shenimiId;
+        this.femijaId = femijaId;
         this.pershkrimi = pershkrimi;
+        this.data = data;
     }
 
-    public int getShenimiId() {
-        return shenimiId;
+    public int getShenimiID() {
+        return shenimiID;
     }
 
     public String getPershkrimi() {
@@ -23,11 +28,19 @@ public class UpdateShenimetShendetsoreDto {
     }
 
 
-    public String getData() {
+    public Date getData() {
         return data;
     }
 
-    public void setData(String data) {
+    public void setData(Date data) {
         this.data = data;
+    }
+
+    public int getFemijaId() {
+        return femijaId;
+    }
+
+    public void setFemijaId(int femijaId) {
+        this.femijaId = femijaId;
     }
 }
