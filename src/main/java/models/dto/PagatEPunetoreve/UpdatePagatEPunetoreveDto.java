@@ -1,4 +1,4 @@
-package models.dto.PagatEPunetoreve;
+package models.Dto.PagatEPunetoreve;
 
 public class UpdatePagatEPunetoreveDto {
 
