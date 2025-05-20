@@ -28,9 +28,9 @@
 
     <!-- Butonat për zgjedhjen e gjuhës -->
     <HBox spacing="10">
-        <Label text="%language.select"/>
-        <Button fx:id="btnAlbanian" text="Shqip" onAction="#switchToAlbanian"/>
-        <Button fx:id="btnEnglish" text="English" onAction="#switchToEnglish"/>
+        <Label text="Select Language:"/>
+        <Button fx:id="btnSwitchAlbanian" text="Shqip" onAction="#switchToAlbanian"/>
+        <Button fx:id="btnSwitchEnglish" text="English" onAction="#switchToEnglish"/>
     </HBox>
 
     <!-- TableView për listën e aktiviteteve -->
@@ -46,18 +46,19 @@
 
     <!-- Forma për hyrje të të dhënave -->
     <GridPane hgap="10" vgap="10">
-        <Label text="%aktivitetet.label.emri" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+        <Label fx:id="lblEmriAktivitetit" text="%aktivitetet.label.emri" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
         <TextField fx:id="tfEmriAktivitetit" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
 
-        <Label text="%aktivitetet.label.pershkrimi" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+        <Label fx:id="lblPershkrimi" text="%aktivitetet.label.pershkrimi" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
         <TextArea fx:id="taPershkrimi" prefRowCount="3" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
 
-        <Label text="%aktivitetet.label.data" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+        <Label fx:id="lblData" text="%aktivitetet.label.data" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
         <DatePicker fx:id="dpData" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
 
-        <Label text="%aktivitetet.label.grupiid" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
+        <Label fx:id="lblGrupiID" text="%aktivitetet.label.grupiid" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
         <TextField fx:id="tfGrupiID" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
     </GridPane>
+
 
     <!-- Butonat për CRUD dhe Clear -->
     <HBox spacing="10" alignment="CENTER_RIGHT">

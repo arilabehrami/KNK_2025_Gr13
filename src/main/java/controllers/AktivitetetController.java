@@ -29,7 +29,16 @@ public class AktivitetetController {
     @FXML private TableColumn<Aktivitetet, String> colPershkrimi;
     @FXML private TableColumn<Aktivitetet, LocalDate> colData;
     @FXML private TableColumn<Aktivitetet, Integer> colGrupiID;
-
+    @FXML private Button btnSwitchAlbanian;
+    @FXML private Button btnSwitchEnglish;
+    @FXML private Button btnAdd;
+    @FXML private Button btnUpdate;
+    @FXML private Button btnDelete;
+    @FXML private Button btnClear;
+    @FXML private Label lblEmriAktivitetit;
+    @FXML private Label lblPershkrimi;
+    @FXML private Label lblData;
+    @FXML private Label lblGrupiID;
     @FXML private TextField tfEmriAktivitetit;
     @FXML private TextArea taPershkrimi;
     @FXML private DatePicker dpData;
@@ -51,6 +60,10 @@ public class AktivitetetController {
             colData.setCellValueFactory(new PropertyValueFactory<>("data"));
             colGrupiID.setCellValueFactory(new PropertyValueFactory<>("grupiID"));
 
+            resources = ResourceBundle.getBundle("languages.messages", new Locale("sq"));
+            updateUILabels();
+            updatePrompts();
+
             loadData();
 
             tableAktivitetet.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
@@ -69,6 +82,7 @@ public class AktivitetetController {
     }
 
 
+
     private void loadData() {
         try {
             aktivitetetList.setAll(aktivitetetService.getAllAktivitetet());
@@ -82,16 +96,33 @@ public class AktivitetetController {
     @FXML
     private void addAktivitet() {
         try {
+            if (tfEmriAktivitetit.getText().isEmpty()) {
+                showAlert("Gabim", "Ju lutem shkruani emrin e aktivitetit.", Alert.AlertType.WARNING);
+                return;
+            }
+            if (dpData.getValue() == null) {
+                showAlert("Gabim", "Ju lutem zgjidhni një datë valide.", Alert.AlertType.WARNING);
+                return;
+            }
+            int grupiID;
+            try {
+                grupiID = Integer.parseInt(tfGrupiID.getText());
+            } catch (NumberFormatException e) {
+                showAlert("Gabim", "GrupiID duhet të jetë numër i plotë.", Alert.AlertType.WARNING);
+                return;
+            }
+
             CreateAktivitetetDto dto = new CreateAktivitetetDto(
                     tfEmriAktivitetit.getText(),
                     taPershkrimi.getText(),
                     dpData.getValue().toString(),
-                    Integer.parseInt(tfGrupiID.getText())
+                    grupiID
             );
             aktivitetetService.addAktivitet(dto);
             loadData();
             clearForm();
         } catch (Exception e) {
+            e.printStackTrace();
             showAlert("Gabim gjatë shtimit të aktivitetit", e.getMessage(), Alert.AlertType.ERROR);
         }
     }
@@ -143,32 +174,60 @@ public class AktivitetetController {
         tfGrupiID.clear();
         tableAktivitetet.getSelectionModel().clearSelection();
     }
-    @FXML
-    private void switchToAlbanian() {
-        switchLanguage("sq");
-    }
+    private ResourceBundle resources;
 
     @FXML
-    private void switchToEnglish() {
-        switchLanguage("en");
-    }
-
-    private void switchLanguage(String languageCode) {
+    public void switchToAlbanian() {
         try {
-            Locale newLocale = Locale.forLanguageTag(languageCode);
-            ResourceBundle bundle = ResourceBundle.getBundle("languages.messages", newLocale);
-
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/AktivitetetView.fxml"), bundle);
-            Parent root = loader.load();
-
-            Stage stage = (Stage) tableAktivitetet.getScene().getWindow(); // Merr skenën aktuale
-            stage.setScene(new Scene(root));
-            stage.show();
-
+            resources = ResourceBundle.getBundle("languages.messages", new Locale("sq"));
+            updateUILabels();
+            updatePrompts();
         } catch (Exception e) {
-            e.printStackTrace();
-            showAlert("Gabim gjatë ndërrimit të gjuhës", e.getMessage(), Alert.AlertType.ERROR);
+            showAlert("Gabim në ndërrimin e gjuhës", e.getMessage(), Alert.AlertType.ERROR);
         }
+    }
+
+    @FXML
+    public void switchToEnglish() {
+        try {
+            resources = ResourceBundle.getBundle("languages.messages", Locale.ENGLISH);
+            updateUILabels();
+            updatePrompts();
+        } catch (Exception e) {
+            showAlert("Error switching language", e.getMessage(), Alert.AlertType.ERROR);
+        }
+    }
+
+    private void updateUILabels() {
+        if (resources == null) return;
+
+        colID.setText(resources.getString("aktivitetet.col.id"));
+        colEmri.setText(resources.getString("aktivitetet.col.emri"));
+        colPershkrimi.setText(resources.getString("aktivitetet.col.pershkrimi"));
+        colData.setText(resources.getString("aktivitetet.col.data"));
+        colGrupiID.setText(resources.getString("aktivitetet.col.grupiid"));
+
+        btnSwitchAlbanian.setText(resources.getString("aktivitetet.button.switchAlbanian"));
+        btnSwitchEnglish.setText(resources.getString("aktivitetet.button.switchEnglish"));
+        btnAdd.setText(resources.getString("aktivitetet.btn.add"));
+        btnUpdate.setText(resources.getString("aktivitetet.btn.update"));
+        btnDelete.setText(resources.getString("aktivitetet.btn.delete"));
+        btnClear.setText(resources.getString("aktivitetet.btn.clear"));
+
+
+        lblEmriAktivitetit.setText(resources.getString("aktivitetet.label.emri"));
+        lblPershkrimi.setText(resources.getString("aktivitetet.label.pershkrimi"));
+        lblData.setText(resources.getString("aktivitetet.label.data"));
+        lblGrupiID.setText(resources.getString("aktivitetet.label.grupiid"));
+
+    }
+
+    private void updatePrompts() {
+        if (resources == null) return;
+
+        tfEmriAktivitetit.setPromptText(resources.getString("aktivitetet.promptEmri"));
+        taPershkrimi.setPromptText(resources.getString("aktivitetet.promptPershkrimi"));
+        tfGrupiID.setPromptText(resources.getString("aktivitetet.promptGrupiID"));
     }
 
 
