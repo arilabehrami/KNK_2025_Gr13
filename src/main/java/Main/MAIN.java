@@ -10,7 +10,7 @@ public class MAIN extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("/Views/MainView.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/Views/LoginView.fxml"));
         Scene scene = new Scene(root,800,500);
         primaryStage.setScene(scene);
         primaryStage.setTitle("Menaxhimi i Grupeve");

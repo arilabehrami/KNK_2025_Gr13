@@ -145,7 +145,7 @@
 
       <Label text="info@miniedu.com"
              style="-fx-font-size: 12px; -fx-text-fill: #6d4c41;"
-            ></Label>
+      ></Label>
 
       <Label text=" | " style="-fx-font-size: 14px; -fx-text-fill: #6d4c41;"/>
 
@@ -157,11 +157,11 @@
       <HBox spacing="15" alignment="CENTER_RIGHT">
         <!-- Social media icons as Labels with emojis -->
         <Label text="👍" style="-fx-font-size: 20px;"
-                />
+        />
         <Label text="🐦" style="-fx-font-size: 20px; "
-               />
+        />
         <Label text="📸" style="-fx-font-size: 20px; "
-                />
+        />
       </HBox>
     </HBox>
   </bottom>
