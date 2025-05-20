@@ -122,7 +122,8 @@ public class CreateGrupetController {
         }
     }
 
-    private void clearFields() {
+    @FXML
+    public void clearFields() {
         txtEmriGrupit.clear();
         txtMoshaMin.clear();
         txtMoshaMax.clear();

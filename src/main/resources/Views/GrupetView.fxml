@@ -6,7 +6,7 @@
 <AnchorPane prefHeight="600.0" prefWidth="1000.0"
             style="-fx-background-color: #e6f4ea;"
             xmlns:fx="http://javafx.com/fxml/1"
-            xmlns="http://javafx.com/javafx/17.0.12"
+            xmlns="http://javafx.com/javafx/17.0.6"
             fx:controller="controllers.CreateGrupetController">
 
     <VBox alignment="TOP_CENTER" spacing="25.0"
@@ -27,25 +27,25 @@
 
             <Label text="Emri i Grupit:" GridPane.columnIndex="0" GridPane.rowIndex="0"
                    style="-fx-font-size: 14px; -fx-text-fill: #444;" />
-            <TextField fx:id="emriGrupitField" promptText="Shkruaj emrin e grupit"
+            <TextField fx:id="txtEmriGrupit" promptText="Shkruaj emrin e grupit"
                        GridPane.columnIndex="1" GridPane.rowIndex="0"
                        style="-fx-background-radius: 6;" />
 
             <Label text="Mosha Minimale:" GridPane.columnIndex="0" GridPane.rowIndex="1"
                    style="-fx-font-size: 14px; -fx-text-fill: #444;" />
-            <TextField fx:id="moshaMinField" promptText="Shkruaj moshën minimale"
+            <TextField fx:id="txtMoshaMin" promptText="Shkruaj moshën minimale"
                        GridPane.columnIndex="1" GridPane.rowIndex="1"
                        style="-fx-background-radius: 6;" />
 
             <Label text="Mosha Maksimale:" GridPane.columnIndex="0" GridPane.rowIndex="2"
                    style="-fx-font-size: 14px; -fx-text-fill: #444;" />
-            <TextField fx:id="moshaMaxField" promptText="Shkruaj moshën maksimale"
+            <TextField fx:id="txtMoshaMax" promptText="Shkruaj moshën maksimale"
                        GridPane.columnIndex="1" GridPane.rowIndex="2"
                        style="-fx-background-radius: 6;" />
 
             <Label text="Edukatori ID:" GridPane.columnIndex="0" GridPane.rowIndex="3"
                    style="-fx-font-size: 14px; -fx-text-fill: #444;" />
-            <TextField fx:id="edukatoriIdField" promptText="Shkruaj ID e edukatorit"
+            <TextField fx:id="txtEdukatoriId" promptText="Shkruaj ID e edukatorit"
                        GridPane.columnIndex="1" GridPane.rowIndex="3"
                        style="-fx-background-radius: 6;" />
 
@@ -58,10 +58,21 @@
         </GridPane>
 
         <HBox alignment="CENTER" spacing="20.0">
-            <Button fx:id="ruajButton" onAction="#ruajGrupin" text="Ruaj"
+            <Button fx:id="ruajButton" onAction="#handleShto" text="Ruaj"
                     style="-fx-background-color: #66bb6a; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 8; -fx-padding: 8 16;" />
-            <Button fx:id="pastroButton" onAction="#pastroFushat" text="Pastro"
+            <Button fx:id="pastroButton" onAction="#clearFields" text="Pastro"
                     style="-fx-background-color: #ef5350; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 8; -fx-padding: 8 16;" />
         </HBox>
+
+        <!-- Shto TableView këtu -->
+        <TableView fx:id="tableGrupet" prefHeight="300.0" style="-fx-background-radius: 10;">
+            <columns>
+                <TableColumn fx:id="colGrupiId" text="ID" prefWidth="60"/>
+                <TableColumn fx:id="colEmriGrupit" text="Emri i Grupit" prefWidth="200"/>
+                <TableColumn fx:id="colMoshaMin" text="Mosha Min" prefWidth="100"/>
+                <TableColumn fx:id="colMoshaMax" text="Mosha Max" prefWidth="100"/>
+                <TableColumn fx:id="colEdukatoriId" text="Edukatori ID" prefWidth="120"/>
+            </columns>
+        </TableView>
     </VBox>
 </AnchorPane>
