@@ -8,10 +8,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 public class PagatEPunetoreveRepository extends BaseRepository<PagatEPunetoreve, CreatePagatEPunetoreveDto, UpdatePagatEPunetoreveDto> {
     public PagatEPunetoreveRepository(){
-        super("paga", "PagaID");
+        super("PagatEPunetoreve", "PagaID");
     }
 
     PagatEPunetoreve fromResultSet(ResultSet res) throws SQLException{
@@ -20,8 +21,8 @@ public class PagatEPunetoreveRepository extends BaseRepository<PagatEPunetoreve,
 
     public PagatEPunetoreve create(CreatePagatEPunetoreveDto createDto){
         String query = """
-                INSERT INTO PagatEPunetoreve(pagaID, edukatoriID, muaji, viti, shumaPaga, dataEPageses)
-                VALUES (?, ?, ?, ?, ?, ?)
+                INSERT INTO PagatEPunetoreve(edukatoriID, muaji, viti, shumaPaga, DataPageses)
+                VALUES (?, ?, ?, ?, ?)
                 """;
         try{
             PreparedStatement pstm = this.connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
@@ -44,7 +45,7 @@ public class PagatEPunetoreveRepository extends BaseRepository<PagatEPunetoreve,
     public PagatEPunetoreve update(UpdatePagatEPunetoreveDto updateDto){
         String query = """
                 UPDATE PagatEPunetoreve
-                SET edukatoriID = ?, muaji = ?, viti = ?, shumaPaga = ?, dataEPageses = ?
+                SET edukatoriID = ?, muaji = ?, viti = ?, shumaPaga = ?, DataPageses = ?
                 WHERE pagaID = ?
                 """;
         try{
@@ -63,5 +64,33 @@ public class PagatEPunetoreveRepository extends BaseRepository<PagatEPunetoreve,
             e.printStackTrace();
         }
         return null;
+    }
+
+    public ArrayList<PagatEPunetoreve> getAll(){
+        ArrayList<PagatEPunetoreve> pagat = new ArrayList<>();
+        String query = "SELECT * FROM PagatEPunetoreve";
+        try{
+            Statement stm = this.connection.createStatement();
+            ResultSet res = stm.executeQuery(query);
+            while(res.next()){
+                pagat.add(fromResultSet(res));
+            }
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+        return pagat;
+    }
+
+    public boolean delete(int pagaID){
+        String query = "DELETE FROM PagatEPunetoreve WHERE PagaID = ?";
+        try{
+            PreparedStatement pstm = this.connection.prepareStatement(query);
+            pstm.setInt(1, pagaID);
+            int rowsAffected = pstm.executeUpdate();
+            return rowsAffected == 1;
+        }catch(SQLException e){
+            e.printStackTrace();
+            return false;
+        }
     }
 }

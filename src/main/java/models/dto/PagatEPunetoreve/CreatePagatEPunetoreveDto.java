@@ -1,24 +1,18 @@
 package models.Dto.PagatEPunetoreve;
 
 public class CreatePagatEPunetoreveDto {
-    private int pagaID;
     private int edukatoriID;
     private String muaji;
     private int viti;
     private Double shumaPaga;
     private String dataEPageses;
 
-    public CreatePagatEPunetoreveDto(int pagaID, int edukatoriID, String muaji, int viti, Double shumaPaga, String dataEPageses) {
-        this.pagaID = pagaID;
+    public CreatePagatEPunetoreveDto(int edukatoriID, String muaji, int viti, Double shumaPaga, String dataEPageses) {
         this.edukatoriID = edukatoriID;
         this.muaji = muaji;
         this.viti = viti;
         this.shumaPaga = shumaPaga;
         this.dataEPageses = dataEPageses;
-    }
-
-    public int getPagaID() {
-        return pagaID;
     }
 
     public int getEdukatoriID() {

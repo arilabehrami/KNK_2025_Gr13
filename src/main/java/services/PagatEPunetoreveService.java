@@ -5,6 +5,8 @@ import models.Dto.PagatEPunetoreve.CreatePagatEPunetoreveDto;
 import models.Dto.PagatEPunetoreve.UpdatePagatEPunetoreveDto;
 import repository.PagatEPunetoreveRepository;
 
+import java.util.ArrayList;
+
 public class PagatEPunetoreveService {
     private PagatEPunetoreveRepository pagaRepository;
     public PagatEPunetoreveService(){
@@ -25,9 +27,10 @@ public class PagatEPunetoreveService {
         if(createDto.getEdukatoriID() <= 0){
             throw new Exception("ID-ja e edukatorit nuk mund te jete bosh!");
         }
-        if(createDto.getDataEPageses().isEmpty() || createDto.getDataEPageses() == null){
+        if(createDto.getDataEPageses() == null || createDto.getDataEPageses().isEmpty()){
             throw new Exception("Data nuk mund te jete bosh");
         }
+
         if(createDto.getShumaPaga() <= 0){
             throw new Exception("Shuma e pages duhet te plotesohet");
         }
@@ -46,4 +49,17 @@ public class PagatEPunetoreveService {
         return this.pagaRepository.update(updateDto);
     }
 
+    public ArrayList<PagatEPunetoreve> getAll(){
+        return this.pagaRepository.getAll();
+    }
+    public void delete(int pagaID) throws Exception {
+        PagatEPunetoreve paga = this.getByID(pagaID); // kontrollon nëse ekziston
+        if(paga == null){
+            throw new Exception("Paga për fshirje nuk ekziston");
+        }
+        boolean success = this.pagaRepository.delete(pagaID);
+        if(!success){
+            throw new Exception("Fshirja e pages deshtoi");
+        }
+    }
 }

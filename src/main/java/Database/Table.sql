@@ -193,7 +193,7 @@ INSERT INTO Financat (Data, teArdhura, Shpenzime, Pershkrimi) VALUES
 ('2024-09-01', 4800.00, 2900.00, 'Pagesa për shërbime'),
 ('2024-10-01', 5300.00, 3100.00, 'Përgatitje për sezonin e ri');
 
-INSERT INTO PagatPunetoreve (EdukatoriID, Muaji, Viti, ShumaPaga, DataPageses) VALUES
+INSERT INTO PagatEPunetoreve (EdukatoriID, Muaji, Viti, ShumaPaga, DataPageses) VALUES
 (1, 'Janar', 2024, 1200.00, '2024-01-31'),
 (2, 'Janar', 2024, 1250.00, '2024-01-31'),
 (3, 'Janar', 2024, 1150.00, '2024-01-31'),
@@ -335,7 +335,7 @@ CREATE TABLE Financat (
     Pershkrimi TEXT
 );
 
-CREATE TABLE PagatPunetoreve (
+CREATE TABLE PagatEPunetoreve (
     PagaID SERIAL PRIMARY KEY,
     EdukatoriID INT NOT NULL REFERENCES Edukatoret(EdukatoriID) ON DELETE CASCADE,
     Muaji VARCHAR(50) NOT NULL,
