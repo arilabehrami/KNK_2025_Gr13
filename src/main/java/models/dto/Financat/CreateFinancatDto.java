@@ -7,8 +7,7 @@ public class CreateFinancatDto {
     private float shpenzime;
     private String pershkrimi;
 
-    public CreateFinancatDto(int financatID, String date, float teArdhura, float shpenzime, String pershkrimi) {
-        this.financatID = financatID;
+    public CreateFinancatDto(String date, float teArdhura, float shpenzime, String pershkrimi) {
         this.date = date;
         this.teArdhura = teArdhura;
         this.shpenzime = shpenzime;
