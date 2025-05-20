@@ -30,7 +30,6 @@ public class Donacionet {
         this.pershkrimi = pershkrimi;
     }
 
-
     public static Donacionet getInstance(ResultSet result) throws SQLException {
         int donacioniId = result.getInt("DonacioniID");
         String emriOrganizates = result.getString("EmriOrganizates");
@@ -47,7 +46,7 @@ public class Donacionet {
                 adresa, dataDonacionit, shuma, llojiDonacionit, pershkrimi);
     }
 
-
+    // Getters
     public int getDonacioniId() {
         return donacioniId;
     }
@@ -86,5 +85,9 @@ public class Donacionet {
 
     public String getPershkrimi() {
         return pershkrimi;
+    }
+
+    public int getDonacioniID() {
+        return donacioniId;
     }
 }

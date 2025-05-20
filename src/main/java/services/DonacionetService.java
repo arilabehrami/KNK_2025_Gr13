@@ -5,6 +5,8 @@ import models.Dto.Donacionet.CreateDonacionetDto;
 import models.Dto.Donacionet.UpdateDonacionetDto;
 import repository.DonacionetRepository;
 
+import java.util.ArrayList;
+
 public class DonacionetService {
     private DonacionetRepository donacionetRepository;
 
@@ -12,7 +14,12 @@ public class DonacionetService {
         this.donacionetRepository = new DonacionetRepository();
     }
 
+    // Merr të gjitha donacionet
+    public ArrayList<Donacionet> getAll() {
+        return donacionetRepository.getAll();
+    }
 
+    // Merr donacionin sipas ID-së
     public Donacionet getById(int id) throws Exception {
         if (id <= 0) {
             throw new Exception("ID duhet të jetë më i madh se 0.");
@@ -24,7 +31,7 @@ public class DonacionetService {
         return donacioni;
     }
 
-
+    // Krijo donacion të ri me validim
     public Donacionet create(CreateDonacionetDto createDonacionet) throws Exception {
         if (createDonacionet.getEmriOrganizates() == null || createDonacionet.getEmriOrganizates().isEmpty()) {
             throw new Exception("Emri i organizatës nuk mund të jetë bosh.");
@@ -43,7 +50,7 @@ public class DonacionetService {
         return donacioni;
     }
 
-
+    // Përditëso donacionin ekzistues
     public Donacionet update(UpdateDonacionetDto updateDonacionet) throws Exception {
         Donacionet ekzistues = this.getById(updateDonacionet.getDonacioniID());
         if (ekzistues == null) {
@@ -51,5 +58,14 @@ public class DonacionetService {
         }
 
         return this.donacionetRepository.update(updateDonacionet);
+    }
+
+    // Fshij donacionin sipas ID-së
+    public boolean delete(int id) throws Exception {
+        boolean success = donacionetRepository.delete(id);
+        if (!success) {
+            throw new Exception("Fshirja e donacionit me ID " + id + " dështoi.");
+        }
+        return true;
     }
 }

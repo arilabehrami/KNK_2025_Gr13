@@ -36,7 +36,13 @@ public class DonacionetRepository extends BaseRepository<Donacionet, CreateDonac
             pstm.setString(3, dto.getKontakti());
             pstm.setString(4, dto.getEmail());
             pstm.setString(5, dto.getAdresa());
-            pstm.setString(6, dto.getDataDonacionit());
+
+            if (dto.getDataDonacionit() != null) {
+                pstm.setDate(6, java.sql.Date.valueOf(dto.getDataDonacionit()));
+            } else {
+                pstm.setNull(6, java.sql.Types.DATE);
+            }
+
             pstm.setDouble(7, dto.getShuma());
             pstm.setString(8, dto.getLlojiDonacionit());
             pstm.setString(9, dto.getPershkrimi());
@@ -68,18 +74,21 @@ public class DonacionetRepository extends BaseRepository<Donacionet, CreateDonac
             pstm.setString(3, dto.getKontakti());
             pstm.setString(4, dto.getEmail());
             pstm.setString(5, dto.getAdresa());
-            pstm.setString(6, dto.getDataDonacionit());
+
+            if (dto.getDataDonacionit() != null) {
+                pstm.setDate(6, java.sql.Date.valueOf(dto.getDataDonacionit()));
+            } else {
+                pstm.setNull(6, java.sql.Types.DATE);
+            }
+
             pstm.setDouble(7, dto.getShuma());
             pstm.setString(8, dto.getLlojiDonacionit());
             pstm.setString(9, dto.getPershkrimi());
             pstm.setInt(10, dto.getDonacioniID());
 
-
             int updatedRecords = pstm.executeUpdate();
             if (updatedRecords == 1) {
                 return this.getById(dto.getDonacioniID());
-
-
             }
         } catch (SQLException e) {
             e.printStackTrace();
