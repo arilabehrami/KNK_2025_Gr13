@@ -10,12 +10,12 @@ public class Grupet {
     private int moshaMax;
     private int edukatoriId;
 
-    public Grupet(int edukatoriId, int moshaMax, int moshaMin, String emriGrupit, int grupiId) {
-        this.edukatoriId = edukatoriId;
-        this.moshaMax = moshaMax;
-        this.moshaMin = moshaMin;
-        this.emriGrupit = emriGrupit;
+    public Grupet(int grupiId, String emriGrupit, int moshaMin, int moshaMax, int edukatoriId) {
         this.grupiId = grupiId;
+        this.emriGrupit = emriGrupit;
+        this.moshaMin = moshaMin;
+        this.moshaMax = moshaMax;
+        this.edukatoriId = edukatoriId;
     }
 
     public static Grupet getInstance(ResultSet result) throws SQLException {
@@ -24,9 +24,8 @@ public class Grupet {
         int moshaMin = result.getInt("MoshaMin");
         int moshaMax = result.getInt("MoshaMax");
         int edukatoriId = result.getInt("EdukatoriId");
-        return new Grupet(edukatoriId,  moshaMin, moshaMax,emriGrupit, grupiId);
+        return new Grupet(grupiId, emriGrupit, moshaMin, moshaMax, edukatoriId);
     }
-
 
     public int getGrupiId() {
         return grupiId;
