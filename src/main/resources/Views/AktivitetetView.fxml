@@ -13,10 +13,18 @@
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="controllers.AktivitetetController"
       spacing="10"
-      style="-fx-background-color: #e8f5e9;">
+      style="-fx-background-color: linear-gradient(to bottom, #fbe9e7, #fff3e0);">
     <padding>
         <Insets top="10" right="10" bottom="10" left="10"/>
     </padding>
+
+    <!-- Panelet e logo-s dhe titullit (shtuar) -->
+    <VBox alignment="CENTER" spacing="5">
+        <Label text="MiniEdu - Kopshti i Ëndrrave"
+               style="-fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: #e65100;" />
+        <Label text="Një hapësirë kreative, edukative dhe e sigurt për fëmijët"
+               style="-fx-font-size: 16px; -fx-text-fill: #6d4c41;" />
+    </VBox>
 
     <!-- Butonat për zgjedhjen e gjuhës -->
     <HBox spacing="10">
@@ -61,6 +69,5 @@
                 style="-fx-background-color: #ef5350; -fx-text-fill: white; -fx-font-weight: bold;"/>
         <Button fx:id="btnClear" text="%aktivitetet.btn.clear" onAction="#clearForm"
                 style="-fx-background-color: #9e9e9e; -fx-text-fill: white; -fx-font-weight: bold;"/>
-
     </HBox>
-</VBox >
+</VBox>
