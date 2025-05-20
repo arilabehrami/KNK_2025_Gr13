@@ -3,8 +3,10 @@ package controllers;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.cell.PropertyValueFactory;
 import models.Dto.Financat.CreateFinancatDto;
 import models.domain.Financat;
+import models.domain.Pagesa;
 import services.FinancaService;
 
 import java.time.LocalDate;
@@ -38,7 +40,20 @@ public class FinancaController {
     private TextField txtId;
 
     @FXML
-    private TextArea txtRezultatet;
+    private TableView<Pagesa> tablePagesat;
+    @FXML
+    private TableView<Financat> tabelaFinancat;
+    @FXML
+    private TableColumn<Financat, Integer> colId;
+    @FXML
+    private TableColumn<Financat, String> colData;
+    @FXML
+    private TableColumn<Financat, Float> colTeArdhura;
+    @FXML
+    private TableColumn<Financat, Float> colShpenzime;
+    @FXML
+    private TableColumn<Financat, String> colPershkrimi;
+
 
     private FinancaService financatService;
 
@@ -51,8 +66,12 @@ public class FinancaController {
         btnRuaj.setOnAction(e -> handleRuaj());
         btnFshij.setOnAction(e -> handleFshij());
         btnKerko.setOnAction(e -> handleKerko());
+        colId.setCellValueFactory(data -> new javafx.beans.property.SimpleIntegerProperty(data.getValue().getFinancatID()).asObject());
+        colData.setCellValueFactory(data -> new javafx.beans.property.SimpleStringProperty(data.getValue().getDate()));
+        colTeArdhura.setCellValueFactory(data -> new javafx.beans.property.SimpleFloatProperty(data.getValue().getTeArdhura()).asObject());
+        colShpenzime.setCellValueFactory(data -> new javafx.beans.property.SimpleFloatProperty(data.getValue().getShpenzime()).asObject());
+        colPershkrimi.setCellValueFactory(data -> new javafx.beans.property.SimpleStringProperty(data.getValue().getPershkrimi()));
 
-        // Nuk kemi tabela kështu që nuk bëjmë inicializim tabelash
     }
 
     private void handleRuaj() {
@@ -129,16 +148,13 @@ public class FinancaController {
                 }
             }
 
-            // Përditëso TextArea-në me listën e financave në tekst
-            StringBuilder sb = new StringBuilder();
             if (financatList.isEmpty()) {
-                sb.append("Nuk u gjetën të dhëna.");
+                showError("Nuk u gjetën të dhëna.");
+                tabelaFinancat.getItems().clear();
             } else {
-                for (Financat f : financatList) {
-                    sb.append(formatFinanca(f)).append("\n\n");
-                }
+                tabelaFinancat.getItems().setAll(financatList);
             }
-            txtRezultatet.setText(sb.toString());
+
 
         } catch (Exception ex) {
             showError("Gabim gjatë kërkimit: " + ex.getMessage());
