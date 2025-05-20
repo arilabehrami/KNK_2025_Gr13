@@ -10,8 +10,8 @@ public class CreateFemijetDto {
     private String EmriPrindit;
     private String KontaktiPrindit;
 
-    public CreateFemijetDto(int femijaID, String emri, String mbiemri, String dataLindjes, String gjinia, String adresa, String emriPrindit, String kontaktiPrindit) {
-        FemijaID = femijaID;
+    public CreateFemijetDto(String emri, String mbiemri, String dataLindjes, String gjinia, String adresa, String emriPrindit, String kontaktiPrindit) {
+        FemijaID = FemijaID;
         Emri = emri;
         Mbiemri = mbiemri;
         DataLindjes = dataLindjes;

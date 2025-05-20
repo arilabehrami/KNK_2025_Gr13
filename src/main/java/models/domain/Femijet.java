@@ -45,23 +45,23 @@ public class Femijet {
         return femijaID;
     }
 
-    public String getEmri(String text) {
+    public String getEmri() {
         return emri;
     }
 
-    public String getMbiemri(String text) {
+    public String getMbiemri() {
         return mbiemri;
     }
 
-    public String getDataLindjes(String text) {
+    public String getDataLindjes() {
         return dataLindjes;
     }
 
-    public String getGjinia(String value) {
+    public String getGjinia() {
         return gjinia;
     }
 
-    public String getAdresa(String text) {
+    public String getAdresa() {
         return adresa;
     }
 

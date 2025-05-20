@@ -4,96 +4,154 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
-
+import models.Dto.Femijet.CreateFemijetDto;
+import models.Dto.Femijet.UpdateFemijetDto;
 import models.domain.Femijet;
+import services.FemijetService;
 
 public class CreateFemijetController {
 
-    @FXML private TableView<Femijet> femijetTable;
-    @FXML private TableColumn<Femijet, String> emriColumn;
-    @FXML private TableColumn<Femijet, String> mbiemriColumn;
-    @FXML private TableColumn<Femijet, String> ditelindjaColumn;
-    @FXML private TableColumn<Femijet, String> gjiniaColumn;
-    @FXML private TableColumn<Femijet, String> adresaColumn;
+    @FXML private TextField txtEmri;
+    @FXML private TextField txtMbiemri;
+    @FXML private TextField txtDitelindja;
+    @FXML private ComboBox<String> cmbGjinia;
+    @FXML private TextField txtAdresa;
+    @FXML private TextField txtEmriPrindit;
+    @FXML private TextField txtKontaktiPrindit;
 
-    @FXML private TextField emriField;
-    @FXML private TextField mbiemriField;
-    @FXML private TextField ditelindjaField;
-    @FXML private ComboBox<String> gjiniaComboBox;
-    @FXML private TextField adresaField;
+    @FXML private TableView<Femijet> tableFemijet;
+    @FXML private TableColumn<Femijet, Integer> colID;
+    @FXML private TableColumn<Femijet, String> colEmri;
+    @FXML private TableColumn<Femijet, String> colMbiemri;
+    @FXML private TableColumn<Femijet, String> colDitelindja;
+    @FXML private TableColumn<Femijet, String> colGjinia;
+    @FXML private TableColumn<Femijet, String> colAdresa;
+    @FXML private TableColumn<Femijet, String> colEmriPrindit;
+    @FXML private TableColumn<Femijet, String> colKontaktiPrindit;
 
-    private final ObservableList<Femijet> femijet = FXCollections.observableArrayList();
+    private final FemijetService service = new FemijetService();
+    private final ObservableList<Femijet> femijetList = FXCollections.observableArrayList();
 
     @FXML
-    private void initialize() {
-        // Inicializo kolonat
-        emriColumn.setCellValueFactory(new PropertyValueFactory<>("emri"));
-        mbiemriColumn.setCellValueFactory(new PropertyValueFactory<>("mbiemri"));
-        ditelindjaColumn.setCellValueFactory(new PropertyValueFactory<>("ditelindja"));
-        gjiniaColumn.setCellValueFactory(new PropertyValueFactory<>("gjinia"));
-        adresaColumn.setCellValueFactory(new PropertyValueFactory<>("adresa"));
+    public void initialize() {
+        colID.setCellValueFactory(cell -> new javafx.beans.property.SimpleIntegerProperty(cell.getValue().getFemijaID()).asObject());
+        colEmri.setCellValueFactory(cell -> new javafx.beans.property.SimpleStringProperty(cell.getValue().getEmri()));
+        colMbiemri.setCellValueFactory(cell -> new javafx.beans.property.SimpleStringProperty(cell.getValue().getMbiemri()));
+        colDitelindja.setCellValueFactory(cell -> new javafx.beans.property.SimpleStringProperty(cell.getValue().getDataLindjes()));
+        colGjinia.setCellValueFactory(cell -> new javafx.beans.property.SimpleStringProperty(cell.getValue().getGjinia()));
+        colAdresa.setCellValueFactory(cell -> new javafx.beans.property.SimpleStringProperty(cell.getValue().getAdresa()));
+        colEmriPrindit.setCellValueFactory(cell -> new javafx.beans.property.SimpleStringProperty(cell.getValue().getEmriPrindit()));
+        colKontaktiPrindit.setCellValueFactory(cell -> new javafx.beans.property.SimpleStringProperty(cell.getValue().getKontaktiPrindit()));
 
-        // Mbush ComboBox-in
-        gjiniaComboBox.setItems(FXCollections.observableArrayList("Mashkull", "Femër"));
+        cmbGjinia.setItems(FXCollections.observableArrayList("Mashkull", "Femër"));
+        tableFemijet.setItems(femijetList);
+        tableFemijet.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> populateFields(newVal));
 
-        // Lidho listën me tabelën
-        femijetTable.setItems(femijet);
-
-        // Kur përzgjidhet një rresht, mbush fushat
-        femijetTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
-            if (newSelection != null) {
-                emriField.setText(newSelection.getEmri(emriField.getText()));
-                mbiemriField.setText(newSelection.getMbiemri(mbiemriField.getText()));
-                ditelindjaField.setText(newSelection.getDataLindjes(ditelindjaField.getText()));
-                gjiniaComboBox.setValue(newSelection.getGjinia(gjiniaComboBox.getValue()));
-                adresaField.setText(newSelection.getAdresa(adresaField.getText()));
-            }
-        });
+        loadFemijet();
     }
 
-    @FXML
-    private void shtoFemije() {
-        Femijet f = new Femijet(
-                emriField.getText(),
-                mbiemriField.getText(),
-                ditelindjaField.getText(),
-                gjiniaComboBox.getValue(),
-                adresaField.getText()
-        );
-        femijet.add(f);
-        pastroFushat();
+    private void loadFemijet() {
+        femijetList.clear();
+        try {
+            femijetList.addAll(service.getAll());
+        } catch (Exception e) {
+            showError(e.getMessage());
+        }
     }
 
-    @FXML
-    private void perditesoFemije() {
-        Femijet f = femijetTable.getSelectionModel().getSelectedItem();
-        if (f != null) {
-            f.getEmri(emriField.getText());
-            f.getMbiemri(mbiemriField.getText());
-            f.getDataLindjes(ditelindjaField.getText());
-            f.getGjinia(gjiniaComboBox.getValue());
-            f.getAdresa(adresaField.getText());
-            femijetTable.refresh();
-            pastroFushat();
+    private void populateFields(Femijet femija) {
+        if (femija != null) {
+            txtEmri.setText(femija.getEmri());
+            txtMbiemri.setText(femija.getMbiemri());
+            txtDitelindja.setText(femija.getDataLindjes());
+            cmbGjinia.setValue(femija.getGjinia());
+            txtAdresa.setText(femija.getAdresa());
+            txtEmriPrindit.setText(femija.getEmriPrindit());
+            txtKontaktiPrindit.setText(femija.getKontaktiPrindit());
         }
     }
 
     @FXML
-    private void fshiFemije() {
-        Femijet f = femijetTable.getSelectionModel().getSelectedItem();
-        if (f != null) {
-            femijet.remove(f);
-            pastroFushat();
+    public void handleShto() {
+        try {
+            CreateFemijetDto dto = new CreateFemijetDto(
+                    txtEmri.getText(),
+                    txtMbiemri.getText(),
+                    txtDitelindja.getText(),
+                    cmbGjinia.getValue(),
+                    txtAdresa.getText(),
+                    txtEmriPrindit.getText(),
+                    txtKontaktiPrindit.getText()
+            );
+            Femijet femija = service.create(dto);
+            femijetList.add(femija);
+            clearFields();
+        } catch (Exception e) {
+            showError(e.getMessage());
         }
     }
 
-    private void pastroFushat() {
-        emriField.clear();
-        mbiemriField.clear();
-        ditelindjaField.clear();
-        gjiniaComboBox.setValue(null);
-        adresaField.clear();
-        femijetTable.getSelectionModel().clearSelection();
+    @FXML
+    public void handlePerditeso() {
+        Femijet selected = tableFemijet.getSelectionModel().getSelectedItem();
+        if (selected == null) {
+            showError("Zgjedh një fëmijë për përditësim.");
+            return;
+        }
+
+        try {
+            UpdateFemijetDto dto = new UpdateFemijetDto(
+                    selected.getFemijaID(),
+                    txtEmri.getText(),
+                    txtMbiemri.getText(),
+                    txtDitelindja.getText(),
+                    cmbGjinia.getValue(),
+                    txtAdresa.getText(),
+                    txtEmriPrindit.getText(),
+                    txtKontaktiPrindit.getText()
+            );
+            Femijet updated = service.update(dto);
+            int index = femijetList.indexOf(selected);
+            femijetList.set(index, updated);
+            tableFemijet.refresh();
+            clearFields();
+        } catch (Exception e) {
+            showError(e.getMessage());
+        }
+    }
+
+    @FXML
+    public void handleLargo() {
+        Femijet selected = tableFemijet.getSelectionModel().getSelectedItem();
+        if (selected == null) {
+            showError("Zgjedh një fëmijë për fshirje.");
+            return;
+        }
+
+        try {
+            service.delete(selected.getFemijaID());
+            femijetList.remove(selected);
+            clearFields();
+        } catch (Exception e) {
+            showError(e.getMessage());
+        }
+    }
+
+    private void clearFields() {
+        txtEmri.clear();
+        txtMbiemri.clear();
+        txtDitelindja.clear();
+        cmbGjinia.setValue(null);
+        txtAdresa.clear();
+        txtEmriPrindit.clear();
+        txtKontaktiPrindit.clear();
+        tableFemijet.getSelectionModel().clearSelection();
+    }
+
+    private void showError(String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Gabim");
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 }

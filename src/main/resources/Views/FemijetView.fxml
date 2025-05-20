@@ -1,63 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!--
-  Copyright (c) 2015, 2019, Gluon and/or its affiliates.
-  All rights reserved. Use is subject to license terms.
-
-  This file is available and licensed under the following license:
-
-  Redistribution and use in source and binary forms, with or without
-  modification, are permitted provided that the following conditions
-  are met:
-
-  - Redistributions of source code must retain the above copyright
-    notice, this list of conditions and the following disclaimer.
-  - Redistributions in binary form must reproduce the above copyright
-    notice, this list of conditions and the following disclaimer in
-    the documentation and/or other materials provided with the distribution.
-  - Neither the name of Oracle Corporation nor the names of its
-    contributors may be used to endorse or promote products derived
-    from this software without specific prior written permission.
-
-  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
-  "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
-  LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
-  A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
-  OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
-  SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
-  LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
-  DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
-  THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
-  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
--->
-
-
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.SeparatorMenuItem?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
-<?import javafx.scene.control.Button?>
+
 <AnchorPane layoutX="0.0" layoutY="0.0" prefHeight="600.0" prefWidth="1000.0"
             xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.CreateFemijetController"
             style="-fx-background-color: #e6f4ea;">
     <children>
-        <TableView fx:id="femijetTable" layoutX="10.0" layoutY="10.0" prefHeight="580.0" prefWidth="640.0">
+        <TableView fx:id="tableFemijet" layoutX="10.0" layoutY="10.0" prefHeight="580.0" prefWidth="640.0">
             <columns>
-                <TableColumn fx:id="emriColumn" prefWidth="100.0" text="Emri" />
-                <TableColumn fx:id="mbiemriColumn" prefWidth="120.0" text="Mbiemri" />
-                <TableColumn fx:id="ditelindjaColumn" prefWidth="130.0" text="Ditelindja" />
-                <TableColumn fx:id="gjiniaColumn" prefWidth="90.0" text="Gjinia" />
-                <TableColumn fx:id="adresaColumn" prefWidth="150.0" text="Adresa" />
+                <TableColumn fx:id="colID" prefWidth="50.0" text="ID" />
+                <TableColumn fx:id="colEmri" prefWidth="100.0" text="Emri" />
+                <TableColumn fx:id="colMbiemri" prefWidth="120.0" text="Mbiemri" />
+                <TableColumn fx:id="colDitelindja" prefWidth="130.0" text="Ditelindja" />
+                <TableColumn fx:id="colGjinia" prefWidth="90.0" text="Gjinia" />
+                <TableColumn fx:id="colAdresa" prefWidth="150.0" text="Adresa" />
+                <TableColumn fx:id="colEmriPrindit" prefWidth="150.0" text="Emri Prindit" />
+                <TableColumn fx:id="colKontaktiPrindit" prefWidth="150.0" text="Kontakti Prindit" />
             </columns>
         </TableView>
 
@@ -65,21 +26,25 @@
               style="-fx-background-color: #ffffff; -fx-padding: 15; -fx-background-radius: 10;">
             <children>
                 <Label text="Emri" />
-                <TextField fx:id="emriField" />
+                <TextField fx:id="txtEmri" />
                 <Label text="Mbiemri" />
-                <TextField fx:id="mbiemriField" />
+                <TextField fx:id="txtMbiemri" />
                 <Label text="Ditelindja" />
-                <TextField fx:id="ditelindjaField" promptText="YYYY-MM-DD" />
+                <TextField fx:id="txtDitelindja" promptText="YYYY-MM-DD" />
                 <Label text="Gjinia" />
-                <ComboBox fx:id="gjiniaComboBox" editable="true" prefWidth="250.0" />
+                <ComboBox fx:id="cmbGjinia" editable="true" prefWidth="250.0" />
                 <Label text="Adresa" />
-                <TextField fx:id="adresaField" />
+                <TextField fx:id="txtAdresa" />
+                <Label text="Emri i prindit" />
+                <TextField fx:id="txtEmriPrindit" />
+                <Label text="Kontakti i prindit" />
+                <TextField fx:id="txtKontaktiPrindit" />
 
-                <Button fx:id="shtoButoni" text="Shto" onAction="#shtoFemije"
+                <Button fx:id="shtoButoni" text="Shto" onAction="#handleShto"
                         style="-fx-background-color: #81c784; -fx-text-fill: white; -fx-background-radius: 8;" />
-                <Button fx:id="perditesoButoni" text="Përditëso" onAction="#perditesoFemije"
+                <Button fx:id="perditesoButoni" text="Përditëso" onAction="#handlePerditeso"
                         style="-fx-background-color: #64b5f6; -fx-text-fill: white; -fx-background-radius: 8;" />
-                <Button fx:id="fshiButoni" text="Fshi" onAction="#fshiFemije"
+                <Button fx:id="fshiButoni" text="Fshi" onAction="#handleLargo"
                         style="-fx-background-color: #e57373; -fx-text-fill: white; -fx-background-radius: 8;" />
             </children>
         </VBox>
