@@ -4,115 +4,141 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import models.domain.PagatEPunetoreve;
+import models.Dto.PagatEPunetoreve.CreatePagatEPunetoreveDto;
 import models.Dto.PagatEPunetoreve.UpdatePagatEPunetoreveDto;
-import repository.PagatEPunetoreveRepository;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.SimpleDoubleProperty;
+import services.PagatEPunetoreveService;
 
+import java.util.ArrayList;
 
 public class PagatEPunetoreveController {
 
-    @FXML private TableView<PagatEPunetoreve> tableView;
-    @FXML private TableColumn<PagatEPunetoreve, Integer> idColumn;
-    @FXML private TableColumn<PagatEPunetoreve, String> muajiColumn;
-    @FXML private TableColumn<PagatEPunetoreve, Integer> vitiColumn;
-    @FXML private TableColumn<PagatEPunetoreve, Double> shumaColumn;
-    @FXML private TableColumn<PagatEPunetoreve, String> dataColumn;
-
-    @FXML private TextField idTextField;
-    @FXML private Button kerkoButton;
-    @FXML private Button fshijButton;
-    @FXML private Button ruajButton;
-
-    private PagatEPunetoreveRepository repository;
-    private ObservableList<PagatEPunetoreve> pagatList;
+    private PagatEPunetoreveService pagaService;
 
     @FXML
-    public void initialize(){
-        repository = new PagatEPunetoreveRepository();
+    private TableView<PagatEPunetoreve> tableView;
 
-        idColumn.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getPagaID()).asObject());
-        muajiColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getMuaji()));
-        vitiColumn.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getViti()).asObject());
-        shumaColumn.setCellValueFactory(cellData -> new SimpleDoubleProperty(cellData.getValue().getShumaPaga()).asObject());
-        dataColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getData()));
+    @FXML
+    private TableColumn<PagatEPunetoreve, Integer> idColumn;
 
+    @FXML
+    private TableColumn<PagatEPunetoreve, String> muajiColumn;
 
-        loadTableData();
-    }
+    @FXML
+    private TableColumn<PagatEPunetoreve, Integer> vitiColumn;
 
-    private void loadTableData(){
-        pagatList = FXCollections.observableArrayList(repository.getAll());
-        tableView.setItems(pagatList);
+    @FXML
+    private TableColumn<PagatEPunetoreve, Double> shumaColumn;
+
+    @FXML
+    private TableColumn<PagatEPunetoreve, String> dataColumn;
+
+    @FXML
+    private TextField idTextField;
+
+    @FXML
+    private Button kerkoButton;
+
+    @FXML
+    private Button fshijButton;
+
+    @FXML
+    private Button ruajButton;
+
+    public PagatEPunetoreveController() {
+        this.pagaService = new PagatEPunetoreveService();
     }
 
     @FXML
-    public void handleKerko(){
-        String idText = idTextField.getText();
-        if(idText == null || idText.isBlank()){
-            showAlert("Gabim", "Ju lutem shkruani një ID valide për të kërkuar.");
+    public void initialize() {
+        // Initialize table columns
+        idColumn.setCellValueFactory(new PropertyValueFactory<>("pagaID"));
+        muajiColumn.setCellValueFactory(new PropertyValueFactory<>("muaji"));
+        vitiColumn.setCellValueFactory(new PropertyValueFactory<>("viti"));
+        shumaColumn.setCellValueFactory(new PropertyValueFactory<>("shumaPaga"));
+        dataColumn.setCellValueFactory(new PropertyValueFactory<>("dataEPageses"));
+
+        // Load all pagat data
+        refreshTable();
+    }
+
+    private void refreshTable() {
+        ArrayList<PagatEPunetoreve> pagatList = pagaService.getAll();
+        ObservableList<PagatEPunetoreve> observableList = FXCollections.observableArrayList(pagatList);
+        tableView.setItems(observableList);
+    }
+
+    @FXML
+    private void handleKerko() {
+        String searchText = idTextField.getText().trim();
+        if (searchText.isEmpty()) {
+            refreshTable();
             return;
         }
 
         try {
-            int id = Integer.parseInt(idText);
-            PagatEPunetoreve paga = repository.getById(id);
-            if(paga != null){
-                pagatList.clear();
-                pagatList.add(paga);
+            int id = Integer.parseInt(searchText);
+            PagatEPunetoreve paga = pagaService.getByID(id);
+            if (paga != null) {
+                ObservableList<PagatEPunetoreve> singleItemList = FXCollections.observableArrayList();
+                singleItemList.add(paga);
+                tableView.setItems(singleItemList);
             } else {
-                showAlert("Nuk u gjet", "Nuk u gjet asnjë pagë me ID: " + id);
+                showAlert("Kerkim", "Nuk u gjet asnje paga me ID: " + id);
             }
-        } catch (NumberFormatException e){
-            showAlert("Gabim", "ID duhet të jetë numër i plotë.");
+        } catch (NumberFormatException e) {
+            showAlert("Gabim", "ID duhet te jete numer!");
+        } catch (Exception e) {
+            showAlert("Gabim", e.getMessage());
         }
     }
 
     @FXML
-    public void handleFshij(){
-        PagatEPunetoreve selected = tableView.getSelectionModel().getSelectedItem();
-        if(selected == null){
-            showAlert("Gabim", "Ju lutem zgjidhni një rresht për të fshirë.");
+    private void handleRuaj() {
+        PagatEPunetoreve selectedPaga = tableView.getSelectionModel().getSelectedItem();
+        if (selectedPaga == null) {
+            showAlert("Gabim", "Ju lutem zgjidhni nje paga per te perditesuar!");
             return;
         }
 
-        boolean success = repository.delete(selected.getPagaID());
-        if(success){
-            pagatList.remove(selected);
-        } else {
-            showAlert("Gabim", "Fshirja dështoi.");
+        try {
+            UpdatePagatEPunetoreveDto updateDto = new UpdatePagatEPunetoreveDto(
+                    selectedPaga.getPagaID(),
+                    selectedPaga.getEdukatoriID(),
+                    selectedPaga.getMuaji(),
+                    selectedPaga.getViti(),
+                    selectedPaga.getShumaPaga(),
+                    selectedPaga.getData()
+            );
+
+            pagaService.update(updateDto);
+            showAlert("Sukses", "Paga u perditesua me sukses!");
+            refreshTable();
+
+        } catch (Exception e) {
+            showAlert("Gabim", e.getMessage());
         }
     }
 
     @FXML
-    public void handleRuaj(){
-        PagatEPunetoreve selected = tableView.getSelectionModel().getSelectedItem();
-        if(selected == null){
-            showAlert("Gabim", "Ju lutem zgjidhni një rresht për të ruajtur ndryshimet.");
+    private void handleFshij() {
+        PagatEPunetoreve selectedPaga = tableView.getSelectionModel().getSelectedItem();
+        if (selectedPaga == null) {
+            showAlert("Gabim", "Ju lutem zgjidhni nje paga per te fshire!");
             return;
         }
 
-        UpdatePagatEPunetoreveDto updateDto = new UpdatePagatEPunetoreveDto(
-                selected.getPagaID(),
-                selected.getEdukatoriID(),
-                selected.getMuaji(),
-                selected.getViti(),
-                selected.getShumaPaga(),
-                selected.getData()
-        );
-
-        PagatEPunetoreve updated = repository.update(updateDto);
-        if(updated != null){
-            int index = pagatList.indexOf(selected);
-            pagatList.set(index, updated);
-        } else {
-            showAlert("Gabim", "Ruajtja dështoi.");
+        try {
+            pagaService.delete(selectedPaga.getPagaID());
+            showAlert("Sukses", "Paga u fshi me sukses!");
+            refreshTable();
+        } catch (Exception e) {
+            showAlert("Gabim", e.getMessage());
         }
     }
 
-    private void showAlert(String title, String message){
+    private void showAlert(String title, String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(title);
         alert.setHeaderText(null);
