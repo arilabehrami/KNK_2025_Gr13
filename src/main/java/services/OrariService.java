@@ -4,51 +4,41 @@ import models.Dto.Orari.CreateOrariDto;
 import models.Dto.Orari.UpdateOrariDto;
 import models.domain.Orari;
 import repository.OrariRepository;
-import Database.DBConnection;
 
-import java.sql.Connection;
-import java.sql.SQLException;
 import java.util.List;
 
 public class OrariService {
 
     private final OrariRepository repository;
+    OrariService service;
 
-    // Konstruktor pa parametra që krijon vetë repo-n
+    // Konstruktor pa parametra – krijon repository me lidhje të vetme DB
     public OrariService() {
-        Connection connection = DBConnection.getConnection();
-        this.repository = new OrariRepository(connection);
+        this.repository = new OrariRepository();
     }
 
-    // Konstruktor me parametër për injektim të repo-së nga jashtë
+    // Konstruktor për injektim të repository
     public OrariService(OrariRepository repository) {
         this.repository = repository;
     }
 
-    public List<Orari> getAllOrari() throws SQLException {
-        return repository.findAll();
+    public List<Orari> getAllOrari() {
+        return repository.getAll();
     }
 
-    public void addOrari(CreateOrariDto dto) throws SQLException {
-        Orari orari = new Orari();
-        orari.setFemijaID(dto.getFemijaID());
-        orari.setDita(dto.getDita());
-        orari.setOraHyrjes(dto.getOraHyrjesAsLocalTime());
-        orari.setOraDaljes(dto.getOraDaljesAsLocalTime());
-        repository.save(orari);
+    public Orari addOrari(CreateOrariDto dto) {
+        return repository.create(dto);
     }
 
-    public void updateOrari(UpdateOrariDto dto) throws SQLException {
-        Orari orari = new Orari();
-        orari.setOrariID(dto.getOrariID());
-        orari.setFemijaID(dto.getFemijaID());
-        orari.setDita(dto.getDita());
-        orari.setOraHyrjes(dto.getOraHyrjesAsLocalTime());
-        orari.setOraDaljes(dto.getOraDaljesAsLocalTime());
-        repository.update(orari);
+    public Orari updateOrari(UpdateOrariDto dto) {
+        return repository.update(dto);
     }
 
-    public void deleteOrari(int id) throws SQLException {
-        repository.delete(id);
+    public boolean deleteOrari(int id) {
+        return repository.delete(id);
+    }
+
+    public Orari getOrariById(int id) {
+        return repository.getById(id);
     }
 }

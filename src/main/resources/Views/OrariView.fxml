@@ -8,7 +8,7 @@
       xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="controllers.OrariController"
       spacing="10"
-      style="-fx-background-color: #e8f5e9;">
+      style="-fx-background-color: linear-gradient(to bottom, #fbe9e7, #fff3e0);">
 
   <padding>
     <Insets top="10" right="10" bottom="10" left="10"/>
@@ -25,7 +25,7 @@
   </TableView>
 
   <GridPane fx:id="gridPane" hgap="10" vgap="10">
-    <Label fx:id="lblFemijaID" text="Femija ID:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+    <Label fx:id="lblFemijaID"  text="Femija ID:" GridPane.rowIndex="0" GridPane.columnIndex="0" />
     <TextField fx:id="tfFemijaID" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
 
     <Label fx:id="lblDita" text="Dita:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
@@ -50,10 +50,8 @@
   </HBox>
 
   <HBox spacing="10" alignment="CENTER_RIGHT">
-    <Button text="Shqip" onAction="#switchToAlbanian"
-            style="-fx-background-color: #81c784; -fx-text-fill: white;"/>
-    <Button text="English" onAction="#switchToEnglish"
-            style="-fx-background-color: #64b5f6; -fx-text-fill: white;"/>
+    <Button fx:id="btnSwitchAlbanian" text="Shqip" onAction="#switchToAlbanian" style="..." />
+    <Button fx:id="btnSwitchEnglish" text="English" onAction="#switchToEnglish" style="..." />
   </HBox>
 
 </VBox>

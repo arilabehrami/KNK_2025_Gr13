@@ -3,7 +3,11 @@ package controllers;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.stage.Stage;
 import models.Dto.Aktivitetet.CreateAktivitetetDto;
 import models.Dto.Aktivitetet.UpdateAktivitetetDto;
 import models.domain.Aktivitetet;
@@ -14,6 +18,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 public class AktivitetetController {
 
@@ -137,18 +143,34 @@ public class AktivitetetController {
         tfGrupiID.clear();
         tableAktivitetet.getSelectionModel().clearSelection();
     }
-
     @FXML
     private void switchToAlbanian() {
-        // Placeholder për ndryshimin e gjuhës
-        System.out.println("U kalua në Shqip");
+        switchLanguage("sq");
     }
 
     @FXML
     private void switchToEnglish() {
-        // Placeholder për ndryshimin e gjuhës
-        System.out.println("Switched to English");
+        switchLanguage("en");
     }
+
+    private void switchLanguage(String languageCode) {
+        try {
+            Locale newLocale = Locale.forLanguageTag(languageCode);
+            ResourceBundle bundle = ResourceBundle.getBundle("languages.messages", newLocale);
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/AktivitetetView.fxml"), bundle);
+            Parent root = loader.load();
+
+            Stage stage = (Stage) tableAktivitetet.getScene().getWindow(); // Merr skenën aktuale
+            stage.setScene(new Scene(root));
+            stage.show();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            showAlert("Gabim gjatë ndërrimit të gjuhës", e.getMessage(), Alert.AlertType.ERROR);
+        }
+    }
+
 
     private void showAlert(String title, String message, Alert.AlertType type) {
         Alert alert = new Alert(type);

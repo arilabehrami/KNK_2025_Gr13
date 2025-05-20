@@ -22,9 +22,9 @@ public class AktivitetetMain extends Application {
         loader.setResources(bundle);
         Parent root = loader.load();
 
-        Scene scene = new Scene(root, 640, 400);
+        Scene scene = new Scene(root, 800, 600);
         primaryStage.setScene(scene);
-        primaryStage.setTitle("Krijimi i Pagesës");
+        primaryStage.setTitle("Aktivitetet");
         primaryStage.setResizable(false);
         primaryStage.show();
     }
