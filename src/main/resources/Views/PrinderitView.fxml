@@ -65,31 +65,6 @@
         </VBox>
     </center>
 
-    <!-- Footer -->
-    <bottom>
-        <HBox alignment="CENTER" spacing="40" BorderPane.alignment="CENTER"
-              style="-fx-padding: 15 30; -fx-background-color: linear-gradient(to right, #ffccbc, #ffab91);
-                     -fx-background-radius: 0 0 20 20; -fx-border-radius: 0 0 20 20;
-                     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 5, 0, 0, -1);">
 
-            <Label text="© 2025 MiniEdu"
-                   style="-fx-font-size: 12px; -fx-text-fill: #6d4c41; -fx-font-weight: bold;" />
-
-            <Label text=" | " style="-fx-font-size: 14px; -fx-text-fill: #6d4c41;"/>
-            <Label text="info@miniedu.com"
-                   style="-fx-font-size: 12px; -fx-text-fill: #6d4c41;" />
-            <Label text=" | " style="-fx-font-size: 14px; -fx-text-fill: #6d4c41;"/>
-            <Label text="+383 45 123 456"
-                   style="-fx-font-size: 12px; -fx-text-fill: #6d4c41;" />
-
-            <Region HBox.hgrow="ALWAYS"/>
-
-            <HBox spacing="15" alignment="CENTER_RIGHT">
-                <Label text="👍" style="-fx-font-size: 20px;" />
-                <Label text="🐦" style="-fx-font-size: 20px;" />
-                <Label text="📸" style="-fx-font-size: 20px;" />
-            </HBox>
-        </HBox>
-    </bottom>
 
 </BorderPane>
