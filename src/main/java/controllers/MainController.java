@@ -1,238 +1,123 @@
 package controllers;
 
-import Database.DBConnection;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.StackPane;
-import javafx.stage.Stage;
-import javafx.event.ActionEvent;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
-import repository.AktivitetetRepository;
-import repository.OrariRepository;
-import services.AktivitetetService;
-import services.OrariService;
-import utils.PasswordUtils;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 
-import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.util.Locale;
-import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class MainController {
 
     @FXML
-    private StackPane contentArea;
+    private VBox menuPane;
 
     @FXML
-    private Label userLabel;
+    private AnchorPane centerPane;
+
+    @FXML
+    private Button languageBtn;
 
     @FXML
     private Button logoutBtn;
 
     @FXML
-    private TextField usernameField; // duhet të jetë TextField, jo String
+    private Label emojiLabel;
 
     @FXML
-    private TextField passwordField;
+    private Label appNameLabel;
 
-    private Stage primaryStage;
     @FXML
-    private void loadAktivitetetInsideMain(ActionEvent event) {
-        try {
-            Locale locale = new Locale("en");
+    private Label quoteLabel;
 
-            Connection conn = DBConnection.getConnection();
-            AktivitetetRepository repo = new AktivitetetRepository(conn);
-            AktivitetetService service = new AktivitetetService(repo);
+    private boolean isEnglish = true;
+    private final ResourceBundle bundle = ResourceBundle.getBundle("languages.messages", Locale.getDefault());
 
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/AktivitetetView.fxml"));
-            loader.setResources(ResourceBundle.getBundle("languages.messages", locale));
-            Node view = loader.load();
+    private Stage stage;
 
-            AktivitetetController controller = loader.getController();
-            controller.setService(service);
-            controller.setResources(loader.getResources());
 
-            contentArea.getChildren().clear();
-            contentArea.getChildren().add(view);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            showError("Nuk mund të ngarkohet pamja për Aktivitetet.");
-        }
-    }
-    @FXML
-    private void loadOrariInsideMain(ActionEvent event) {
-        try {
-            Locale locale = new Locale("sq");
-
-            Connection conn = DBConnection.getConnection();
-            OrariRepository repo = new OrariRepository(conn);
-            OrariService service = new OrariService(repo);
-
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/OrariView.fxml"));
-            loader.setResources(ResourceBundle.getBundle("languages.messages", locale));
-            Node view = loader.load();
-
-            OrariController controller = loader.getController();
-            controller.setService(service);
-            controller.setResources(loader.getResources());
-
-            contentArea.getChildren().clear();
-            contentArea.getChildren().add(view);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            showError("Nuk mund të ngarkohet pamja për Orarin.");
-        }
-    }
-    
-    // Për të vendosur referencën e skenës kryesore
-    public void setPrimaryStage(Stage stage) {
-        this.primaryStage = stage;
+    public void setStage(Stage stage) {
+        this.stage = stage;
     }
 
-    // Vendos përdoruesin në etiketën e sipërme
     public void setUsername(String username) {
-        userLabel.setText("Përdoruesi: " + username);
+        // Ruaj username ose bëj diçka me të
+        System.out.println("Username: " + username);
     }
 
-    // Thirret gjatë loginit
-    @FXML
-    private void handleLogin(ActionEvent event) {
-        String username = usernameField.getText().trim();
-        String password = passwordField.getText().trim();
-
-        if (username.isEmpty() || password.isEmpty()) {
-            showError("Plotësoni të gjitha fushat!");
-            return;
-        }
-
-        String hashedPassword = PasswordUtils.hashPassword(password);
-
-        try (Connection conn = DBConnection.getConnection()) {
-            String query = "SELECT * FROM users WHERE username = ? AND password = ?";
-            PreparedStatement stmt = conn.prepareStatement(query);
-            stmt.setString(1, username);
-            stmt.setString(2, hashedPassword);
-
-            ResultSet rs = stmt.executeQuery();
-
-            if (rs.next()) {
-                // Ngarko MainView nëse login-i është i suksesshëm
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/MainView.fxml"));
-                Parent root = loader.load();
-
-                // Merr controller-in dhe dërgo username-in
-                MainController mainController = loader.getController();
-                mainController.setUsername(username);
-                mainController.setPrimaryStage(primaryStage);
-
-                Scene scene = new Scene(root);
-                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                stage.setScene(scene);
-                stage.setTitle("Paneli Kryesor - Kopshti Modern");
-                stage.setMaximized(true);
-                stage.centerOnScreen();
-
-            } else {
-                showError("Përdoruesi ose fjalëkalimi gabim!");
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            showError("Nuk mund të lidhemi me serverin. Ju lutemi provoni më vonë.");
-        }
-    }
-
-    // Thirret automatikisht pas ngarkimit të pamjes
-    @FXML
     public void initialize() {
-        if (logoutBtn != null) {
-            logoutBtn.setOnAction(e -> confirmLogout());
-        }
+        setupMenu();
+        setupTopButtons();
     }
 
-    // Konfirmon daljen me Alert dialog
-    private void confirmLogout() {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Konfirmimi i Daljes");
-        alert.setHeaderText(null);
-        alert.setContentText("Je i sigurt që do të dalësh nga sistemi?");
-
-        Optional<ButtonType> result = alert.showAndWait();
-        if (result.isPresent() && result.get() == ButtonType.OK) {
-            logout();
-        }
+    private void setupMenu() {
+        addMenuItem("📘 Aktivitetet", "AktivitetetView");
+        addMenuItem("💰 Donacionet", "DonacionetView");
+        addMenuItem("💡 Edukatoret", "EdukatoretView");
+        addMenuItem("👧 Femijet", "FemijetView");
+        addMenuItem("📞 Kontaktet Emergjente", "KontaktetEmergjenteView");
+        addMenuItem("⏰ Orari", "OrariView");
+        addMenuItem("💵 Pagesa", "PagesaView");
+        addMenuItem("🟢 Prania", "PraniaView");
+        addMenuItem("🩺 Shënimet Shëndetësore", "ShenimetShendetesoreView");
+        addMenuItem("💡 Sugjerimet", "SugjerimetView");
+        addMenuItem("💡 Menyja Ditore", "MenyjaDitore");
+        addMenuItem("💡 Grupet", "GrupetView");
+        addMenuItem("💡 Financat", "FinancatView");
+        addMenuItem("💡 Ushqimet", "UshqimetView");
+        addMenuItem("💡 Prinderit", "PrinderitView");
     }
 
-    // Kthen përdoruesin te LoginView
-    private void logout() {
-        try {
-            Parent loginRoot = FXMLLoader.load(getClass().getResource("/Views/LoginView.fxml"));
-            Stage stage = (Stage) logoutBtn.getScene().getWindow();
-            stage.setScene(new Scene(loginRoot));
-            stage.setTitle("Kyçu");
-            stage.setMaximized(false);
-            stage.centerOnScreen();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    private void addMenuItem(String title, String mainClassPath) {
+        Label menuItem = new Label(title);
+        menuItem.setStyle("-fx-padding: 10; -fx-background-color: #ffffff; -fx-border-color: #dddddd;");
+        menuItem.setMaxWidth(Double.MAX_VALUE);
+
+        menuItem.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
+            try {
+                // Ngarko FXML me ResourceBundle përkthimi
+                javafx.fxml.FXMLLoader loader = new javafx.fxml.FXMLLoader(getClass().getResource("/Views/" + mainClassPath + ".fxml"), bundle);
+                Parent loadedPane = loader.load();
+
+                // Zëvendëso përmbajtjen e centerPane me atë të ngarkuar
+                centerPane.getChildren().setAll(loadedPane);
+
+                // Ancorim për të plotësuar qendrën
+                javafx.scene.layout.AnchorPane.setTopAnchor(loadedPane, 0.0);
+                javafx.scene.layout.AnchorPane.setBottomAnchor(loadedPane, 0.0);
+                javafx.scene.layout.AnchorPane.setLeftAnchor(loadedPane, 0.0);
+                javafx.scene.layout.AnchorPane.setRightAnchor(loadedPane, 0.0);
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+
+        menuPane.getChildren().add(menuItem);
     }
 
-    // Ngarkon një pamje të caktuar në contentArea
-    private Locale currentLocale = new Locale("sq");
-    private void loadView(String fxmlFileName) {
-        try {
-            ResourceBundle bundle = ResourceBundle.getBundle("languages.messages", currentLocale);
+    private void setupTopButtons() {
 
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/" + fxmlFileName), bundle);
-            Node node = loader.load();
+        logoutBtn.setOnAction(e -> {
+            try {
+                javafx.fxml.FXMLLoader loader = new javafx.fxml.FXMLLoader(getClass().getResource("/Views/LoginView.fxml"));
+                javafx.scene.Parent root = loader.load();
+                javafx.stage.Stage stage = new javafx.stage.Stage();
+                stage.setScene(new javafx.scene.Scene(root));
+                stage.setTitle("Login");
+                stage.show();
 
-            contentArea.getChildren().clear();
-            contentArea.getChildren().add(node);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    // Butonat e menusë
-    @FXML
-    private void loadHome(ActionEvent event) {
-        contentArea.getChildren().clear();
-        contentArea.getChildren().add(new Label("Mirësevini në Panelin Kryesor!"));
-    }
-
-    @FXML private void loadFemijet(ActionEvent event) { loadView("FemijetView.fxml"); }
-    @FXML private void loadGrupet(ActionEvent event) { loadView("GrupetView.fxml"); }
-    @FXML private void loadUshqimet(ActionEvent event) { loadView("UshqimetView.fxml"); }
-    @FXML private void loadMenyjaDitore(ActionEvent event) { loadView("MenyjaDitoreView.fxml"); }
-    @FXML private void loadPrania(ActionEvent event) { loadView("PraniaView.fxml"); }
-    @FXML private void loadPagesa(ActionEvent event) { loadView("PagesaView.fxml"); }
-    @FXML private void loadOrari(ActionEvent event) { loadView("OrariView.fxml"); }
-    @FXML private void loadSugjerimet(ActionEvent event) { loadView("SugjerimetView.fxml"); }
-    @FXML private void loadDonacionet(ActionEvent event) { loadView("DonacionetView.fxml"); }
-    @FXML private void loadShenimetShendetesore(ActionEvent event) { loadView("ShenimetShendetesoreView.fxml"); }
-    @FXML private void loadKontaktetEmergjente(ActionEvent event) { loadView("KontaktetEmergjenteView.fxml"); }
-    @FXML private void loadAktivitetet(ActionEvent event) { loadView("AktivitetetView.fxml"); }
-
-    // Për errora
-    private void showError(String message) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Gabim");
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-        alert.showAndWait();
+                // Mbyll dritaren aktuale
+                logoutBtn.getScene().getWindow().hide();
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        });
     }
 
     public void stage(Stage window) {
