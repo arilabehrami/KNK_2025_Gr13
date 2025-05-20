@@ -12,7 +12,7 @@ import java.sql.Statement;
 public class MenyjaDitoreRepository extends BaseRepository<MenyjaDitore, CreateMenyjaDitoreDto, UpdateMenyjaDitoreDto> {
 
     public MenyjaDitoreRepository() {
-        super("menyjaditore");
+        super("menyjaditore", "MenuID");
     }
 
     @Override

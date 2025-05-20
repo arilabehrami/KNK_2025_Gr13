@@ -12,7 +12,7 @@ import java.sql.Statement;
 public class SugjerimetRepository extends BaseRepository<Sugjerimet, CreateSugjerimetDto, UpdateSugjerimetDto> {
 
     public SugjerimetRepository() {
-        super("Sugjerimet");
+        super("Sugjerimet", "SugjerimiID");
     }
 
     @Override

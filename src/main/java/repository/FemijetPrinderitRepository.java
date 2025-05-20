@@ -9,7 +9,7 @@ import java.sql.*;
 public class FemijetPrinderitRepository extends BaseRepository<FemijetPrinderit, CreateFemijetPrinderitDto, UpdateFemijetPrinderitDto> {
 
     public FemijetPrinderitRepository() {
-        super("FemijetPrinderit");
+        super("FemijetPrinderit", "ID");
     }
 
     @Override

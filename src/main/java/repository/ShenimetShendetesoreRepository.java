@@ -12,7 +12,7 @@ import java.sql.Statement;
 public class ShenimetShendetesoreRepository extends BaseRepository<ShenimetShendetesore, CreateShenimetShendetsoreDto, UpdateShenimetShendetsoreDto> {
 
     public ShenimetShendetesoreRepository() {
-        super("ShenimetShendetesore");
+        super("ShenimetShendetesore", "ShenimiID");
     }
 
     @Override

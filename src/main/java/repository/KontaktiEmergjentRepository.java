@@ -12,7 +12,7 @@ import java.sql.Statement;
 public class KontaktiEmergjentRepository extends BaseRepository<KontaktiEmergjent, CreateKontaktetEmergjenteDto, UpdateKontaktetEmergjenteDto>{
 
     public KontaktiEmergjentRepository() {
-        super("KontaktetEmergjente");
+        super("KontaktetEmergjente", "KontaktiID");
     }
 
     @Override

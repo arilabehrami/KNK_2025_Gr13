@@ -12,7 +12,7 @@ import java.sql.Statement;
 public class DonacionetRepository extends BaseRepository<Donacionet, CreateDonacionetDto, UpdateDonacionetDto> {
 
     public DonacionetRepository() {
-        super("donacionet");
+        super("donacionet", "DonacioniID");
     }
 
     @Override

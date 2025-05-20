@@ -13,7 +13,7 @@ import java.sql.Statement;
 public class GrupetRepository extends BaseRepository<Grupet, CreateGrupetDto, UpdateGrupetDto> {
 
     public GrupetRepository() {
-        super("grupet");
+        super("grupet", "GrupiID");
     }
 
     @Override

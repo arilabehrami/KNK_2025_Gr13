@@ -11,7 +11,7 @@ import java.sql.Statement;
 
 public class FinancatRepository extends BaseRepository<Financat, CreateFinancatDto, UpdateFinancatDto> {
     public FinancatRepository(){
-        super("financa");
+        super("financa", "FinancatID");
     }
 
     @Override

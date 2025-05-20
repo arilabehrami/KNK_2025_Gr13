@@ -11,7 +11,7 @@ import java.sql.Statement;
 
 public class PagatEPunetoreveRepository extends BaseRepository<PagatEPunetoreve, CreatePagatEPunetoreveDto, UpdatePagatEPunetoreveDto> {
     public PagatEPunetoreveRepository(){
-        super("paga");
+        super("paga", "PagaID");
     }
 
     PagatEPunetoreve fromResultSet(ResultSet res) throws SQLException{

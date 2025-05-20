@@ -12,7 +12,7 @@ import java.sql.Statement;
 public class UshqimetRepository extends BaseRepository<Ushqimet, CreateUshqimetDto, UpdateUshqimetDto> {
 
     public UshqimetRepository() {
-        super("ushqimet");
+        super("ushqimet", "UshqimiID");
     }
 
     @Override

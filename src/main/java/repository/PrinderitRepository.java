@@ -11,7 +11,7 @@ import java.util.List;
 public class PrinderitRepository extends BaseRepository<Prinderit, CreatePrinderitDto, UpdatePrinderitDto> {
 
     public PrinderitRepository() {
-        super("Prinderit");
+        super("Prinderit", "PrindiID");
     }
 
     @Override

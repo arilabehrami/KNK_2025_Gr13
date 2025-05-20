@@ -11,7 +11,7 @@ import java.sql.Statement;
 
 public class PagesaRepository extends BaseRepository<Pagesa, CreatePagesaDto, UpdatePagesaDto>{
     public PagesaRepository(){
-        super("pagesa");
+        super("pagesa", "PagesaID");
     }
 
     Pagesa fromResultSet(ResultSet res) throws SQLException{

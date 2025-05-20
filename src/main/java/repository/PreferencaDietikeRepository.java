@@ -12,7 +12,7 @@ import java.sql.Statement;
 public class PreferencaDietikeRepository extends BaseRepository<PreferencaDietike, CreatePreferencaDietikeDto, UpdatePreferencaDietikeDto> {
 
     public PreferencaDietikeRepository() {
-        super("preferencadietike");
+        super("preferencadietike", "PreferencaID");
     }
 
     @Override

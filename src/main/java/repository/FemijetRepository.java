@@ -11,7 +11,7 @@ import java.sql.Statement;
 
 public class FemijetRepository extends BaseRepository<Femijet, CreateFemijetDto, UpdateFemijetDto> {
     public FemijetRepository() {
-        super("femijet");
+        super("femijet", "FemijaID");
     }
 
     @Override
