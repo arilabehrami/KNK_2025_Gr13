@@ -1,17 +1,21 @@
 package services;
 
-
 import models.domain.Femijet;
 import models.Dto.Femijet.CreateFemijetDto;
 import models.Dto.Femijet.UpdateFemijetDto;
-
 import repository.FemijetRepository;
+
+import java.util.ArrayList;
 
 public class FemijetService {
     private FemijetRepository femijetRepository;
 
     public FemijetService() {
         this.femijetRepository = new FemijetRepository();
+    }
+
+    public ArrayList<Femijet> getAll() {
+        return femijetRepository.getAll();
     }
 
     public Femijet getById(int id) throws Exception {
@@ -61,4 +65,12 @@ public class FemijetService {
         }
     }
 
+    // Kjo është metoda që mungonte në shërbim dhe që përdoret nga controller-i për fshirje:
+    public boolean delete(int id) throws Exception {
+        boolean success = femijetRepository.delete(id);
+        if (!success) {
+            throw new Exception("Fshirja e fëmijës me ID " + id + " dështoi.");
+        }
+        return true;
+    }
 }
