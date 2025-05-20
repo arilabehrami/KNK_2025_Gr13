@@ -36,6 +36,7 @@ public class ShenimetShendetesoreController {
     @FXML private TableColumn<ShenimetShendetesore, String> pershkrimiColumn;
     @FXML private Button ngarkoButton;
     @FXML private Button fshijButton;
+    @FXML private Button perditesoButton; // Shtuar për butonin e përditësimit
 
     private ResourceBundle bundle;
     private ShenimetShendetesoreService service;
@@ -89,6 +90,7 @@ public class ShenimetShendetesoreController {
         // Përkthimet për butonat në fund
         ngarkoButton.setText(bundle.getString("button.load_all"));
         fshijButton.setText(bundle.getString("button.delete_note"));
+        perditesoButton.setText(bundle.getString("button.update_note")); // Shtuar për butonin e përditësimit
     }
 
     @FXML
