@@ -1,57 +1,138 @@
 package controllers;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import models.Dto.Grupet.CreateGrupetDto;
+import models.Dto.Grupet.UpdateGrupetDto;
 import models.domain.Grupet;
 import services.GrupetService;
 
 public class CreateGrupetController {
-    @FXML
-    private TextField emriGrupitField;
-    @FXML
-    private TextField moshaMinField;
-    @FXML
-    private TextField moshaMaxField;
-    @FXML
-    private TextField edukatoriIdField;
 
-    private final GrupetService grupetService = new GrupetService();
+    @FXML private TextField txtEmriGrupit;
+    @FXML private TextField txtMoshaMin;
+    @FXML private TextField txtMoshaMax;
+    @FXML private TextField txtEdukatoriId;
+
+    @FXML private TableView<Grupet> tableGrupet;
+    @FXML private TableColumn<Grupet, Integer> colGrupiId;
+    @FXML private TableColumn<Grupet, String> colEmriGrupit;
+    @FXML private TableColumn<Grupet, Integer> colMoshaMin;
+    @FXML private TableColumn<Grupet, Integer> colMoshaMax;
+    @FXML private TableColumn<Grupet, Integer> colEdukatoriId;
+
+    private final GrupetService service = new GrupetService();
+    private final ObservableList<Grupet> grupetList = FXCollections.observableArrayList();
 
     @FXML
-    public void ruajGrupin() {
+    public void initialize() {
+        colGrupiId.setCellValueFactory(cell -> new javafx.beans.property.SimpleIntegerProperty(cell.getValue().getGrupiId()).asObject());
+        colEmriGrupit.setCellValueFactory(cell -> new javafx.beans.property.SimpleStringProperty(cell.getValue().getEmriGrupit()));
+        colMoshaMin.setCellValueFactory(cell -> new javafx.beans.property.SimpleIntegerProperty(cell.getValue().getMoshaMin()).asObject());
+        colMoshaMax.setCellValueFactory(cell -> new javafx.beans.property.SimpleIntegerProperty(cell.getValue().getMoshaMax()).asObject());
+        colEdukatoriId.setCellValueFactory(cell -> new javafx.beans.property.SimpleIntegerProperty(cell.getValue().getEdukatoriId()).asObject());
+
+        tableGrupet.setItems(grupetList);
+        tableGrupet.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> populateFields(newVal));
+
+        loadGrupet();
+    }
+
+    private void loadGrupet() {
+        grupetList.clear();
         try {
-            String emri = emriGrupitField.getText();
-            int moshaMin = Integer.parseInt(moshaMinField.getText());
-            int moshaMax = Integer.parseInt(moshaMaxField.getText());
-            int edukatoriId = Integer.parseInt(edukatoriIdField.getText());
-
-            CreateGrupetDto dto = new CreateGrupetDto(emri, moshaMin, moshaMax, edukatoriId);
-
-            Grupet grupi = grupetService.create(dto);
-
-            showAlert(Alert.AlertType.INFORMATION, "Sukses", "Grupi u shtua me ID: " + grupi.getGrupiId());
-            pastroFushat();
-        } catch (NumberFormatException e) {
-            showAlert(Alert.AlertType.ERROR, "Gabim", "Ju lutem sigurohuni që fushat e moshës dhe edukatorit të jenë numra.");
+            grupetList.addAll(service.getAll());
         } catch (Exception e) {
-            showAlert(Alert.AlertType.ERROR, "Gabim", e.getMessage());
+            showError(e.getMessage());
+        }
+    }
+
+    private void populateFields(Grupet grupi) {
+        if (grupi != null) {
+            txtEmriGrupit.setText(grupi.getEmriGrupit());
+            txtMoshaMin.setText(String.valueOf(grupi.getMoshaMin()));
+            txtMoshaMax.setText(String.valueOf(grupi.getMoshaMax()));
+            txtEdukatoriId.setText(String.valueOf(grupi.getEdukatoriId()));
         }
     }
 
     @FXML
-    public void pastroFushat() {
-        emriGrupitField.clear();
-        moshaMinField.clear();
-        moshaMaxField.clear();
-        edukatoriIdField.clear();
+    public void handleShto() {
+        try {
+            CreateGrupetDto dto = new CreateGrupetDto(
+                    txtEmriGrupit.getText(),
+                    Integer.parseInt(txtMoshaMin.getText()),
+                    Integer.parseInt(txtMoshaMax.getText()),
+                    Integer.parseInt(txtEdukatoriId.getText())
+            );
+            Grupet grupi = service.create(dto);
+            grupetList.add(grupi);
+            clearFields();
+        } catch (NumberFormatException e) {
+            showError("Sigurohu që mosha dhe edukatori ID janë numra.");
+        } catch (Exception e) {
+            showError(e.getMessage());
+        }
     }
 
-    private void showAlert(Alert.AlertType type, String title, String message) {
-        Alert alert = new Alert(type);
-        alert.setTitle(title);
-        alert.setHeaderText(null);
+    @FXML
+    public void handlePerditeso() {
+        Grupet selected = tableGrupet.getSelectionModel().getSelectedItem();
+        if (selected == null) {
+            showError("Zgjedh një grup për përditësim.");
+            return;
+        }
+
+        try {
+            UpdateGrupetDto dto = new UpdateGrupetDto(
+                    selected.getGrupiId(),
+                    txtEmriGrupit.getText(),
+                    Integer.parseInt(txtMoshaMin.getText()),
+                    Integer.parseInt(txtMoshaMax.getText()),
+                    Integer.parseInt(txtEdukatoriId.getText())
+            );
+            Grupet updated = service.update(dto);
+            int index = grupetList.indexOf(selected);
+            grupetList.set(index, updated);
+            tableGrupet.refresh();
+            clearFields();
+        } catch (NumberFormatException e) {
+            showError("Sigurohu që mosha dhe edukatori ID janë numra.");
+        } catch (Exception e) {
+            showError(e.getMessage());
+        }
+    }
+
+    @FXML
+    public void handleFshi() {
+        Grupet selected = tableGrupet.getSelectionModel().getSelectedItem();
+        if (selected == null) {
+            showError("Zgjedh një grup për fshirje.");
+            return;
+        }
+
+        try {
+            service.delete(selected.getGrupiId());
+            grupetList.remove(selected);
+            clearFields();
+        } catch (Exception e) {
+            showError(e.getMessage());
+        }
+    }
+
+    private void clearFields() {
+        txtEmriGrupit.clear();
+        txtMoshaMin.clear();
+        txtMoshaMax.clear();
+        txtEdukatoriId.clear();
+        tableGrupet.getSelectionModel().clearSelection();
+    }
+
+    private void showError(String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Gabim");
         alert.setContentText(message);
         alert.showAndWait();
     }
