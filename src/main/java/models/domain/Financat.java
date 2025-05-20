@@ -20,7 +20,7 @@ public class Financat {
 
     public static Financat getInstance(ResultSet result) throws SQLException{
         int financatID = result.getInt("FinancatID");
-        String date = result.getString("Data");
+        String date = result.getDate("Data").toString();
         float teArdhura = result.getFloat("teArdhura");
         float shpenzime = result.getFloat("Shpenzime");
         String pershkrimi = result.getString("Pershkrimi");
