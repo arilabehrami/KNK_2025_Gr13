@@ -4,6 +4,10 @@ import models.domain.Ushqimet;
 import models.Dto.Ushqimet.CreateUshqimetDto;
 import models.Dto.Ushqimet.UpdateUshqimetDto;
 import repository.UshqimetRepository;
+import java.util.List;
+
+
+import java.util.List;
 
 public class UshqimetService {
 
@@ -47,4 +51,20 @@ public class UshqimetService {
 
         return this.ushqimetRepository.update(updateDto);
     }
+
+    public List<Ushqimet> getAll() {
+        return this.ushqimetRepository.getAll();
+    }
+
+    public boolean delete(int id) throws Exception {
+        if (id <= 0) {
+            throw new Exception("ID duhet të jetë më i madh se 0.");
+        }
+        Ushqimet ekzistues = this.getById(id);
+        if (ekzistues == null) {
+            throw new Exception("Ushqimi me ID " + id + " nuk ekziston.");
+        }
+        return this.ushqimetRepository.delete(id);
+    }
+
 }

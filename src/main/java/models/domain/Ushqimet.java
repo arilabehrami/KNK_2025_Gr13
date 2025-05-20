@@ -40,4 +40,5 @@ public class Ushqimet {
     public String getPershkrimi() {
         return pershkrimi;
     }
+
 }
