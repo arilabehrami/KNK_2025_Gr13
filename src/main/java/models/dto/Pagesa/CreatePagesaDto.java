@@ -1,12 +1,15 @@
 package models.Dto.Pagesa;
 
+import java.sql.Date;
+import java.time.LocalDate;
+
 public class CreatePagesaDto {
     private int femijaId;
     private double shuma;
-    private String data;
+    private LocalDate data;
     private String pershkrimi;
     
-    public CreatePagesaDto( int femijaId, double shuma, String data, String pershkrimi){
+    public CreatePagesaDto(int femijaId, double shuma, LocalDate data, String pershkrimi){
         this.femijaId = femijaId;
         this.shuma = shuma;
         this.data = data;
@@ -29,11 +32,11 @@ public class CreatePagesaDto {
         return shuma;
     }
 
-    public void setData(String data){
+    public void setData(LocalDate data){
         this.data = data;
     }
 
-    public String getData(){
+    public LocalDate getData(){
         return data;
     }
 

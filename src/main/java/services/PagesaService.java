@@ -5,6 +5,8 @@ import models.Dto.Pagesa.CreatePagesaDto;
 import models.Dto.Pagesa.UpdatePagesaDto;
 import repository.PagesaRepository;
 
+import java.util.ArrayList;
+
 public class PagesaService {
     private PagesaRepository pagesaRepository;
     public PagesaService(){
@@ -25,7 +27,7 @@ public class PagesaService {
         if(createPagesaDto.getFemijaId() <= 0){
             throw new Exception("ID-ja e femijes nuk mund te jete bosh");
         }
-        if(createPagesaDto.getData()==null || createPagesaDto.getData().isEmpty()){
+        if(createPagesaDto.getData()==null){
             throw new Exception("Data e aktivitetit eshte e detyrueshme");
         }
         Pagesa pagesa = this.pagesaRepository.create(createPagesaDto);
@@ -42,4 +44,19 @@ public class PagesaService {
         }
         return this.pagesaRepository.update(updatePagesaDto);
     }
+    public ArrayList<Pagesa> getAll() {
+        return this.pagesaRepository.getAll();
+    }
+
+    public boolean delete(int id) throws Exception {
+        if (id <= 0) {
+            throw new Exception("ID duhet të jetë më e madhe se 0");
+        }
+        Pagesa pagesa = this.pagesaRepository.getById(id);
+        if (pagesa == null) {
+            throw new Exception("Pagesa me ID " + id + " nuk ekziston.");
+        }
+        return this.pagesaRepository.delete(id);
+    }
+
 }

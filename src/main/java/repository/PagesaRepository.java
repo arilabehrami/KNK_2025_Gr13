@@ -8,10 +8,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 public class PagesaRepository extends BaseRepository<Pagesa, CreatePagesaDto, UpdatePagesaDto>{
     public PagesaRepository(){
-        super("pagesa", "PagesaID");
+        super("Pagesat", "PagesaID");
     }
 
     Pagesa fromResultSet(ResultSet res) throws SQLException{
@@ -21,13 +22,13 @@ public class PagesaRepository extends BaseRepository<Pagesa, CreatePagesaDto, Up
     public Pagesa create(CreatePagesaDto createPagesaDto){
         String query = """
                 INSERT INTO Pagesat (FemijaID, Shuma, DataPageses, Pershkrimi)
-                VALUES (?, ?, ?, ?, ?)
+                VALUES (?, ?, ?, ?)
                 """;
         try{
             PreparedStatement pstm = this.connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             pstm.setInt(1, createPagesaDto.getFemijaId());
             pstm.setDouble(2, createPagesaDto.getShuma());
-            pstm.setString(3, createPagesaDto.getData());
+            pstm.setDate(3, java.sql.Date.valueOf(createPagesaDto.getData()));
             pstm.setString(4, createPagesaDto.getPershkrimi());
             pstm.execute();
             ResultSet res = pstm.getGeneratedKeys();
@@ -64,4 +65,12 @@ public class PagesaRepository extends BaseRepository<Pagesa, CreatePagesaDto, Up
         }
         return null;
     }
+    public ArrayList<Pagesa> getAll(){
+        return super.getAll();
+    }
+
+    public boolean delete(int id){
+        return super.delete(id);
+    }
+
 }

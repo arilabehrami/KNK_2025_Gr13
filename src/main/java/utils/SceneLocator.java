@@ -9,4 +9,6 @@ public class SceneLocator {
     public static final String FEMIJET_VIEW = "/Views/FemijetView.fxml";
     public static final String GRUPET_VIEW = "/Views/GrupetView.fxml";
     public static final String DONACIONET_VIEW = "/Views/DonacionetView.fxml";
+    public static final String PAGESA_VIEW = "/Views/PagesaView.fxml";
+    public static final String FINANCA_VIEW = "/Views/FinancatView.fxml";
 }

@@ -61,9 +61,6 @@
                 </font>
             </Label>
 
-            <Label layoutX="203.0" layoutY="137.0" text="ID:" />
-            <TextField fx:id="txtId" layoutX="239.0" layoutY="133.0" prefHeight="26.0" prefWidth="72.0" />
-
             <Label layoutX="182.0" layoutY="178.0" text="Fëmija ID:" />
             <TextField fx:id="txtFemijaId" layoutX="239.0" layoutY="174.0" prefHeight="26.0" prefWidth="72.0" />
 

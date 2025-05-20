@@ -3,9 +3,9 @@ package controllers;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
-import services.PagesaService;
 import models.Dto.Pagesa.CreatePagesaDto;
 import models.domain.Pagesa;
+import services.PagesaService;
 
 import java.time.LocalDate;
 
@@ -13,16 +13,12 @@ public class CreatePagesaController {
 
     @FXML
     private TextField txtFemijaId;
-
-    @FXML
-    private TextField txtShuma;
-
     @FXML
     private TextField txtPershkrimi;
-
+    @FXML
+    private TextField txtShuma;
     @FXML
     private DatePicker datePicker;
-
     @FXML
     private Button ruajButton;
 
@@ -33,62 +29,38 @@ public class CreatePagesaController {
     }
 
     @FXML
-    public void initialize() {
-        ruajButton.setOnAction(e -> handleRuaj());
-    }
-
-    @FXML
     private void handleRuaj() {
         try {
-            int femijaId = Integer.parseInt(txtFemijaId.getText());
-            double shuma = Double.parseDouble(txtShuma.getText());
-            String pershkrimi = txtPershkrimi.getText();
+            int femijaId = Integer.parseInt(txtFemijaId.getText().trim());
+            double shuma = Double.parseDouble(txtShuma.getText().trim());
             LocalDate data = datePicker.getValue();
+            String pershkrimi = txtPershkrimi.getText().trim();
 
-            if (pershkrimi == null || pershkrimi.isEmpty()) {
-                throw new Exception("Pershkrimi nuk mund te jete bosh.");
-            }
+            CreatePagesaDto dto = new CreatePagesaDto(femijaId, shuma, data, pershkrimi);
+            Pagesa krijuar = pagesaService.create(dto);
 
-            if (data == null) {
-                throw new Exception("Ju lutem zgjidhni nje date.");
-            }
+            showAlert(AlertType.INFORMATION, "Sukses", "Pagesa u ruajt me sukses me ID: " + krijuar.getPagesaId());
+            clearForm();
 
-            CreatePagesaDto dto = new CreatePagesaDto(
-                    femijaId,
-                    shuma,
-                    data.toString(),
-                    pershkrimi
-            );
-            System.out.println("Thirrja e create ne service...");
-
-            Pagesa pagesa = pagesaService.create(dto);
-            showSuccess("Pagesa u ruajt me sukses!");
-            System.out.println("Kthimi nga create: " + pagesa);
-
-            if (pagesa != null) {
-                showSuccess("Pagesa u ruajt me sukses!");
-            } else {
-                showError("Nuk u krijua pagesa.");
-            }
-
-        } catch (NumberFormatException ex) {
-            showError("ID, ID e femijes dhe Shuma duhet te jene numra.");
-        } catch (Exception ex) {
-            showError(ex.getMessage());
+        } catch (NumberFormatException e) {
+            showAlert(AlertType.ERROR, "Gabim", "ID e fëmijës dhe shuma duhet të jenë numra.");
+        } catch (Exception e) {
+            showAlert(AlertType.ERROR, "Gabim", e.getMessage());
         }
     }
 
-    private void showError(String message) {
-        Alert alert = new Alert(AlertType.ERROR);
-        alert.setTitle("Gabim");
-        alert.setContentText(message);
+    private void showAlert(AlertType type, String title, String content) {
+        Alert alert = new Alert(type);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(content);
         alert.showAndWait();
     }
 
-    private void showSuccess(String message) {
-        Alert alert = new Alert(AlertType.INFORMATION);
-        alert.setTitle("Sukses");
-        alert.setContentText(message);
-        alert.showAndWait();
+    private void clearForm() {
+        txtFemijaId.clear();
+        txtPershkrimi.clear();
+        txtShuma.clear();
+        datePicker.setValue(null);
     }
 }
