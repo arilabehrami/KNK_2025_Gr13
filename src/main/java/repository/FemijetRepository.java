@@ -11,7 +11,7 @@ import java.sql.Statement;
 
 public class FemijetRepository extends BaseRepository<Femijet, CreateFemijetDto, UpdateFemijetDto> {
     public FemijetRepository() {
-        super("femijet");
+        super("femijet","FemijaId");
     }
 
     @Override
@@ -31,7 +31,8 @@ public class FemijetRepository extends BaseRepository<Femijet, CreateFemijetDto,
             pstm.setString(1, femijetDto.getEmri());
             pstm.setString(2, femijetDto.getMbiemri());
             pstm.setString(3, femijetDto.getDataLindjes());
-            pstm.setBoolean(4, femijetDto.isGjinia());
+            pstm.setString(4, femijetDto.isGjinia());
+
             pstm.setString(5, femijetDto.getAdresa());
             pstm.setString(6, femijetDto.getEmriPrindit());
             pstm.setString(7, femijetDto.getKontaktiPrindit());
