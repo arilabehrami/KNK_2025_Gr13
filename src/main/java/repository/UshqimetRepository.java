@@ -8,6 +8,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 public class UshqimetRepository extends BaseRepository<Ushqimet, CreateUshqimetDto, UpdateUshqimetDto> {
 
@@ -64,5 +65,15 @@ public class UshqimetRepository extends BaseRepository<Ushqimet, CreateUshqimetD
             e.printStackTrace();
         }
         return null;
+    }
+
+    // Merr te gjithe ushqimet
+    public ArrayList<Ushqimet> getAll() {
+        return super.getAll();
+    }
+
+    // Fshi nje ushqim nga id
+    public boolean delete(int id) {
+        return super.delete(id);
     }
 }
