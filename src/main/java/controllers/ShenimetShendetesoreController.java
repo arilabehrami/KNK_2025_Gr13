@@ -1,8 +1,8 @@
 package controllers;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.input.InputEvent;
 import javafx.util.StringConverter;
 import models.Dto.ShenimetShendetsore.CreateShenimetShendetsoreDto;
 import models.domain.ShenimetShendetesore;
@@ -11,31 +11,33 @@ import services.ShenimetShendetesoreService;
 import java.time.LocalDate;
 import java.util.Locale;
 import java.util.ResourceBundle;
+import services.FemijetService;
 
 public class ShenimetShendetesoreController {
 
-    @FXML
-    private ComboBox<String> languageSelector;
+    @FXML private ComboBox<String> languageSelector;
+    @FXML private Label languageLabel;
 
-    @FXML
-    private TextField femijaIdField;
+    @FXML private Label femijaIdLabel;
+    @FXML private TextField femijaIdField;
 
-    @FXML
-    private DatePicker dataPicker;
+    @FXML private Label dataLabel;
+    @FXML private DatePicker dataPicker;
 
-    @FXML
-    private TextArea pershkrimiField;
+    @FXML private Label pershkrimiLabel;
+    @FXML private TextArea pershkrimiField;
 
-    @FXML
-    private Label statusLabel;
+    @FXML private Button shtoButton;
+    @FXML private Label statusLabel;
 
     private ResourceBundle bundle;
-
     private ShenimetShendetesoreService service;
+    private FemijetService femijetService;
 
     @FXML
     public void initialize() {
         service = new ShenimetShendetesoreService();
+        femijetService = new FemijetService();
 
         languageSelector.getItems().addAll("Shqip", "English");
         languageSelector.setValue("Shqip"); // Default
@@ -55,9 +57,9 @@ public class ShenimetShendetesoreController {
     }
 
     @FXML
-    private void onLanguageChange(InputEvent event) {
+    private void onLanguageChange(ActionEvent event) {
         String selectedLang = languageSelector.getValue();
-        if (selectedLang.equals("English")) {
+        if ("English".equals(selectedLang)) {
             loadLanguage("en");
         } else {
             loadLanguage("sq");
@@ -66,21 +68,51 @@ public class ShenimetShendetesoreController {
 
     private void loadLanguage(String lang) {
         Locale locale = new Locale(lang);
-        ResourceBundle.getBundle("languages.messages", locale);
-        // You can reload the UI elements manually here or reload the entire scene if dynamic refresh is complex
-        languageSelector.setPromptText(bundle.getString("label.language"));
+        bundle = ResourceBundle.getBundle("languages.messages", locale);
+
+        // Update labels and buttons manually
+        languageLabel.setText(bundle.getString("label.language"));
+        femijaIdLabel.setText(bundle.getString("label.femijaid"));
+        dataLabel.setText(bundle.getString("label.data"));
+        pershkrimiLabel.setText(bundle.getString("label.pershkrimi"));
+        shtoButton.setText(bundle.getString("button.shtoshenim"));
         statusLabel.setText("");
+    }
+
+    private void clearFields() {
+        femijaIdField.clear();
+        dataPicker.setValue(null);
+        pershkrimiField.clear();
     }
 
     @FXML
     private void onShtoShenim() {
         try {
             int femijaId = Integer.parseInt(femijaIdField.getText());
+
+            // Kontrollo nëse fusha e ID-së është e zbrazët
+            if (femijaIdField.getText().isEmpty()) {
+                showSimpleAlert("Ju lutem shkruani ID-në e fëmijës!");
+                return;
+            }
+
+            // Kontrollo ekzistencën e fëmijës
+            if (!femijetService.checkIfFemijaExists(femijaId)) {
+                showSimpleAlert("Fëmija me ID " + femijaId + " nuk ekziston në sistem!");
+                return;
+            }
+
             LocalDate date = dataPicker.getValue();
             String pershkrimi = pershkrimiField.getText();
 
             if (date == null) {
-                throw new Exception(bundle.getString("error.date_required"));
+                showSimpleAlert("Ju lutem zgjidhni një datë!");
+                return;
+            }
+
+            if (pershkrimi.isEmpty()) {
+                showSimpleAlert("Ju lutem shkruani një përshkrim!");
+                return;
             }
 
             CreateShenimetShendetsoreDto dto = new CreateShenimetShendetsoreDto(
@@ -91,18 +123,30 @@ public class ShenimetShendetesoreController {
 
             ShenimetShendetesore shenimi = service.create(dto);
 
-            statusLabel.setText(bundle.getString("success.created") + " ID: " + shenimi.getShenimiID());
+            showSuccessAlert("Shënimi u krijua me sukses!\nID: " + shenimi.getShenimiID());
             clearFields();
         } catch (NumberFormatException e) {
-            statusLabel.setText(bundle.getString("error.invalid_id"));
+            showSimpleAlert("ID e fëmijës duhet të jetë një numër!");
         } catch (Exception e) {
-            statusLabel.setText(e.getMessage());
+            showSimpleAlert("Gabim: " + e.getMessage());
         }
     }
 
-    private void clearFields() {
-        femijaIdField.clear();
-        dataPicker.setValue(null);
-        pershkrimiField.clear();
+    // Metodë për alert të thjeshtë gabimi
+    private void showSimpleAlert(String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Gabim");
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+
+    // Metodë për alert suksesi
+    private void showSuccessAlert(String message) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Sukses");
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 }

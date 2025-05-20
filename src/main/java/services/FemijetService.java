@@ -51,4 +51,14 @@ public class FemijetService {
 
         return this.femijetRepository.update(updateFemijet);
     }
+
+    public boolean checkIfFemijaExists(int id) {
+        try {
+            Femijet femija = this.femijetRepository.getById(id);
+            return femija != null;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
 }

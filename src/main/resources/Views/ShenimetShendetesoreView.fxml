@@ -9,19 +9,19 @@
       spacing="10" alignment="CENTER" style="-fx-padding: 20;">
 
     <HBox spacing="10" alignment="CENTER_RIGHT">
-        <Label text="Gjuha/Language:"/>
+        <Label fx:id="languageLabel" text="Gjuha/Language:"/>
         <ComboBox fx:id="languageSelector" onAction="#onLanguageChange"/>
     </HBox>
 
-    <Label text="%label.femijaid"/>
+    <Label fx:id="femijaIdLabel" text="%label.femijaid"/>
     <TextField fx:id="femijaIdField"/>
 
-    <Label text="%label.data"/>
+    <Label fx:id="dataLabel" text="%label.data"/>
     <DatePicker fx:id="dataPicker"/>
 
-    <Label text="%label.pershkrimi"/>
+    <Label fx:id="pershkrimiLabel" text="%label.pershkrimi"/>
     <TextArea fx:id="pershkrimiField"/>
 
-    <Button text="%button.shtoshenim" onAction="#onShtoShenim"/>
+    <Button fx:id="shtoButton" text="%button.shtoshenim" onAction="#onShtoShenim"/>
     <Label fx:id="statusLabel"/>
 </VBox>
