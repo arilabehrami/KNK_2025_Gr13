@@ -1,172 +1,115 @@
 package controllers;
 
-import Database.DBConnection;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
 import models.domain.MenyjaDitore;
-import models.domain.Grupet;
-import models.domain.Ushqimet;
+import models.Dto.MenyjaDitore.CreateMenyjaDitoreDto;
+import services.MenyjaDitoreService;
 
-import java.sql.*;
+import java.util.List;
 
 public class MenyjaDitoreController {
 
     @FXML
+    private ComboBox<String> ditaComboBox;
+
+    @FXML
+    private ComboBox<Integer> grupiComboBox;
+
+    @FXML
+    private ComboBox<Integer> ushqimiComboBox;
+
+    @FXML
     private TableView<MenyjaDitore> menyjaTable;
+
     @FXML
     private TableColumn<MenyjaDitore, Integer> menuIdColumn;
+
     @FXML
     private TableColumn<MenyjaDitore, String> ditaColumn;
+
     @FXML
     private TableColumn<MenyjaDitore, Integer> grupiIdColumn;
+
     @FXML
     private TableColumn<MenyjaDitore, Integer> ushqimiIdColumn;
 
-    @FXML
-    private ComboBox<String> ditaComboBox;
-    @FXML
-    private ComboBox<Grupet> grupiComboBox;
-    @FXML
-    private ComboBox<Ushqimet> ushqimiComboBox;
+    private MenyjaDitoreService service;
+
+    private ObservableList<MenyjaDitore> menyjaData;
 
     @FXML
-    private Button shtoButton;
-    @FXML
-    private Button fshijButton;
-    @FXML
-    private Button pastroButton;
+    public void initialize() {
+        service = new MenyjaDitoreService();
 
-    private ObservableList<MenyjaDitore> menyjaList = FXCollections.observableArrayList();
-    private ObservableList<Grupet> grupetList = FXCollections.observableArrayList();
-    private ObservableList<Ushqimet> ushqimetList = FXCollections.observableArrayList();
+        menuIdColumn.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getMenuID()).asObject());
+        ditaColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getDita()));
+        grupiIdColumn.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getGrupiID()).asObject());
+        ushqimiIdColumn.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getUshqimiID()).asObject());
 
-    @FXML
-    private void initialize() {
-        // Initialize table columns
-        menuIdColumn.setCellValueFactory(new PropertyValueFactory<>("menuID"));
-        ditaColumn.setCellValueFactory(new PropertyValueFactory<>("dita"));
-        grupiIdColumn.setCellValueFactory(new PropertyValueFactory<>("grupiID"));
-        ushqimiIdColumn.setCellValueFactory(new PropertyValueFactory<>("ushqimiID"));
-
-        menyjaTable.setItems(menyjaList);
-
-        // Load initial data
-        loadDitaComboBox();
-        loadGrupetComboBox();
-        loadUshqimetComboBox();
-        loadMenyjaFromDB();
-
-        // Set up selection listener
-        menyjaTable.getSelectionModel().selectedItemProperty().addListener(
-                (obs, oldSelection, newSelection) -> {
-                    if (newSelection != null) {
-                        ditaComboBox.getSelectionModel().select(newSelection.getDita());
-                       // grupiComboBox.getSelectionModel().select(findGrupiById(newSelection.getGrupiID()));
-                        ushqimiComboBox.getSelectionModel().select(findUshqimById(newSelection.getUshqimiID()));
-                    }
-                });
+        loadComboBoxes();
+        loadTableData();
     }
 
-    private void loadDitaComboBox() {
-        ObservableList<String> dite = FXCollections.observableArrayList(
-                "E Hënë", "E Martë", "E Mërkurë", "E Enjte", "E Premte", "E Shtunë", "E Diel"
-        );
-        ditaComboBox.setItems(dite);
-    }
+    private void loadComboBoxes() {
+        ditaComboBox.setItems(FXCollections.observableArrayList(
+                "E Hene", "E Marte", "E Merkure", "E Enjte", "E Premte", "E Shtune", "E Diel"));
 
-    private void loadGrupetComboBox() {
-        grupetList.clear();
-        try (Connection conn = DBConnection.getConnection();
-             Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery("SELECT * FROM grupet")) {
-
-            while (rs.next()) {
-                grupetList.add(Grupet.getInstance(rs));
-            }
-            grupiComboBox.setItems(grupetList);
-
-        } catch (SQLException e) {
-            e.printStackTrace();
+        ObservableList<Integer> grupet = FXCollections.observableArrayList();
+        for (int i = 1; i <= 10; i++) {
+            grupet.add(i);
         }
-    }
+        grupiComboBox.setItems(grupet);
 
-    private void loadUshqimetComboBox() {
-        ushqimetList.clear();
-        try (Connection conn = DBConnection.getConnection();
-             Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery("SELECT * FROM ushqimet")) {
-
-            while (rs.next()) {
-                ushqimetList.add(Ushqimet.getInstance(rs));
-            }
-            ushqimiComboBox.setItems(ushqimetList);
-
-        } catch (SQLException e) {
-            e.printStackTrace();
+        ObservableList<Integer> ushqimet = FXCollections.observableArrayList();
+        for (int i = 1; i <= 10; i++) {
+            ushqimet.add(i);
         }
+        ushqimiComboBox.setItems(ushqimet);
     }
 
-    private void loadMenyjaFromDB() {
-        menyjaList.clear();
-        try (Connection conn = DBConnection.getConnection();
-             Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery("SELECT * FROM menyjaditore")) {
-
-            while (rs.next()) {
-                menyjaList.add(MenyjaDitore.getInstance(rs));
-            }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-//
-//    private Grupet findGrupiById(int id) {
-//        return grupetList.stream()
-//                .filter(g -> g.getGrupiID() == id)
-//                .findFirst()
-//                .orElse(null);
-//    }
-
-    private Ushqimet findUshqimById(int id) {
-        return ushqimetList.stream()
-                .filter(u -> u.getUshqimiID() == id)
-                .findFirst()
-                .orElse(null);
+    private void loadTableData() {
+        List<MenyjaDitore> menyjaList = service.getAll();
+        menyjaData = FXCollections.observableArrayList(menyjaList);
+        menyjaTable.setItems(menyjaData);
     }
 
     @FXML
     private void handleShto() {
-        String dita = ditaComboBox.getValue();
-        Grupet grupi = grupiComboBox.getValue();
-        Ushqimet ushqimi = ushqimiComboBox.getValue();
+        try {
+            String dita = ditaComboBox.getValue();
+            Integer grupiID = grupiComboBox.getValue();
+            Integer ushqimiID = ushqimiComboBox.getValue();
 
-        if (dita == null || grupi == null || ushqimi == null) {
-            showAlert(Alert.AlertType.WARNING, "Vërejtje", "Ju lutem plotësoni të gjitha fushat.");
-            return;
-        }
-
-        try (Connection conn = DBConnection.getConnection();
-             PreparedStatement ps = conn.prepareStatement(
-                     "INSERT INTO menyjaditore (dita, grupiid, ushqimiid) VALUES (?, ?, ?)")) {
-
-            ps.setString(1, dita);
-           // ps.setInt(2, grupi.getGrupiID());
-            ps.setInt(3, ushqimi.getUshqimiID());
-
-            int i = ps.executeUpdate();
-            if (i > 0) {
-                showAlert(Alert.AlertType.INFORMATION, "Sukses", "Menyja u shtua me sukses.");
-                loadMenyjaFromDB();
-                handlePastro();
+            if (dita == null || dita.isEmpty()) {
+                showAlert("Gabim", "Ju lutem zgjidhni Ditën.");
+                return;
+            }
+            if (grupiID == null || grupiID <= 0) {
+                showAlert("Gabim", "Ju lutem zgjidhni Grupin.");
+                return;
+            }
+            if (ushqimiID == null || ushqimiID <= 0) {
+                showAlert("Gabim", "Ju lutem zgjidhni Ushqimin.");
+                return;
             }
 
-        } catch (SQLException e) {
-            e.printStackTrace();
-            showAlert(Alert.AlertType.ERROR, "Gabim", "Gabim gjatë shtimit në databazë.");
+            CreateMenyjaDitoreDto createDto = new CreateMenyjaDitoreDto(dita, grupiID, ushqimiID);
+            MenyjaDitore newItem = service.create(createDto);
+
+            if (newItem != null) {
+                menyjaData.add(newItem);
+                showAlert("Sukses", "Shtimi u krye me sukses.");
+                clearInputs();
+            } else {
+                showAlert("Gabim", "Shtimi dështoi.");
+            }
+        } catch (Exception ex) {
+            showAlert("Gabim", ex.getMessage());
         }
     }
 
@@ -174,24 +117,16 @@ public class MenyjaDitoreController {
     private void handleFshij() {
         MenyjaDitore selected = menyjaTable.getSelectionModel().getSelectedItem();
         if (selected == null) {
-            showAlert(Alert.AlertType.WARNING, "Vërejtje", "Zgjidh një meni për fshirje.");
+            showAlert("Gabim", "Ju lutem zgjidhni një rresht për të fshirë.");
             return;
         }
 
-        try (Connection conn = DBConnection.getConnection();
-             PreparedStatement ps = conn.prepareStatement("DELETE FROM menyjaditore WHERE menuid = ?")) {
-
-            ps.setInt(1, selected.getMenuID());
-
-            int i = ps.executeUpdate();
-            if (i > 0) {
-                showAlert(Alert.AlertType.INFORMATION, "Sukses", "Menyja u fshi me sukses.");
-                loadMenyjaFromDB();
-            }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-            showAlert(Alert.AlertType.ERROR, "Gabim", "Gabim gjatë fshirjes nga databaza.");
+        try {
+            service.delete(selected.getMenuID());
+            menyjaData.remove(selected);
+            showAlert("Sukses", "Fshirja u krye me sukses.");
+        } catch (Exception ex) {
+            showAlert("Gabim", ex.getMessage());
         }
     }
 
@@ -202,8 +137,12 @@ public class MenyjaDitoreController {
         ushqimiComboBox.getSelectionModel().clearSelection();
     }
 
-    private void showAlert(Alert.AlertType type, String title, String content) {
-        Alert alert = new Alert(type);
+    private void clearInputs() {
+        handlePastro();
+    }
+
+    private void showAlert(String title, String content) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(title);
         alert.setHeaderText(null);
         alert.setContentText(content);

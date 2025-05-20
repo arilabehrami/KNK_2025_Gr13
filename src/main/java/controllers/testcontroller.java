@@ -70,7 +70,7 @@ public class testcontroller {
         addMenuItem("💡 Grupet", "GrupetView");
         addMenuItem("💡 Financat", "FinancatView");
         addMenuItem("💡 Ushqimet", "UshqimetView");
-        addMenuItem("💡 Prinderit", "PrinderittView");
+        addMenuItem("💡 Prinderit", "PrinderitView");
     }
 
     private void addMenuItem(String title, String mainClassPath) {
