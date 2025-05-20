@@ -1,62 +1,95 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.geometry.Pos?>
+<?import javafx.scene.text.Text?>
 
-<BorderPane fx:id="rootPane" xmlns:fx="http://javafx.com/fxml" fx:controller="controllers.MainController">
+<BorderPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+            fx:controller="controllers.MainController"
+            style="-fx-background-color: linear-gradient(to bottom, #fbe9e7, #fff3e0);">
 
-    <!-- TOP: Header -->
+    <!-- Top bar -->
     <top>
-        <HBox spacing="20" style="-fx-background-color: #2d3e50; -fx-padding: 12; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 4, 0, 0, 2);">
-            <ImageView fitHeight="40" fitWidth="40">
-                <image>
-                    <Image url="@../Images/Figura1.jpg" />
-                </image>
-            </ImageView>
-            <Label text="Paneli Kryesor"
-                   style="-fx-text-fill: white; -fx-font-size: 22px; -fx-font-weight: bold;" />
+        <HBox spacing="10" alignment="CENTER_LEFT"
+              style="-fx-padding: 10 20; -fx-background-color: linear-gradient(to right, #ffccbc, #ffab91);
+                     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 0, 2);">
+            <Label fx:id="emojiLabel" text="👶" style="-fx-font-size: 24px;" />
+
+            <VBox alignment="CENTER_LEFT">
+                <Label fx:id="appNameLabel" text="Kopshti 'Yjet'"
+                       style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #e65100;" />
+                <Label fx:id="quoteLabel" text="Rrënjët e edukimit janë të hidhura, por frytet janë të ëmbla."
+                       style="-fx-text-fill: #6d4c41;" />
+            </VBox>
+
             <Pane HBox.hgrow="ALWAYS" />
-            <Label fx:id="userLabel" text="Përdoruesi: Admin"
-                   style="-fx-text-fill: white; -fx-font-size: 14px;" />
+
             <Button fx:id="logoutBtn" text="Dil"
-                    style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-background-radius: 20; -fx-padding: 6 14;" />
+                    style="-fx-background-color: #ff7043; -fx-text-fill: white; -fx-font-weight: bold;
+                           -fx-background-radius: 12; -fx-padding: 6 16;" />
         </HBox>
     </top>
 
-    <!-- LEFT: Sidebar Navigation -->
+    <!-- Left menu panel -->
     <left>
-        <VBox spacing="10" style="-fx-background-color: #34495e; -fx-padding: 20; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 4, 0, 0, 2);">
-            <Button text="Ballina" onAction="#loadHome" styleClass="nav-button" />
-            <Button text="Fëmijët" onAction="#loadFemijet" styleClass="nav-button" />
-            <Button text="Grupet" onAction="#loadGrupet" styleClass="nav-button" />
-            <Button text="Ushqimet" onAction="#loadUshqimet" styleClass="nav-button" />
-            <Button text="Menyja Ditore" onAction="#loadMenyjaDitore" styleClass="nav-button" />
-            <Button text="Prania" onAction="#loadPrania" styleClass="nav-button" />
-            <Button text="Pagesat" onAction="#loadPagesa" styleClass="nav-button" />
-            <Button text="Orari" onAction="#loadOrariInsideMain" styleClass="nav-button" />
-            <Button text="Sugjerimet" onAction="#loadSugjerimet" styleClass="nav-button" />
-            <Button text="Donacionet" onAction="#loadDonacionet" styleClass="nav-button" />
-            <Button text="Shënimet Shëndetësore" onAction="#loadShenimetShendetesore" styleClass="nav-button" />
-            <Button text="Kontaktet Emergjente" onAction="#loadKontaktetEmergjente" styleClass="nav-button" />
-            <Button text="Aktivitetet" onAction="#loadAktivitetetInsideMain" styleClass="nav-button" />
+        <ScrollPane fitToWidth="true"
+                    style="-fx-background-color: transparent; -fx-padding: 0;">
+            <VBox fx:id="menuPane" spacing="15"
+                  alignment="TOP_LEFT"
+                  prefWidth="250" minWidth="250" maxWidth="250"
+                  style="-fx-background-color: linear-gradient(to bottom, #ffccbc, #ffab91);
+                     -fx-padding: 20; -fx-background-radius: 20; -fx-border-radius: 20;
+                     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 0, 2);">
+                <!-- Menu items to be added dynamically -->
+            </VBox>
+        </ScrollPane>
 
-
-        </VBox>
     </left>
 
-    <!-- CENTER: Dynamic content -->
+    <!-- Center pane for dynamic content -->
     <center>
-        <StackPane fx:id="contentArea" style="-fx-background-color: #f9f9f9; -fx-padding: 30;">
-            <Label text="Mirësevini në panelin kryesor!"
-                   style="-fx-font-size: 26px; -fx-font-weight: bold; -fx-text-fill: #2d3e50;" />
-        </StackPane>
+        <ScrollPane fitToWidth="true" fitToHeight="true" xmlns:fx="http://javafx.com/fxml">
+            <AnchorPane fx:id="centerPane"
+                        style="-fx-background-color: #ffffff;
+                       -fx-background-radius: 20;
+                       -fx-padding: 20;
+                       -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 10, 0.2, 0, 4);" />
+        </ScrollPane>
     </center>
-
-    <!-- BOTTOM: Footer -->
     <bottom>
-        <HBox alignment="CENTER" style="-fx-background-color: #2d3e50; -fx-padding: 8;">
-            <Label text="© 2025 Kopshti Modern - Të gjitha të drejtat e rezervuara"
-                   style="-fx-text-fill: white; -fx-font-size: 13px;" />
+        <HBox alignment="CENTER" spacing="40" BorderPane.alignment="CENTER"
+              style="-fx-padding: 15 30; -fx-background-color: linear-gradient(to right, #ffccbc, #ffab91);
+                 -fx-background-radius: 0 0 20 20; -fx-border-radius: 0 0 20 20;
+                 -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 5, 0, 0, -1);">
+
+            <Label text="© 2025 MiniEdu"
+                   style="-fx-font-size: 12px; -fx-text-fill: #6d4c41; -fx-font-weight: bold;" />
+
+            <Label text=" | " style="-fx-font-size: 14px; -fx-text-fill: #6d4c41;"/>
+
+            <Label text="info@miniedu.com"
+                   style="-fx-font-size: 12px; -fx-text-fill: #6d4c41;"
+            ></Label>
+
+            <Label text=" | " style="-fx-font-size: 14px; -fx-text-fill: #6d4c41;"/>
+
+            <Label text="+383 45 123 456"
+                   style="-fx-font-size: 12px; -fx-text-fill: #6d4c41;" />
+
+            <Region HBox.hgrow="ALWAYS"/>
+
+            <HBox spacing="15" alignment="CENTER_RIGHT">
+                <!-- Social media icons as Labels with emojis -->
+                <Label text="👍" style="-fx-font-size: 20px;"
+                />
+                <Label text="🐦" style="-fx-font-size: 20px; "
+                />
+                <Label text="📸" style="-fx-font-size: 20px; "
+                />
+            </HBox>
         </HBox>
     </bottom>
+
 </BorderPane>
