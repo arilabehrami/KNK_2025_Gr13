@@ -22,16 +22,15 @@ public class FinancatRepository extends BaseRepository<Financat, CreateFinancatD
     @Override
     public Financat create(CreateFinancatDto createDto) {
         String query = """
-                INSERT INTO Financa (financatID, date, teArdhura, shpenzime, pershkrimi)
+                INSERT INTO Financat (Data, teArdhura, Shpenzime, Pershkrimi
                 VALUES (?, ?, ?, ?, ?)
                 """;
         try{
             PreparedStatement pstm = this.connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
-            pstm.setInt(1, createDto.getFinancatID());
-            pstm.setString(2, createDto.getDate());
-            pstm.setFloat(3, createDto.getTeArdhura());
-            pstm.setFloat(4, createDto.getShpenzime());
-            pstm.setString(5, createDto.getPershkrimi());
+            pstm.setString(1, createDto.getDate());
+            pstm.setFloat(2, createDto.getTeArdhura());
+            pstm.setFloat(3, createDto.getShpenzime());
+            pstm.setString(4, createDto.getPershkrimi());
             pstm.execute();
             ResultSet res = pstm.getGeneratedKeys();
             if(res.next()){
