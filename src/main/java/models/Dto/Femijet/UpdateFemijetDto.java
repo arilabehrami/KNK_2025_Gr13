@@ -21,6 +21,9 @@ public class UpdateFemijetDto {
         this.kontaktiPrindit = kontaktiPrindit;
     }
 
+    public UpdateFemijetDto(int femijaID, String text, String text1, String text2, String value, String text3) {
+    }
+
     public int getFemijaID() {
         return femijaID;
     }

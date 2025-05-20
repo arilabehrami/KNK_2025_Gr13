@@ -8,8 +8,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class FemijetRepository extends BaseRepository<Femijet, CreateFemijetDto, UpdateFemijetDto> {
+    ArrayList<Femijet> Femijet;
     public FemijetRepository() {
         super("femijet", "FemijaID");
 
@@ -70,6 +74,42 @@ public class FemijetRepository extends BaseRepository<Femijet, CreateFemijetDto,
             e.printStackTrace();
         }
         return null;
+
     }
+
+
+    @Override
+    public ArrayList<Femijet> getAll() {
+        List<Femijet> femijet = new ArrayList<>();
+        String query = "SELECT * FROM FEMIJET";
+
+        try {
+            PreparedStatement stmt = this.connection.prepareStatement(query);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                femijet.add(fromResultSet(rs));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return Femijet;
+
+    }
+
+    @Override
+    public boolean delete(int id) {
+        String query = "DELETE FROM FEMIJET WHERE FemijaID = ?";
+        try {
+            PreparedStatement stmt = this.connection.prepareStatement(query);
+            stmt.setInt(1, id);
+            int affected = stmt.executeUpdate();
+            return affected == 1;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
 }
 
