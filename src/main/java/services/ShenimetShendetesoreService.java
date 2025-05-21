@@ -22,17 +22,14 @@ public class ShenimetShendetesoreService {
         return repository.update(dto);
     }
 
-    // ✅ Shto këtë për getAll
     public ArrayList<ShenimetShendetesore> getAll() {
         return repository.getAll();
     }
 
-    // ✅ Shto këtë për delete
     public boolean delete(int id) {
         return repository.delete(id);
     }
 
-    // (opsionale) merre nje shenim sipas ID
     public ShenimetShendetesore getById(int id) {
         return repository.getById(id);
     }

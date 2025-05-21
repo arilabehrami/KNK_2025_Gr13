@@ -217,6 +217,19 @@ INSERT INTO Donacionet (EmriOrganizates, LlojiDonatori, Kontakti, Email, Adresa,
 ('Fondacioni i Shëndetit', 'Organizate', '045444555', 'info@shendeti.org', 'Rr. Shëndeti 2', '2024-09-20', 2500.00, 'Financiar', 'Donacion për shëndetësi'),
 ('Biznesi i Vogël', 'Biznes', '044111222', 'biznesvog@biz.com', 'Rr. Tregu 9', '2024-10-10', 1000.00, 'Financiar', 'Mbështetje për projekte');
 
+INSERT INTO Sugjerimet (EmriSugjeruesit, Roli, Data, Pershkrimi)
+VALUES
+('Arben Krasniqi', 'Prind', '2024-05-01', 'Të organizohen aktivitete në natyrë.'),
+('Elira Hoxha', 'Edukator', '2024-05-02', 'Më shumë lodra edukuese.'),
+('Besnik Berisha', 'Staf tjetër', '2024-05-03', 'Të kontrollohen më shpesh pajisjet elektrike.'),
+('Lindita Zeka', 'Prind', '2024-05-04', 'Të ketë një kënd leximi.'),
+('Driton Islami', 'Edukator', '2024-05-05', 'Kurs trajnimi për stafin e ri.'),
+('Arta Krasniqi', 'Prind', '2024-05-06', 'Shtim i aktiviteteve muzikore.'),
+('Fitore Dema', 'Staf tjetër', '2024-05-07', 'Mirëmbajtje më e rregullt e ambientit.'),
+('Valon Haliti', 'Edukator', '2024-05-08', 'Rifreskimi i lodrave të jashtme.'),
+('Donika Gashi', 'Prind', '2024-05-09', 'Më shumë komunikim me prindërit.'),
+('Petrit Maliqi', 'Staf tjetër', '2024-05-10', 'Kënde të qeta për fëmijët me nevoja të veçanta.');
+
 CREATE TABLE Femijet (
     FemijaID SERIAL PRIMARY KEY,
     Emri VARCHAR(50) NOT NULL,

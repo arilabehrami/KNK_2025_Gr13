@@ -8,6 +8,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 public class SugjerimetRepository extends BaseRepository<Sugjerimet, CreateSugjerimetDto, UpdateSugjerimetDto> {
 
@@ -66,4 +68,36 @@ public class SugjerimetRepository extends BaseRepository<Sugjerimet, CreateSugje
         }
         return null;
     }
+
+    public ArrayList<Sugjerimet> getAll() {
+        List<Sugjerimet> sugjerimet = new ArrayList<>();
+        String query = "SELECT * FROM Sugjerimet ORDER BY SugjerimiID DESC";
+        try {
+            PreparedStatement pstm = this.connection.prepareStatement(query);
+            ResultSet resultSet = pstm.executeQuery();
+
+            while (resultSet.next()) {
+                Sugjerimet s = fromResultSet(resultSet);
+                System.out.println("Ngarkuar: " + s.getEmriSugjeruesit());
+                sugjerimet.add(s);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return (ArrayList<Sugjerimet>) sugjerimet;
+    }
+
+    public boolean delete(int id) {
+        String query = "DELETE FROM Sugjerimet WHERE SugjerimiID = ?";
+        try {
+            PreparedStatement pstm = this.connection.prepareStatement(query);
+            pstm.setInt(1, id);
+            return pstm.executeUpdate() == 1;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
 }

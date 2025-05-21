@@ -5,6 +5,8 @@ import models.Dto.Sugjerimet.CreateSugjerimetDto;
 import models.Dto.Sugjerimet.UpdateSugjerimetDto;
 import repository.SugjerimetRepository;
 
+import java.util.List;
+
 public class SugjerimetService {
 
     private SugjerimetRepository sugjerimetRepository;
@@ -53,4 +55,16 @@ public class SugjerimetService {
 
         return this.sugjerimetRepository.update(dto);
     }
+
+    public List<Sugjerimet> getAll() {
+        return sugjerimetRepository.getAll();
+    }
+
+    public boolean delete(int id) throws Exception {
+        if (id <= 0) {
+            throw new Exception("ID duhet të jetë pozitiv.");
+        }
+        return sugjerimetRepository.delete(id);
+    }
+
 }
