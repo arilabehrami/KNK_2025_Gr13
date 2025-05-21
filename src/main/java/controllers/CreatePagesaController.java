@@ -3,6 +3,7 @@ package controllers;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import models.Dto.Pagesa.CreatePagesaDto;
@@ -10,13 +11,14 @@ import models.domain.Pagesa;
 import services.PagesaService;
 import services.UserSession;
 
+import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class CreatePagesaController {
+public class CreatePagesaController implements Initializable {
 
     @FXML private TextField txtFemijaId;
     @FXML private TextField txtPershkrimi;
@@ -37,14 +39,18 @@ public class CreatePagesaController {
     private PagesaService pagesaService;
     private ObservableList<Pagesa> pagesaList = FXCollections.observableArrayList();
 
-    String username = UserSession.getInstance().getUsername();
-    int userId = UserSession.getInstance().getUserId();
+    private String username;
+    private int userId;
 
-    @FXML private ResourceBundle resources;
+    private ResourceBundle resources;
 
-    @FXML
-    public void initialize() {
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        this.resources = resourceBundle;
         pagesaService = new PagesaService();
+
+        username = UserSession.getInstance().getUsername();
+        userId = UserSession.getInstance().getUserId();
 
         colPagesaId.setCellValueFactory(new PropertyValueFactory<>("pagesaId"));
         colFemijaId.setCellValueFactory(new PropertyValueFactory<>("femijaId"));
@@ -58,7 +64,7 @@ public class CreatePagesaController {
     @FXML
     private void handleRuaj() {
         if (txtFemijaId.getText().isBlank() || txtShuma.getText().isBlank() || datePicker.getValue() == null) {
-            showAlert(Alert.AlertType.ERROR, resources.getString("gabim"), resources.getString("kompletoni.fushat"));
+            showAlert(Alert.AlertType.ERROR, get("gabim"), get("kompletoni.fushat"));
             return;
         }
 
@@ -71,15 +77,15 @@ public class CreatePagesaController {
             CreatePagesaDto dto = new CreatePagesaDto(femijaId, shuma, data, pershkrimi);
             Pagesa krijuar = pagesaService.create(dto);
 
-            showAlert(Alert.AlertType.INFORMATION, resources.getString("sukses"), resources.getString("pagesa.ruajtur") + krijuar.getPagesaId());
+            showAlert(Alert.AlertType.INFORMATION, get("sukses"), get("pagesa.ruajtur") + krijuar.getPagesaId());
 
             clearFields();
             refreshTable();
 
         } catch (NumberFormatException e) {
-            showAlert(Alert.AlertType.ERROR, resources.getString("gabim"), resources.getString("id.dhe.shuma.numra"));
+            showAlert(Alert.AlertType.ERROR, get("gabim"), get("id.dhe.shuma.numra"));
         } catch (Exception e) {
-            showAlert(Alert.AlertType.ERROR, resources.getString("gabim"), resources.getString("gabim.gjate.ruajtjes"));
+            showAlert(Alert.AlertType.ERROR, get("gabim"), get("gabim.gjate.ruajtjes"));
             e.printStackTrace();
         }
     }
@@ -93,9 +99,9 @@ public class CreatePagesaController {
             pagesaList.setAll(teGjithaPagesat);
 
             if (teGjithaPagesat.isEmpty()) {
-                showAlert(Alert.AlertType.INFORMATION, resources.getString("informacion"), resources.getString("asnje.pagesa"));
+                showAlert(Alert.AlertType.INFORMATION, get("informacion"), get("asnje.pagesa"));
             } else {
-                showAlert(Alert.AlertType.INFORMATION, resources.getString("rezultat"), resources.getString("gjendur.pagesa") + teGjithaPagesat.size());
+                showAlert(Alert.AlertType.INFORMATION, get("rezultat"), get("gjendur.pagesa") + teGjithaPagesat.size());
             }
             return;
         }
@@ -105,7 +111,7 @@ public class CreatePagesaController {
             Pagesa pagesa = pagesaService.getById(id);
 
             if (pagesa == null) {
-                showAlert(Alert.AlertType.WARNING, resources.getString("kerkesa"), resources.getString("nuk.u.gjet.pagesa") + id);
+                showAlert(Alert.AlertType.WARNING, get("kerkesa"), get("nuk.u.gjet.pagesa") + id);
                 pagesaList.clear();
             } else {
                 txtFemijaId.setText(String.valueOf(pagesa.getFemijaId()));
@@ -121,13 +127,13 @@ public class CreatePagesaController {
                 }
 
                 pagesaList.setAll(pagesa);
-                showAlert(Alert.AlertType.INFORMATION, resources.getString("kerkesa"), resources.getString("pagesa.u.gjet"));
+                showAlert(Alert.AlertType.INFORMATION, get("kerkesa"), get("pagesa.u.gjet"));
             }
         } catch (NumberFormatException e) {
-            showAlert(Alert.AlertType.ERROR, resources.getString("gabim"), resources.getString("id.duhet.numri"));
+            showAlert(Alert.AlertType.ERROR, get("gabim"), get("id.duhet.numri"));
             pagesaList.clear();
         } catch (Exception e) {
-            showAlert(Alert.AlertType.ERROR, resources.getString("gabim"), resources.getString("gabim.gjate.kerkeses"));
+            showAlert(Alert.AlertType.ERROR, get("gabim"), get("gabim.gjate.kerkeses"));
             e.printStackTrace();
             pagesaList.clear();
         }
@@ -151,5 +157,9 @@ public class CreatePagesaController {
         alert.setHeaderText(null);
         alert.setContentText(content);
         alert.showAndWait();
+    }
+
+    private String get(String key) {
+        return resources != null ? resources.getString(key) : key;
     }
 }
