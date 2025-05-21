@@ -12,14 +12,16 @@ import models.Dto.Orari.CreateOrariDto;
 import models.Dto.Orari.UpdateOrariDto;
 import models.domain.Orari;
 import services.OrariService;
+import services.LanguageManager;
 
 import java.util.Locale;
 import java.util.ResourceBundle;
 
-public class OrariController {
+public class OrariController extends BaseController {
 
     String username = UserSession.getInstance().getUsername();
     int userId = UserSession.getInstance().getUserId();
+
     @FXML private TableView<Orari> tableOrari;
     @FXML private TableColumn<Orari, Integer> colOrariID;
     @FXML private TableColumn<Orari, Integer> colFemijaID;
@@ -32,8 +34,6 @@ public class OrariController {
     @FXML private TextField tfOraHyrjes;
     @FXML private TextField tfOraDaljes;
 
-//    @FXML private Button btnSwitchAlbanian;
-//    @FXML private Button btnSwitchEnglish;
     @FXML private Button btnAdd;
     @FXML private Button btnUpdate;
     @FXML private Button btnDelete;
@@ -44,7 +44,6 @@ public class OrariController {
     @FXML private Label lblOraHyrjes;
     @FXML private Label lblOraDaljes;
 
-
     private OrariService orariService = new OrariService();
     private final ObservableList<Orari> orariList = FXCollections.observableArrayList();
     private Orari selectedOrari;
@@ -52,8 +51,7 @@ public class OrariController {
 
     @FXML
     public void initialize() {
-        // Ngarko resource bundle default (shqip)
-        resources = ResourceBundle.getBundle("languages.messages", new Locale("sq"));
+        resources = LanguageManager.getBundle();
 
         colOrariID.setCellValueFactory(data -> new ReadOnlyObjectWrapper<>(data.getValue().getOrariID()));
         colFemijaID.setCellValueFactory(data -> new ReadOnlyObjectWrapper<>(data.getValue().getFemijaID()));
@@ -63,12 +61,7 @@ public class OrariController {
 
         tableOrari.setOnMouseClicked(this::handleRowSelect);
 
-        updateUILabels();
-
-        tfFemijaID.setPromptText(resources.getString("orari.lblFemijaID"));
-        tfDita.setPromptText(resources.getString("orari.lblDita"));
-        tfOraHyrjes.setPromptText(resources.getString("orari.lblOraHyrjes"));
-        tfOraDaljes.setPromptText(resources.getString("orari.lblOraDaljes"));
+        refreshLanguage();
 
         loadOrariData();
     }
@@ -164,29 +157,9 @@ public class OrariController {
         tableOrari.getSelectionModel().clearSelection();
     }
 
-    @FXML
-    public void switchToAlbanian() {
-        try {
-            resources = ResourceBundle.getBundle("languages.messages", new Locale("sq"));
-            updateUILabels();
-            updatePrompts();
-        } catch (Exception e) {
-            showError("Gabim në ndërrimin e gjuhës: " + e.getMessage());
-        }
-    }
-
-    @FXML
-    public void switchToEnglish() {
-        try {
-            resources = ResourceBundle.getBundle("languages.messages", Locale.ENGLISH);
-            updateUILabels();
-            updatePrompts();
-        } catch (Exception e) {
-            showError("Error switching language: " + e.getMessage());
-        }
-    }
-
-    private void updateUILabels() {
+    @Override
+    protected void refreshLanguage() {
+        resources = LanguageManager.getBundle();
         if (resources == null) return;
 
         colOrariID.setText(resources.getString("orari.id"));
@@ -195,32 +168,39 @@ public class OrariController {
         colOraHyrjes.setText(resources.getString("orari.oraHyrjes"));
         colOraDaljes.setText(resources.getString("orari.oraDaljes"));
 
-//        btnSwitchAlbanian.setText(resources.getString("button.switchAlbanian"));
-//        btnSwitchEnglish.setText(resources.getString("button.switchEnglish"));
-
         btnAdd.setText(resources.getString("button.add"));
         btnUpdate.setText(resources.getString("button.update"));
         btnDelete.setText(resources.getString("button.delete"));
         btnClear.setText(resources.getString("button.clear"));
+
         lblFemijaID.setText(resources.getString("orari.lblFemijaID"));
         lblDita.setText(resources.getString("orari.lblDita"));
         lblOraHyrjes.setText(resources.getString("orari.lblOraHyrjes"));
         lblOraDaljes.setText(resources.getString("orari.lblOraDaljes"));
 
-    }
-
-    private void updatePrompts() {
-        if (resources == null) return;
-
         tfFemijaID.setPromptText(resources.getString("orari.lblFemijaID"));
         tfDita.setPromptText(resources.getString("orari.lblDita"));
         tfOraHyrjes.setPromptText(resources.getString("orari.lblOraHyrjes"));
         tfOraDaljes.setPromptText(resources.getString("orari.lblOraDaljes"));
+
+        tableOrari.refresh();
+    }
+
+    @FXML
+    public void switchToAlbanian() {
+        LanguageManager.setLocale(new Locale("sq"));
+        refreshLanguage();
+    }
+
+    @FXML
+    public void switchToEnglish() {
+        LanguageManager.setLocale(Locale.ENGLISH);
+        refreshLanguage();
     }
 
     private void showError(String message) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle(resources != null ? resources.getString("alert.error") : "Gabim");
+        alert.setTitle(resources != null ? resources.getString("alert.error") : "Error");
         alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();
@@ -228,13 +208,9 @@ public class OrariController {
 
     private void showInfo(String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle(resources != null ? resources.getString("alert.success") : "Sukses");
+        alert.setTitle(resources != null ? resources.getString("alert.info") : "Info");
         alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();
-    }
-
-    public void setService(OrariService service) {
-        this.orariService = service;
     }
 }
