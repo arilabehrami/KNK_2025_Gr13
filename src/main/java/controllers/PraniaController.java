@@ -1,5 +1,6 @@
 package controllers;
 
+
 import services.UserSession;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -8,17 +9,18 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import models.domain.Prania;
 import services.PraniaService;
-import services.LanguageManager;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Locale;
 import java.util.ResourceBundle;
 
-public class PraniaController extends BaseController {
+public class PraniaController {
 
     String username = UserSession.getInstance().getUsername();
     int userId = UserSession.getInstance().getUserId();
-
+    @FXML
+    private Button btnLanguage;
     @FXML
     private Button btnSave;
     @FXML
@@ -40,13 +42,13 @@ public class PraniaController extends BaseController {
     @FXML
     private TableColumn<Prania, String> colStatusi;
 
+    private Locale currentLocale = new Locale("sq");
     private PraniaService praniaService = new PraniaService();
+
     private ObservableList<Prania> dataList = FXCollections.observableArrayList();
 
     @FXML
     public void initialize() {
-        // btnLanguage is removed, no reference here anymore
-
         btnSave.setOnAction(e -> handleSave());
         btnDelete.setOnAction(e -> handleDelete());
 
@@ -57,22 +59,7 @@ public class PraniaController extends BaseController {
 
         tableView.setItems(dataList);
 
-        refreshLanguage();  // set initial UI language texts
         loadData();
-    }
-
-    @Override
-    protected void refreshLanguage() {
-        ResourceBundle bundle = LanguageManager.getBundle();
-
-        // btnLanguage.setText(bundle.getString("language")); // Removed
-
-        txtFemijaId.setPromptText(bundle.getString("femijaId"));
-        txtStatusi.setPromptText(bundle.getString("status"));
-        btnSave.setText(bundle.getString("save"));
-        btnDelete.setText(bundle.getString("delete"));
-        colFemija.setText(bundle.getString("femijaId"));
-        colStatusi.setText(bundle.getString("status"));
     }
 
     @FXML
