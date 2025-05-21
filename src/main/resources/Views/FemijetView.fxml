@@ -7,54 +7,56 @@
 <?import javafx.scene.layout.HBox?>
 
 <AnchorPane layoutX="0.0" layoutY="0.0" prefHeight="600.0" prefWidth="1000.0"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.CreateFemijetController"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="controllers.CreateFemijetController"
+            fx:resources="languages.messages"
             style="-fx-background-color: #e6f4ea;">
     <children>
         <TableView fx:id="tableFemijet" layoutX="10.0" layoutY="10.0" prefHeight="580.0" prefWidth="640.0">
             <columns>
-                <TableColumn fx:id="colID" prefWidth="50.0" text="ID" />
-                <TableColumn fx:id="colEmri" prefWidth="100.0" text="Emri" />
-                <TableColumn fx:id="colMbiemri" prefWidth="120.0" text="Mbiemri" />
-                <TableColumn fx:id="colDitelindja" prefWidth="130.0" text="Ditelindja" />
-                <TableColumn fx:id="colGjinia" prefWidth="90.0" text="Gjinia" />
-                <TableColumn fx:id="colAdresa" prefWidth="150.0" text="Adresa" />
-                <TableColumn fx:id="colEmriPrindit" prefWidth="150.0" text="Emri Prindit" />
-                <TableColumn fx:id="colKontaktiPrindit" prefWidth="150.0" text="Kontakti Prindit" />
+                <TableColumn fx:id="colID" prefWidth="50.0" text="%column.id" />
+                <TableColumn fx:id="colEmri" prefWidth="100.0" text="%column.emri" />
+                <TableColumn fx:id="colMbiemri" prefWidth="120.0" text="%column.mbiemri" />
+                <TableColumn fx:id="colDitelindja" prefWidth="130.0" text="%column.ditelindja" />
+                <TableColumn fx:id="colGjinia" prefWidth="90.0" text="%column.gjinia" />
+                <TableColumn fx:id="colAdresa" prefWidth="150.0" text="%column.adresa" />
+                <TableColumn fx:id="colEmriPrindit" prefWidth="150.0" text="%column.emriPrindit" />
+                <TableColumn fx:id="colKontaktiPrindit" prefWidth="150.0" text="%column.kontaktiPrindit" />
             </columns>
         </TableView>
 
         <HBox spacing="10" layoutX="10" layoutY="600" alignment="CENTER_LEFT" style="-fx-padding: 5;">
-            <Button fx:id="btnSwitchAlbanian" text="Shqip" onAction="#switchToAlbanian"
+            <Button fx:id="btnSwitchAlbanian" text="%button.shqip" onAction="#switchToAlbanian"
                     style="-fx-background-color: transparent; -fx-border-color: transparent;"/>
-            <Button fx:id="btnSwitchEnglish" text="English" onAction="#switchToEnglish"
+            <Button fx:id="btnSwitchEnglish" text="%button.english" onAction="#switchToEnglish"
                     style="-fx-background-color: transparent; -fx-border-color: transparent;"/>
         </HBox>
 
         <VBox layoutX="660.0" layoutY="10.0" prefHeight="580.0" prefWidth="320.0" spacing="12.0"
               style="-fx-background-color: #ffffff; -fx-padding: 15; -fx-background-radius: 10;">
             <children>
-                <Label fx:id="lblEmri" text="Emri" />
+                <Label fx:id="lblEmri" text="%label.emri" />
                 <TextField fx:id="txtEmri" />
-                <Label fx:id="lblMbiemri" text="Mbiemri" />
+                <Label fx:id="lblMbiemri" text="%label.mbiemri" />
                 <TextField fx:id="txtMbiemri" />
-                <Label fx:id="lblDitelindja" text="Ditelindja" />
+                <Label fx:id="lblDitelindja" text="%label.ditelindja" />
                 <TextField fx:id="txtDitelindja" promptText="YYYY-MM-DD" />
-                <Label fx:id="lblGjinia" text="Gjinia" />
+                <Label fx:id="lblGjinia" text="%label.gjinia" />
                 <ComboBox fx:id="cmbGjinia" editable="true" prefWidth="250.0" />
-                <Label fx:id="lblAdresa" text="Adresa" />
+                <Label fx:id="lblAdresa" text="%label.adresa" />
                 <TextField fx:id="txtAdresa" />
-                <Label fx:id="lblEmriPrindit" text="Emri i prindit" />
+                <Label fx:id="lblEmriPrindit" text="%label.emriPrindit" />
                 <TextField fx:id="txtEmriPrindit" />
-                <Label fx:id="lblKontaktiPrindit" text="Kontakti i prindit" />
+                <Label fx:id="lblKontaktiPrindit" text="%label.kontaktiPrindit" />
                 <TextField fx:id="txtKontaktiPrindit" />
 
-                <Button fx:id="btnShto" text="Shto" onAction="#handleShto"
+                <Button fx:id="btnShto" text="%button.shto" onAction="#handleShto"
                         style="-fx-background-color: #81c784; -fx-text-fill: white; -fx-background-radius: 8;" />
-                <Button fx:id="btnPerditeso" text="Përditëso" onAction="#handlePerditeso"
+                <Button fx:id="btnPerditeso" text="%button.perditeso" onAction="#handlePerditeso"
                         style="-fx-background-color: #64b5f6; -fx-text-fill: white; -fx-background-radius: 8;" />
-                <Button fx:id="btnFshij" text="Fshi" onAction="#handleFshij"
+                <Button fx:id="btnFshij" text="%button.fshij" onAction="#handleFshij"
                         style="-fx-background-color: #e57373; -fx-text-fill: white; -fx-background-radius: 8;" />
-                <Button fx:id="btnPastro" text="Pastro" onAction="#handlePastro"
+                <Button fx:id="btnPastro" text="%button.pastro" onAction="#handlePastro"
                         style="-fx-background-color: #a1887f; -fx-text-fill: white; -fx-background-radius: 8;" />
             </children>
         </VBox>

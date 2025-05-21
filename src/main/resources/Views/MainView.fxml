@@ -8,6 +8,7 @@
 
 <BorderPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
             fx:controller="controllers.MainController"
+            fx:resources="languages.messages"
             style="-fx-background-color: linear-gradient(to bottom, #fbe9e7, #fff3e0);">
 
     <!-- Top bar -->
@@ -18,22 +19,22 @@
             <Label fx:id="emojiLabel" text="👶" style="-fx-font-size: 24px;" />
 
             <VBox alignment="CENTER_LEFT">
-                <Label fx:id="appNameLabel" text="Kopshti 'Yjet'"
+                <Label fx:id="appNameLabel" text="%app.name"
                        style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #e65100;" />
-                <Label fx:id="quoteLabel" text="Rrënjët e edukimit janë të hidhura, por frytet janë të ëmbla."
+                <Label fx:id="quoteLabel" text="%app.quote"
                        style="-fx-text-fill: #6d4c41;" />
-                <Label fx:id="welcomeLabel" text="Rrënjët e edukimit janë të hidhura, por frytet janë të ëmbla."
+                <Label fx:id="welcomeLabel" text="%app.quote"
                        style="-fx-text-fill: #6d4c41;" />
             </VBox>
 
             <Pane HBox.hgrow="ALWAYS" />
 
             <!-- Language Switch Button -->
-            <Button fx:id="languageBtn" text="EN/AL"
+            <Button fx:id="languageBtn" text="%btn.language"
                     style="-fx-background-color: #ffa726; -fx-text-fill: white; -fx-font-weight: bold;
                            -fx-background-radius: 12; -fx-padding: 6 12;" />
 
-            <Button fx:id="logoutBtn" text="Dil"
+            <Button fx:id="logoutBtn" text="%btn.logout"
                     style="-fx-background-color: #ff7043; -fx-text-fill: white; -fx-font-weight: bold;
                            -fx-background-radius: 12; -fx-padding: 6 16;" />
         </HBox>
@@ -72,17 +73,17 @@
                  -fx-background-radius: 0 0 20 20; -fx-border-radius: 0 0 20 20;
                  -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 5, 0, 0, -1);">
 
-            <Label text="© 2025 MiniEdu"
+            <Label text="%footer.copyright"
                    style="-fx-font-size: 12px; -fx-text-fill: #6d4c41; -fx-font-weight: bold;" />
 
             <Label text=" | " style="-fx-font-size: 14px; -fx-text-fill: #6d4c41;"/>
 
-            <Label text="info@miniedu.com"
+            <Label text="%footer.email"
                    style="-fx-font-size: 12px; -fx-text-fill: #6d4c41;" />
 
             <Label text=" | " style="-fx-font-size: 14px; -fx-text-fill: #6d4c41;"/>
 
-            <Label text="+383 45 123 456"
+            <Label text="%footer.phone"
                    style="-fx-font-size: 12px; -fx-text-fill: #6d4c41;" />
 
             <Region HBox.hgrow="ALWAYS"/>

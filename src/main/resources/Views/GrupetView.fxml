@@ -8,7 +8,6 @@
             xmlns:fx="http://javafx.com/fxml/1"
             xmlns="http://javafx.com/javafx/17.0.6"
             fx:controller="controllers.CreateGrupetController">
-
     <VBox alignment="TOP_CENTER" spacing="25.0"
           AnchorPane.leftAnchor="150.0"
           AnchorPane.rightAnchor="150.0"
@@ -16,7 +15,7 @@
           AnchorPane.bottomAnchor="40.0"
           style="-fx-background-color: white; -fx-padding: 30; -fx-background-radius: 15; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, 4);">
 
-        <Label text="Shto Grup të Ri"
+        <Label text="%createGroup.title"
                style="-fx-font-size: 26px; -fx-font-weight: bold; -fx-text-fill: #2e7d32;" />
 
         <GridPane hgap="20.0" vgap="15.0">
@@ -25,27 +24,27 @@
                 <ColumnConstraints minWidth="350.0" />
             </columnConstraints>
 
-            <Label text="Emri i Grupit:" GridPane.columnIndex="0" GridPane.rowIndex="0"
+            <Label text="%createGroup.label.groupName" GridPane.columnIndex="0" GridPane.rowIndex="0"
                    style="-fx-font-size: 14px; -fx-text-fill: #444;" />
-            <TextField fx:id="txtEmriGrupit" promptText="Shkruaj emrin e grupit"
+            <TextField fx:id="txtEmriGrupit" promptText="%createGroup.prompt.groupName"
                        GridPane.columnIndex="1" GridPane.rowIndex="0"
                        style="-fx-background-radius: 6;" />
 
-            <Label text="Mosha Minimale:" GridPane.columnIndex="0" GridPane.rowIndex="1"
+            <Label text="%createGroup.label.minAge" GridPane.columnIndex="0" GridPane.rowIndex="1"
                    style="-fx-font-size: 14px; -fx-text-fill: #444;" />
-            <TextField fx:id="txtMoshaMin" promptText="Shkruaj moshën minimale"
+            <TextField fx:id="txtMoshaMin" promptText="%createGroup.prompt.minAge"
                        GridPane.columnIndex="1" GridPane.rowIndex="1"
                        style="-fx-background-radius: 6;" />
 
-            <Label text="Mosha Maksimale:" GridPane.columnIndex="0" GridPane.rowIndex="2"
+            <Label text="%createGroup.label.maxAge" GridPane.columnIndex="0" GridPane.rowIndex="2"
                    style="-fx-font-size: 14px; -fx-text-fill: #444;" />
-            <TextField fx:id="txtMoshaMax" promptText="Shkruaj moshën maksimale"
+            <TextField fx:id="txtMoshaMax" promptText="%createGroup.prompt.maxAge"
                        GridPane.columnIndex="1" GridPane.rowIndex="2"
                        style="-fx-background-radius: 6;" />
 
-            <Label text="Edukatori ID:" GridPane.columnIndex="0" GridPane.rowIndex="3"
+            <Label text="%createGroup.label.educatorId" GridPane.columnIndex="0" GridPane.rowIndex="3"
                    style="-fx-font-size: 14px; -fx-text-fill: #444;" />
-            <TextField fx:id="txtEdukatoriId" promptText="Shkruaj ID e edukatorit"
+            <TextField fx:id="txtEdukatoriId" promptText="%createGroup.prompt.educatorId"
                        GridPane.columnIndex="1" GridPane.rowIndex="3"
                        style="-fx-background-radius: 6;" />
 
@@ -58,20 +57,19 @@
         </GridPane>
 
         <HBox alignment="CENTER" spacing="20.0">
-            <Button fx:id="ruajButton" onAction="#handleShto" text="Ruaj"
+            <Button fx:id="ruajButton" onAction="#handleShto" text="%createGroup.button.save"
                     style="-fx-background-color: #66bb6a; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 8; -fx-padding: 8 16;" />
-            <Button fx:id="pastroButton" onAction="#clearFields" text="Pastro"
+            <Button fx:id="pastroButton" onAction="#clearFields" text="%createGroup.button.clear"
                     style="-fx-background-color: #ef5350; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 8; -fx-padding: 8 16;" />
         </HBox>
 
-        <!-- Shto TableView këtu -->
         <TableView fx:id="tableGrupet" prefHeight="300.0" style="-fx-background-radius: 10;">
             <columns>
-                <TableColumn fx:id="colGrupiId" text="ID" prefWidth="60"/>
-                <TableColumn fx:id="colEmriGrupit" text="Emri i Grupit" prefWidth="200"/>
-                <TableColumn fx:id="colMoshaMin" text="Mosha Min" prefWidth="100"/>
-                <TableColumn fx:id="colMoshaMax" text="Mosha Max" prefWidth="100"/>
-                <TableColumn fx:id="colEdukatoriId" text="Edukatori ID" prefWidth="120"/>
+                <TableColumn fx:id="colGrupiId" text="%createGroup.table.id" prefWidth="60"/>
+                <TableColumn fx:id="colEmriGrupit" text="%createGroup.table.groupName" prefWidth="200"/>
+                <TableColumn fx:id="colMoshaMin" text="%createGroup.table.minAge" prefWidth="100"/>
+                <TableColumn fx:id="colMoshaMax" text="%createGroup.table.maxAge" prefWidth="100"/>
+                <TableColumn fx:id="colEdukatoriId" text="%createGroup.table.educatorId" prefWidth="120"/>
             </columns>
         </TableView>
     </VBox>

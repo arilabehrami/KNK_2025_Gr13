@@ -3,39 +3,47 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="controllers.EdukatoretController"
+<AnchorPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="controllers.EdukatoretController"
+            fx:resources="languages.messages"
             style="-fx-background-color: linear-gradient(to bottom, #fbe9e7, #fff3e0);">
+
     <children>
-        <VBox spacing="15" alignment="TOP_CENTER">
+        <VBox spacing="20" alignment="TOP_CENTER"
+              AnchorPane.topAnchor="0" AnchorPane.bottomAnchor="0"
+              AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0">
+
             <padding>
-                <Insets top="20.0" right="20.0" bottom="20.0" left="20.0"/>
+                <Insets top="20" right="30" bottom="20" left="30"/>
             </padding>
 
             <!-- Forma për input -->
-            <GridPane hgap="10" vgap="10" style="-fx-background-color: #ffffff; -fx-padding: 20; -fx-background-radius: 10; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 0, 1);">
-                <Label text="Emri:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+            <GridPane hgap="10" vgap="10"
+                      style="-fx-background-color: #ffffff; -fx-padding: 20; -fx-background-radius: 10; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 0, 1);">
+                <Label text="%label.emri" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
                 <TextField fx:id="txtEmri" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
 
-                <Label text="Mbiemri:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                <Label text="%label.mbiemri" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
                 <TextField fx:id="txtMbiemri" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
 
-                <Label text="Kontakti:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                <Label text="%label.kontakti" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
                 <TextField fx:id="txtKontakti" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
 
-                <Label text="Kualifikimet:" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+                <Label text="%label.kualifikimet" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
                 <TextField fx:id="txtKualifikimet" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
             </GridPane>
 
             <!-- Butonat për veprimet -->
             <HBox spacing="10" alignment="CENTER">
-                <Button text="Shto" onAction="#handleShto"
+                <Button text="%button.shto" onAction="#handleShto"
                         style="-fx-background-color: #ff7043; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 12; -fx-padding: 8 20;"/>
 
-                <Button text="Largo" onAction="#handleLargo"
+                <Button text="%button.largo" onAction="#handleLargo"
                         style="-fx-background-color: transparent; -fx-border-color: #ff7043; -fx-text-fill: #ff7043; -fx-border-radius: 12; -fx-padding: 8 20;"/>
 
-                <Button text="Përditëso" onAction="#handlePerditeso"
+                <Button text="%button.perditeso" onAction="#handlePerditeso"
                         style="-fx-background-color: #ff7043; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 12; -fx-padding: 8 20;"/>
             </HBox>
 
@@ -43,11 +51,11 @@
             <TableView fx:id="tableEdukatoret" prefHeight="300"
                        style="-fx-background-color: white; -fx-border-color: #ffe0b2; -fx-border-radius: 10; -fx-padding: 5;">
                 <columns>
-                    <TableColumn fx:id="colID" text="ID" />
-                    <TableColumn fx:id="colEmri" text="Emri" />
-                    <TableColumn fx:id="colMbiemri" text="Mbiemri" />
-                    <TableColumn fx:id="colKontakti" text="Kontakti" />
-                    <TableColumn fx:id="colKualifikimet" text="Kualifikimet" />
+                    <TableColumn fx:id="colID" text="%column.id"/>
+                    <TableColumn fx:id="colEmri" text="%column.emri"/>
+                    <TableColumn fx:id="colMbiemri" text="%column.mbiemri"/>
+                    <TableColumn fx:id="colKontakti" text="%column.kontakti"/>
+                    <TableColumn fx:id="colKualifikimet" text="%column.kualifikimet"/>
                 </columns>
             </TableView>
         </VBox>
