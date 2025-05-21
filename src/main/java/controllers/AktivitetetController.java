@@ -16,6 +16,7 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.Locale;
 import java.util.ResourceBundle;
+import services.LanguageManager;
 import services.UserSession;
 
 public class AktivitetetController {
@@ -26,8 +27,6 @@ public class AktivitetetController {
     @FXML private TableColumn<Aktivitetet, String> colPershkrimi;
     @FXML private TableColumn<Aktivitetet, LocalDate> colData;
     @FXML private TableColumn<Aktivitetet, Integer> colGrupiID;
-//    @FXML private Button btnSwitchAlbanian;
-//    @FXML private Button btnSwitchEnglish;
     @FXML private Button btnAdd;
     @FXML private Button btnUpdate;
     @FXML private Button btnDelete;
@@ -47,6 +46,8 @@ public class AktivitetetController {
     String username = UserSession.getInstance().getUsername();
     int userId = UserSession.getInstance().getUserId();
 
+    private ResourceBundle resources;
+
     @FXML
     public void initialize() {
         try {
@@ -54,16 +55,18 @@ public class AktivitetetController {
             AktivitetetRepository repository = new AktivitetetRepository(connection);
             aktivitetetService = new AktivitetetService(repository);
 
+            // Vendos Factory për kolonat vetëm njëherë
             colID.setCellValueFactory(new PropertyValueFactory<>("aktivitetiID"));
             colEmri.setCellValueFactory(new PropertyValueFactory<>("emriAktivitetit"));
             colPershkrimi.setCellValueFactory(new PropertyValueFactory<>("pershkrimi"));
             colData.setCellValueFactory(new PropertyValueFactory<>("data"));
             colGrupiID.setCellValueFactory(new PropertyValueFactory<>("grupiID"));
 
-            resources = ResourceBundle.getBundle("languages.messages", new Locale("sq"));
+            // Merr resource bundle nga LanguageManager (gjuhë default)
+            resources = LanguageManager.getResourceBundle();
+
             updateUILabels();
             updatePrompts();
-
             loadData();
 
             tableAktivitetet.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
@@ -81,8 +84,6 @@ public class AktivitetetController {
         }
     }
 
-
-
     private void loadData() {
         try {
             aktivitetetList.setAll(aktivitetetService.getAllAktivitetet());
@@ -97,18 +98,18 @@ public class AktivitetetController {
     private void addAktivitet() {
         try {
             if (tfEmriAktivitetit.getText().isEmpty()) {
-                showAlert("Gabim", "Ju lutem shkruani emrin e aktivitetit.", Alert.AlertType.WARNING);
+                showAlert(resources.getString("gabim"), resources.getString("aktivitetet.error.emri.required"), Alert.AlertType.WARNING);
                 return;
             }
             if (dpData.getValue() == null) {
-                showAlert("Gabim", "Ju lutem zgjidhni një datë valide.", Alert.AlertType.WARNING);
+                showAlert(resources.getString("gabim"), resources.getString("aktivitetet.error.data.required"), Alert.AlertType.WARNING);
                 return;
             }
             int grupiID;
             try {
                 grupiID = Integer.parseInt(tfGrupiID.getText());
             } catch (NumberFormatException e) {
-                showAlert("Gabim", "GrupiID duhet të jetë numër i plotë.", Alert.AlertType.WARNING);
+                showAlert(resources.getString("gabim"), resources.getString("aktivitetet.error.grupiid.number"), Alert.AlertType.WARNING);
                 return;
             }
 
@@ -123,7 +124,7 @@ public class AktivitetetController {
             clearForm();
         } catch (Exception e) {
             e.printStackTrace();
-            showAlert("Gabim gjatë shtimit të aktivitetit", e.getMessage(), Alert.AlertType.ERROR);
+            showAlert(resources.getString("gabim"), e.getMessage(), Alert.AlertType.ERROR);
         }
     }
 
@@ -131,7 +132,7 @@ public class AktivitetetController {
     private void updateAktivitet() {
         Aktivitetet selected = tableAktivitetet.getSelectionModel().getSelectedItem();
         if (selected == null) {
-            showAlert("Asnjë aktivitet i përzgjedhur", "Ju lutem përzgjidhni një aktivitet për ta përditësuar.", Alert.AlertType.WARNING);
+            showAlert(resources.getString("aktivitetet.warning.noSelection"), resources.getString("aktivitetet.warning.selectForUpdate"), Alert.AlertType.WARNING);
             return;
         }
         try {
@@ -146,7 +147,7 @@ public class AktivitetetController {
             loadData();
             clearForm();
         } catch (Exception e) {
-            showAlert("Gabim gjatë përditësimit të aktivitetit", e.getMessage(), Alert.AlertType.ERROR);
+            showAlert(resources.getString("gabim"), e.getMessage(), Alert.AlertType.ERROR);
         }
     }
 
@@ -154,7 +155,7 @@ public class AktivitetetController {
     private void deleteAktivitet() {
         Aktivitetet selected = tableAktivitetet.getSelectionModel().getSelectedItem();
         if (selected == null) {
-            showAlert("Asnjë aktivitet i përzgjedhur", "Ju lutem përzgjidhni një aktivitet për ta fshirë.", Alert.AlertType.WARNING);
+            showAlert(resources.getString("aktivitetet.warning.noSelection"), resources.getString("aktivitetet.warning.selectForDelete"), Alert.AlertType.WARNING);
             return;
         }
         try {
@@ -162,7 +163,7 @@ public class AktivitetetController {
             loadData();
             clearForm();
         } catch (Exception e) {
-            showAlert("Gabim gjatë fshirjes", e.getMessage(), Alert.AlertType.ERROR);
+            showAlert(resources.getString("gabim"), e.getMessage(), Alert.AlertType.ERROR);
         }
     }
 
@@ -174,28 +175,27 @@ public class AktivitetetController {
         tfGrupiID.clear();
         tableAktivitetet.getSelectionModel().clearSelection();
     }
-    private ResourceBundle resources;
+
+    // --- Metodat për ndryshimin e gjuhës ---
 
     @FXML
     public void switchToAlbanian() {
-        try {
-            resources = ResourceBundle.getBundle("languages.messages", new Locale("sq"));
-            updateUILabels();
-            updatePrompts();
-        } catch (Exception e) {
-            showAlert("Gabim në ndërrimin e gjuhës", e.getMessage(), Alert.AlertType.ERROR);
-        }
+        LanguageManager.setLocale(new Locale("sq"));
+        refreshLanguage();
     }
 
     @FXML
     public void switchToEnglish() {
-        try {
-            resources = ResourceBundle.getBundle("languages.messages", Locale.ENGLISH);
-            updateUILabels();
-            updatePrompts();
-        } catch (Exception e) {
-            showAlert("Error switching language", e.getMessage(), Alert.AlertType.ERROR);
-        }
+        LanguageManager.setLocale(Locale.ENGLISH);
+        refreshLanguage();
+    }
+
+    private void refreshLanguage() {
+        resources = LanguageManager.getResourceBundle();
+        updateUILabels();
+        updatePrompts();
+        refreshTableColumns();
+        clearForm();
     }
 
     private void updateUILabels() {
@@ -207,19 +207,15 @@ public class AktivitetetController {
         colData.setText(resources.getString("aktivitetet.col.data"));
         colGrupiID.setText(resources.getString("aktivitetet.col.grupiid"));
 
-//        btnSwitchAlbanian.setText(resources.getString("aktivitetet.button.switchAlbanian"));
-//        btnSwitchEnglish.setText(resources.getString("aktivitetet.button.switchEnglish"));
         btnAdd.setText(resources.getString("aktivitetet.btn.add"));
         btnUpdate.setText(resources.getString("aktivitetet.btn.update"));
         btnDelete.setText(resources.getString("aktivitetet.btn.delete"));
         btnClear.setText(resources.getString("aktivitetet.btn.clear"));
 
-
         lblEmriAktivitetit.setText(resources.getString("aktivitetet.label.emri"));
         lblPershkrimi.setText(resources.getString("aktivitetet.label.pershkrimi"));
         lblData.setText(resources.getString("aktivitetet.label.data"));
         lblGrupiID.setText(resources.getString("aktivitetet.label.grupiid"));
-
     }
 
     private void updatePrompts() {
@@ -230,6 +226,10 @@ public class AktivitetetController {
         tfGrupiID.setPromptText(resources.getString("aktivitetet.promptGrupiID"));
     }
 
+    // Ky rifreskim i kolonave detyron TableView të ridraw-ojë titujt e kolonave
+    private void refreshTableColumns() {
+        tableAktivitetet.refresh();
+    }
 
     private void showAlert(String title, String message, Alert.AlertType type) {
         Alert alert = new Alert(type);
