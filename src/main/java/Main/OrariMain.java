@@ -1,33 +1,32 @@
 package Main;
 
-import controllers.OrariController;
-import Database.DBConnection;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import repository.OrariRepository;
-import services.OrariService;
+import services.LanguageManager;
+import services.UserSession;
 
-import java.sql.Connection;
-import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class OrariMain extends Application {
     @Override
     public void start(Stage stage) throws Exception {
-        ResourceBundle bundle = ResourceBundle.getBundle("languages.messages", Locale.ENGLISH);
+        UserSession.init(1, "admin");
+
+        ResourceBundle bundle = LanguageManager.getBundle();
+
+        // Kjo linjë duhet ta gjej .fxml-in
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/OrariView.fxml"), bundle);
-        loader.load();
-        OrariController controller = loader.getController();
-        Connection connection = DBConnection.getConnection();
-        stage.setScene(new Scene(loader.getRoot()));
-        stage.setTitle(bundle.getString("orari.title.window"));
+        Parent root = loader.load();
+
+        stage.setTitle(bundle.getString("title.orari")); // nga messages.properties
+        stage.setScene(new Scene(root));
         stage.show();
     }
 
-
     public static void main(String[] args) {
-        launch(args);
+        launch();
     }
 }
