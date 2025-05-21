@@ -1,13 +1,17 @@
 package controllers;
 
 import Database.DBConnection;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.Scene;
 import javafx.scene.Parent;
 import javafx.stage.Stage;
+import services.SceneManager;
 import utils.PasswordUtils;
+import utils.SceneLocator;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -67,15 +71,34 @@ public class SignUpController {
 
 
     @FXML
+    private void onLoginButtonClick(ActionEvent event) {
+        SceneManager.changeScene(SceneLocator.LOGIN_VIEW);
+
+        // Merr stage nga event-i dhe e maximizon
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setMaximized(true);
+        // ose për full screen:
+        // stage.setFullScreen(true);
+    }
+
+    @FXML
     private void goBackToLogin() {
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/Views/LoginView.fxml"));
             Stage stage = (Stage) usernameField.getScene().getWindow();
-            stage.setScene(new Scene(root));
+
+            Scene scene = new Scene(root);
+
+            stage.setScene(scene);
             stage.setTitle("Kyçu");
+            stage.setMaximized(true);  // Maksimizo dritaren
             stage.show();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
 }
+
+
+

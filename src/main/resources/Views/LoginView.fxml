@@ -21,9 +21,10 @@
   <left>
     <VBox spacing="20" alignment="TOP_LEFT" BorderPane.alignment="CENTER_LEFT"
           prefWidth="300" minWidth="300" maxWidth="300"
+          prefHeight="400" minHeight="400" maxHeight="400"
           style="-fx-background-color: linear-gradient(to bottom, #ffccbc, #ffab91);
-                 -fx-padding: 30; -fx-background-radius: 20; -fx-border-radius: 20;
-                 -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 0, 2);">
+             -fx-padding: 30; -fx-background-radius: 20; -fx-border-radius: 20;
+             -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 0, 2);">
 
       <Label text="%left.title"
              style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #bf360c;" />
@@ -54,6 +55,7 @@
       <Label text="%left.footerNote" wrapText="true"
              style="-fx-font-size: 12px; -fx-font-style: italic; -fx-text-fill: #6d4c41; -fx-padding: 20 0 0 0;" />
     </VBox>
+
   </left>
 
   <center>
@@ -93,10 +95,12 @@
 
 
   <right>
-    <VBox spacing="20" alignment="TOP_LEFT" BorderPane.alignment="CENTER_RIGHT"
+    <VBox spacing="20" alignment="TOP_RIGHT" BorderPane.alignment="CENTER_LEFT"
           prefWidth="300" minWidth="300" maxWidth="300"
-          style="-fx-background-color: #ffe0b2; -fx-padding: 30; -fx-background-radius: 20; -fx-border-radius: 20;
-                 -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 0, 2);">
+          prefHeight="400" minHeight="400" maxHeight="400"
+          style="-fx-background-color: linear-gradient(to bottom, #ffccbc, #ffab91);
+             -fx-padding: 30; -fx-background-radius: 20; -fx-border-radius: 20;
+             -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 0, 2);">
 
       <Label text="%right.title"
              style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #bf360c;" />
@@ -129,7 +133,7 @@
       </VBox>
 
       <Text wrappingWidth="260"
-            style="-fx-font-size: 13px; -fx-font-style: italic; -fx-fill: #4e342e; -fx-line-spacing: 4;"
+            style="-fx-font-size: 9px; -fx-font-style: italic; -fx-fill: #4e342e; -fx-line-spacing: 4;"
             text="%right.mission" />
     </VBox>
   </right>

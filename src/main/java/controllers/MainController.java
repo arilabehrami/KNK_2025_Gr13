@@ -1,5 +1,6 @@
 package controllers;
 
+import javafx.scene.Node;
 import services.SceneManager;
 import services.UserSession;
 import javafx.event.ActionEvent;
@@ -15,7 +16,6 @@ import javafx.stage.Stage;
 import services.LanguageManager;
 import utils.SceneLocator;
 
-import java.io.IOException;
 import java.util.ResourceBundle;
 
 public class MainController {
@@ -32,14 +32,7 @@ public class MainController {
     @FXML
     private Button logoutBtn;
 
-    @FXML
-    private Label emojiLabel;
 
-    @FXML
-    private Label appNameLabel;
-
-    @FXML
-    private Label quoteLabel;
 
     private ResourceBundle bundle;
     private Stage stage;
@@ -107,32 +100,18 @@ public class MainController {
     }
 
     private void setupTopButtons() {
-        logoutBtn.setOnAction(this::handleLogout);
-    }
-
-    @FXML
-    private void handleLogout(ActionEvent event) {
-        UserSession.clearSession();
-
-        try {
-            ResourceBundle currentBundle = LanguageManager.getBundle();
-
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/LoginView.fxml"), currentBundle);
-            Parent root = loader.load();
-
-            Stage stage = (Stage) logoutBtn.getScene().getWindow();
-            Scene scene = new Scene(root);
-
-            stage.setScene(scene);
-            stage.setTitle(currentBundle.getString("title.login"));
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        logoutBtn.setOnAction(this::onLoginButtonClick);
     }
 
     @FXML
     private void onLoginButtonClick(ActionEvent event) {
         SceneManager.changeScene(SceneLocator.LOGIN_VIEW);
+
+        // Merr stage nga event-i dhe e maximizon
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setMaximized(true);
+        // ose për full screen:
+        // stage.setFullScreen(true);
     }
+
 }

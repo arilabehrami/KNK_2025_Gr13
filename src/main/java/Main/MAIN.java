@@ -15,7 +15,12 @@ public class MAIN extends Application {
     public void start(Stage primaryStage) throws Exception {
         SceneManager.setPrimaryStage(primaryStage);
         SceneManager.changeScene(SceneLocator.LOGIN_VIEW);
+
+        //primaryStage.setFullScreen(true);  // kjo e bën full screen
+        // ose në vend të fullscreen, mund të përdorësh
+        primaryStage.setMaximized(true);  // e zmadhon në maksimum por jo fullscreen
     }
+
 
 
     public static void main(String[] args) {

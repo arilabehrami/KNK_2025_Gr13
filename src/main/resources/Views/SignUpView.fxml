@@ -6,53 +6,88 @@
 
 <BorderPane xmlns:fx="http://javafx.com/fxml"
             fx:controller="controllers.SignUpController"
-
             style="-fx-background-color: linear-gradient(to bottom, #fbe9e7, #fff3e0);">
 
-    <!-- HEADER -->
+    <!-- HEADER (top) -->
     <top>
-        <VBox alignment="CENTER" spacing="10" BorderPane.alignment="CENTER">
-            <ImageView fitWidth="100" fitHeight="100">
-                <image>
-                    <Image url="@../Images/Figura2.jpg" />
-                </image>
-            </ImageView>
-            <Label text="%signup.header.main"
+        <VBox alignment="CENTER" spacing="10" BorderPane.alignment="CENTER"
+              style="-fx-padding: 10 0 10 0;">
+
+            <Label text="Regjistrohu tani"
                    style="-fx-font-size: 26px; -fx-font-weight: bold; -fx-text-fill: #e65100;" />
-            <Label text="%signup.header.sub"
+            <Label text="Krijo një llogari falas dhe lehtë"
                    style="-fx-font-size: 14px; -fx-text-fill: #6d4c41;" />
         </VBox>
     </top>
 
+    <!-- LEFT PANEL -->
+    <left>
+        <VBox spacing="20" alignment="TOP_LEFT" BorderPane.alignment="CENTER_LEFT"
+              prefWidth="300" minWidth="300" maxWidth="300"
+              prefHeight="400" minHeight="400" maxHeight="400"
+              style="-fx-background-color: linear-gradient(to bottom, #ffccbc, #ffab91);
+             -fx-padding: 30; -fx-background-radius: 20; -fx-border-radius: 20;
+             -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 0, 2);">
+
+            <Label text="Përfitimet e regjistrimit"
+                   style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #bf360c;" />
+
+            <VBox spacing="15">
+                <HBox spacing="10" alignment="CENTER_LEFT">
+                    <Label text="✅" style="-fx-font-size: 18px;" />
+                    <Label text="Regjistrim falas dhe i shpejtë" style="-fx-font-size: 14px; -fx-text-fill: #4e342e;" />
+                </HBox>
+                <HBox spacing="10" alignment="CENTER_LEFT">
+                    <Label text="🕒" style="-fx-font-size: 18px;" />
+                    <Label text="Kursim kohe në përdorim" style="-fx-font-size: 14px; -fx-text-fill: #4e342e;" />
+                </HBox>
+                <HBox spacing="10" alignment="CENTER_LEFT">
+                    <Label text="🔒" style="-fx-font-size: 18px;" />
+                    <Label text="Siguri e lartë e të dhënave" style="-fx-font-size: 14px; -fx-text-fill: #4e342e;" />
+                </HBox>
+                <HBox spacing="10" alignment="CENTER_LEFT">
+                    <Label text="📞" style="-fx-font-size: 18px;" />
+                    <Label text="Mbështetje teknike 24/7" style="-fx-font-size: 14px; -fx-text-fill: #4e342e;" />
+                </HBox>
+            </VBox>
+
+            <Label text="* Kushtet dhe politikat e shërbimit mund të ndryshojnë."
+                   wrapText="true"
+                   style="-fx-font-size: 12px; -fx-font-style: italic; -fx-text-fill: #6d4c41; -fx-padding: 20 0 0 0;" />
+        </VBox>
+    </left>
+
     <!-- FORM CENTER -->
     <center>
-        <VBox spacing="20" alignment="CENTER" prefWidth="390"
-              style="-fx-background-color: #ffffff; -fx-padding: 35; -fx-background-radius: 20; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 10, 0.2, 0, 4);"
-              BorderPane.alignment="CENTER">
+        <VBox spacing="20" alignment="CENTER" prefWidth="460" prefHeight="300" minWidth="460" maxWidth="460"
+              style="-fx-background-color: #ffffff; -fx-padding: 35 20 35 20; -fx-background-radius: 20;
+       -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 10, 0.2, 0, 4);"
+              BorderPane.alignment="CENTER"
+        >
 
             <!-- Titulli -->
-            <Label text="%signup.form.title"
+            <Label text="Krijo llogarinë tënde"
                    style="-fx-font-size: 22px; -fx-text-fill: #d84315; -fx-font-weight: bold;" />
 
             <!-- Username -->
-            <HBox spacing="10" alignment="CENTER_LEFT">
+            <HBox spacing="10" alignment="CENTER">
                 <ImageView fitWidth="20" fitHeight="20">
                     <image>
-                        <Image url="@../Images/Figura2.jpg" />
+                        <Image url="@../Images/Figura3.jpg" />
                     </image>
                 </ImageView>
-                <TextField fx:id="usernameField" promptText="%signup.username"
+                <TextField fx:id="usernameField" promptText="Emri i përdoruesit"
                            style="-fx-background-radius: 10; -fx-border-color: #c8e6c9; -fx-border-radius: 10; -fx-padding: 10;" />
             </HBox>
 
             <!-- Password -->
-            <HBox spacing="20" alignment="CENTER_LEFT">
+            <HBox spacing="20" alignment="CENTER">
                 <ImageView fitWidth="20" fitHeight="20">
                     <image>
-                        <Image url="@../Images/Figura2.jpg" />
+                        <Image url="@../Images/Figura3.jpg" />
                     </image>
                 </ImageView>
-                <PasswordField fx:id="passwordField" promptText="%signup.password"
+                <PasswordField fx:id="passwordField" promptText="Fjalëkalimi"
                                style="-fx-background-radius: 10; -fx-border-color: #c8e6c9; -fx-border-radius: 10; -fx-padding: 10;" />
             </HBox>
 
@@ -62,44 +97,45 @@
 
             <!-- Buttons -->
             <HBox spacing="20" alignment="CENTER">
-                <Button text="%signup.register" onAction="#handleSignUp"
+                <Button text="Regjistrohu" onAction="#handleSignUp"
                         style="-fx-background-color: #d84315; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 12; -fx-padding: 10 25;" />
-                <Button text="%signup.back" onAction="#goBackToLogin"
+                <Button text="Kthehu te hyrja" onAction="#onLoginButtonClick"
                         style="-fx-background-color: transparent; -fx-border-color: #d84315; -fx-text-fill: #d84315; -fx-border-radius: 12; -fx-padding: 10 25;" />
             </HBox>
         </VBox>
     </center>
 
-    <!-- PANEL INFORMATIV DJATHTAS -->
+    <!-- RIGHT PANEL -->
     <right>
-        <VBox spacing="16" alignment="TOP_LEFT" BorderPane.alignment="CENTER_RIGHT"
-              style="-fx-background-color: #fff3e0; -fx-background-radius: 0 20 20 0;">
-            <padding>
-                <Insets top="30" right="30" bottom="30" left="30" />
-            </padding>
+        <VBox spacing="20" alignment="TOP_RIGHT" BorderPane.alignment="CENTER_LEFT"
+              prefWidth="300" minWidth="300" maxWidth="300"
+              prefHeight="400" minHeight="400" maxHeight="400"
+              style="-fx-background-color: linear-gradient(to bottom, #ffccbc, #ffab91);
+             -fx-padding: 30; -fx-background-radius: 20; -fx-border-radius: 20;
+             -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 0, 2);">
 
-            <Label text="%signup.whyJoin"
+            <Label text="Pse të regjistrohesh?"
                    style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #d84315;" />
 
             <VBox spacing="12">
                 <HBox spacing="10" alignment="CENTER_LEFT">
                     <Label text="✅" style="-fx-font-size: 16px; -fx-text-fill: #d84315;" />
-                    <Label text="%signup.benefit1" style="-fx-font-size: 14px; -fx-text-fill: #d84315;" />
+                    <Label text="Qasje ekskluzive në përmbajtje" style="-fx-font-size: 14px; -fx-text-fill: #d84315;" />
                 </HBox>
 
                 <HBox spacing="10" alignment="CENTER_LEFT">
                     <Label text="🎓" style="-fx-font-size: 16px; -fx-text-fill: #d84315;" />
-                    <Label text="%signup.benefit2" style="-fx-font-size: 14px; -fx-text-fill: #d84315;" />
+                    <Label text="Mundësi të mësimit dhe zhvillimit" style="-fx-font-size: 14px; -fx-text-fill: #d84315;" />
                 </HBox>
 
                 <HBox spacing="10" alignment="CENTER_LEFT">
                     <Label text="🔒" style="-fx-font-size: 16px; -fx-text-fill: #d84315;" />
-                    <Label text="%signup.benefit3" style="-fx-font-size: 14px; -fx-text-fill: #d84315;" />
+                    <Label text="Siguri dhe privatësi e garantuar" style="-fx-font-size: 14px; -fx-text-fill: #d84315;" />
                 </HBox>
 
                 <HBox spacing="10" alignment="CENTER_LEFT">
                     <Label text="📊" style="-fx-font-size: 16px; -fx-text-fill: #d84315;" />
-                    <Label text="%signup.benefit4" style="-fx-font-size: 14px; -fx-text-fill: #d84315;" />
+                    <Label text="Statistika dhe përparim personal" style="-fx-font-size: 14px; -fx-text-fill: #d84315;" />
                 </HBox>
             </VBox>
         </VBox>
@@ -107,11 +143,33 @@
 
     <!-- FOOTER -->
     <bottom>
-        <VBox alignment="CENTER" spacing="5" BorderPane.alignment="CENTER">
-            <Separator />
-            <Label text="%footer.contact"
-                   style="-fx-font-size: 10px; -fx-text-fill: #a1887f;" />
-        </VBox>
+        <HBox alignment="CENTER" spacing="40" BorderPane.alignment="CENTER"
+              style="-fx-padding: 15 30; -fx-background-color: linear-gradient(to right, #ffccbc, #ffab91);
+                 -fx-background-radius: 0 0 20 20; -fx-border-radius: 0 0 20 20;
+                 -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 5, 0, 0, -1);">
+
+            <Label text="%bottom.copyright"
+                   style="-fx-font-size: 12px; -fx-text-fill: #6d4c41; -fx-font-weight: bold;" />
+
+            <Label text=" | " style="-fx-font-size: 14px; -fx-text-fill: #6d4c41;"/>
+
+            <Label text="%bottom.email"
+                   style="-fx-font-size: 12px; -fx-text-fill: #6d4c41;"
+            />
+
+            <Label text=" | " style="-fx-font-size: 14px; -fx-text-fill: #6d4c41;"/>
+
+            <Label text="%bottom.phone"
+                   style="-fx-font-size: 12px; -fx-text-fill: #6d4c41;" />
+
+            <Region HBox.hgrow="ALWAYS"/>
+
+            <HBox spacing="15" alignment="CENTER_RIGHT">
+                <Label text="👍" style="-fx-font-size: 20px;" />
+                <Label text="🐦" style="-fx-font-size: 20px;" />
+                <Label text="📸" style="-fx-font-size: 20px;" />
+            </HBox>
+        </HBox>
     </bottom>
 
 </BorderPane>

@@ -2,6 +2,7 @@ package services;
 
 public class UserSession {
     private static UserSession instance;
+
     private final String username;
     private final int userId;
 
@@ -18,15 +19,19 @@ public class UserSession {
         return instance;
     }
 
+    public static void clear() {
+        instance = null;
+    }
+
+    public static void clearSession() {
+        clear();
+    }
+
     public String getUsername() {
         return username;
     }
 
     public int getUserId() {
         return userId;
-    }
-
-    public static void clearSession() {
-        instance = null;
     }
 }

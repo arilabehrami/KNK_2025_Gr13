@@ -2,10 +2,12 @@ package controllers;
 
 import Database.DBConnection;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import services.UserSession;
+import utils.PasswordUtils;
 import utils.SceneLocator;
 import services.SceneManager;
 import services.LanguageManager;
@@ -18,7 +20,6 @@ import javafx.scene.input.MouseEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class LoginController {
@@ -29,7 +30,7 @@ public class LoginController {
     @FXML private Button loginButton;
     @FXML private Button signupButton;
     @FXML private Button switchLangButton;
-    @FXML private Button logoutBtn;
+
 
     @FXML
     private ResourceBundle resources;
@@ -46,7 +47,6 @@ public class LoginController {
         loginButton.setText(resources.getString("button.login"));
         signupButton.setText(resources.getString("button.signup"));
         switchLangButton.setText(resources.getString("button.switch_language"));
-        System.out.println("logoutBtn is null? " + (logoutBtn == null));
 
     }
 
@@ -76,18 +76,16 @@ public class LoginController {
         String username = usernameField.getText().trim();
         String password = passwordField.getText().trim();
 
-        // Kontrollo nëse janë plotësuar fushat
         if (username.isEmpty() || password.isEmpty()) {
             showError(resources.getString("error.fill_all_fields"));
             return;
         }
 
         try (Connection conn = DBConnection.getConnection()) {
-            // Kujdes: password-i duhet të jetë hash-uar në një aplikim real për siguri
             String query = "SELECT id, username FROM users WHERE username = ? AND password = ?";
             PreparedStatement stmt = conn.prepareStatement(query);
             stmt.setString(1, username);
-            stmt.setString(2, password); // në praktikë përdoret hash, kjo është thjesht shembull
+            stmt.setString(2, PasswordUtils.hashPassword(password));
 
             ResultSet rs = stmt.executeQuery();
 
@@ -95,18 +93,27 @@ public class LoginController {
                 int userId = rs.getInt("id");
                 String user = rs.getString("username");
 
-                // Ruaj sesionin e përdoruesit
                 UserSession.init(userId, user);
 
-                // Ngarko MainView me përkthimin aktual nga LanguageManager
                 ResourceBundle currentBundle = LanguageManager.getBundle();
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/MainView.fxml"), currentBundle);
                 Parent root = loader.load();
 
                 Stage stage = (Stage) loginButton.getScene().getWindow();
-                Scene scene = new Scene(root);
+
+                // Merr madhësinë ekzistuese të dritares
+                double width = stage.getWidth();
+                double height = stage.getHeight();
+
+                Scene scene = new Scene(root, width, height);
+
                 stage.setScene(scene);
                 stage.setTitle(currentBundle.getString("title.main"));
+
+                // E vendos dritaren në maximized ose full screen sipas dëshirës
+                stage.setMaximized(true);
+                // ose stage.setFullScreen(true);
+
                 stage.show();
 
             } else {
@@ -118,6 +125,7 @@ public class LoginController {
             showError(resources.getString("error.database_error"));
         }
     }
+
 
 
     private void showError(String message) {
@@ -136,31 +144,21 @@ public class LoginController {
         Label label = (Label) event.getSource();
         label.setStyle("-fx-underline: false; -fx-text-fill: #6d4c41;");
     }
-    @FXML
-    public void switchEN(ActionEvent actionEvent) {
-        LanguageManager.setLocale(Locale.ENGLISH);
-        SceneManager.changeScene(SceneLocator.LOGIN_VIEW);
-    }
 
-    @FXML
-    public void switchAL(ActionEvent actionEvent) {
-        LanguageManager.setLocale(Locale.forLanguageTag("sq"));
-        SceneManager.changeScene(SceneLocator.LOGIN_VIEW);
-    }
+
+
 
 
 
     @FXML
     public void forgotPassword(ActionEvent actionEvent) {
-        // Këtu mund të implementosh logjikën për rikuperim fjalëkalimi,
-        // p.sh. hap një dritare modale ose ridrejto në një faqe për rikuperim.
-        System.out.println("Forgot Password clicked - duhet të implementohet.");
-        // Për shembull, mund të hapësh një dialog me instruksione:
-        // Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        // alert.setTitle(resources.getString("forgot_password.title"));
-        // alert.setHeaderText(null);
-        // alert.setContentText(resources.getString("forgot_password.instructions"));
-        // alert.showAndWait();
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(resources.getString("forgot_password.title"));  // titulli i dritares (p.sh. "Forgot Password")
+        alert.setHeaderText(null);
+        alert.setContentText(resources.getString("forgot_password.instructions"));
+        alert.showAndWait();
     }
+
+
 
 }
