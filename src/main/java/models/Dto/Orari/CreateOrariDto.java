@@ -16,13 +16,11 @@ public class CreateOrariDto {
         this.oraDaljes = oraDaljes;
     }
 
-    // Getters
     public int getFemijaID() { return femijaID; }
     public String getDita() { return dita; }
     public String getOraHyrjes() { return oraHyrjes; }
     public String getOraDaljes() { return oraDaljes; }
 
-    // Ndihmë për kthimin në LocalTime
     public LocalTime getOraHyrjesAsLocalTime() throws DateTimeParseException {
         return LocalTime.parse(oraHyrjes);
     }

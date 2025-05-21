@@ -72,12 +72,8 @@ public class PrinderitController {
 
     private void loadPrinderit() {
         prinderitList.clear();
-        // Supozim që ke një metodë për marrjen e të gjithë prindërve,
-        // nëse jo, mund ta shtosh në PrinderitService dhe Repository
-        // Për momentin po të shtoj version me try-catch pa metodë, për shembull
         try {
-            // Ndoshta implemento metodën getAll() në PrinderitService dhe Repository
-            prinderitList.addAll(service.getAll()); // Kjo metodë duhet të krijohet
+            prinderitList.addAll(service.getAll());
         } catch (Exception e) {
             e.printStackTrace();
             showAlert(Alert.AlertType.ERROR, "Gabim", "Nuk u ngarkuan të dhënat.");
@@ -192,7 +188,7 @@ public class PrinderitController {
     }
 
     private void validateInputForUpdate() throws Exception {
-        validateInputForCreate(); // Mund të jenë të njëjta rregulla
+        validateInputForCreate();
     }
 
     private void showAlert(Alert.AlertType type, String title, String message) {

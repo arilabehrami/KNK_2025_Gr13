@@ -14,7 +14,7 @@ public class Main4 extends Application {
         Scene scene = new Scene(root, 600, 600);
         primaryStage.setScene(scene);
         primaryStage.setTitle("Menaxhimi i Donacioneve");
-        primaryStage.setResizable(false); // Optional: Prevent resizing
+        primaryStage.setResizable(false);
         primaryStage.show();
     }
 

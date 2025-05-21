@@ -19,7 +19,7 @@ import java.util.List;
 public class CreatePagesaController {
 
     @FXML
-    private TextField txtFemijaId;      // ID e fëmijës (për krijim)
+    private TextField txtFemijaId;
     @FXML
     private TextField txtPershkrimi;
     @FXML
@@ -30,7 +30,7 @@ public class CreatePagesaController {
     private Button ruajButton;
 
     @FXML
-    private TextField txtFemijaId1;     // ID për kërkim (ID pagesës)
+    private TextField txtFemijaId1;
     @FXML
     private Button kerkoButton;
     @FXML
@@ -119,7 +119,6 @@ public class CreatePagesaController {
                 showAlert(AlertType.WARNING, "Kërkim", "Pagesa me ID " + id + " nuk u gjet.");
                 tablePagesat.getItems().clear();
             } else {
-                // Vendos të dhënat e pagesës në fushat e tekstit
                 txtFemijaId.setText(String.valueOf(pagesa.getFemijaId()));
                 txtPershkrimi.setText(pagesa.getPershkrimi());
                 txtShuma.setText(String.valueOf(pagesa.getShuma()));
@@ -132,7 +131,6 @@ public class CreatePagesaController {
                     datePicker.setValue(null);
                 }
 
-                // Vendos vetëm këtë pagesë në tabelë (ose pastron tabelën)
                 tablePagesat.setItems(FXCollections.observableArrayList(pagesa));
 
                 showAlert(AlertType.INFORMATION, "Kërkim", "Pagesa u gjet me sukses.");
