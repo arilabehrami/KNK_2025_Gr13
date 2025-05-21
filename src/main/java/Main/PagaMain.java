@@ -5,16 +5,22 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import models.domain.Pagesa;
+
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 public class PagaMain extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Parent root = FXMLLoader.load(Pagesa.class.getResource("/Views/PagatView.fxml"));
+        ResourceBundle bundle = ResourceBundle.getBundle("languages.messages", Locale.getDefault());
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/PagatView.fxml"), bundle);
+        Parent root = loader.load();
+
         Scene scene = new Scene(root, 640, 400);
         primaryStage.setScene(scene);
-        primaryStage.setTitle("Krijimi i Pagesës");
+        primaryStage.setTitle(bundle.getString("window.title"));
         primaryStage.setResizable(false);
         primaryStage.show();
     }
