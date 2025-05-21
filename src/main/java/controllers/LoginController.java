@@ -1,6 +1,10 @@
 package controllers;
 
 import Database.DBConnection;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 import services.UserSession;
 import utils.SceneLocator;
 import services.SceneManager;
@@ -25,6 +29,7 @@ public class LoginController {
     @FXML private Button loginButton;
     @FXML private Button signupButton;
     @FXML private Button switchLangButton;
+    @FXML private Button logoutBtn;
 
     @FXML
     private ResourceBundle resources;
@@ -41,6 +46,8 @@ public class LoginController {
         loginButton.setText(resources.getString("button.login"));
         signupButton.setText(resources.getString("button.signup"));
         switchLangButton.setText(resources.getString("button.switch_language"));
+        System.out.println("logoutBtn is null? " + (logoutBtn == null));
+
     }
 
     private void styleButtons() {
@@ -78,7 +85,7 @@ public class LoginController {
             String query = "SELECT id, username FROM users WHERE username = ? AND password = ?";
             PreparedStatement stmt = conn.prepareStatement(query);
             stmt.setString(1, username);
-            stmt.setString(2, password);
+            stmt.setString(2, password); // Në aplikim real: password duhet të jetë i hash-uar
 
             ResultSet rs = stmt.executeQuery();
 
@@ -86,10 +93,19 @@ public class LoginController {
                 int userId = rs.getInt("id");
                 String user = rs.getString("username");
 
+                // Ruaj sesionin e përdoruesit
                 UserSession.init(userId, user);
 
-                // Ngarko faqen kryesore
-                SceneManager.changeScene(SceneLocator.MAIN_VIEW);
+                // Ngarko MainView me përkthim të saktë
+                ResourceBundle currentBundle = LanguageManager.getBundle();
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/MainView.fxml"), currentBundle);
+                Parent root = loader.load();
+
+                Stage stage = (Stage) loginButton.getScene().getWindow();
+                Scene scene = new Scene(root);
+                stage.setScene(scene);
+                stage.setTitle(currentBundle.getString("title.main"));
+                stage.show();
 
             } else {
                 showError(resources.getString("error.invalid_credentials"));
@@ -100,6 +116,7 @@ public class LoginController {
             showError(resources.getString("error.database_error"));
         }
     }
+
 
     private void showError(String message) {
         errorLabel.setText(message);

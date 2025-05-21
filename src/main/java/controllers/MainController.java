@@ -1,5 +1,6 @@
 package controllers;
 
+import services.SceneManager;
 import services.UserSession;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -11,22 +12,25 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import services.LanguageManager;
+import utils.SceneLocator;
 
+import java.io.IOException;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class MainController {
 
-
     @FXML
     private VBox menuPane;
-    @FXML private Label welcomeLabel;
+
+    @FXML
+    private Label welcomeLabel;
+    @FXML
+    private Button languageBtn;
 
     @FXML
     private AnchorPane centerPane;
-
-    @FXML
-    private Button languageBtn;
 
     @FXML
     private Button logoutBtn;
@@ -54,14 +58,12 @@ public class MainController {
 
     @FXML
     public void initialize() {
-        // inicializo gjuhën sipas default
         Locale currentLocale = Locale.getDefault();
         isEnglish = currentLocale.getLanguage().equals("en");
         bundle = ResourceBundle.getBundle("languages.messages", currentLocale);
 
         setupMenu();
         setupTopButtons();
-
 
         String username = UserSession.getInstance().getUsername();
         welcomeLabel.setText("Mirë se vini, " + username + "!");
@@ -109,46 +111,42 @@ public class MainController {
 
         menuPane.getChildren().add(menuItem);
     }
-
     private void setupTopButtons() {
-        logoutBtn.setOnAction(e -> {
-            try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/LoginView.fxml"));
-                Parent root = loader.load();
-                Stage newStage = new Stage();
-                newStage.setScene(new javafx.scene.Scene(root));
-                newStage.setTitle("Login");
-                newStage.show();
-
-                // Mbyll dritaren aktuale
-                logoutBtn.getScene().getWindow().hide();
-            } catch (Exception ex) {
-                ex.printStackTrace();
-            }
-        });
+        logoutBtn.setOnAction(this::handleLogout);
     }
-
-
-
 
 
     public void stage(Stage window) {
+        // Nuk përdoret
     }
+
     @FXML
     private void handleLogout(ActionEvent event) {
+        // Pastron sesionin aktual
         UserSession.clearSession();
 
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/Login.fxml"));
+            // Vendos bundle-in aktual nga LanguageManager
+            ResourceBundle currentBundle = LanguageManager.getBundle();
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/LoginView.fxml"), currentBundle);
             Parent root = loader.load();
 
-            Stage stage = (Stage) logoutBtn.getScene().getWindow(); // logoutButton duhet të jetë FXML-i yt
-            stage.setScene(new Scene(root));
-            stage.setTitle("Kyçu");
+            Stage stage = (Stage) logoutBtn.getScene().getWindow();
+            Scene scene = new Scene(root);
+
+            stage.setScene(scene);
+            stage.setTitle(currentBundle.getString("title.login"));
             stage.show();
-        } catch (Exception e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+
+    @FXML
+    private void onLoginButtonClick(ActionEvent event) {
+        SceneManager.changeScene(SceneLocator.LOGIN_VIEW);
     }
 
 }

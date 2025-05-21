@@ -5,13 +5,17 @@ import java.util.ResourceBundle;
 
 public class LanguageManager {
 
+    private static Locale currentLocale = Locale.forLanguageTag("sq"); // default shqip
+
     public static void setLocale(Locale locale) {
         currentLocale = locale;
     }
 
-    private static Locale currentLocale = Locale.forLanguageTag("sq"); // default shqip
+    public static Locale getCurrentLocale() {
+        return currentLocale;
+    }
 
-    public static ResourceBundle getResourceBundle() {
+    public static ResourceBundle getBundle() {
         return ResourceBundle.getBundle("languages.messages", currentLocale);
     }
 
@@ -21,9 +25,5 @@ public class LanguageManager {
         } else {
             currentLocale = Locale.forLanguageTag("sq");
         }
-    }
-
-    public static Locale getCurrentLocale() {
-        return currentLocale;
     }
 }

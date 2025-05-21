@@ -8,7 +8,6 @@
 
 <BorderPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
             fx:controller="controllers.MainController"
-
             style="-fx-background-color: linear-gradient(to bottom, #fbe9e7, #fff3e0);">
 
     <!-- Top bar -->
@@ -26,20 +25,18 @@
                 <Label fx:id="welcomeLabel" text="%app.quote"
                        style="-fx-text-fill: #6d4c41;" />
             </VBox>
+            <Button fx:id="logoutBtn" text="%button.logout"  />
 
             <Pane HBox.hgrow="ALWAYS" />
-
-
-            <Button fx:id="logoutBtn" text="%btn.logout"
+            <Button fx:id="languageBtn" text="%btn.language"
                     style="-fx-background-color: #ff7043; -fx-text-fill: white; -fx-font-weight: bold;
-                           -fx-background-radius: 12; -fx-padding: 6 16;" />
-        </HBox>
+               -fx-background-radius: 12; -fx-padding: 6 16;" />
+ </HBox>
     </top>
 
     <!-- Left menu panel -->
     <left>
-        <ScrollPane fitToWidth="true"
-                    style="-fx-background-color: transparent; -fx-padding: 0;">
+        <ScrollPane >
             <VBox fx:id="menuPane" spacing="15"
                   alignment="TOP_LEFT"
                   prefWidth="250" minWidth="250" maxWidth="250"
@@ -53,7 +50,7 @@
 
     <!-- Center pane for dynamic content -->
     <center>
-        <ScrollPane fitToWidth="true" fitToHeight="true">
+        <ScrollPane >
             <AnchorPane fx:id="centerPane"
                         style="-fx-background-color: #ffffff;
                        -fx-background-radius: 20;
@@ -85,7 +82,6 @@
             <Region HBox.hgrow="ALWAYS"/>
 
             <HBox spacing="15" alignment="CENTER_RIGHT">
-                <!-- Social media icons as Labels with emojis -->
                 <Label text="👍" style="-fx-font-size: 20px;" />
                 <Label text="🐦" style="-fx-font-size: 20px;" />
                 <Label text="📸" style="-fx-font-size: 20px;" />
