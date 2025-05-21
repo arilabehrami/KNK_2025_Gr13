@@ -41,11 +41,9 @@ public class CreateDonacionetController {
     int userId = UserSession.getInstance().getUserId();
     @FXML
     public void initialize() {
-        // ComboBox items
         llojiDonatoriCombo.getItems().addAll("Organizate", "Qeveri", "Individ", "Biznes", "Tjeter");
         llojiDonacionitCombo.getItems().addAll("Financiar", "Material", "Sherbim");
 
-        // TableColumn bindings
         colID.setCellValueFactory(cell -> new javafx.beans.property.SimpleIntegerProperty(cell.getValue().getDonacioniID()).asObject());
         colEmriOrganizates.setCellValueFactory(cell -> new javafx.beans.property.SimpleStringProperty(cell.getValue().getEmriOrganizates()));
         colLlojiDonatori.setCellValueFactory(cell -> new javafx.beans.property.SimpleStringProperty(cell.getValue().getLlojiDonatori()));
@@ -57,10 +55,8 @@ public class CreateDonacionetController {
         colLlojiDonacionit.setCellValueFactory(cell -> new javafx.beans.property.SimpleStringProperty(cell.getValue().getLlojiDonacionit()));
         colPershkrimi.setCellValueFactory(cell -> new javafx.beans.property.SimpleStringProperty(cell.getValue().getPershkrimi()));
 
-        // Set items for TableView
         tableDonacionet.setItems(donacionetList);
 
-        // Listener to update fields when row selected
         tableDonacionet.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> populateFields(newSelection));
 
         loadDonacionet();

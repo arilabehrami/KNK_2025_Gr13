@@ -76,7 +76,6 @@ public class ShenimetShendetesoreController {
         Locale locale = new Locale(lang);
         bundle = ResourceBundle.getBundle("languages.messages", locale);
 
-        // Përkthimet ekzistuese
         languageLabel.setText(bundle.getString("label.language"));
         femijaIdLabel.setText(bundle.getString("label.femijaid"));
         dataLabel.setText(bundle.getString("label.data"));
@@ -84,13 +83,11 @@ public class ShenimetShendetesoreController {
         shtoButton.setText(bundle.getString("button.shtoshenim"));
         statusLabel.setText("");
 
-        // Përkthimet për kokën e tabelës
         idColumn.setText(bundle.getString("table.id"));
         femijaIdColumn.setText(bundle.getString("label.femijaid"));
         dataColumn.setText(bundle.getString("label.data"));
         pershkrimiColumn.setText(bundle.getString("label.pershkrimi"));
 
-        // Përkthimet për butonat në fund
         ngarkoButton.setText(bundle.getString("button.load_all"));
         fshijButton.setText(bundle.getString("button.delete_note"));
         perditesoButton.setText(bundle.getString("button.update_note")); // Shtuar për butonin e përditësimit

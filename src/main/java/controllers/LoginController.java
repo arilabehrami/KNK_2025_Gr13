@@ -36,13 +36,11 @@ public class LoginController {
 
     @FXML
     public void initialize() {
-        // Stilizimi i butonave me hover
         styleButtons();
 
         errorLabel.setText("");
         errorLabel.setVisible(false);
 
-        // Vendos tekstet sipas gjuhës aktuale nga resource bundle
         loginButton.setText(resources.getString("button.login"));
         signupButton.setText(resources.getString("button.signup"));
         switchLangButton.setText(resources.getString("button.switch_language"));
@@ -76,14 +74,12 @@ public class LoginController {
         String username = usernameField.getText().trim();
         String password = passwordField.getText().trim();
 
-        // Kontrollo nëse janë plotësuar fushat
         if (username.isEmpty() || password.isEmpty()) {
             showError(resources.getString("error.fill_all_fields"));
             return;
         }
 
         try (Connection conn = DBConnection.getConnection()) {
-            // Kujdes: password-i duhet të jetë hash-uar në një aplikim real për siguri
             String query = "SELECT id, username FROM users WHERE username = ? AND password = ?";
             PreparedStatement stmt = conn.prepareStatement(query);
             stmt.setString(1, username);
@@ -95,10 +91,8 @@ public class LoginController {
                 int userId = rs.getInt("id");
                 String user = rs.getString("username");
 
-                // Ruaj sesionin e përdoruesit
                 UserSession.init(userId, user);
 
-                // Ngarko MainView me përkthimin aktual nga LanguageManager
                 ResourceBundle currentBundle = LanguageManager.getBundle();
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/MainView.fxml"), currentBundle);
                 Parent root = loader.load();
@@ -128,7 +122,7 @@ public class LoginController {
     @FXML
     private void switchLanguage(ActionEvent event) {
         LanguageManager.toggleLanguage();
-        SceneManager.changeScene(SceneLocator.LOGIN_VIEW); // rifreskon skenën me gjuhën e re
+        SceneManager.changeScene(SceneLocator.LOGIN_VIEW);
     }
 
     @FXML
@@ -152,15 +146,8 @@ public class LoginController {
 
     @FXML
     public void forgotPassword(ActionEvent actionEvent) {
-        // Këtu mund të implementosh logjikën për rikuperim fjalëkalimi,
-        // p.sh. hap një dritare modale ose ridrejto në një faqe për rikuperim.
         System.out.println("Forgot Password clicked - duhet të implementohet.");
-        // Për shembull, mund të hapësh një dialog me instruksione:
-        // Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        // alert.setTitle(resources.getString("forgot_password.title"));
-        // alert.setHeaderText(null);
-        // alert.setContentText(resources.getString("forgot_password.instructions"));
-        // alert.showAndWait();
+
     }
 
 }
