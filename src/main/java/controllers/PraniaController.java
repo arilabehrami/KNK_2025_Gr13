@@ -39,7 +39,7 @@ public class PraniaController {
 
     @FXML
     public void initialize() {
-        btnLanguage.setOnAction(e -> switchLanguage());
+//        btnLanguage.setOnAction(e -> switchLanguage());
         btnSave.setOnAction(e -> handleSave());
         btnDelete.setOnAction(e -> handleDelete());
 
@@ -53,23 +53,23 @@ public class PraniaController {
         loadData();
     }
 
-    private void switchLanguage() {
-        if (currentLocale.getLanguage().equals("sq")) {
-            currentLocale = new Locale("en");
-        } else {
-            currentLocale = new Locale("sq");
-        }
-
-        ResourceBundle bundle = ResourceBundle.getBundle("languages.messages", currentLocale);
-
-        btnLanguage.setText(bundle.getString("language"));
-        txtFemijaId.setPromptText(bundle.getString("femijaId"));
-        txtStatusi.setPromptText(bundle.getString("status"));
-        btnSave.setText(bundle.getString("save"));
-        btnDelete.setText(bundle.getString("delete"));
-        colFemija.setText(bundle.getString("femijaId"));
-        colStatusi.setText(bundle.getString("status"));
-    }
+//    private void switchLanguage() {
+//        if (currentLocale.getLanguage().equals("sq")) {
+//            currentLocale = new Locale("en");
+//        } else {
+//            currentLocale = new Locale("sq");
+//        }
+//
+//        ResourceBundle bundle = ResourceBundle.getBundle("languages.messages", currentLocale);
+//
+//        btnLanguage.setText(bundle.getString("language"));
+//        txtFemijaId.setPromptText(bundle.getString("femijaId"));
+//        txtStatusi.setPromptText(bundle.getString("status"));
+//        btnSave.setText(bundle.getString("save"));
+//        btnDelete.setText(bundle.getString("delete"));
+//        colFemija.setText(bundle.getString("femijaId"));
+//        colStatusi.setText(bundle.getString("status"));
+//    }
 
     @FXML
     public void handleSave() {

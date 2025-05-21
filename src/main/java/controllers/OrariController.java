@@ -32,8 +32,8 @@ public class OrariController {
     @FXML private TextField tfOraHyrjes;
     @FXML private TextField tfOraDaljes;
 
-    @FXML private Button btnSwitchAlbanian;
-    @FXML private Button btnSwitchEnglish;
+//    @FXML private Button btnSwitchAlbanian;
+//    @FXML private Button btnSwitchEnglish;
     @FXML private Button btnAdd;
     @FXML private Button btnUpdate;
     @FXML private Button btnDelete;
@@ -195,8 +195,8 @@ public class OrariController {
         colOraHyrjes.setText(resources.getString("orari.oraHyrjes"));
         colOraDaljes.setText(resources.getString("orari.oraDaljes"));
 
-        btnSwitchAlbanian.setText(resources.getString("button.switchAlbanian"));
-        btnSwitchEnglish.setText(resources.getString("button.switchEnglish"));
+//        btnSwitchAlbanian.setText(resources.getString("button.switchAlbanian"));
+//        btnSwitchEnglish.setText(resources.getString("button.switchEnglish"));
 
         btnAdd.setText(resources.getString("button.add"));
         btnUpdate.setText(resources.getString("button.update"));

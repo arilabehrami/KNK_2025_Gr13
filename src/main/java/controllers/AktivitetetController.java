@@ -26,8 +26,8 @@ public class AktivitetetController {
     @FXML private TableColumn<Aktivitetet, String> colPershkrimi;
     @FXML private TableColumn<Aktivitetet, LocalDate> colData;
     @FXML private TableColumn<Aktivitetet, Integer> colGrupiID;
-    @FXML private Button btnSwitchAlbanian;
-    @FXML private Button btnSwitchEnglish;
+//    @FXML private Button btnSwitchAlbanian;
+//    @FXML private Button btnSwitchEnglish;
     @FXML private Button btnAdd;
     @FXML private Button btnUpdate;
     @FXML private Button btnDelete;
@@ -207,8 +207,8 @@ public class AktivitetetController {
         colData.setText(resources.getString("aktivitetet.col.data"));
         colGrupiID.setText(resources.getString("aktivitetet.col.grupiid"));
 
-        btnSwitchAlbanian.setText(resources.getString("aktivitetet.button.switchAlbanian"));
-        btnSwitchEnglish.setText(resources.getString("aktivitetet.button.switchEnglish"));
+//        btnSwitchAlbanian.setText(resources.getString("aktivitetet.button.switchAlbanian"));
+//        btnSwitchEnglish.setText(resources.getString("aktivitetet.button.switchEnglish"));
         btnAdd.setText(resources.getString("aktivitetet.btn.add"));
         btnUpdate.setText(resources.getString("aktivitetet.btn.update"));
         btnDelete.setText(resources.getString("aktivitetet.btn.delete"));
