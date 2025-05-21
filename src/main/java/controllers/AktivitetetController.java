@@ -63,7 +63,7 @@ public class AktivitetetController {
             colGrupiID.setCellValueFactory(new PropertyValueFactory<>("grupiID"));
 
             // Merr resource bundle nga LanguageManager (gjuhë default)
-            resources = LanguageManager.getResourceBundle();
+            resources = LanguageManager.getBundle();
 
             updateUILabels();
             updatePrompts();
@@ -191,7 +191,7 @@ public class AktivitetetController {
     }
 
     private void refreshLanguage() {
-        resources = LanguageManager.getResourceBundle();
+        resources = LanguageManager.getBundle();
         updateUILabels();
         updatePrompts();
         refreshTableColumns();
