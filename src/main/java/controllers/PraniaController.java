@@ -1,6 +1,7 @@
 package controllers;
 
 
+import services.UserSession;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -16,6 +17,8 @@ import java.util.ResourceBundle;
 
 public class PraniaController {
 
+    String username = UserSession.getInstance().getUsername();
+    int userId = UserSession.getInstance().getUserId();
     @FXML
     private Button btnLanguage;
     @FXML private Button btnSave;

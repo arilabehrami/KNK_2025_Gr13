@@ -1,9 +1,9 @@
 package controllers;
 
+import services.UserSession;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.cell.PropertyValueFactory;
 import models.Dto.Financat.CreateFinancatDto;
 import models.domain.Financat;
 import models.domain.Pagesa;
@@ -15,6 +15,8 @@ import java.util.List;
 
 public class FinancaController {
 
+    String username = UserSession.getInstance().getUsername();
+    int userId = UserSession.getInstance().getUserId();
     @FXML
     private TextField txtTeArdhura;
 

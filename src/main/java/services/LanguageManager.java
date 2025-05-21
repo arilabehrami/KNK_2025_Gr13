@@ -3,32 +3,19 @@ package services;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
+
 public class LanguageManager {
-    private static LanguageManager instance;
-    private Locale locale;
-    private ResourceBundle bundle;
+    private static Locale currentLocale = new Locale("sq"); // default shqip
 
-    private LanguageManager() {
-        setLocale("sq"); // default language
+    public static void setLocale(Locale locale) {
+        currentLocale = locale;
     }
 
-    public static LanguageManager getInstance() {
-        if (instance == null) {
-            instance = new LanguageManager();
-        }
-        return instance;
+    public static Locale getLocale() {
+        return currentLocale;
     }
 
-    public void setLocale(String languageCode) {
-        this.locale = new Locale(languageCode);
-        this.bundle = ResourceBundle.getBundle("languages.messages", locale);
-    }
-
-    public ResourceBundle getResourceBundle() {
-        return bundle;
-    }
-
-    public Locale getLocale() {
-        return locale;
+    public static ResourceBundle getBundle() {
+        return ResourceBundle.getBundle("languages.messages", currentLocale);
     }
 }

@@ -1,5 +1,6 @@
 package controllers;
 
+import services.UserSession;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.FXCollections;
@@ -17,6 +18,8 @@ import java.util.ResourceBundle;
 
 public class OrariController {
 
+    String username = UserSession.getInstance().getUsername();
+    int userId = UserSession.getInstance().getUserId();
     @FXML private TableView<Orari> tableOrari;
     @FXML private TableColumn<Orari, Integer> colOrariID;
     @FXML private TableColumn<Orari, Integer> colFemijaID;

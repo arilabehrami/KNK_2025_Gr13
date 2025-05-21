@@ -1,5 +1,6 @@
 package controllers;
 
+import services.UserSession;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -26,6 +27,8 @@ public class CreateGrupetController {
     private final GrupetService service = new GrupetService();
     private final ObservableList<Grupet> grupetList = FXCollections.observableArrayList();
 
+    String username = UserSession.getInstance().getUsername();
+    int userId = UserSession.getInstance().getUserId();
     @FXML
     public void initialize() {
         colGrupiId.setCellValueFactory(cell -> new javafx.beans.property.SimpleIntegerProperty(cell.getValue().getGrupiId()).asObject());

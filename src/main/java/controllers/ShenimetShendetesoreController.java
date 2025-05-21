@@ -1,5 +1,6 @@
 package controllers;
 
+import services.UserSession;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -19,6 +20,8 @@ import java.util.ResourceBundle;
 
 public class ShenimetShendetesoreController {
 
+    String username = UserSession.getInstance().getUsername();
+    int userId = UserSession.getInstance().getUserId();
     @FXML private ComboBox<String> languageSelector;
     @FXML private Label languageLabel;
     @FXML private Label femijaIdLabel;

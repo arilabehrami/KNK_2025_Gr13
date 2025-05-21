@@ -10,7 +10,7 @@ import javafx.scene.control.*;
 import javafx.event.ActionEvent;
 import models.domain.Femijet;
 import services.FemijetService;
-
+import services.UserSession;
 import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
@@ -50,8 +50,8 @@ public class CreateFemijetController {
 
     @FXML private Button btnSwitchAlbanian;
     @FXML private Button btnSwitchEnglish;
-
-    private final FemijetService femijetService = new FemijetService();
+    String username = UserSession.getInstance().getUsername();
+    int userId = UserSession.getInstance().getUserId();private final FemijetService femijetService = new FemijetService();
     private ResourceBundle resources;
     private int selectedFemijaId = -1;
 

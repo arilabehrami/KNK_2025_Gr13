@@ -8,6 +8,8 @@ import models.Dto.Donacionet.CreateDonacionetDto;
 import models.Dto.Donacionet.UpdateDonacionetDto;
 import models.domain.Donacionet;
 import services.DonacionetService;
+import services.UserSession;
+
 
 public class CreateDonacionetController {
 
@@ -35,7 +37,8 @@ public class CreateDonacionetController {
 
     private final DonacionetService service = new DonacionetService();
     private final ObservableList<Donacionet> donacionetList = FXCollections.observableArrayList();
-
+    String username = UserSession.getInstance().getUsername();
+    int userId = UserSession.getInstance().getUserId();
     @FXML
     public void initialize() {
         // ComboBox items

@@ -1,5 +1,6 @@
 package controllers;
 
+import services.UserSession;
 import helpers.LanguageContext;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -17,6 +18,8 @@ import java.util.ResourceBundle;
 
 public class KontaktetEmergjenteController {
 
+    String username = UserSession.getInstance().getUsername();
+    int userId = UserSession.getInstance().getUserId();
     @FXML private ComboBox<String> languageSelector;
     @FXML private TextField femijaIdField, emriField, mbiemriField, telefoniField;
     @FXML private Label statusLabel;

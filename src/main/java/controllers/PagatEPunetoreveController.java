@@ -1,12 +1,12 @@
 package controllers;
 
+import services.UserSession;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import models.domain.PagatEPunetoreve;
-import models.Dto.PagatEPunetoreve.CreatePagatEPunetoreveDto;
 import models.Dto.PagatEPunetoreve.UpdatePagatEPunetoreveDto;
 import services.PagatEPunetoreveService;
 
@@ -16,6 +16,8 @@ public class PagatEPunetoreveController {
 
     private PagatEPunetoreveService pagaService;
 
+    String username = UserSession.getInstance().getUsername();
+    int userId = UserSession.getInstance().getUserId();
     @FXML
     private TableView<PagatEPunetoreve> tableView;
 

@@ -1,11 +1,13 @@
 package controllers;
 
+import services.UserSession;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -15,8 +17,11 @@ import java.util.ResourceBundle;
 
 public class MainController {
 
+    String username = UserSession.getInstance().getUsername();
+    int userId = UserSession.getInstance().getUserId();
     @FXML
     private VBox menuPane;
+    @FXML private Label welcomeLabel;
 
     @FXML
     private AnchorPane centerPane;
@@ -60,6 +65,8 @@ public class MainController {
         updateLanguageTexts();
 
         languageBtn.setOnAction(e -> switchLanguage());
+        String username = UserSession.getInstance().getUsername();
+        welcomeLabel.setText("Mirë se vini, " + username + "!");
     }
 
     private void setupMenu() {
@@ -166,4 +173,21 @@ public class MainController {
 
     public void stage(Stage window) {
     }
+    @FXML
+    private void handleLogout(ActionEvent event) {
+        UserSession.clearSession();
+
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/Login.fxml"));
+            Parent root = loader.load();
+
+            Stage stage = (Stage) logoutBtn.getScene().getWindow(); // logoutButton duhet të jetë FXML-i yt
+            stage.setScene(new Scene(root));
+            stage.setTitle("Kyçu");
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 }

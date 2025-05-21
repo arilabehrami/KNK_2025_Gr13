@@ -14,6 +14,12 @@
              style="-fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: #e65100;" />
       <Label text="Një hapësirë kreative, edukative dhe e sigurt për fëmijët"
              style="-fx-font-size: 16px; -fx-text-fill: #6d4c41;" />
+      <Button fx:id="btnswitchAL" text="Shto" onAction="#switchAL"
+              style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 8 20;"/>
+      <Button fx:id="btnswitchEN" text="Shto" onAction="#switchEN"
+              style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 8 20;"/>
+
+
     </VBox>
   </top>
 

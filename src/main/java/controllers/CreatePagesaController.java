@@ -1,5 +1,6 @@
 package controllers;
 
+import services.UserSession;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -45,6 +46,8 @@ public class CreatePagesaController {
     @FXML
     private TableColumn<Pagesa, Double> colShuma;
 
+    String username = UserSession.getInstance().getUsername();
+    int userId = UserSession.getInstance().getUserId();
 
     private PagesaService pagesaService;
 

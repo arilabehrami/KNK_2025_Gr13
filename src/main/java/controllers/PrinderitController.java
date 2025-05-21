@@ -1,5 +1,6 @@
 package controllers;
 
+import services.UserSession;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -14,6 +15,8 @@ import java.util.Optional;
 
 public class PrinderitController {
 
+    String username = UserSession.getInstance().getUsername();
+    int userId = UserSession.getInstance().getUserId();
     @FXML
     private TextField txtEmri;
 

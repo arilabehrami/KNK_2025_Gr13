@@ -1,5 +1,6 @@
 package controllers;
 
+import services.UserSession;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -13,6 +14,8 @@ import java.util.List;
 
 public class UshqimetController {
 
+    String username = UserSession.getInstance().getUsername();
+    int userId = UserSession.getInstance().getUserId();
     @FXML private TableView<Ushqimet> ushqimetTable;
     @FXML private TableColumn<Ushqimet, Integer> idCol;
     @FXML private TableColumn<Ushqimet, String> emriCol;

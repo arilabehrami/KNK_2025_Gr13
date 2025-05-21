@@ -1,7 +1,7 @@
 package controllers;
 
-
 import Database.DBConnection;
+import services.UserSession;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -16,44 +16,26 @@ import java.sql.ResultSet;
 
 public class LoginController {
 
-    @FXML
-    private TextField usernameField;
-
-    @FXML
-    private PasswordField passwordField;
-
-    @FXML
-    private Label errorLabel;
-    @FXML
-    private Button loginButton;
-
-    @FXML
-    private Button signupButton;
-    @FXML
-    public void emailHoverOff(javafx.scene.input.MouseEvent event) {
-        Label label = (Label) event.getSource();
-        label.setStyle("-fx-underline: false; -fx-text-fill: #6d4c41;");
-    }
-
+    @FXML private TextField usernameField;
+    @FXML private PasswordField passwordField;
+    @FXML private Label errorLabel;
+    @FXML private Button loginButton;
+    @FXML private Button signupButton;
 
     @FXML
     public void initialize() {
-        // Hover effect për loginButton
         loginButton.setOnMouseEntered(e -> loginButton.setStyle(
                 "-fx-background-color: #f4511e; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 12; -fx-padding: 10 25;"));
 
         loginButton.setOnMouseExited(e -> loginButton.setStyle(
                 "-fx-background-color: #ff7043; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 12; -fx-padding: 10 25;"));
 
-        // Hover effect për signupButton
         signupButton.setOnMouseEntered(e -> signupButton.setStyle(
                 "-fx-background-color: #ffccbc; -fx-border-color: #ff7043; -fx-text-fill: #ff7043; -fx-border-radius: 12; -fx-padding: 10 25;"));
 
         signupButton.setOnMouseExited(e -> signupButton.setStyle(
                 "-fx-background-color: transparent; -fx-border-color: #ff7043; -fx-text-fill: #ff7043; -fx-border-radius: 12; -fx-padding: 10 25;"));
     }
-
-
 
     @FXML
     private void goToSignUp(ActionEvent event) {
@@ -68,7 +50,6 @@ public class LoginController {
         }
     }
 
-
     @FXML
     private void handleLogin(ActionEvent event) {
         String username = usernameField.getText();
@@ -80,7 +61,7 @@ public class LoginController {
         }
 
         try (Connection conn = DBConnection.getConnection()) {
-            String query = "SELECT * FROM users WHERE username = ? AND password = ?";
+            String query = "SELECT id, username FROM users WHERE username = ? AND password = ?";
             PreparedStatement stmt = conn.prepareStatement(query);
             stmt.setString(1, username);
             stmt.setString(2, password);
@@ -88,7 +69,13 @@ public class LoginController {
             ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
-                loadMainView(username);
+                int userId = rs.getInt("id");
+                String user = rs.getString("username");
+
+                // Inicioni sesionin e përdoruesit
+                UserSession.init(userId, user);
+
+                loadMainView();
             } else {
                 showError("Përdoruesi ose fjalëkalimi gabim!");
             }
@@ -99,25 +86,10 @@ public class LoginController {
         }
     }
 
-    private void loadMainView(String username) {
+    private void loadMainView() {
         try {
-            // Ngarko FXML-in për MainView
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/MainView.fxml"));
             Parent root = loader.load();
-
-// Merr controller-in e MainView
-            MainController controller = loader.getController();
-
-// Dërgo username-n te controller-i
-            controller.setUsername(username);
-
-// Ruaj referencën e Stage-it në controller për përdorime të mëtejshme
-            Stage currentStage = (Stage) usernameField.getScene().getWindow();
-            controller.setStage(currentStage);  // Përdor 'setStage' për ta ruajtur Stage-in
-
-// Ndrysho scene në Stage për të shfaqur MainView
-            currentStage.getScene().setRoot(root);
-
 
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
@@ -125,7 +97,7 @@ public class LoginController {
             stage.setMaximized(true);
             stage.show();
 
-            // Mbyll login window
+            // Mbyll dritaren e login-it
             Stage loginStage = (Stage) usernameField.getScene().getWindow();
             loginStage.close();
 
@@ -140,5 +112,12 @@ public class LoginController {
     }
 
     public void forgotPassword(ActionEvent actionEvent) {
+        // Mund të shtosh logjikën këtu për dërgimin e emailit ose rikuperimin e fjalëkalimit.
+    }
+
+    @FXML
+    public void emailHoverOff(javafx.scene.input.MouseEvent event) {
+        Label label = (Label) event.getSource();
+        label.setStyle("-fx-underline: false; -fx-text-fill: #6d4c41;");
     }
 }

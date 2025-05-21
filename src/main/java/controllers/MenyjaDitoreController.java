@@ -1,5 +1,6 @@
 package controllers;
 
+import services.UserSession;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -40,6 +41,8 @@ public class MenyjaDitoreController {
 
     private MenyjaDitoreService service;
 
+    String username = UserSession.getInstance().getUsername();
+    int userId = UserSession.getInstance().getUserId();
     private ObservableList<MenyjaDitore> menyjaData;
 
     @FXML

@@ -3,11 +3,7 @@ package controllers;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.stage.Stage;
 import models.Dto.Aktivitetet.CreateAktivitetetDto;
 import models.Dto.Aktivitetet.UpdateAktivitetetDto;
 import models.domain.Aktivitetet;
@@ -20,6 +16,7 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.Locale;
 import java.util.ResourceBundle;
+import services.UserSession;
 
 public class AktivitetetController {
 
@@ -46,6 +43,9 @@ public class AktivitetetController {
 
     private AktivitetetService aktivitetetService;
     private ObservableList<Aktivitetet> aktivitetetList = FXCollections.observableArrayList();
+
+    String username = UserSession.getInstance().getUsername();
+    int userId = UserSession.getInstance().getUserId();
 
     @FXML
     public void initialize() {

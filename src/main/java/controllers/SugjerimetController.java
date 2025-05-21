@@ -1,5 +1,6 @@
 package controllers;
 
+import services.UserSession;
 import helpers.LanguageContext;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -18,6 +19,8 @@ import java.util.ResourceBundle;
 
 public class SugjerimetController {
 
+    String username = UserSession.getInstance().getUsername();
+    int userId = UserSession.getInstance().getUserId();
     @FXML private ComboBox<String> languageSelector;
     @FXML private TextField emriSugjeruesitField;
     @FXML private ComboBox<String> roliComboBox;

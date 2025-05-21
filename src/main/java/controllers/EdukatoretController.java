@@ -1,5 +1,6 @@
 package controllers;
 
+import services.UserSession;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -23,6 +24,8 @@ public class EdukatoretController {
     @FXML private TableColumn<Edukatoret, String> colKontakti;
     @FXML private TableColumn<Edukatoret, String> colKualifikimet;
 
+    String username = UserSession.getInstance().getUsername();
+    int userId = UserSession.getInstance().getUserId();
     private final EdukatoretService service = new EdukatoretService();
     private final ObservableList<Edukatoret> edukatoretList = FXCollections.observableArrayList();
 
