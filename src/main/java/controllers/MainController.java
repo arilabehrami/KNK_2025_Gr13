@@ -17,8 +17,7 @@ import java.util.ResourceBundle;
 
 public class MainController {
 
-    String username = UserSession.getInstance().getUsername();
-    int userId = UserSession.getInstance().getUserId();
+
     @FXML
     private VBox menuPane;
     @FXML private Label welcomeLabel;
@@ -62,9 +61,8 @@ public class MainController {
 
         setupMenu();
         setupTopButtons();
-        updateLanguageTexts();
 
-        languageBtn.setOnAction(e -> switchLanguage());
+
         String username = UserSession.getInstance().getUsername();
         welcomeLabel.setText("Mirë se vini, " + username + "!");
     }
@@ -130,46 +128,9 @@ public class MainController {
         });
     }
 
-    private void updateLanguageTexts() {
-        appNameLabel.setText(bundle.getString("app_name"));
-        quoteLabel.setText(bundle.getString("quote"));
-        logoutBtn.setText(bundle.getString("logout"));
-        languageBtn.setText(isEnglish ? "Shqip" : "English");
 
-        // Përditëso menunë për të reflektuar gjuhën
-        setupMenu();
-    }
 
-    private void switchLanguage() {
-        isEnglish = !isEnglish;
-        Locale newLocale = isEnglish ? new Locale("en") : new Locale("sq");
-        Locale.setDefault(newLocale);
-        bundle = ResourceBundle.getBundle("languages.messages", newLocale);
 
-        updateLanguageTexts();
-
-        // Përditëso përmbajtjen në qendër (nëse ke ngarkuar ndonjë pane)
-        if (!centerPane.getChildren().isEmpty()) {
-            // Merr emrin e parë të panelit të ngarkuar dhe ngarko prapë me bundle të ri
-            Parent currentPane = (Parent) centerPane.getChildren().get(0);
-            String fxmlName = currentPane.getUserData() != null ? currentPane.getUserData().toString() : null;
-
-            if (fxmlName != null) {
-                try {
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/" + fxmlName + ".fxml"), bundle);
-                    Parent newPane = loader.load();
-
-                    centerPane.getChildren().setAll(newPane);
-                    AnchorPane.setTopAnchor(newPane, 0.0);
-                    AnchorPane.setBottomAnchor(newPane, 0.0);
-                    AnchorPane.setLeftAnchor(newPane, 0.0);
-                    AnchorPane.setRightAnchor(newPane, 0.0);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-    }
 
     public void stage(Stage window) {
     }

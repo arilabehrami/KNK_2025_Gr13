@@ -12,4 +12,6 @@ public class SceneLocator {
     public static final String PAGESA_VIEW = "/Views/PagesaView.fxml";
     public static final String FINANCA_VIEW = "/Views/FinancatView.fxml";
     public static final String PAGA_VIEW = "/Views/PagatView.fxml";
+    public static final String SIGNUP_VIEW = "/Views/SignUpView.fxml";
+    public static final String LOGIN_VIEW = "/Views/LoginView.fxml";
 }

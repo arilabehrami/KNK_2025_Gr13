@@ -2,17 +2,20 @@ package controllers;
 
 import Database.DBConnection;
 import services.UserSession;
+import utils.SceneLocator;
+import services.SceneManager;
+import services.LanguageManager;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.stage.Stage;
+import javafx.scene.input.MouseEvent;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 public class LoginController {
 
@@ -21,42 +24,53 @@ public class LoginController {
     @FXML private Label errorLabel;
     @FXML private Button loginButton;
     @FXML private Button signupButton;
+    @FXML private Button switchLangButton;
+
+    @FXML
+    private ResourceBundle resources;
 
     @FXML
     public void initialize() {
-        loginButton.setOnMouseEntered(e -> loginButton.setStyle(
-                "-fx-background-color: #f4511e; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 12; -fx-padding: 10 25;"));
+        // Stilizimi i butonave me hover
+        styleButtons();
 
+        errorLabel.setText("");
+        errorLabel.setVisible(false);
+
+        // Vendos tekstet sipas gjuhës aktuale nga resource bundle
+        loginButton.setText(resources.getString("button.login"));
+        signupButton.setText(resources.getString("button.signup"));
+        switchLangButton.setText(resources.getString("button.switch_language"));
+    }
+
+    private void styleButtons() {
+        loginButton.setOnMouseEntered(e -> loginButton.setStyle(
+                "-fx-background-color: #f4511e; -fx-text-fill: white; -fx-font-weight: bold; " +
+                        "-fx-background-radius: 12; -fx-padding: 10 25;"));
         loginButton.setOnMouseExited(e -> loginButton.setStyle(
-                "-fx-background-color: #ff7043; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 12; -fx-padding: 10 25;"));
+                "-fx-background-color: #ff7043; -fx-text-fill: white; -fx-font-weight: bold; " +
+                        "-fx-background-radius: 12; -fx-padding: 10 25;"));
 
         signupButton.setOnMouseEntered(e -> signupButton.setStyle(
-                "-fx-background-color: #ffccbc; -fx-border-color: #ff7043; -fx-text-fill: #ff7043; -fx-border-radius: 12; -fx-padding: 10 25;"));
-
+                "-fx-background-color: #ffccbc; -fx-border-color: #ff7043; -fx-text-fill: #ff7043; " +
+                        "-fx-border-radius: 12; -fx-padding: 10 25;"));
         signupButton.setOnMouseExited(e -> signupButton.setStyle(
-                "-fx-background-color: transparent; -fx-border-color: #ff7043; -fx-text-fill: #ff7043; -fx-border-radius: 12; -fx-padding: 10 25;"));
+                "-fx-background-color: transparent; -fx-border-color: #ff7043; -fx-text-fill: #ff7043; " +
+                        "-fx-border-radius: 12; -fx-padding: 10 25;"));
     }
 
     @FXML
     private void goToSignUp(ActionEvent event) {
-        try {
-            Parent root = FXMLLoader.load(getClass().getResource("/Views/SignUpView.fxml"));
-            Stage stage = (Stage) usernameField.getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.setTitle("Regjistrimi");
-            stage.show();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        SceneManager.changeScene(SceneLocator.SIGNUP_VIEW);
     }
 
     @FXML
     private void handleLogin(ActionEvent event) {
-        String username = usernameField.getText();
-        String password = passwordField.getText();
+        String username = usernameField.getText().trim();
+        String password = passwordField.getText().trim();
 
         if (username.isEmpty() || password.isEmpty()) {
-            showError("Plotësoni të gjitha fushat!");
+            showError(resources.getString("error.fill_all_fields"));
             return;
         }
 
@@ -72,37 +86,18 @@ public class LoginController {
                 int userId = rs.getInt("id");
                 String user = rs.getString("username");
 
-                // Inicioni sesionin e përdoruesit
                 UserSession.init(userId, user);
 
-                loadMainView();
+                // Ngarko faqen kryesore
+                SceneManager.changeScene(SceneLocator.MAIN_VIEW);
+
             } else {
-                showError("Përdoruesi ose fjalëkalimi gabim!");
+                showError(resources.getString("error.invalid_credentials"));
             }
 
         } catch (Exception e) {
             e.printStackTrace();
-            showError("Gabim me databazën!");
-        }
-    }
-
-    private void loadMainView() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/MainView.fxml"));
-            Parent root = loader.load();
-
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root));
-            stage.setTitle("Paneli Kryesor");
-            stage.setMaximized(true);
-            stage.show();
-
-            // Mbyll dritaren e login-it
-            Stage loginStage = (Stage) usernameField.getScene().getWindow();
-            loginStage.close();
-
-        } catch (Exception e) {
-            e.printStackTrace();
+            showError(resources.getString("error.database_error"));
         }
     }
 
@@ -111,13 +106,42 @@ public class LoginController {
         errorLabel.setVisible(true);
     }
 
-    public void forgotPassword(ActionEvent actionEvent) {
-        // Mund të shtosh logjikën këtu për dërgimin e emailit ose rikuperimin e fjalëkalimit.
+    @FXML
+    private void switchLanguage(ActionEvent event) {
+        LanguageManager.toggleLanguage();
+        SceneManager.changeScene(SceneLocator.LOGIN_VIEW); // rifreskon skenën me gjuhën e re
     }
 
     @FXML
-    public void emailHoverOff(javafx.scene.input.MouseEvent event) {
+    public void emailHoverOff(MouseEvent event) {
         Label label = (Label) event.getSource();
         label.setStyle("-fx-underline: false; -fx-text-fill: #6d4c41;");
     }
+    @FXML
+    public void switchEN(ActionEvent actionEvent) {
+        LanguageManager.setLocale(Locale.ENGLISH);
+        SceneManager.changeScene(SceneLocator.LOGIN_VIEW);
+    }
+
+    @FXML
+    public void switchAL(ActionEvent actionEvent) {
+        LanguageManager.setLocale(Locale.forLanguageTag("sq"));
+        SceneManager.changeScene(SceneLocator.LOGIN_VIEW);
+    }
+
+
+
+    @FXML
+    public void forgotPassword(ActionEvent actionEvent) {
+        // Këtu mund të implementosh logjikën për rikuperim fjalëkalimi,
+        // p.sh. hap një dritare modale ose ridrejto në një faqe për rikuperim.
+        System.out.println("Forgot Password clicked - duhet të implementohet.");
+        // Për shembull, mund të hapësh një dialog me instruksione:
+        // Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        // alert.setTitle(resources.getString("forgot_password.title"));
+        // alert.setHeaderText(null);
+        // alert.setContentText(resources.getString("forgot_password.instructions"));
+        // alert.showAndWait();
+    }
+
 }

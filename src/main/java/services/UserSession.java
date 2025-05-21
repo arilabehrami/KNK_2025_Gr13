@@ -2,9 +2,8 @@ package services;
 
 public class UserSession {
     private static UserSession instance;
-
-    private int userId;
-    private String username;
+    private final String username;
+    private final int userId;
 
     private UserSession(int userId, String username) {
         this.userId = userId;
@@ -12,24 +11,22 @@ public class UserSession {
     }
 
     public static void init(int userId, String username) {
-        if (instance == null) {
-            instance = new UserSession(userId, username);
-        }
+        instance = new UserSession(userId, username);
     }
 
     public static UserSession getInstance() {
         return instance;
     }
 
-    public static void clearSession() {
-        instance = null;
+    public String getUsername() {
+        return username;
     }
 
     public int getUserId() {
         return userId;
     }
 
-    public String getUsername() {
-        return username;
+    public static void clearSession() {
+        instance = null;
     }
 }

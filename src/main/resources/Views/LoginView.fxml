@@ -17,6 +17,8 @@
               style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 8 20;"/>
       <Button fx:id="btnswitchEN" text="%btn.addEN" onAction="#switchEN"
               style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 8 20;"/>
+      <Button fx:id="switchLangButton" text="%button.switch_language" onAction="#switchLanguage" />
+
     </VBox>
   </top>
 
@@ -92,6 +94,7 @@
                  style="-fx-text-fill: #bf360c; -fx-font-size: 11px;" />
     </VBox>
   </center>
+
 
   <right>
     <VBox spacing="20" alignment="TOP_LEFT" BorderPane.alignment="CENTER_RIGHT"
