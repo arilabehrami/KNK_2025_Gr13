@@ -26,8 +26,7 @@ public class MainController {
 
     @FXML
     private Label welcomeLabel;
-    @FXML
-    private Button languageBtn;
+
 
     @FXML
     private AnchorPane centerPane;
