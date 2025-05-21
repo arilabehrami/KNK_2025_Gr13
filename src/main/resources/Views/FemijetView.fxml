@@ -25,12 +25,12 @@
             </columns>
         </TableView>
 
-        <HBox spacing="10" layoutX="10" layoutY="600" alignment="CENTER_LEFT" style="-fx-padding: 5;">
-            <Button fx:id="btnSwitchAlbanian" text="%button.shqip" onAction="#switchToAlbanian"
-                    style="-fx-background-color: transparent; -fx-border-color: transparent;"/>
-            <Button fx:id="btnSwitchEnglish" text="%button.english" onAction="#switchToEnglish"
-                    style="-fx-background-color: transparent; -fx-border-color: transparent;"/>
-        </HBox>
+<!--        <HBox spacing="10" layoutX="10" layoutY="600" alignment="CENTER_LEFT" style="-fx-padding: 5;">-->
+<!--            <Button fx:id="btnSwitchAlbanian" text="%button.shqip" onAction="#switchToAlbanian"-->
+<!--                    style="-fx-background-color: transparent; -fx-border-color: transparent;"/>-->
+<!--            <Button fx:id="btnSwitchEnglish" text="%button.english" onAction="#switchToEnglish"-->
+<!--                    style="-fx-background-color: transparent; -fx-border-color: transparent;"/>-->
+<!--        </HBox>-->
 
         <VBox layoutX="660.0" layoutY="10.0" prefHeight="580.0" prefWidth="320.0" spacing="12.0"
               style="-fx-background-color: #ffffff; -fx-padding: 15; -fx-background-radius: 10;">
