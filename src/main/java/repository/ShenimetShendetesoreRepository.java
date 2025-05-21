@@ -62,7 +62,7 @@ public class ShenimetShendetesoreRepository
 
         } catch (SQLException ex) {
             ex.printStackTrace();
-            return null; // ose handle më mirë nëse dëshiron
+            return null;
         }
     }
 }

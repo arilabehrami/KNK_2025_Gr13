@@ -7,12 +7,14 @@ public class UpdateSugjerimetDto {
     private String data;
     private String pershkrimi;
 
-    public UpdateSugjerimetDto(int sugjerimiId, String pershkrimi) {
+    public UpdateSugjerimetDto(int sugjerimiId, String emriSugjeruesit, String roli, String data, String pershkrimi) {
         this.sugjerimiId = sugjerimiId;
+        this.emriSugjeruesit = emriSugjeruesit;
+        this.roli = roli;
+        this.data = data;
         this.pershkrimi = pershkrimi;
     }
 
-    // Getters and Setters
     public int getSugjerimiId() {
         return sugjerimiId;
     }
