@@ -49,9 +49,9 @@
             style="-fx-background-color: #9e9e9e; -fx-text-fill: white; -fx-font-weight: bold;"/>
   </HBox>
 
-  <HBox spacing="10" alignment="CENTER_RIGHT">
-    <Button fx:id="btnSwitchAlbanian" text="Shqip" onAction="#switchToAlbanian" style="..." />
-    <Button fx:id="btnSwitchEnglish" text="English" onAction="#switchToEnglish" style="..." />
-  </HBox>
+<!--  <HBox spacing="10" alignment="CENTER_RIGHT">-->
+<!--    <Button fx:id="btnSwitchAlbanian" text="Shqip" onAction="#switchToAlbanian" style="..." />-->
+<!--    <Button fx:id="btnSwitchEnglish" text="English" onAction="#switchToEnglish" style="..." />-->
+<!--  </HBox>-->
 
 </VBox>

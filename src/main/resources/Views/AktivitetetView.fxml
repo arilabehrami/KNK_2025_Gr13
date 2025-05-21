@@ -27,11 +27,11 @@
     </VBox>
 
     <!-- Butonat për zgjedhjen e gjuhës -->
-    <HBox spacing="10">
-        <Label text="Select Language:"/>
-        <Button fx:id="btnSwitchAlbanian" text="Shqip" onAction="#switchToAlbanian"/>
-        <Button fx:id="btnSwitchEnglish" text="English" onAction="#switchToEnglish"/>
-    </HBox>
+<!--    <HBox spacing="10">-->
+<!--        <Label text="Select Language:"/>-->
+<!--        <Button fx:id="btnSwitchAlbanian" text="Shqip" onAction="#switchToAlbanian"/>-->
+<!--        <Button fx:id="btnSwitchEnglish" text="English" onAction="#switchToEnglish"/>-->
+<!--    </HBox>-->
 
     <!-- TableView për listën e aktiviteteve -->
     <TableView fx:id="tableAktivitetet" prefHeight="200" VBox.vgrow="ALWAYS">
