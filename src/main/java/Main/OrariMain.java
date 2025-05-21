@@ -17,7 +17,6 @@ public class OrariMain extends Application {
 
         ResourceBundle bundle = LanguageManager.getBundle();
 
-        // Kjo linjë duhet ta gjej .fxml-in
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/OrariView.fxml"), bundle);
         Parent root = loader.load();
 
