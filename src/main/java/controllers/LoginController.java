@@ -76,16 +76,18 @@ public class LoginController {
         String username = usernameField.getText().trim();
         String password = passwordField.getText().trim();
 
+        // Kontrollo nëse janë plotësuar fushat
         if (username.isEmpty() || password.isEmpty()) {
             showError(resources.getString("error.fill_all_fields"));
             return;
         }
 
         try (Connection conn = DBConnection.getConnection()) {
+            // Kujdes: password-i duhet të jetë hash-uar në një aplikim real për siguri
             String query = "SELECT id, username FROM users WHERE username = ? AND password = ?";
             PreparedStatement stmt = conn.prepareStatement(query);
             stmt.setString(1, username);
-            stmt.setString(2, password); // Në aplikim real: password duhet të jetë i hash-uar
+            stmt.setString(2, password); // në praktikë përdoret hash, kjo është thjesht shembull
 
             ResultSet rs = stmt.executeQuery();
 
@@ -96,7 +98,7 @@ public class LoginController {
                 // Ruaj sesionin e përdoruesit
                 UserSession.init(userId, user);
 
-                // Ngarko MainView me përkthim të saktë
+                // Ngarko MainView me përkthimin aktual nga LanguageManager
                 ResourceBundle currentBundle = LanguageManager.getBundle();
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/MainView.fxml"), currentBundle);
                 Parent root = loader.load();

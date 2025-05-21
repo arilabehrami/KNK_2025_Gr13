@@ -44,7 +44,6 @@ public class MainController {
     @FXML
     private Label quoteLabel;
 
-    private boolean isEnglish = true;
     private ResourceBundle bundle;
     private Stage stage;
 
@@ -58,9 +57,7 @@ public class MainController {
 
     @FXML
     public void initialize() {
-        Locale currentLocale = Locale.getDefault();
-        isEnglish = currentLocale.getLanguage().equals("en");
-        bundle = ResourceBundle.getBundle("languages.messages", currentLocale);
+        bundle = LanguageManager.getBundle();
 
         setupMenu();
         setupTopButtons();
@@ -87,6 +84,7 @@ public class MainController {
         addMenuItem("💡 " + bundle.getString("menu.financat"), "FinancatView");
         addMenuItem("💡 " + bundle.getString("menu.ushqimet"), "UshqimetView");
         addMenuItem("💡 " + bundle.getString("menu.prinderit"), "PrinderitView");
+        addMenuItem("💡 " + bundle.getString("menu.pagapunetorve"), "PagatView");
     }
 
     private void addMenuItem(String title, String fxmlName) {
