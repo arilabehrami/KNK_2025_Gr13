@@ -1,29 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.control.cell.*?>
+<?import javafx.geometry.*?>
 
 <VBox xmlns:fx="http://javafx.com/fxml"
-      xmlns="http://javafx.com/javafx"
       fx:controller="controllers.KontaktetEmergjenteController"
       spacing="10" alignment="CENTER" style="-fx-padding: 20;">
 
-    <HBox spacing="10" alignment="CENTER_RIGHT">
-        <Label text="Gjuha/Language:"/>
-        <ComboBox fx:id="languageSelector" onAction="#onLanguageChange"/>
+    <!-- Fushat për input -->
+    <TextField fx:id="femijaIdField" promptText="%label.femijaid"/>
+    <TextField fx:id="emriField" promptText="%label.emri"/>
+    <TextField fx:id="mbiemriField" promptText="%label.mbiemri"/>
+    <TextField fx:id="telefoniField" promptText="%label.telefoni"/>
+
+    <!-- Butonat për veprime -->
+    <HBox spacing="10" alignment="CENTER">
+        <Button fx:id="shtoButton" onAction="#onShtoKontakti"/>
+        <Button fx:id="perditesoButton" onAction="#onPerditesoKontakti"/>
+        <Button fx:id="fshijButton" onAction="#onFshijKontakti"/>
+        <Button fx:id="pastroButton" onAction="#onPastroFushat"/>
     </HBox>
 
-    <Label text="%label.femijaid"/>
-    <TextField fx:id="femijaIdField"/>
+    <Label fx:id="statusLabel" textFill="RED"/>
 
-    <Label text="%label.emri"/>
-    <TextField fx:id="emriField"/>
-
-    <Label text="%label.mbiemri"/>
-    <TextField fx:id="mbiemriField"/>
-
-    <Label text="%label.telefoni"/>
-    <TextField fx:id="telefoniField"/>
-
-    <Button text="%button.shtokontakt" onAction="#onShtoKontakti"/>
-    <Label fx:id="statusLabel"/>
+    <!-- Tabela -->
+    <TableView fx:id="kontaktetTable" prefHeight="200" prefWidth="500">
+        <columns>
+            <TableColumn fx:id="idColumn" text="%table.id"/>
+            <TableColumn fx:id="femijaIdColumn" text="%label.femijaid"/>
+            <TableColumn fx:id="emriColumn" text="%label.emri"/>
+            <TableColumn fx:id="mbiemriColumn" text="%label.mbiemri"/>
+            <TableColumn fx:id="telefoniColumn" text="%label.telefoni"/>
+        </columns>
+    </TableView>
 </VBox>

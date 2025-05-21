@@ -9,23 +9,22 @@
       fx:controller="controllers.ShenimetShendetesoreController"
       spacing="10" alignment="CENTER" style="-fx-padding: 20;">
 
-    <HBox spacing="10" alignment="CENTER_RIGHT">
-        <Label fx:id="languageLabel" text="%label.language"/>
-        <ComboBox fx:id="languageSelector" onAction="#onLanguageChange"/>
+    <!-- Fushat për input -->
+    <TextField fx:id="femijaIdField" promptText="%label.femijaid"/>
+    <DatePicker fx:id="dataPicker" promptText="%label.data"/>
+    <TextArea fx:id="pershkrimiField" prefRowCount="4" promptText="%label.pershkrimi"/>
+
+    <!-- Butonat për veprime -->
+    <HBox spacing="10">
+        <Button fx:id="shtoButton" onAction="#onShtoShenim"/>
+        <Button fx:id="perditesoButton" onAction="#onPerditesoShenim"/>
+        <Button fx:id="fshijButton" onAction="#onFshijShenim"/>
+        <Button fx:id="pastroButton" onAction="#onPastroFushat"/>
     </HBox>
 
-    <Label fx:id="femijaIdLabel" text="%label.femijaid"/>
-    <TextField fx:id="femijaIdField"/>
+    <Label fx:id="statusLabel" textFill="RED"/>
 
-    <Label fx:id="dataLabel" text="%label.data"/>
-    <DatePicker fx:id="dataPicker"/>
-
-    <Label fx:id="pershkrimiLabel" text="%label.pershkrimi"/>
-    <TextArea fx:id="pershkrimiField"/>
-
-    <Button fx:id="shtoButton" text="%button.shtoshenim" onAction="#onShtoShenim"/>
-    <Label fx:id="statusLabel"/>
-
+    <!-- Tabela -->
     <TableView fx:id="shenimetTable" prefHeight="200" prefWidth="600">
         <columns>
             <TableColumn fx:id="idColumn" text="%table.id"/>
@@ -34,10 +33,4 @@
             <TableColumn fx:id="pershkrimiColumn" text="%label.pershkrimi"/>
         </columns>
     </TableView>
-
-    <HBox spacing="10">
-        <Button fx:id="ngarkoButton" text="%button.load_all" onAction="#onNgarkoShenimet"/>
-        <Button fx:id="fshijButton" text="%button.delete_note" onAction="#onFshijShenim"/>
-        <Button fx:id="perditesoButton" text="%button.update_note" onAction="#onPerditesoShenim"/>
-    </HBox>
 </VBox>

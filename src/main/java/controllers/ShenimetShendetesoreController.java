@@ -1,47 +1,35 @@
 package controllers;
 
-import services.UserSession;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.StringConverter;
-import models.Dto.ShenimetShendetsore.CreateShenimetShendetsoreDto;
 import models.domain.ShenimetShendetesore;
+import models.Dto.ShenimetShendetsore.CreateShenimetShendetsoreDto;
+import models.Dto.ShenimetShendetsore.UpdateShenimetShendetsoreDto;
 import services.FemijetService;
+import services.LanguageManager;
 import services.ShenimetShendetesoreService;
+import services.UserSession;
 
 import java.sql.Date;
 import java.time.LocalDate;
-import java.util.List;
-import java.util.Locale;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-public class ShenimetShendetesoreController {
+public class ShenimetShendetesoreController extends BaseController {
 
-    String username = UserSession.getInstance().getUsername();
-    int userId = UserSession.getInstance().getUserId();
-    @FXML private ComboBox<String> languageSelector;
-    @FXML private Label languageLabel;
-    @FXML private Label femijaIdLabel;
     @FXML private TextField femijaIdField;
-    @FXML private Label dataLabel;
     @FXML private DatePicker dataPicker;
-    @FXML private Label pershkrimiLabel;
     @FXML private TextArea pershkrimiField;
-    @FXML private Button shtoButton;
     @FXML private Label statusLabel;
-    @FXML private TableView<ShenimetShendetesore> shenimetTable;
-    @FXML private TableColumn<ShenimetShendetesore, Integer> idColumn;
-    @FXML private TableColumn<ShenimetShendetesore, Integer> femijaIdColumn;
-    @FXML private TableColumn<ShenimetShendetesore, String> dataColumn;
-    @FXML private TableColumn<ShenimetShendetesore, String> pershkrimiColumn;
-    @FXML private Button ngarkoButton;
-    @FXML private Button fshijButton;
-    @FXML private Button perditesoButton; // Shtuar për butonin e përditësimit
 
-    private ResourceBundle bundle;
+    @FXML private Button shtoButton, perditesoButton, fshijButton, pastroButton;
+
+    @FXML private TableView<ShenimetShendetesore> shenimetTable;
+    @FXML private TableColumn<ShenimetShendetesore, Integer> idColumn, femijaIdColumn;
+    @FXML private TableColumn<ShenimetShendetesore, String> dataColumn, pershkrimiColumn;
+
     private ShenimetShendetesoreService service;
     private FemijetService femijetService;
 
@@ -50,129 +38,127 @@ public class ShenimetShendetesoreController {
         service = new ShenimetShendetesoreService();
         femijetService = new FemijetService();
 
-        languageSelector.getItems().addAll("Shqip", "English");
-        languageSelector.setValue("Shqip");
-        loadLanguage("sq");
-
-        dataPicker.setConverter(new StringConverter<>() {
-            @Override
-            public String toString(LocalDate date) {
-                return (date != null) ? date.toString() : "";
-            }
-
-            @Override
-            public LocalDate fromString(String string) {
-                return (string != null && !string.isEmpty()) ? LocalDate.parse(string) : null;
-            }
-        });
-
         idColumn.setCellValueFactory(new PropertyValueFactory<>("shenimiID"));
         femijaIdColumn.setCellValueFactory(new PropertyValueFactory<>("femijaID"));
         dataColumn.setCellValueFactory(new PropertyValueFactory<>("data"));
         pershkrimiColumn.setCellValueFactory(new PropertyValueFactory<>("pershkrimi"));
+
+        dataPicker.setConverter(new StringConverter<>() {
+            @Override
+            public String toString(LocalDate date) {
+                return date != null ? date.toString() : "";
+            }
+            @Override
+            public LocalDate fromString(String string) {
+                return (string == null || string.isEmpty()) ? null : LocalDate.parse(string);
+            }
+        });
+
+        shenimetTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSel, newSel) -> {
+            if (newSel != null) {
+                femijaIdField.setText(String.valueOf(newSel.getFemijaID()));
+                dataPicker.setValue(newSel.getData().toLocalDate());
+                pershkrimiField.setText(newSel.getPershkrimi());
+            }
+        });
+
+        ngarkoShenimet();
+        refreshLanguage();
     }
 
-    private void loadLanguage(String lang) {
-        Locale locale = new Locale(lang);
-        bundle = ResourceBundle.getBundle("languages.messages", locale);
+    @Override
+    protected void refreshLanguage() {
+        resources = LanguageManager.getBundle();
 
-        languageLabel.setText(bundle.getString("label.language"));
-        femijaIdLabel.setText(bundle.getString("label.femijaid"));
-        dataLabel.setText(bundle.getString("label.data"));
-        pershkrimiLabel.setText(bundle.getString("label.pershkrimi"));
-        shtoButton.setText(bundle.getString("button.shtoshenim"));
-        statusLabel.setText("");
+        femijaIdField.setPromptText(resources.getString("label.femijaid"));
+        dataPicker.setPromptText(resources.getString("label.data"));
+        pershkrimiField.setPromptText(resources.getString("label.pershkrimi"));
 
-        idColumn.setText(bundle.getString("table.id"));
-        femijaIdColumn.setText(bundle.getString("label.femijaid"));
-        dataColumn.setText(bundle.getString("label.data"));
-        pershkrimiColumn.setText(bundle.getString("label.pershkrimi"));
+        idColumn.setText(resources.getString("table.id"));
+        femijaIdColumn.setText(resources.getString("label.femijaid"));
+        dataColumn.setText(resources.getString("label.data"));
+        pershkrimiColumn.setText(resources.getString("label.pershkrimi"));
 
-        ngarkoButton.setText(bundle.getString("button.load_all"));
-        fshijButton.setText(bundle.getString("button.delete_note"));
-        perditesoButton.setText(bundle.getString("button.update_note")); // Shtuar për butonin e përditësimit
-    }
-
-    @FXML
-    private void onLanguageChange(ActionEvent event) {
-        String selectedLang = languageSelector.getValue();
-        loadLanguage(selectedLang.equals("English") ? "en" : "sq");
+        shtoButton.setText(resources.getString("button.shtoshenim"));
+        perditesoButton.setText(resources.getString("button.update_note"));
+        fshijButton.setText(resources.getString("button.delete_note"));
+        pastroButton.setText(resources.getString("button.clear"));
     }
 
     @FXML
     private void onShtoShenim() {
         try {
             int femijaId = Integer.parseInt(femijaIdField.getText());
-
-            if (femijaIdField.getText().isEmpty()) {
-                showSimpleAlert("error.empty_child_id");
-                return;
-            }
-
             if (!femijetService.checkIfFemijaExists(femijaId)) {
-                showSimpleAlert("error.child_not_found");
+                statusLabel.setText(resources.getString("message.femija_nuk_ekziston"));
                 return;
             }
 
             LocalDate date = dataPicker.getValue();
             String pershkrimi = pershkrimiField.getText();
 
-            if (date == null) {
-                showSimpleAlert("error.date_required");
-                return;
-            }
-
-            if (pershkrimi.isEmpty()) {
-                showSimpleAlert("error.description_required");
-                return;
-            }
-
-            CreateShenimetShendetsoreDto dto = new CreateShenimetShendetsoreDto(
-                    femijaId,
-                    Date.valueOf(date),
-                    pershkrimi
-            );
-
-            ShenimetShendetesore shenimi = service.create(dto);
-            showSuccessAlert("success.note_added");
+            var dto = new CreateShenimetShendetsoreDto(femijaId, Date.valueOf(date), pershkrimi);
+            service.create(dto);
+            statusLabel.setText(resources.getString("message.shtuar_sukses"));
             clearFields();
-            onNgarkoShenimet();
-        } catch (NumberFormatException e) {
-            showSimpleAlert("error.invalid_id");
+            ngarkoShenimet();
         } catch (Exception e) {
-            showSimpleAlert("error.general");
+            statusLabel.setText(resources.getString("message.gabim") + ": " + e.getMessage());
         }
     }
 
     @FXML
-    private void onNgarkoShenimet() {
-        List<ShenimetShendetesore> lista = service.getAll();
-        shenimetTable.getItems().setAll(lista);
+    private void onPerditesoShenim() {
+        var selected = shenimetTable.getSelectionModel().getSelectedItem();
+        if (selected == null) {
+            statusLabel.setText(resources.getString("message.zgjidh_rresht"));
+            return;
+        }
+
+        try {
+            int femijaId = Integer.parseInt(femijaIdField.getText());
+            LocalDate date = dataPicker.getValue();
+            String pershkrimi = pershkrimiField.getText();
+
+            var dto = new UpdateShenimetShendetsoreDto(selected.getShenimiID(), femijaId, pershkrimi, Date.valueOf(date));
+            service.update(dto);
+            statusLabel.setText(resources.getString("message.perditesuar_sukses"));
+            clearFields();
+            ngarkoShenimet();
+        } catch (Exception e) {
+            statusLabel.setText(resources.getString("message.gabim") + ": " + e.getMessage());
+        }
     }
 
     @FXML
     private void onFshijShenim() {
-        ShenimetShendetesore shenimi = shenimetTable.getSelectionModel().getSelectedItem();
-        if (shenimi == null) {
-            showSimpleAlert("warning.select_note");
+        var selected = shenimetTable.getSelectionModel().getSelectedItem();
+        if (selected == null) {
+            statusLabel.setText(resources.getString("message.zgjidh_rresht"));
             return;
         }
 
         Alert confirm = new Alert(Alert.AlertType.CONFIRMATION);
-        confirm.setTitle(bundle.getString("alert.confirm"));
+        confirm.setTitle("Konfirmo fshirjen");
         confirm.setHeaderText(null);
-        confirm.setContentText(bundle.getString("confirm.delete"));
-
+        confirm.setContentText(resources.getString("message.konfirmo_fshirjen"));
         Optional<ButtonType> result = confirm.showAndWait();
+
         if (result.isPresent() && result.get() == ButtonType.OK) {
-            boolean uFshi = service.delete(shenimi.getShenimiID());
-            if (uFshi) {
-                showSuccessAlert("success.deleted");
-                onNgarkoShenimet();
+            boolean deleted = service.delete(selected.getShenimiID());
+            if (deleted) {
+                statusLabel.setText(resources.getString("message.fshire_sukses"));
+                ngarkoShenimet();
             } else {
-                showSimpleAlert("error.delete_failed");
+                statusLabel.setText(resources.getString("message.fshirja_deshtoi"));
             }
         }
+    }
+
+    @FXML
+    private void onPastroFushat() {
+        clearFields();
+        shenimetTable.getSelectionModel().clearSelection();
     }
 
     private void clearFields() {
@@ -181,63 +167,7 @@ public class ShenimetShendetesoreController {
         pershkrimiField.clear();
     }
 
-    private void showSimpleAlert(String messageKey) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle(bundle.getString("alert.error"));
-        alert.setHeaderText(null);
-        alert.setContentText(bundle.getString(messageKey));
-        alert.showAndWait();
-    }
-
-    private void showSuccessAlert(String messageKey) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle(bundle.getString("alert.success"));
-        alert.setHeaderText(null);
-        alert.setContentText(bundle.getString(messageKey));
-        alert.showAndWait();
-    }
-
-    @FXML
-    private void onPerditesoShenim() {
-        ShenimetShendetesore shenimi = shenimetTable.getSelectionModel().getSelectedItem();
-        if (shenimi == null) {
-            showSimpleAlert("warning.select_note");
-            return;
-        }
-
-        try {
-            int femijaId = Integer.parseInt(femijaIdField.getText());
-
-            if (!femijetService.checkIfFemijaExists(femijaId)) {
-                showSimpleAlert("error.child_not_found");
-                return;
-            }
-
-            LocalDate date = dataPicker.getValue();
-            String pershkrimi = pershkrimiField.getText();
-
-            if (date == null || pershkrimi.isEmpty()) {
-                showSimpleAlert("error.missing_fields");
-                return;
-            }
-
-            var dto = new models.Dto.ShenimetShendetsore.UpdateShenimetShendetsoreDto(
-                    shenimi.getShenimiID(),
-                    femijaId,
-                    pershkrimi,
-                    Date.valueOf(date)
-            );
-
-            service.update(dto);
-            showSuccessAlert("success.note_updated");
-            clearFields();
-            onNgarkoShenimet();
-
-        } catch (NumberFormatException e) {
-            showSimpleAlert("error.invalid_id");
-        } catch (Exception e) {
-            e.printStackTrace();
-            showSimpleAlert("error.general");
-        }
+    private void ngarkoShenimet() {
+        shenimetTable.getItems().setAll(service.getAll());
     }
 }

@@ -5,9 +5,11 @@ import models.Dto.KontatetEmergjente.CreateKontaktetEmergjenteDto;
 import models.Dto.KontatetEmergjente.UpdateKontaktetEmergjenteDto;
 import repository.KontaktiEmergjentRepository;
 
+import java.util.List;
+
 public class KontaktiEmergjentService {
 
-    private KontaktiEmergjentRepository kontaktiEmergjentRepository;
+    private final KontaktiEmergjentRepository kontaktiEmergjentRepository;
 
     public KontaktiEmergjentService() {
         this.kontaktiEmergjentRepository = new KontaktiEmergjentRepository();
@@ -53,5 +55,12 @@ public class KontaktiEmergjentService {
 
         return this.kontaktiEmergjentRepository.update(updateKontakti);
     }
-}
 
+    public boolean delete(int id) {
+        return this.kontaktiEmergjentRepository.delete(id);
+    }
+
+    public List<KontaktiEmergjent> getAll() {
+        return this.kontaktiEmergjentRepository.getAll();
+    }
+}
