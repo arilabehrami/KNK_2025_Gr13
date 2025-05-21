@@ -16,7 +16,6 @@ import services.LanguageManager;
 import utils.SceneLocator;
 
 import java.io.IOException;
-import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class MainController {
@@ -26,7 +25,6 @@ public class MainController {
 
     @FXML
     private Label welcomeLabel;
-
 
     @FXML
     private AnchorPane centerPane;
@@ -68,6 +66,7 @@ public class MainController {
     private void setupMenu() {
         menuPane.getChildren().clear();
 
+
         addMenuItem("📘 " + bundle.getString("menu.aktivitetet"), "AktivitetetView");
         addMenuItem("💰 " + bundle.getString("menu.donacionet"), "DonacionetView");
         addMenuItem("💡 " + bundle.getString("menu.edukatoret"), "EdukatoretView");
@@ -78,12 +77,11 @@ public class MainController {
         addMenuItem("🟢 " + bundle.getString("menu.prania"), "PraniaView");
         addMenuItem("🩺 " + bundle.getString("menu.shenimet"), "ShenimetShendetesoreView");
         addMenuItem("💡 " + bundle.getString("menu.sugjerimet"), "SugjerimetView");
-        addMenuItem("💡 " + bundle.getString("menu.menyjaditore"), "MenyjaDitore");
-        addMenuItem("💡 " + bundle.getString("menu.grupet"), "GrupetView");
-        addMenuItem("💡 " + bundle.getString("menu.financat"), "FinancatView");
-        addMenuItem("💡 " + bundle.getString("menu.ushqimet"), "UshqimetView");
-        addMenuItem("💡 " + bundle.getString("menu.prinderit"), "PrinderitView");
-    }
+        addMenuItem("🍽 " + bundle.getString("menu.menyjaditore"), "MenyjaDitore");
+        addMenuItem("👥 " + bundle.getString("menu.grupet"), "GrupetView");
+        addMenuItem("💳 " + bundle.getString("menu.financat"), "FinancatView");
+        addMenuItem("🥦 " + bundle.getString("menu.ushqimet"), "UshqimetView");
+        addMenuItem("👪 " + bundle.getString("menu.prinderit"), "PrinderitView");}
 
     private void addMenuItem(String title, String fxmlName) {
         Label menuItem = new Label(title);
@@ -107,22 +105,16 @@ public class MainController {
 
         menuPane.getChildren().add(menuItem);
     }
+
     private void setupTopButtons() {
         logoutBtn.setOnAction(this::handleLogout);
     }
 
-
-    public void stage(Stage window) {
-        // Nuk përdoret
-    }
-
     @FXML
     private void handleLogout(ActionEvent event) {
-        // Pastron sesionin aktual
         UserSession.clearSession();
 
         try {
-            // Vendos bundle-in aktual nga LanguageManager
             ResourceBundle currentBundle = LanguageManager.getBundle();
 
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/LoginView.fxml"), currentBundle);
@@ -139,10 +131,8 @@ public class MainController {
         }
     }
 
-
     @FXML
     private void onLoginButtonClick(ActionEvent event) {
         SceneManager.changeScene(SceneLocator.LOGIN_VIEW);
     }
-
 }

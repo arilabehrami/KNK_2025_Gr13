@@ -14,7 +14,8 @@
     <top>
         <HBox spacing="10" alignment="CENTER_LEFT"
               style="-fx-padding: 10 20; -fx-background-color: linear-gradient(to right, #ffccbc, #ffab91);
-                     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 0, 2);">
+                 -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 0, 2);">
+
             <Label fx:id="emojiLabel" text="👶" style="-fx-font-size: 24px;" />
 
             <VBox alignment="CENTER_LEFT">
@@ -25,13 +26,13 @@
                 <Label fx:id="welcomeLabel" text="%app.quote"
                        style="-fx-text-fill: #6d4c41;" />
             </VBox>
-            <Button fx:id="logoutBtn" text="%button.logout"  />
 
+            <!-- Spacer pane to push the logout button to the right -->
             <Pane HBox.hgrow="ALWAYS" />
-            <Button fx:id="languageBtn" text="%btn.language"
-                    style="-fx-background-color: #ff7043; -fx-text-fill: white; -fx-font-weight: bold;
-               -fx-background-radius: 12; -fx-padding: 6 16;" />
- </HBox>
+
+            <!-- Logout button aligned to the right -->
+            <Button fx:id="logoutBtn" text="%button.logout" />
+        </HBox>
     </top>
 
     <!-- Left menu panel -->
