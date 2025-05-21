@@ -13,10 +13,10 @@
         <Insets top="15" right="15" bottom="15" left="15" />
     </padding>
 
-    <!-- Titulli -->
+
     <Label text="%donacionet.title" style="-fx-font-size: 18px; -fx-font-weight: bold;" />
 
-    <!-- Forma -->
+
     <GridPane hgap="10" vgap="10">
         <columnConstraints>
             <ColumnConstraints halignment="RIGHT" />
@@ -51,7 +51,7 @@
         <TextArea fx:id="pershkrimiArea" prefRowCount="3" GridPane.rowIndex="8" GridPane.columnIndex="1" />
     </GridPane>
 
-    <!-- Butonat -->
+
     <HBox spacing="10">
         <Button text="%donacionet.btn.save" onAction="#ruajDonacionin" />
         <Button text="%donacionet.btn.update" onAction="#perditesoDonacionin" />
@@ -59,7 +59,7 @@
         <Button text="%donacionet.btn.cancel" onAction="#anulo" />
     </HBox>
 
-    <!-- Tabela -->
+
     <TableView fx:id="tableDonacionet" prefHeight="300">
         <columns>
             <TableColumn fx:id="colID" text="%donacionet.col.id" prefWidth="50" />

@@ -5,7 +5,7 @@ import java.util.ResourceBundle;
 
 public class LanguageManager {
 
-    private static Locale currentLocale = Locale.forLanguageTag("sq"); // default shqip
+    private static Locale currentLocale = Locale.forLanguageTag("sq");
 
     public static void setLocale(Locale locale) {
         currentLocale = locale;

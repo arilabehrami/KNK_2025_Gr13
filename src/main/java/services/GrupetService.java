@@ -14,7 +14,7 @@ public class GrupetService {
         this.grupetRepository = new GrupetRepository();
     }
 
-    // Merr grupin sipas ID-së, me validim
+
     public Grupet getById(int id) throws Exception {
         if (id <= 0) {
             throw new Exception("ID duhet të jetë më i madh se 0.");
@@ -26,7 +26,7 @@ public class GrupetService {
         return grupi;
     }
 
-    // Merr listën e të gjitha grupeve
+
     public List<Grupet> getAll() throws Exception {
         List<Grupet> grupet = grupetRepository.getAll();
         if (grupet == null || grupet.isEmpty()) {
@@ -35,7 +35,7 @@ public class GrupetService {
         return grupet;
     }
 
-    // Fshin grupin me ID të dhënë
+
     public void delete(int id) throws Exception {
         if (id <= 0) {
             throw new Exception("ID duhet të jetë më i madh se 0.");
@@ -46,7 +46,7 @@ public class GrupetService {
         }
     }
 
-    // Validimi i të dhënave për krijim
+
     private void validateDto(CreateGrupetDto dto) throws Exception {
         if (dto.getEmriGrupit() == null || dto.getEmriGrupit().trim().isEmpty()) {
             throw new Exception("Emri i grupit nuk mund të jetë bosh.");
@@ -62,7 +62,7 @@ public class GrupetService {
         }
     }
 
-    // Validimi i të dhënave për përditësim
+
     private void validateDto(UpdateGrupetDto dto) throws Exception {
         if (dto.getGrupiId() <= 0) {
             throw new Exception("ID e grupit duhet të jetë më e madhe se 0.");
@@ -81,7 +81,7 @@ public class GrupetService {
         }
     }
 
-    // Krijon një grup të ri
+
     public Grupet create(CreateGrupetDto dto) throws Exception {
         validateDto(dto);
         Grupet grupi = grupetRepository.create(dto);
@@ -91,7 +91,7 @@ public class GrupetService {
         return grupi;
     }
 
-    // Përditëson grupin ekzistues
+
     public Grupet update(UpdateGrupetDto dto) throws Exception {
         validateDto(dto);
         Grupet ekzistues = getById(dto.getGrupiId());

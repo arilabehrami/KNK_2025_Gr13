@@ -12,7 +12,7 @@ public class SceneManager {
 
     private static Stage primaryStage;
 
-    // Vendos Stage-in kryesor kur nis aplikacioni (në Main.java)
+
     public static void setPrimaryStage(Stage stage) {
         primaryStage = stage;
     }

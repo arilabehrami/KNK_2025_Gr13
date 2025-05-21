@@ -67,12 +67,12 @@ public class UshqimetRepository extends BaseRepository<Ushqimet, CreateUshqimetD
         return null;
     }
 
-    // Merr te gjithe ushqimet
+
     public ArrayList<Ushqimet> getAll() {
         return super.getAll();
     }
 
-    // Fshi nje ushqim nga id
+
     public boolean delete(int id) {
         return super.delete(id);
     }

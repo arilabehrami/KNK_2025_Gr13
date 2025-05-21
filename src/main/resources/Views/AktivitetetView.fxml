@@ -1,3 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.layout.HBox?>
@@ -9,66 +12,69 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.DatePicker?>
-<VBox xmlns="http://javafx.com/javafx"
-      xmlns:fx="http://javafx.com/fxml"
-      fx:controller="controllers.AktivitetetController"
-      spacing="10"
-      style="-fx-background-color: linear-gradient(to bottom, #fbe9e7, #fff3e0);">
-    <padding>
-        <Insets top="10" right="10" bottom="10" left="10"/>
-    </padding>
 
-    <!-- Panelet e logo-s dhe titullit (shtuar) -->
-    <VBox alignment="CENTER" spacing="5">
-        <Label text="MiniEdu - Kopshti i Ëndrrave"
-               style="-fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: #e65100;" />
-        <Label text="Një hapësirë kreative, edukative dhe e sigurt për fëmijët"
-               style="-fx-font-size: 16px; -fx-text-fill: #6d4c41;" />
+<AnchorPane xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="controllers.AktivitetetController">
+
+    <VBox fx:id="rootVBox" spacing="10"
+          style="-fx-background-color: linear-gradient(to bottom, #fbe9e7, #fff3e0);"
+          AnchorPane.topAnchor="20"
+          AnchorPane.bottomAnchor="20"
+          AnchorPane.leftAnchor="40"
+          AnchorPane.rightAnchor="40"
+          maxWidth="1200"
+          minHeight="600"
+          alignment="CENTER">
+
+        <padding>
+            <Insets top="15" right="15" bottom="15" left="15"/>
+        </padding>
+
+
+        <VBox alignment="CENTER" spacing="5" maxWidth="1150">
+            <Label text="MiniEdu - Kopshti i Ëndrrave"
+                   style="-fx-font-size: 32px; -fx-font-weight: bold; -fx-text-fill: #e65100;" />
+            <Label text="Një hapësirë kreative, edukative dhe e sigurt për fëmijët"
+                   style="-fx-font-size: 18px; -fx-text-fill: #6d4c41;" />
+        </VBox>
+
+
+        <TableView fx:id="tableAktivitetet" prefHeight="250" VBox.vgrow="ALWAYS" maxWidth="1150">
+            <columns>
+                <TableColumn fx:id="colID" text="%aktivitetet.col.id" prefWidth="60"/>
+                <TableColumn fx:id="colEmri" text="%aktivitetet.col.emri" prefWidth="250"/>
+                <TableColumn fx:id="colPershkrimi" text="%aktivitetet.col.pershkrimi" prefWidth="400"/>
+                <TableColumn fx:id="colData" text="%aktivitetet.col.data" prefWidth="180"/>
+                <TableColumn fx:id="colGrupiID" text="%aktivitetet.col.grupiid" prefWidth="120"/>
+            </columns>
+        </TableView>
+
+
+        <GridPane hgap="15" vgap="15" maxWidth="1150">
+            <Label fx:id="lblEmriAktivitetit" text="%aktivitetet.label.emri" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+            <TextField fx:id="tfEmriAktivitetit" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+
+            <Label fx:id="lblPershkrimi" text="%aktivitetet.label.pershkrimi" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+            <TextArea fx:id="taPershkrimi" prefRowCount="4" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+
+            <Label fx:id="lblData" text="%aktivitetet.label.data" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+            <DatePicker fx:id="dpData" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+
+            <Label fx:id="lblGrupiID" text="%aktivitetet.label.grupiid" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
+            <TextField fx:id="tfGrupiID" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+        </GridPane>
+
+
+        <HBox spacing="15" alignment="CENTER_RIGHT" maxWidth="1150">
+            <Button fx:id="btnAdd" text="%aktivitetet.btn.add" onAction="#addAktivitet"
+                    style="-fx-background-color: #66bb6a; -fx-text-fill: white; -fx-font-weight: bold;"/>
+            <Button fx:id="btnUpdate" text="%aktivitetet.btn.update" onAction="#updateAktivitet"
+                    style="-fx-background-color: #42a5f5; -fx-text-fill: white; -fx-font-weight: bold;"/>
+            <Button fx:id="btnDelete" text="%aktivitetet.btn.delete" onAction="#deleteAktivitet"
+                    style="-fx-background-color: #ef5350; -fx-text-fill: white; -fx-font-weight: bold;"/>
+            <Button fx:id="btnClear" text="%aktivitetet.btn.clear" onAction="#clearForm"
+                    style="-fx-background-color: #9e9e9e; -fx-text-fill: white; -fx-font-weight: bold;"/>
+        </HBox>
     </VBox>
-
-    <!-- Butonat për zgjedhjen e gjuhës -->
-<!--    <HBox spacing="10">-->
-<!--        <Label text="Select Language:"/>-->
-<!--        <Button fx:id="btnSwitchAlbanian" text="Shqip" onAction="#switchToAlbanian"/>-->
-<!--        <Button fx:id="btnSwitchEnglish" text="English" onAction="#switchToEnglish"/>-->
-<!--    </HBox>-->
-
-    <!-- TableView për listën e aktiviteteve -->
-    <TableView fx:id="tableAktivitetet" prefHeight="200" VBox.vgrow="ALWAYS">
-        <columns>
-            <TableColumn fx:id="colID" text="%aktivitetet.col.id" prefWidth="50"/>
-            <TableColumn fx:id="colEmri" text="%aktivitetet.col.emri" prefWidth="150"/>
-            <TableColumn fx:id="colPershkrimi" text="%aktivitetet.col.pershkrimi" prefWidth="200"/>
-            <TableColumn fx:id="colData" text="%aktivitetet.col.data" prefWidth="120"/>
-            <TableColumn fx:id="colGrupiID" text="%aktivitetet.col.grupiid" prefWidth="80"/>
-        </columns>
-    </TableView>
-
-    <!-- Forma për hyrje të të dhënave -->
-    <GridPane hgap="10" vgap="10">
-        <Label fx:id="lblEmriAktivitetit" text="%aktivitetet.label.emri" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
-        <TextField fx:id="tfEmriAktivitetit" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
-
-        <Label fx:id="lblPershkrimi" text="%aktivitetet.label.pershkrimi" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
-        <TextArea fx:id="taPershkrimi" prefRowCount="3" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
-
-        <Label fx:id="lblData" text="%aktivitetet.label.data" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
-        <DatePicker fx:id="dpData" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
-
-        <Label fx:id="lblGrupiID" text="%aktivitetet.label.grupiid" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
-        <TextField fx:id="tfGrupiID" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
-    </GridPane>
-
-
-    <!-- Butonat për CRUD dhe Clear -->
-    <HBox spacing="10" alignment="CENTER_RIGHT">
-        <Button fx:id="btnAdd" text="%aktivitetet.btn.add" onAction="#addAktivitet"
-                style="-fx-background-color: #66bb6a; -fx-text-fill: white; -fx-font-weight: bold;"/>
-        <Button fx:id="btnUpdate" text="%aktivitetet.btn.update" onAction="#updateAktivitet"
-                style="-fx-background-color: #42a5f5; -fx-text-fill: white; -fx-font-weight: bold;"/>
-        <Button fx:id="btnDelete" text="%aktivitetet.btn.delete" onAction="#deleteAktivitet"
-                style="-fx-background-color: #ef5350; -fx-text-fill: white; -fx-font-weight: bold;"/>
-        <Button fx:id="btnClear" text="%aktivitetet.btn.clear" onAction="#clearForm"
-                style="-fx-background-color: #9e9e9e; -fx-text-fill: white; -fx-font-weight: bold;"/>
-    </HBox>
-</VBox>
+</AnchorPane>

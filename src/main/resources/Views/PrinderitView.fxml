@@ -7,12 +7,12 @@
 <BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="controllers.PrinderitController"
             style="-fx-background-color: linear-gradient(to bottom, #fbe9e7, #fff3e0);">
 
-    <!-- Header -->
+
     <top>
 
     </top>
 
-    <!-- Form & Table in center -->
+
     <center>
         <VBox spacing="15" alignment="TOP_CENTER" prefWidth="600" maxWidth="600"
               style="-fx-background-color: white; -fx-padding: 30; -fx-background-radius: 20;
@@ -35,7 +35,7 @@
                 <TextField fx:id="txtAdresa" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
             </GridPane>
 
-            <!-- Butonat -->
+
             <HBox spacing="10" alignment="CENTER">
                 <Button text="%button.shto" onAction="#handleShto"
                         style="-fx-background-color: #42a5f5; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 12; -fx-padding: 8 20;"/>
@@ -45,7 +45,7 @@
                         style="-fx-background-color: #42a5f5; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 12; -fx-padding: 8 20;"/>
             </HBox>
 
-            <!-- Tabela -->
+
             <TableView fx:id="tablePrinderit" prefHeight="300"
                        style="-fx-background-color: white; -fx-border-color: #90caf9; -fx-border-radius: 10; -fx-padding: 5;">
                 <columns>

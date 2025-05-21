@@ -9,7 +9,7 @@
 
             style="-fx-background-color: linear-gradient(to bottom, #fbe9e7, #fff3e0);">
 
-    <!-- HEADER -->
+
     <top>
         <VBox alignment="CENTER" spacing="10" BorderPane.alignment="CENTER">
             <ImageView fitWidth="100" fitHeight="100">
@@ -24,17 +24,17 @@
         </VBox>
     </top>
 
-    <!-- FORM CENTER -->
+
     <center>
         <VBox spacing="20" alignment="CENTER" prefWidth="390"
               style="-fx-background-color: #ffffff; -fx-padding: 35; -fx-background-radius: 20; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 10, 0.2, 0, 4);"
               BorderPane.alignment="CENTER">
 
-            <!-- Titulli -->
+
             <Label text="%signup.form.title"
                    style="-fx-font-size: 22px; -fx-text-fill: #d84315; -fx-font-weight: bold;" />
 
-            <!-- Username -->
+
             <HBox spacing="10" alignment="CENTER_LEFT">
                 <ImageView fitWidth="20" fitHeight="20">
                     <image>
@@ -45,7 +45,7 @@
                            style="-fx-background-radius: 10; -fx-border-color: #c8e6c9; -fx-border-radius: 10; -fx-padding: 10;" />
             </HBox>
 
-            <!-- Password -->
+
             <HBox spacing="20" alignment="CENTER_LEFT">
                 <ImageView fitWidth="20" fitHeight="20">
                     <image>
@@ -56,11 +56,11 @@
                                style="-fx-background-radius: 10; -fx-border-color: #c8e6c9; -fx-border-radius: 10; -fx-padding: 10;" />
             </HBox>
 
-            <!-- Status -->
+
             <Label fx:id="statusLabel" visible="false"
                    style="-fx-font-size: 12px;" />
 
-            <!-- Buttons -->
+
             <HBox spacing="20" alignment="CENTER">
                 <Button text="%signup.register" onAction="#handleSignUp"
                         style="-fx-background-color: #d84315; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 12; -fx-padding: 10 25;" />
@@ -70,7 +70,7 @@
         </VBox>
     </center>
 
-    <!-- PANEL INFORMATIV DJATHTAS -->
+
     <right>
         <VBox spacing="16" alignment="TOP_LEFT" BorderPane.alignment="CENTER_RIGHT"
               style="-fx-background-color: #fff3e0; -fx-background-radius: 0 20 20 0;">
@@ -105,7 +105,7 @@
         </VBox>
     </right>
 
-    <!-- FOOTER -->
+
     <bottom>
         <VBox alignment="CENTER" spacing="5" BorderPane.alignment="CENTER">
             <Separator />

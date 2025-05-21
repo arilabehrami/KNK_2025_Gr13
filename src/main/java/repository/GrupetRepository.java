@@ -19,7 +19,7 @@ public class GrupetRepository extends BaseRepository<Grupet, CreateGrupetDto, Up
         return Grupet.getInstance(result);
     }
 
-    // Merr grupin nga DB sipas ID-së
+
     public Grupet getById(int id) {
         String query = "SELECT * FROM grupet WHERE GrupiID = ?";
         try (PreparedStatement pstm = this.connection.prepareStatement(query)) {
@@ -35,7 +35,7 @@ public class GrupetRepository extends BaseRepository<Grupet, CreateGrupetDto, Up
         return null;
     }
 
-    // Merr të gjitha grupet
+
     public ArrayList<Grupet> getAll() {
         List<Grupet> list = new ArrayList<>();
         String query = "SELECT * FROM grupet";

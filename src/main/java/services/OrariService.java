@@ -12,12 +12,12 @@ public class OrariService {
     private final OrariRepository repository;
     OrariService service;
 
-    // Konstruktor pa parametra – krijon repository me lidhje të vetme DB
+
     public OrariService() {
         this.repository = new OrariRepository();
     }
 
-    // Konstruktor për injektim të repository
+
     public OrariService(OrariRepository repository) {
         this.repository = repository;
     }

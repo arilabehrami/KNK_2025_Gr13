@@ -19,7 +19,7 @@
                 <Insets top="20" right="30" bottom="20" left="30"/>
             </padding>
 
-            <!-- Forma për input -->
+
             <GridPane hgap="10" vgap="10"
                       style="-fx-background-color: #ffffff; -fx-padding: 20; -fx-background-radius: 10; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 0, 1);">
                 <Label text="%label.emri" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
@@ -35,7 +35,7 @@
                 <TextField fx:id="txtKualifikimet" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
             </GridPane>
 
-            <!-- Butonat për veprimet -->
+
             <HBox spacing="10" alignment="CENTER">
                 <Button text="%button.shto" onAction="#handleShto"
                         style="-fx-background-color: #ff7043; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 12; -fx-padding: 8 20;"/>
@@ -47,7 +47,7 @@
                         style="-fx-background-color: #ff7043; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 12; -fx-padding: 8 20;"/>
             </HBox>
 
-            <!-- Tabela me edukatorët -->
+
             <TableView fx:id="tableEdukatoret" prefHeight="300"
                        style="-fx-background-color: white; -fx-border-color: #ffe0b2; -fx-border-radius: 10; -fx-padding: 5;">
                 <columns>

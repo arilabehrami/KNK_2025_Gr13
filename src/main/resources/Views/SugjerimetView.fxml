@@ -13,13 +13,13 @@
     <VBox alignment="CENTER" spacing="10.0" layoutX="14.0" layoutY="14.0"
           AnchorPane.topAnchor="10" AnchorPane.leftAnchor="10" AnchorPane.rightAnchor="10">
 
-      <!-- Zgjedhja e gjuhës -->
+
       <HBox alignment="CENTER_RIGHT">
         <Label text="Gjuha/Language:"/>
         <ComboBox fx:id="languageSelector" onAction="#onLanguageChange"/>
       </HBox>
 
-      <!-- Fushat për input -->
+
       <TextField fx:id="emriSugjeruesitField" promptText="%label.emrisugjeruesit"/>
 
       <ComboBox fx:id="roliComboBox" promptText="%label.roli">
@@ -43,7 +43,7 @@
 
       <Label fx:id="statusLabel" textFill="RED"/>
 
-      <!-- Tabela -->
+
       <TableView fx:id="sugjerimetTable" prefHeight="200">
         <columns>
           <TableColumn fx:id="colID" text="%table.id"/>
@@ -54,7 +54,7 @@
         </columns>
       </TableView>
 
-      <!-- Butonat për tabela -->
+
       <HBox spacing="10">
         <Button text="%button.load_all" onAction="#onNgarkoSugjerimet"/>
         <Button text="%button.delete_note" onAction="#onFshijSugjerim"/>
