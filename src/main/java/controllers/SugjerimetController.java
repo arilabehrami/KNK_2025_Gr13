@@ -1,57 +1,42 @@
 package controllers;
 
-import services.UserSession;
-import helpers.LanguageContext;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.stage.Stage;
+import javafx.scene.control.cell.PropertyValueFactory;
 import models.Dto.Sugjerimet.CreateSugjerimetDto;
 import models.Dto.Sugjerimet.UpdateSugjerimetDto;
 import models.domain.Sugjerimet;
+import services.LanguageManager;
 import services.SugjerimetService;
 
-import java.io.IOException;
 import java.sql.Date;
-import java.util.Locale;
-import java.util.ResourceBundle;
+import java.time.LocalDate;
 
-public class SugjerimetController {
+public class SugjerimetController extends BaseController {
 
-    String username = UserSession.getInstance().getUsername();
-    int userId = UserSession.getInstance().getUserId();
-    @FXML private ComboBox<String> languageSelector;
     @FXML private TextField emriSugjeruesitField;
     @FXML private ComboBox<String> roliComboBox;
     @FXML private DatePicker dataPicker;
     @FXML private TextArea pershkrimiField;
+
+    @FXML private Button shtoButton, perditesoButton, fshijButton, pastroButton;
     @FXML private Label statusLabel;
+
     @FXML private TableView<Sugjerimet> sugjerimetTable;
-    @FXML private TableColumn<Sugjerimet, Number> colID;
-    @FXML private TableColumn<Sugjerimet, String> colEmri;
-    @FXML private TableColumn<Sugjerimet, String> colRoli;
+    @FXML private TableColumn<Sugjerimet, Integer> colID;
+    @FXML private TableColumn<Sugjerimet, String> colEmri, colRoli, colPershkrimi;
     @FXML private TableColumn<Sugjerimet, Date> colData;
-    @FXML private TableColumn<Sugjerimet, String> colPershkrimi;
 
     private final SugjerimetService sugjerimetService = new SugjerimetService();
 
     @FXML
     public void initialize() {
-        languageSelector.getItems().addAll("Shqip", "English");
-        languageSelector.setValue(LanguageContext.currentLocale.getLanguage().equals("en") ? "English" : "Shqip");
-        roliComboBox.getItems().clear();
-        roliComboBox.getItems().addAll(
-                ResourceBundle.getBundle("languages.messages", LanguageContext.currentLocale).getString("roli.prind"),
-                ResourceBundle.getBundle("languages.messages", LanguageContext.currentLocale).getString("roli.edukator"),
-                ResourceBundle.getBundle("languages.messages", LanguageContext.currentLocale).getString("roli.staf")
-        );
-        colID.setCellValueFactory(data -> new javafx.beans.property.SimpleIntegerProperty(data.getValue().getSugjerimiID()));
-        colEmri.setCellValueFactory(data -> new javafx.beans.property.SimpleStringProperty(data.getValue().getEmriSugjeruesit()));
-        colRoli.setCellValueFactory(data -> new javafx.beans.property.SimpleStringProperty(data.getValue().getRoli()));
-        colData.setCellValueFactory(data -> new javafx.beans.property.SimpleObjectProperty<>(data.getValue().getData()));
-        colPershkrimi.setCellValueFactory(data -> new javafx.beans.property.SimpleStringProperty(data.getValue().getPershkrimi()));
+        colID.setCellValueFactory(new PropertyValueFactory<>("sugjerimiID"));
+        colEmri.setCellValueFactory(new PropertyValueFactory<>("emriSugjeruesit"));
+        colRoli.setCellValueFactory(new PropertyValueFactory<>("roli"));
+        colData.setCellValueFactory(new PropertyValueFactory<>("data"));
+        colPershkrimi.setCellValueFactory(new PropertyValueFactory<>("pershkrimi"));
+
         sugjerimetTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSel, newSel) -> {
             if (newSel != null) {
                 emriSugjeruesitField.setText(newSel.getEmriSugjeruesit());
@@ -60,117 +45,130 @@ public class SugjerimetController {
                 pershkrimiField.setText(newSel.getPershkrimi());
             }
         });
+
+        refreshLanguage();
+        onNgarkoSugjerimet();
+    }
+
+    @Override
+    protected void refreshLanguage() {
+        resources = LanguageManager.getBundle();
+
+        emriSugjeruesitField.setPromptText(resources.getString("label.emrisugjeruesit"));
+        roliComboBox.setPromptText(resources.getString("label.roli"));
+        dataPicker.setPromptText(resources.getString("label.data"));
+        pershkrimiField.setPromptText(resources.getString("label.pershkrimi"));
+
+        colID.setText(resources.getString("table.id"));
+        colEmri.setText(resources.getString("label.emrisugjeruesit"));
+        colRoli.setText(resources.getString("label.roli"));
+        colData.setText(resources.getString("label.data"));
+        colPershkrimi.setText(resources.getString("label.pershkrimi"));
+
+        shtoButton.setText(resources.getString("button.shto"));
+        perditesoButton.setText(resources.getString("button.update_note"));
+        fshijButton.setText(resources.getString("button.delete_note"));
+        pastroButton.setText(resources.getString("button.clear"));
+
+        roliComboBox.getItems().setAll(
+                resources.getString("roli.prind"),
+                resources.getString("roli.edukator"),
+                resources.getString("roli.staf")
+        );
     }
 
     @FXML
-    public void onShtoSugjerim() {
+    private void onShtoSugjerim() {
         try {
             String emri = emriSugjeruesitField.getText();
             String roli = roliComboBox.getValue();
-            Date data = Date.valueOf(dataPicker.getValue());
+            LocalDate localDate = dataPicker.getValue();
             String pershkrimi = pershkrimiField.getText();
 
-            CreateSugjerimetDto dto = new CreateSugjerimetDto(0, emri, roli, data, pershkrimi);
-            Sugjerimet sugjerimi = sugjerimetService.create(dto);
+            if (emri.isBlank() || roli == null || localDate == null || pershkrimi.isBlank()) {
+                statusLabel.setText(resources.getString("message.ploteso_te_dhenat"));
+                return;
+            }
 
-            statusLabel.setText("Sugjerimi u shtua me sukses (ID: " + sugjerimi.getSugjerimiID() + ")");
+            CreateSugjerimetDto dto = new CreateSugjerimetDto(0, emri, roli, Date.valueOf(localDate), pershkrimi);
+            sugjerimetService.create(dto);
+
+            statusLabel.setText(resources.getString("message.shtuar_sukses"));
             clearFields();
+            onNgarkoSugjerimet();
         } catch (Exception e) {
-            statusLabel.setText("Gabim: " + e.getMessage());
+            statusLabel.setText(resources.getString("message.gabim") + ": " + e.getMessage());
         }
     }
 
     @FXML
-    private void clearFields() {
-        emriSugjeruesitField.clear();
-        roliComboBox.getSelectionModel().clearSelection();
-        dataPicker.setValue(null);
-        pershkrimiField.clear();
-    }
-
-    @FXML
-    private void onLanguageChange() {
-        String selected = languageSelector.getValue();
-        Locale locale = selected.equals("English") ? new Locale("en") : new Locale("sq");
-        LanguageContext.currentLocale = locale;
-
-        try {
-            ResourceBundle bundle = ResourceBundle.getBundle("languages.messages", locale);
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/SugjerimetView.fxml"), bundle);
-            Parent root = loader.load();
-
-            Stage stage = (Stage) languageSelector.getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.setTitle(bundle.getString("label.title1"));
-        } catch (IOException e) {
-            e.printStackTrace();
+    private void onPerditesoSugjerim() {
+        Sugjerimet selected = sugjerimetTable.getSelectionModel().getSelectedItem();
+        if (selected == null) {
+            statusLabel.setText(resources.getString("message.zgjidh_rresht"));
+            return;
         }
-    }
 
-    @FXML
-    private void onNgarkoSugjerimet() {
         try {
-            sugjerimetTable.getItems().setAll(sugjerimetService.getAll());
-            statusLabel.setText(ResourceBundle.getBundle("languages.messages", LanguageContext.currentLocale).getString("success.loaded"));
+            String emri = emriSugjeruesitField.getText();
+            String roli = roliComboBox.getValue();
+            LocalDate localDate = dataPicker.getValue();
+            String pershkrimi = pershkrimiField.getText();
+
+            if (emri.isBlank() || roli == null || localDate == null || pershkrimi.isBlank()) {
+                statusLabel.setText(resources.getString("message.ploteso_te_dhenat"));
+                return;
+            }
+
+            UpdateSugjerimetDto dto = new UpdateSugjerimetDto(
+                    selected.getSugjerimiID(), emri, roli, Date.valueOf(localDate), pershkrimi
+            );
+
+            sugjerimetService.update(dto);
+            statusLabel.setText(resources.getString("message.perditesuar_sukses"));
+            clearFields();
+            onNgarkoSugjerimet();
         } catch (Exception e) {
-            statusLabel.setText("Gabim gjatë ngarkimit.");
+            statusLabel.setText(resources.getString("message.gabim") + ": " + e.getMessage());
         }
     }
 
     @FXML
     private void onFshijSugjerim() {
-        Sugjerimet iZgjedhur = sugjerimetTable.getSelectionModel().getSelectedItem();
-        if (iZgjedhur == null) {
-            statusLabel.setText(ResourceBundle.getBundle("languages.messages", LanguageContext.currentLocale).getString("warning.select_note"));
+        Sugjerimet selected = sugjerimetTable.getSelectionModel().getSelectedItem();
+        if (selected == null) {
+            statusLabel.setText(resources.getString("message.zgjidh_rresht"));
             return;
         }
 
         try {
-            boolean sukses = sugjerimetService.delete(iZgjedhur.getSugjerimiID());
-            if (sukses) {
+            boolean deleted = sugjerimetService.delete(selected.getSugjerimiID());
+            if (deleted) {
+                statusLabel.setText(resources.getString("message.fshire_sukses"));
                 onNgarkoSugjerimet();
-                statusLabel.setText(ResourceBundle.getBundle("languages.messages", LanguageContext.currentLocale).getString("success.deleted"));
+            } else {
+                statusLabel.setText(resources.getString("message.fshirja_deshtoi"));
             }
         } catch (Exception e) {
-            statusLabel.setText(ResourceBundle.getBundle("languages.messages", LanguageContext.currentLocale).getString("error.delete_failed"));
+            statusLabel.setText(resources.getString("message.gabim") + ": " + e.getMessage());
         }
     }
 
     @FXML
-    private void onPastroFushatETabelen() {
+    private void onPastroFushat() {
         clearFields();
         sugjerimetTable.getSelectionModel().clearSelection();
-        sugjerimetTable.getItems().clear();
     }
 
     @FXML
-    private void onPerditesoSugjerim() {
-        Sugjerimet iZgjedhur = sugjerimetTable.getSelectionModel().getSelectedItem();
-        if (iZgjedhur == null) {
-            statusLabel.setText(ResourceBundle.getBundle("languages.messages", LanguageContext.currentLocale).getString("warning.select_note"));
-            return;
-        }
+    private void onNgarkoSugjerimet() {
+        sugjerimetTable.getItems().setAll(sugjerimetService.getAll());
+    }
 
-        try {
-            String emri = emriSugjeruesitField.getText();
-            String roli = roliComboBox.getValue();
-            Date data = Date.valueOf(dataPicker.getValue());
-            String pershkrimi = pershkrimiField.getText();
-
-            UpdateSugjerimetDto dto = new UpdateSugjerimetDto(
-                    iZgjedhur.getSugjerimiID(),
-                    emri,
-                    roli,
-                    data.toString(),
-                    pershkrimi
-            );
-
-            sugjerimetService.update(dto);
-            onNgarkoSugjerimet();
-            statusLabel.setText(ResourceBundle.getBundle("languages.messages", LanguageContext.currentLocale).getString("success.note_updated"));
-
-        } catch (Exception e) {
-            statusLabel.setText("Gabim: " + e.getMessage());
-        }
+    private void clearFields() {
+        emriSugjeruesitField.clear();
+        roliComboBox.getSelectionModel().clearSelection();
+        dataPicker.setValue(null);
+        pershkrimiField.clear();
     }
 }

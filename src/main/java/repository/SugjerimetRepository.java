@@ -56,7 +56,7 @@ public class SugjerimetRepository extends BaseRepository<Sugjerimet, CreateSugje
             PreparedStatement pstm = this.connection.prepareStatement(query);
             pstm.setString(1, sugjerimiDto.getEmriSugjeruesit());
             pstm.setString(2, sugjerimiDto.getRoli());
-            pstm.setDate(3, java.sql.Date.valueOf(sugjerimiDto.getData()));
+            pstm.setDate(3, java.sql.Date.valueOf(sugjerimiDto.getData().toLocalDate()));
             pstm.setString(4, sugjerimiDto.getPershkrimi());
             pstm.setInt(5, sugjerimiDto.getSugjerimiId());
             int updated = pstm.executeUpdate();

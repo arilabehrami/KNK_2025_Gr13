@@ -1,13 +1,15 @@
 package models.Dto.Sugjerimet;
 
+import java.sql.Date;
+
 public class UpdateSugjerimetDto {
     private int sugjerimiId;
     private String emriSugjeruesit;
     private String roli;
-    private String data;
+    private Date data;
     private String pershkrimi;
 
-    public UpdateSugjerimetDto(int sugjerimiId, String emriSugjeruesit, String roli, String data, String pershkrimi) {
+    public UpdateSugjerimetDto(int sugjerimiId, String emriSugjeruesit, String roli, Date data, String pershkrimi) {
         this.sugjerimiId = sugjerimiId;
         this.emriSugjeruesit = emriSugjeruesit;
         this.roli = roli;
@@ -35,11 +37,11 @@ public class UpdateSugjerimetDto {
         this.roli = roli;
     }
 
-    public String getData() {
+    public Date getData() {
         return data;
     }
 
-    public void setData(String data) {
+    public void setData(Date data) {
         this.data = data;
     }
 

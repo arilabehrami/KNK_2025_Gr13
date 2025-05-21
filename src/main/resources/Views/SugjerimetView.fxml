@@ -15,23 +15,13 @@
           layoutX="14.0" layoutY="14.0"
           AnchorPane.topAnchor="10" AnchorPane.leftAnchor="10" AnchorPane.rightAnchor="10">
 
-      <!-- Fushat për input -->
       <TextField fx:id="emriSugjeruesitField" promptText="%label.emrisugjeruesit"/>
 
-      <ComboBox fx:id="roliComboBox" promptText="%label.roli">
-        <items>
-          <FXCollections fx:factory="observableArrayList">
-            <String fx:value="%roli.prind"/>
-            <String fx:value="%roli.edukator"/>
-            <String fx:value="%roli.staf"/>
-          </FXCollections>
-        </items>
-      </ComboBox>
+      <ComboBox fx:id="roliComboBox" promptText="%label.roli"/>
 
       <DatePicker fx:id="dataPicker"/>
       <TextArea fx:id="pershkrimiField" promptText="%label.pershkrimi" prefRowCount="5"/>
 
-      <!-- Butonat e veprimeve -->
       <HBox spacing="10">
         <Button fx:id="shtoButton" onAction="#onShtoSugjerim"/>
         <Button fx:id="perditesoButton" onAction="#onPerditesoSugjerim"/>
@@ -39,7 +29,6 @@
 
       <Label fx:id="statusLabel" textFill="RED"/>
 
-      <!-- Tabela -->
       <TableView fx:id="sugjerimetTable" prefHeight="200">
         <columns>
           <TableColumn fx:id="colID" text="%table.id"/>
@@ -50,7 +39,6 @@
         </columns>
       </TableView>
 
-      <!-- Butonat për tabelë -->
       <HBox spacing="10">
         <Button fx:id="fshijButton" onAction="#onFshijSugjerim"/>
         <Button fx:id="pastroButton" onAction="#onPastroFushat"/>
