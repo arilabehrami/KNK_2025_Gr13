@@ -73,8 +73,8 @@ public class CreateFemijetController {
 
         tableFemijet.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> populateFields(newVal));
 
-        updateUILabels();
-        updatePrompts();
+
+
     }
 
     private void populateFields(Femijet femija) {
@@ -171,71 +171,71 @@ public class CreateFemijetController {
         txtKontaktiPrindit.clear();
     }
 
-    @FXML
-    public void switchToAlbanian() {
-        try {
-            resources = ResourceBundle.getBundle("languages.messages", new Locale("sq"));
-            updateUILabels();
-            updatePrompts();
-        } catch (Exception e) {
-            showError("Gabim në ndërrimin e gjuhës: " + e.getMessage());
-        }
-    }
+//    @FXML
+//    public void switchToAlbanian() {
+//        try {
+//            resources = ResourceBundle.getBundle("languages.messages", new Locale("sq"));
+//
+//            updatePrompts();
+//        } catch (Exception e) {
+//            showError("Gabim në ndërrimin e gjuhës: " + e.getMessage());
+//        }
+//    }
 
-    @FXML
-    public void switchToEnglish() {
-        try {
-            resources = ResourceBundle.getBundle("languages.messages", Locale.ENGLISH);
-            updateUILabels();
-            updatePrompts();
-        } catch (Exception e) {
-            showError("Error switching language: " + e.getMessage());
-        }
-    }
+//    @FXML
+//    public void switchToEnglish() {
+//        try {
+//            resources = ResourceBundle.getBundle("languages.messages", Locale.ENGLISH);
+//            updateUILabels();
+//            updatePrompts();
+//        } catch (Exception e) {
+//            showError("Error switching language: " + e.getMessage());
+//        }
+//    }
 
-    private void updateUILabels() {
-        if (resources == null) return;
+//    private void updateUILabels() {
+//        if (resources == null) return;
+//
+//        colID.setText(resources.getString("femijet.id"));
+//        colEmri.setText(resources.getString("femijet.emri"));
+//        colMbiemri.setText(resources.getString("femijet.mbiemri"));
+//        colDitelindja.setText(resources.getString("femijet.ditelindja"));
+//        colGjinia.setText(resources.getString("femijet.gjinia"));
+//        colAdresa.setText(resources.getString("femijet.adresa"));
+//        colEmriPrindit.setText(resources.getString("femijet.emriPrindit"));
+//        colKontaktiPrindit.setText(resources.getString("femijet.kontaktiPrindit"));
+//
+//        lblEmri.setText(resources.getString("femijet.emri"));
+//        lblMbiemri.setText(resources.getString("femijet.mbiemri"));
+//        lblDitelindja.setText(resources.getString("femijet.ditelindja"));
+//        lblGjinia.setText(resources.getString("femijet.gjinia"));
+//        lblAdresa.setText(resources.getString("femijet.adresa"));
+//        lblEmriPrindit.setText(resources.getString("femijet.emriPrindit"));
+//        lblKontaktiPrindit.setText(resources.getString("femijet.kontaktiPrindit"));
+//
+//        btnShto.setText(resources.getString("actions.shto"));
+//        btnPerditeso.setText(resources.getString("actions.perditeso"));
+//        btnFshij.setText(resources.getString("actions.fshij"));
+//        btnPastro.setText(resources.getString("actions.pastro"));
+//
+//        btnSwitchAlbanian.setText(resources.getString("language.shqip"));
+//        btnSwitchEnglish.setText(resources.getString("language.english"));
+//
+//        cmbGjinia.setItems(FXCollections.observableArrayList(
+//                resources.getString("gjinia.mashkull"),
+//                resources.getString("gjinia.femer")
+//        ));
+//    }
 
-        colID.setText(resources.getString("femijet.id"));
-        colEmri.setText(resources.getString("femijet.emri"));
-        colMbiemri.setText(resources.getString("femijet.mbiemri"));
-        colDitelindja.setText(resources.getString("femijet.ditelindja"));
-        colGjinia.setText(resources.getString("femijet.gjinia"));
-        colAdresa.setText(resources.getString("femijet.adresa"));
-        colEmriPrindit.setText(resources.getString("femijet.emriPrindit"));
-        colKontaktiPrindit.setText(resources.getString("femijet.kontaktiPrindit"));
-
-        lblEmri.setText(resources.getString("femijet.emri"));
-        lblMbiemri.setText(resources.getString("femijet.mbiemri"));
-        lblDitelindja.setText(resources.getString("femijet.ditelindja"));
-        lblGjinia.setText(resources.getString("femijet.gjinia"));
-        lblAdresa.setText(resources.getString("femijet.adresa"));
-        lblEmriPrindit.setText(resources.getString("femijet.emriPrindit"));
-        lblKontaktiPrindit.setText(resources.getString("femijet.kontaktiPrindit"));
-
-        btnShto.setText(resources.getString("actions.shto"));
-        btnPerditeso.setText(resources.getString("actions.perditeso"));
-        btnFshij.setText(resources.getString("actions.fshij"));
-        btnPastro.setText(resources.getString("actions.pastro"));
-
-        btnSwitchAlbanian.setText(resources.getString("language.shqip"));
-        btnSwitchEnglish.setText(resources.getString("language.english"));
-
-        cmbGjinia.setItems(FXCollections.observableArrayList(
-                resources.getString("gjinia.mashkull"),
-                resources.getString("gjinia.femer")
-        ));
-    }
-
-    private void updatePrompts() {
-        txtEmri.setPromptText(resources.getString("femijet.emri"));
-        txtMbiemri.setPromptText(resources.getString("femijet.mbiemri"));
-        txtDitelindja.setPromptText(resources.getString("femijet.ditelindja"));
-        cmbGjinia.setPromptText(resources.getString("femijet.gjinia"));
-        txtAdresa.setPromptText(resources.getString("femijet.adresa"));
-        txtEmriPrindit.setPromptText(resources.getString("femijet.emriPrindit"));
-        txtKontaktiPrindit.setPromptText(resources.getString("femijet.kontaktiPrindit"));
-    }
+//    private void updatePrompts() {
+//        txtEmri.setPromptText(resources.getString("femijet.emri"));
+//        txtMbiemri.setPromptText(resources.getString("femijet.mbiemri"));
+//        txtDitelindja.setPromptText(resources.getString("femijet.ditelindja"));
+//        cmbGjinia.setPromptText(resources.getString("femijet.gjinia"));
+//        txtAdresa.setPromptText(resources.getString("femijet.adresa"));
+//        txtEmriPrindit.setPromptText(resources.getString("femijet.emriPrindit"));
+//        txtKontaktiPrindit.setPromptText(resources.getString("femijet.kontaktiPrindit"));
+//    }
 
     private void showAlert(String message) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
