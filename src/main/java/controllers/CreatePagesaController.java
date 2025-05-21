@@ -1,78 +1,68 @@
 package controllers;
 
-import services.UserSession;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import models.Dto.Pagesa.CreatePagesaDto;
 import models.domain.Pagesa;
 import services.PagesaService;
+import services.UserSession;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.List;
+import java.util.ResourceBundle;
 
 public class CreatePagesaController {
 
-    @FXML
-    private TextField txtFemijaId;
-    @FXML
-    private TextField txtPershkrimi;
-    @FXML
-    private TextField txtShuma;
-    @FXML
-    private DatePicker datePicker;
-    @FXML
-    private Button ruajButton;
+    @FXML private TextField txtFemijaId;
+    @FXML private TextField txtPershkrimi;
+    @FXML private TextField txtShuma;
+    @FXML private DatePicker datePicker;
+    @FXML private Button ruajButton;
 
-    @FXML
-    private TextField txtFemijaId1;
-    @FXML
-    private Button kerkoButton;
-    @FXML
-    private TableView<Pagesa> tablePagesat;
-    @FXML
-    private TableColumn<Pagesa, Integer> colPagesaId;
-    @FXML
-    private TableColumn<Pagesa, Integer> colFemijaId;
-    @FXML
-    private TableColumn<Pagesa, String> colPershkrimi;
-    @FXML
-    private TableColumn<Pagesa, String> colData;
-    @FXML
-    private TableColumn<Pagesa, Double> colShuma;
+    @FXML private TextField txtFemijaId1;
+    @FXML private Button kerkoButton;
+
+    @FXML private TableView<Pagesa> tablePagesat;
+    @FXML private TableColumn<Pagesa, Integer> colPagesaId;
+    @FXML private TableColumn<Pagesa, Integer> colFemijaId;
+    @FXML private TableColumn<Pagesa, String> colPershkrimi;
+    @FXML private TableColumn<Pagesa, String> colData;
+    @FXML private TableColumn<Pagesa, Double> colShuma;
+
+    private PagesaService pagesaService;
+    private ObservableList<Pagesa> pagesaList = FXCollections.observableArrayList();
 
     String username = UserSession.getInstance().getUsername();
     int userId = UserSession.getInstance().getUserId();
 
-    private PagesaService pagesaService;
+    @FXML private ResourceBundle resources;
 
     @FXML
     public void initialize() {
+        pagesaService = new PagesaService();
+
         colPagesaId.setCellValueFactory(new PropertyValueFactory<>("pagesaId"));
         colFemijaId.setCellValueFactory(new PropertyValueFactory<>("femijaId"));
         colPershkrimi.setCellValueFactory(new PropertyValueFactory<>("pershkrimi"));
         colData.setCellValueFactory(new PropertyValueFactory<>("data"));
         colShuma.setCellValueFactory(new PropertyValueFactory<>("shuma"));
-    }
 
-
-    public CreatePagesaController() {
-        pagesaService = new PagesaService();
+        tablePagesat.setItems(pagesaList);
     }
 
     @FXML
     private void handleRuaj() {
-        try {
-            if(txtFemijaId.getText().isBlank() || txtShuma.getText().isBlank() || datePicker.getValue() == null) {
-                showAlert(AlertType.ERROR, "Gabim", "Ju lutem plotësoni fushat ID e fëmijës, Shuma dhe Data.");
-                return;
-            }
+        if (txtFemijaId.getText().isBlank() || txtShuma.getText().isBlank() || datePicker.getValue() == null) {
+            showAlert(Alert.AlertType.ERROR, resources.getString("gabim"), resources.getString("kompletoni.fushat"));
+            return;
+        }
 
+        try {
             int femijaId = Integer.parseInt(txtFemijaId.getText().trim());
             double shuma = Double.parseDouble(txtShuma.getText().trim());
             LocalDate data = datePicker.getValue();
@@ -81,15 +71,15 @@ public class CreatePagesaController {
             CreatePagesaDto dto = new CreatePagesaDto(femijaId, shuma, data, pershkrimi);
             Pagesa krijuar = pagesaService.create(dto);
 
-            showAlert(AlertType.INFORMATION, "Sukses", "Pagesa u ruajt me sukses me ID: " + krijuar.getPagesaId());
+            showAlert(Alert.AlertType.INFORMATION, resources.getString("sukses"), resources.getString("pagesa.ruajtur") + krijuar.getPagesaId());
 
-            // Pas ruajtjes, fshij fusha
             clearFields();
+            refreshTable();
 
         } catch (NumberFormatException e) {
-            showAlert(AlertType.ERROR, "Gabim", "ID dhe Shuma duhet të jenë numra validë.");
+            showAlert(Alert.AlertType.ERROR, resources.getString("gabim"), resources.getString("id.dhe.shuma.numra"));
         } catch (Exception e) {
-            showAlert(AlertType.ERROR, "Gabim", "Ndodhi një gabim gjatë ruajtjes së pagesës.");
+            showAlert(Alert.AlertType.ERROR, resources.getString("gabim"), resources.getString("gabim.gjate.ruajtjes"));
             e.printStackTrace();
         }
     }
@@ -98,16 +88,14 @@ public class CreatePagesaController {
     private void handleKerko() {
         String idText = txtFemijaId1.getText().trim();
 
-        if(idText.isEmpty()) {
+        if (idText.isEmpty()) {
             List<Pagesa> teGjithaPagesat = pagesaService.getAll();
-            if(teGjithaPagesat.isEmpty()) {
-                showAlert(AlertType.INFORMATION, "Informacion", "Nuk ka pagesa në sistem.");
-                tablePagesat.getItems().clear();
+            pagesaList.setAll(teGjithaPagesat);
+
+            if (teGjithaPagesat.isEmpty()) {
+                showAlert(Alert.AlertType.INFORMATION, resources.getString("informacion"), resources.getString("asnje.pagesa"));
             } else {
-                // Vendos listën në TableView
-                ObservableList<Pagesa> listaObservable = FXCollections.observableArrayList(teGjithaPagesat);
-                tablePagesat.setItems(listaObservable);
-                showAlert(AlertType.INFORMATION, "Rezultat", "U gjetën " + teGjithaPagesat.size() + " pagesa.");
+                showAlert(Alert.AlertType.INFORMATION, resources.getString("rezultat"), resources.getString("gjendur.pagesa") + teGjithaPagesat.size());
             }
             return;
         }
@@ -115,9 +103,10 @@ public class CreatePagesaController {
         try {
             int id = Integer.parseInt(idText);
             Pagesa pagesa = pagesaService.getById(id);
+
             if (pagesa == null) {
-                showAlert(AlertType.WARNING, "Kërkim", "Pagesa me ID " + id + " nuk u gjet.");
-                tablePagesat.getItems().clear();
+                showAlert(Alert.AlertType.WARNING, resources.getString("kerkesa"), resources.getString("nuk.u.gjet.pagesa") + id);
+                pagesaList.clear();
             } else {
                 txtFemijaId.setText(String.valueOf(pagesa.getFemijaId()));
                 txtPershkrimi.setText(pagesa.getPershkrimi());
@@ -131,20 +120,23 @@ public class CreatePagesaController {
                     datePicker.setValue(null);
                 }
 
-                tablePagesat.setItems(FXCollections.observableArrayList(pagesa));
-
-                showAlert(AlertType.INFORMATION, "Kërkim", "Pagesa u gjet me sukses.");
+                pagesaList.setAll(pagesa);
+                showAlert(Alert.AlertType.INFORMATION, resources.getString("kerkesa"), resources.getString("pagesa.u.gjet"));
             }
         } catch (NumberFormatException e) {
-            showAlert(AlertType.ERROR, "Gabim", "ID-ja duhet të jetë numër i saktë.");
-            tablePagesat.getItems().clear();
+            showAlert(Alert.AlertType.ERROR, resources.getString("gabim"), resources.getString("id.duhet.numri"));
+            pagesaList.clear();
         } catch (Exception e) {
-            showAlert(AlertType.ERROR, "Gabim", "Ndodhi një gabim gjatë kërkimit.");
+            showAlert(Alert.AlertType.ERROR, resources.getString("gabim"), resources.getString("gabim.gjate.kerkeses"));
             e.printStackTrace();
-            tablePagesat.getItems().clear();
+            pagesaList.clear();
         }
     }
 
+    private void refreshTable() {
+        List<Pagesa> lista = pagesaService.getAll();
+        pagesaList.setAll(lista);
+    }
 
     private void clearFields() {
         txtFemijaId.clear();
@@ -153,11 +145,11 @@ public class CreatePagesaController {
         datePicker.setValue(null);
     }
 
-    private void showAlert(AlertType type, String title, String message) {
+    private void showAlert(Alert.AlertType type, String title, String content) {
         Alert alert = new Alert(type);
         alert.setTitle(title);
         alert.setHeaderText(null);
-        alert.setContentText(message);
+        alert.setContentText(content);
         alert.showAndWait();
     }
 }
