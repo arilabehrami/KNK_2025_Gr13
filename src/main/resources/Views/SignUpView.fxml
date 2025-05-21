@@ -6,7 +6,7 @@
 
 <BorderPane xmlns:fx="http://javafx.com/fxml"
             fx:controller="controllers.SignUpController"
-            fx:resources="bundles.messages"
+
             style="-fx-background-color: linear-gradient(to bottom, #fbe9e7, #fff3e0);">
 
     <!-- HEADER -->

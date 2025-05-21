@@ -12,7 +12,7 @@
 <VBox xmlns="http://javafx.com/javafx/11.0.1"
       xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="controllers.MenyjaDitoreController"
-      fx:resources="bundles.messages"
+
       spacing="15" style="-fx-padding: 20; -fx-background-color: #f9f9f9;">
 
     <Label text="%title.menyjaDitore" style="-fx-font-size: 20px; -fx-font-weight: bold;" />

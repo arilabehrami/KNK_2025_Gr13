@@ -16,7 +16,7 @@
       xmlns="http://javafx.com/javafx/23.0.1"
       xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="controllers.PagatEPunetoreveController"
-      fx:resources="bundles.Messages">
+>
 
   <children>
     <MenuBar VBox.vgrow="NEVER">

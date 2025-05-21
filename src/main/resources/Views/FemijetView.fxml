@@ -9,7 +9,7 @@
 <AnchorPane layoutX="0.0" layoutY="0.0" prefHeight="600.0" prefWidth="1000.0"
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="controllers.CreateFemijetController"
-            fx:resources="languages.messages"
+
             style="-fx-background-color: #e6f4ea;">
     <children>
         <TableView fx:id="tableFemijet" layoutX="10.0" layoutY="10.0" prefHeight="580.0" prefWidth="640.0">
