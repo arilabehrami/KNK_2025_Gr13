@@ -3,12 +3,12 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.geometry.Insets?>
-
 <BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="controllers.UshqimetController"
+
             style="-fx-background-color: linear-gradient(to bottom, #fbe9e7, #fff3e0);">
 
     <top>
-        <Label text="Menaxhimi i Ushqimeve"
+        <Label text="%title.main"
                style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #d84315; -fx-padding: 10;"
                BorderPane.alignment="CENTER" />
     </top>
@@ -20,10 +20,10 @@
               BorderPane.alignment="CENTER">
             <TableView fx:id="ushqimetTable" prefHeight="300" style="-fx-border-radius: 10;">
                 <columns>
-                    <TableColumn fx:id="idCol" text="ID" prefWidth="50"/>
-                    <TableColumn fx:id="emriCol" text="Emri Ushqimit" prefWidth="150"/>
-                    <TableColumn fx:id="kategoriaCol" text="Kategoria" prefWidth="100"/>
-                    <TableColumn fx:id="pershkrimiCol" text="Përshkrimi" prefWidth="200"/>
+                    <TableColumn fx:id="idCol" text="%table.id" prefWidth="50"/>
+                    <TableColumn fx:id="emriCol" text="%table.emri" prefWidth="150"/>
+                    <TableColumn fx:id="kategoriaCol" text="%table.kategoria" prefWidth="100"/>
+                    <TableColumn fx:id="pershkrimiCol" text="%table.pershkrimi" prefWidth="200"/>
                 </columns>
             </TableView>
         </VBox>
@@ -35,22 +35,22 @@
                      -fx-padding: 20; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 4, 0, 0, -1);">
 
             <HBox spacing="10" alignment="CENTER">
-                <TextField fx:id="emriField" promptText="Emri Ushqimit"
+                <TextField fx:id="emriField" promptText="%prompt.emri"
                            style="-fx-background-radius: 10; -fx-border-color: #ffccbc; -fx-border-radius: 10; -fx-padding: 8;"/>
-                <TextField fx:id="kategoriaField" promptText="Kategoria"
+                <TextField fx:id="kategoriaField" promptText="%prompt.kategoria"
                            style="-fx-background-radius: 10; -fx-border-color: #ffccbc; -fx-border-radius: 10; -fx-padding: 8;"/>
-                <TextField fx:id="pershkrimiField" promptText="Përshkrimi"
+                <TextField fx:id="pershkrimiField" promptText="%prompt.pershkrimi"
                            style="-fx-background-radius: 10; -fx-border-color: #ffccbc; -fx-border-radius: 10; -fx-padding: 8;"/>
             </HBox>
 
             <HBox spacing="15" alignment="CENTER">
-                <Button text="Shto" onAction="#handleAdd"
+                <Button text="%button.shto" onAction="#handleAdd"
                         style="-fx-background-color: #ff7043; -fx-text-fill: white;
                                -fx-font-weight: bold; -fx-background-radius: 12; -fx-padding: 10 20;"/>
-                <Button text="Përditëso" onAction="#handleUpdate"
+                <Button text="%button.perditeso" onAction="#handleUpdate"
                         style="-fx-background-color: #ff7043; -fx-text-fill: white;
                                -fx-font-weight: bold; -fx-background-radius: 12; -fx-padding: 10 20;"/>
-                <Button text="Fshi" onAction="#handleDelete"
+                <Button text="%button.fshi" onAction="#handleDelete"
                         style="-fx-background-color: transparent; -fx-border-color: #ff7043;
                                -fx-text-fill: #ff7043; -fx-border-radius: 12; -fx-padding: 10 20;"/>
             </HBox>

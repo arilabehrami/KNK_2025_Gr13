@@ -11,9 +11,9 @@
     <top>
         <VBox alignment="CENTER" spacing="5" BorderPane.alignment="CENTER"
               style="-fx-padding: 10 0 10 0;">
-            <Label text="MiniEdu - Kopshti i Ëndrrave"
+            <Label text="%title.appName"
                    style="-fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: #e65100;" />
-            <Label text="Menaxhimi i prindërve të regjistruar"
+            <Label text="%title.manageParents"
                    style="-fx-font-size: 16px; -fx-text-fill: #6d4c41;" />
         </VBox>
     </top>
@@ -28,26 +28,26 @@
             <!-- Forma për input -->
             <GridPane hgap="10" vgap="10"
                       style="-fx-background-color: #ffffff; -fx-padding: 20; -fx-background-radius: 10; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 0, 1);">
-                <Label text="Emri:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                <Label text="%label.emri" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
                 <TextField fx:id="txtEmri" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
 
-                <Label text="Mbiemri:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                <Label text="%label.mbiemri" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
                 <TextField fx:id="txtMbiemri" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
 
-                <Label text="Kontakti:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                <Label text="%label.kontakti" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
                 <TextField fx:id="txtKontakti" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
 
-                <Label text="Adresa:" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+                <Label text="%label.adresa" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
                 <TextField fx:id="txtAdresa" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
             </GridPane>
 
             <!-- Butonat -->
             <HBox spacing="10" alignment="CENTER">
-                <Button text="Shto" onAction="#handleShto"
+                <Button text="%button.shto" onAction="#handleShto"
                         style="-fx-background-color: #42a5f5; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 12; -fx-padding: 8 20;"/>
-                <Button text="Largo" onAction="#handleLargo"
+                <Button text="%button.largo" onAction="#handleLargo"
                         style="-fx-background-color: transparent; -fx-border-color: #42a5f5; -fx-text-fill: #42a5f5; -fx-border-radius: 12; -fx-padding: 8 20;"/>
-                <Button text="Përditëso" onAction="#handlePerditeso"
+                <Button text="%button.perditeso" onAction="#handlePerditeso"
                         style="-fx-background-color: #42a5f5; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 12; -fx-padding: 8 20;"/>
             </HBox>
 
@@ -55,16 +55,14 @@
             <TableView fx:id="tablePrinderit" prefHeight="300"
                        style="-fx-background-color: white; -fx-border-color: #90caf9; -fx-border-radius: 10; -fx-padding: 5;">
                 <columns>
-                    <TableColumn fx:id="colID" text="ID"/>
-                    <TableColumn fx:id="colEmri" text="Emri"/>
-                    <TableColumn fx:id="colMbiemri" text="Mbiemri"/>
-                    <TableColumn fx:id="colKontakti" text="Kontakti"/>
-                    <TableColumn fx:id="colAdresa" text="Adresa"/>
+                    <TableColumn fx:id="colID" text="%table.id"/>
+                    <TableColumn fx:id="colEmri" text="%table.emri"/>
+                    <TableColumn fx:id="colMbiemri" text="%table.mbiemri"/>
+                    <TableColumn fx:id="colKontakti" text="%table.kontakti"/>
+                    <TableColumn fx:id="colAdresa" text="%table.adresa"/>
                 </columns>
             </TableView>
         </VBox>
     </center>
-
-
 
 </BorderPane>

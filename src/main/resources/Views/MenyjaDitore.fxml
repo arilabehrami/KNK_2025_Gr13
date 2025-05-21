@@ -12,42 +12,43 @@
 <VBox xmlns="http://javafx.com/javafx/11.0.1"
       xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="controllers.MenyjaDitoreController"
+      fx:resources="bundles.messages"
       spacing="15" style="-fx-padding: 20; -fx-background-color: #f9f9f9;">
 
-    <Label text="Menaxhimi i Menyse Ditore" style="-fx-font-size: 20px; -fx-font-weight: bold;" />
+    <Label text="%title.menyjaDitore" style="-fx-font-size: 20px; -fx-font-weight: bold;" />
 
     <HBox spacing="15">
         <VBox spacing="5">
-            <Label text="Dita:"/>
+            <Label text="%label.dita"/>
             <ComboBox fx:id="ditaComboBox" prefWidth="150"/>
         </VBox>
 
         <VBox spacing="5">
-            <Label text="Grupi ID:"/>
+            <Label text="%label.grupiId"/>
             <ComboBox fx:id="grupiComboBox" prefWidth="150"/>
         </VBox>
 
         <VBox spacing="5">
-            <Label text="Ushqimi ID:"/>
+            <Label text="%label.ushqimiId"/>
             <ComboBox fx:id="ushqimiComboBox" prefWidth="150"/>
         </VBox>
     </HBox>
 
     <HBox spacing="10" alignment="CENTER_LEFT">
-        <Button fx:id="shtoButton" text="Shto" onAction="#handleShto"
+        <Button fx:id="shtoButton" text="%button.shto" onAction="#handleShto"
                 style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 8 20;"/>
-        <Button fx:id="fshijButton" text="Fshij" onAction="#handleFshij"
+        <Button fx:id="fshijButton" text="%button.fshij" onAction="#handleFshij"
                 style="-fx-background-color: #f44336; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 8 20;"/>
-        <Button fx:id="pastroButton" text="Pastro" onAction="#handlePastro"
+        <Button fx:id="pastroButton" text="%button.pastro" onAction="#handlePastro"
                 style="-fx-background-color: #2196F3; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 8 20;"/>
     </HBox>
 
     <TableView fx:id="menyjaTable" prefHeight="300" style="-fx-border-color: #ddd;">
         <columns>
-            <TableColumn fx:id="menuIdColumn" text="ID" prefWidth="60"/>
-            <TableColumn fx:id="ditaColumn" text="Dita" prefWidth="150"/>
-            <TableColumn fx:id="grupiIdColumn" text="ID Grupi" prefWidth="100"/>
-            <TableColumn fx:id="ushqimiIdColumn" text="ID Ushqimi" prefWidth="100"/>
+            <TableColumn fx:id="menuIdColumn" text="%column.id" prefWidth="60"/>
+            <TableColumn fx:id="ditaColumn" text="%column.dita" prefWidth="150"/>
+            <TableColumn fx:id="grupiIdColumn" text="%column.idGrupi" prefWidth="100"/>
+            <TableColumn fx:id="ushqimiIdColumn" text="%column.idUshqimi" prefWidth="100"/>
         </columns>
     </TableView>
 

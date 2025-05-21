@@ -15,83 +15,84 @@
 <?import javafx.scene.text.Font?>
 
 <VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.CreatePagesaController">
-  <children>
-    <MenuBar VBox.vgrow="NEVER">
-      <menus>
-        <Menu mnemonicParsing="false" text="File">
-          <items>
-            <MenuItem mnemonicParsing="false" text="New" />
-            <MenuItem mnemonicParsing="false" text="Open…" />
-            <Menu mnemonicParsing="false" text="Open Recent" />
-            <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" text="Close" />
-            <MenuItem mnemonicParsing="false" text="Save" />
-            <MenuItem mnemonicParsing="false" text="Save As…" />
-            <MenuItem mnemonicParsing="false" text="Revert" />
-            <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" text="Preferences…" />
-            <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" text="Quit" />
-          </items>
-        </Menu>
-        <Menu mnemonicParsing="false" text="Edit">
-          <items>
-            <MenuItem mnemonicParsing="false" text="Undo" />
-            <MenuItem mnemonicParsing="false" text="Redo" />
-            <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" text="Cut" />
-            <MenuItem mnemonicParsing="false" text="Copy" />
-            <MenuItem mnemonicParsing="false" text="Paste" />
-            <MenuItem mnemonicParsing="false" text="Delete" />
-            <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" text="Select All" />
-            <MenuItem mnemonicParsing="false" text="Unselect All" />
-          </items>
-        </Menu>
-        <Menu mnemonicParsing="false" text="Help">
-          <items>
-            <MenuItem mnemonicParsing="false" text="About MyHelloApp" />
-          </items>
-        </Menu>
-      </menus>
-    </MenuBar>
-    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
-        <children>
-            <Label layoutX="14.0" layoutY="9.0" text="Pagesat">
-                <font>
-                    <Font size="36.0" />
-                </font>
-            </Label>
+    <children>
+        <MenuBar VBox.vgrow="NEVER">
+            <menus>
+                <Menu mnemonicParsing="false" text="%menu.file">
+                    <items>
+                        <MenuItem mnemonicParsing="false" text="%menuitem.new" />
+                        <MenuItem mnemonicParsing="false" text="%menuitem.open" />
+                        <Menu mnemonicParsing="false" text="%menu.openRecent" />
+                        <SeparatorMenuItem mnemonicParsing="false" />
+                        <MenuItem mnemonicParsing="false" text="%menuitem.close" />
+                        <MenuItem mnemonicParsing="false" text="%menuitem.save" />
+                        <MenuItem mnemonicParsing="false" text="%menuitem.saveAs" />
+                        <MenuItem mnemonicParsing="false" text="%menuitem.revert" />
+                        <SeparatorMenuItem mnemonicParsing="false" />
+                        <MenuItem mnemonicParsing="false" text="%menuitem.preferences" />
+                        <SeparatorMenuItem mnemonicParsing="false" />
+                        <MenuItem mnemonicParsing="false" text="%menuitem.quit" />
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="%menu.edit">
+                    <items>
+                        <MenuItem mnemonicParsing="false" text="%menuitem.undo" />
+                        <MenuItem mnemonicParsing="false" text="%menuitem.redo" />
+                        <SeparatorMenuItem mnemonicParsing="false" />
+                        <MenuItem mnemonicParsing="false" text="%menuitem.cut" />
+                        <MenuItem mnemonicParsing="false" text="%menuitem.copy" />
+                        <MenuItem mnemonicParsing="false" text="%menuitem.paste" />
+                        <MenuItem mnemonicParsing="false" text="%menuitem.delete" />
+                        <SeparatorMenuItem mnemonicParsing="false" />
+                        <MenuItem mnemonicParsing="false" text="%menuitem.selectAll" />
+                        <MenuItem mnemonicParsing="false" text="%menuitem.unselectAll" />
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="%menu.help">
+                    <items>
+                        <MenuItem mnemonicParsing="false" text="%menuitem.aboutApp" />
+                    </items>
+                </Menu>
+            </menus>
+        </MenuBar>
+        <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
+            <children>
+                <Label layoutX="14.0" layoutY="9.0" text="%label.pagesat">
+                    <font>
+                        <Font size="36.0" />
+                    </font>
+                </Label>
 
-            <Label layoutX="191.0" layoutY="46.0" text="Fëmija ID:" />
-            <TextField fx:id="txtFemijaId" layoutX="258.0" layoutY="42.0" prefHeight="26.0" prefWidth="72.0" />
+                <Label layoutX="191.0" layoutY="46.0" text="%label.femijaId" />
+                <TextField fx:id="txtFemijaId" layoutX="258.0" layoutY="42.0" prefHeight="26.0" prefWidth="72.0" />
 
-            <Label layoutX="174.0" layoutY="86.0" text="Pershkrimi:" />
-            <TextField fx:id="txtPershkrimi" layoutX="248.0" layoutY="83.0" prefHeight="54.0" prefWidth="126.0" />
+                <Label layoutX="174.0" layoutY="86.0" text="%label.pershkrimi" />
+                <TextField fx:id="txtPershkrimi" layoutX="248.0" layoutY="83.0" prefHeight="54.0" prefWidth="126.0" />
 
-            <Label layoutX="440.0" layoutY="36.0" text="Data" />
-            <DatePicker fx:id="datePicker" layoutX="474.0" layoutY="31.0" prefHeight="26.0" prefWidth="137.0" />
+                <Label layoutX="440.0" layoutY="36.0" text="%label.data" />
+                <DatePicker fx:id="datePicker" layoutX="474.0" layoutY="31.0" prefHeight="26.0" prefWidth="137.0" />
 
-            <Label layoutX="191.0" layoutY="146.0" text="Shuma:" />
-            <TextField fx:id="txtShuma" layoutX="248.0" layoutY="143.0" prefHeight="26.0" prefWidth="72.0" />
+                <Label layoutX="191.0" layoutY="146.0" text="%label.shuma" />
+                <TextField fx:id="txtShuma" layoutX="248.0" layoutY="143.0" prefHeight="26.0" prefWidth="72.0" />
 
-            <Button fx:id="ruajButton" layoutX="330.0" layoutY="143.0" mnemonicParsing="false" onAction="#handleRuaj" prefHeight="26.0" prefWidth="46.0" text="Ruaj" />
-            <Button fx:id="kerkoButton" layoutX="448.0" layoutY="125.0" mnemonicParsing="false" onAction="#handleKerko" prefHeight="26.0" prefWidth="66.0" text="Kerko" />
-            <Label layoutX="417.0" layoutY="88.0" text="ID:" />
-            <TextField fx:id="txtFemijaId1" layoutX="448.0" layoutY="84.0" prefHeight="26.0" prefWidth="66.0" />
+                <Button fx:id="ruajButton" layoutX="330.0" layoutY="143.0" mnemonicParsing="false" onAction="#handleRuaj" prefHeight="26.0" prefWidth="46.0" text="%button.ruaj" />
+                <Button fx:id="kerkoButton" layoutX="448.0" layoutY="125.0" mnemonicParsing="false" onAction="#handleKerko" prefHeight="26.0" prefWidth="66.0" text="%button.kerko" />
 
-            <TableView fx:id="tablePagesat" layoutX="72.0" layoutY="194.0" prefHeight="145.0" prefWidth="495.0">
-                <columns>
-                    <TableColumn fx:id="colPagesaId" prefWidth="80" text="Pagesa ID" />
-                    <TableColumn fx:id="colFemijaId" prefWidth="80" text="Fëmija ID" />
-                    <TableColumn fx:id="colPershkrimi" prefWidth="150" text="Përshkrimi" />
-                    <TableColumn fx:id="colData" prefWidth="100" text="Data" />
-                    <TableColumn fx:id="colShuma" prefWidth="80" text="Shuma" />
-                </columns>
-            </TableView>
+                <Label layoutX="417.0" layoutY="88.0" text="%label.id" />
+                <TextField fx:id="txtFemijaId1" layoutX="448.0" layoutY="84.0" prefHeight="26.0" prefWidth="66.0" />
 
-        </children>
+                <TableView fx:id="tablePagesat" layoutX="72.0" layoutY="194.0" prefHeight="145.0" prefWidth="495.0">
+                    <columns>
+                        <TableColumn fx:id="colPagesaId" prefWidth="80" text="%table.pagesaId" />
+                        <TableColumn fx:id="colFemijaId" prefWidth="80" text="%table.femijaId" />
+                        <TableColumn fx:id="colPershkrimi" prefWidth="150" text="%table.pershkrimi" />
+                        <TableColumn fx:id="colData" prefWidth="100" text="%table.data" />
+                        <TableColumn fx:id="colShuma" prefWidth="80" text="%table.shuma" />
+                    </columns>
+                </TableView>
 
-    </AnchorPane>
-  </children>
+            </children>
+
+        </AnchorPane>
+    </children>
 </VBox>

@@ -12,69 +12,77 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+<VBox prefHeight="400.0" prefWidth="640.0"
+      xmlns="http://javafx.com/javafx/23.0.1"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="controllers.PagatEPunetoreveController"
+      fx:resources="bundles.Messages">
 
-<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.PagatEPunetoreveController">
   <children>
     <MenuBar VBox.vgrow="NEVER">
       <menus>
-        <Menu mnemonicParsing="false" text="File">
+        <Menu mnemonicParsing="false" text="%menu.file">
           <items>
-            <MenuItem mnemonicParsing="false" text="New" />
-            <MenuItem mnemonicParsing="false" text="Open…" />
-            <Menu mnemonicParsing="false" text="Open Recent" />
-            <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" text="Close" />
-            <MenuItem mnemonicParsing="false" text="Save" />
-            <MenuItem mnemonicParsing="false" text="Save As…" />
-            <MenuItem mnemonicParsing="false" text="Revert" />
-            <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" text="Preferences…" />
-            <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" text="Quit" />
+            <MenuItem mnemonicParsing="false" text="%menu.new" />
+            <MenuItem mnemonicParsing="false" text="%menu.open" />
+            <Menu text="%menu.openRecent" />
+            <SeparatorMenuItem />
+            <MenuItem text="%menu.close" />
+            <MenuItem text="%menu.save" />
+            <MenuItem text="%menu.saveAs" />
+            <MenuItem text="%menu.revert" />
+            <SeparatorMenuItem />
+            <MenuItem text="%menu.preferences" />
+            <SeparatorMenuItem />
+            <MenuItem text="%menu.quit" />
           </items>
         </Menu>
-        <Menu mnemonicParsing="false" text="Edit">
+        <Menu text="%menu.edit">
           <items>
-            <MenuItem mnemonicParsing="false" text="Undo" />
-            <MenuItem mnemonicParsing="false" text="Redo" />
-            <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" text="Cut" />
-            <MenuItem mnemonicParsing="false" text="Copy" />
-            <MenuItem mnemonicParsing="false" text="Paste" />
-            <MenuItem mnemonicParsing="false" text="Delete" />
-            <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" text="Select All" />
-            <MenuItem mnemonicParsing="false" text="Unselect All" />
+            <MenuItem text="%menu.undo" />
+            <MenuItem text="%menu.redo" />
+            <SeparatorMenuItem />
+            <MenuItem text="%menu.cut" />
+            <MenuItem text="%menu.copy" />
+            <MenuItem text="%menu.paste" />
+            <MenuItem text="%menu.delete" />
+            <SeparatorMenuItem />
+            <MenuItem text="%menu.selectAll" />
+            <MenuItem text="%menu.unselectAll" />
           </items>
         </Menu>
-        <Menu mnemonicParsing="false" text="Help">
+        <Menu text="%menu.help">
           <items>
-            <MenuItem mnemonicParsing="false" text="About MyHelloApp" />
+            <MenuItem text="%menu.about" />
           </items>
         </Menu>
       </menus>
     </MenuBar>
-    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
+
+    <AnchorPane VBox.vgrow="ALWAYS">
       <children>
-        <Label alignment="CENTER" layoutX="36.0" layoutY="33.0" style="&#10;" text="Pagat E Punetoreve" textAlignment="CENTER" textFill="#9f9f9f" wrapText="false">
+        <Label layoutX="36.0" layoutY="33.0" text="%label.pagat" textFill="#9f9f9f">
           <font>
             <Font size="18.0" />
           </font>
         </Label>
-            <TableView fx:id="tableView" layoutX="40.0" layoutY="90.0" prefHeight="220.0" prefWidth="366.0">
-              <columns>
-                <TableColumn fx:id="idColumn" prefWidth="87.20001220703125" text="ID e punetorit" />
-                  <TableColumn fx:id="muajiColumn" prefWidth="72.800048828125" text="Muaji" />
-                  <TableColumn fx:id="vitiColumn" prefWidth="52.7999267578125" text="Viti" />
-                  <TableColumn fx:id="shumaColumn" prefWidth="72.79998779296875" text="Shuma" />
-                  <TableColumn fx:id="dataColumn" prefWidth="85.60003662109375" text="Data" />
-              </columns>
-            </TableView>
-            <Button fx:id="kerkoButton" layoutX="541.0" layoutY="127.0" mnemonicParsing="false" onAction="#handleKerko" text="Kerko" />
-            <Button fx:id="fshijButton" layoutX="541.0" layoutY="174.0" mnemonicParsing="false" onAction="#handleFshij" prefHeight="26.0" prefWidth="47.0" text="Fshij" />
-            <Button fx:id="ruajButton" layoutX="541.0" layoutY="221.0" mnemonicParsing="false" onAction="#handleRuaj" prefHeight="26.0" prefWidth="47.0" text="Ruaj" />
-            <TextField fx:id="idTextField" layoutX="454.0" layoutY="126.0" prefHeight="26.0" prefWidth="47.0" />
-            <Label fx:id="idText" layoutX="430.0" layoutY="130.0" text="ID:" />
+
+        <TableView fx:id="tableView" layoutX="40.0" layoutY="90.0" prefHeight="220.0" prefWidth="366.0">
+          <columns>
+            <TableColumn fx:id="idColumn" text="%column.id" />
+            <TableColumn fx:id="muajiColumn" text="%column.month" />
+            <TableColumn fx:id="vitiColumn" text="%column.year" />
+            <TableColumn fx:id="shumaColumn" text="%column.amount" />
+            <TableColumn fx:id="dataColumn" text="%column.date" />
+          </columns>
+        </TableView>
+
+        <Label fx:id="idText" layoutX="430.0" layoutY="130.0" text="%label.id" />
+        <TextField fx:id="idTextField" layoutX="454.0" layoutY="126.0" prefHeight="26.0" prefWidth="47.0" />
+
+        <Button fx:id="kerkoButton" layoutX="541.0" layoutY="127.0" onAction="#handleKerko" text="%button.search" />
+        <Button fx:id="fshijButton" layoutX="541.0" layoutY="174.0" onAction="#handleFshij" text="%button.delete" />
+        <Button fx:id="ruajButton" layoutX="541.0" layoutY="221.0" onAction="#handleRuaj" text="%button.save" />
       </children>
     </AnchorPane>
   </children>

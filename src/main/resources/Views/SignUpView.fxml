@@ -4,7 +4,9 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.geometry.*?>
 
-<BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="controllers.SignUpController"
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="controllers.SignUpController"
+            fx:resources="bundles.messages"
             style="-fx-background-color: linear-gradient(to bottom, #fbe9e7, #fff3e0);">
 
     <!-- HEADER -->
@@ -15,21 +17,21 @@
                     <Image url="@../Images/Figura2.jpg" />
                 </image>
             </ImageView>
-            <Label text="MiniEdu - Krijo Llogari"
+            <Label text="%signup.header.main"
                    style="-fx-font-size: 26px; -fx-font-weight: bold; -fx-text-fill: #e65100;" />
-            <Label text="Regjistrohu për të filluar përvojën edukative"
+            <Label text="%signup.header.sub"
                    style="-fx-font-size: 14px; -fx-text-fill: #6d4c41;" />
         </VBox>
     </top>
 
-    <!-- FORM QENDROR -->
+    <!-- FORM CENTER -->
     <center>
         <VBox spacing="20" alignment="CENTER" prefWidth="390"
               style="-fx-background-color: #ffffff; -fx-padding: 35; -fx-background-radius: 20; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 10, 0.2, 0, 4);"
               BorderPane.alignment="CENTER">
 
             <!-- Titulli -->
-            <Label text="Regjistrohu"
+            <Label text="%signup.form.title"
                    style="-fx-font-size: 22px; -fx-text-fill: #d84315; -fx-font-weight: bold;" />
 
             <!-- Username -->
@@ -39,7 +41,7 @@
                         <Image url="@../Images/Figura2.jpg" />
                     </image>
                 </ImageView>
-                <TextField fx:id="usernameField" promptText="Emri i përdoruesit"
+                <TextField fx:id="usernameField" promptText="%signup.username"
                            style="-fx-background-radius: 10; -fx-border-color: #c8e6c9; -fx-border-radius: 10; -fx-padding: 10;" />
             </HBox>
 
@@ -50,7 +52,7 @@
                         <Image url="@../Images/Figura2.jpg" />
                     </image>
                 </ImageView>
-                <PasswordField fx:id="passwordField" promptText="Fjalëkalimi"
+                <PasswordField fx:id="passwordField" promptText="%signup.password"
                                style="-fx-background-radius: 10; -fx-border-color: #c8e6c9; -fx-border-radius: 10; -fx-padding: 10;" />
             </HBox>
 
@@ -60,9 +62,9 @@
 
             <!-- Buttons -->
             <HBox spacing="20" alignment="CENTER">
-                <Button text="Regjistrohu" onAction="#handleSignUp"
+                <Button text="%signup.register" onAction="#handleSignUp"
                         style="-fx-background-color: #d84315; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 12; -fx-padding: 10 25;" />
-                <Button text="Kthehu" onAction="#goBackToLogin"
+                <Button text="%signup.back" onAction="#goBackToLogin"
                         style="-fx-background-color: transparent; -fx-border-color: #d84315; -fx-text-fill: #d84315; -fx-border-radius: 12; -fx-padding: 10 25;" />
             </HBox>
         </VBox>
@@ -76,28 +78,28 @@
                 <Insets top="30" right="30" bottom="30" left="30" />
             </padding>
 
-            <Label text="Pse të Kyqesh në MiniEdu?"
+            <Label text="%signup.whyJoin"
                    style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #d84315;" />
 
             <VBox spacing="12">
                 <HBox spacing="10" alignment="CENTER_LEFT">
                     <Label text="✅" style="-fx-font-size: 16px; -fx-text-fill: #d84315;" />
-                    <Label text="Akses për prindërit dhe fëmijët" style="-fx-font-size: 14px; -fx-text-fill: #d84315;" />
+                    <Label text="%signup.benefit1" style="-fx-font-size: 14px; -fx-text-fill: #d84315;" />
                 </HBox>
 
                 <HBox spacing="10" alignment="CENTER_LEFT">
                     <Label text="🎓" style="-fx-font-size: 16px; -fx-text-fill: #d84315;" />
-                    <Label text="Program edukativ i personalizuar" style="-fx-font-size: 14px; -fx-text-fill: #d84315;" />
+                    <Label text="%signup.benefit2" style="-fx-font-size: 14px; -fx-text-fill: #d84315;" />
                 </HBox>
 
                 <HBox spacing="10" alignment="CENTER_LEFT">
                     <Label text="🔒" style="-fx-font-size: 16px; -fx-text-fill: #d84315;" />
-                    <Label text="Siguri dhe privatësi e garantuar" style="-fx-font-size: 14px; -fx-text-fill: #d84315;" />
+                    <Label text="%signup.benefit3" style="-fx-font-size: 14px; -fx-text-fill: #d84315;" />
                 </HBox>
 
                 <HBox spacing="10" alignment="CENTER_LEFT">
                     <Label text="📊" style="-fx-font-size: 16px; -fx-text-fill: #d84315;" />
-                    <Label text="Raporte ditore dhe zhvillimore" style="-fx-font-size: 14px; -fx-text-fill: #d84315;" />
+                    <Label text="%signup.benefit4" style="-fx-font-size: 14px; -fx-text-fill: #d84315;" />
                 </HBox>
             </VBox>
         </VBox>
@@ -107,7 +109,7 @@
     <bottom>
         <VBox alignment="CENTER" spacing="5" BorderPane.alignment="CENTER">
             <Separator />
-            <Label text="© 2025 MiniEdu | info@miniedu.com | +383 45 123 456"
+            <Label text="%footer.contact"
                    style="-fx-font-size: 10px; -fx-text-fill: #a1887f;" />
         </VBox>
     </bottom>
