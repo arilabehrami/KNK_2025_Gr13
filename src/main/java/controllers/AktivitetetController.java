@@ -55,14 +55,12 @@ public class AktivitetetController {
             AktivitetetRepository repository = new AktivitetetRepository(connection);
             aktivitetetService = new AktivitetetService(repository);
 
-            // Vendos Factory për kolonat vetëm njëherë
             colID.setCellValueFactory(new PropertyValueFactory<>("aktivitetiID"));
             colEmri.setCellValueFactory(new PropertyValueFactory<>("emriAktivitetit"));
             colPershkrimi.setCellValueFactory(new PropertyValueFactory<>("pershkrimi"));
             colData.setCellValueFactory(new PropertyValueFactory<>("data"));
             colGrupiID.setCellValueFactory(new PropertyValueFactory<>("grupiID"));
 
-            // Merr resource bundle nga LanguageManager (gjuhë default)
             resources = LanguageManager.getBundle();
 
             updateUILabels();
@@ -176,8 +174,6 @@ public class AktivitetetController {
         tableAktivitetet.getSelectionModel().clearSelection();
     }
 
-    // --- Metodat për ndryshimin e gjuhës ---
-
     @FXML
     public void switchToAlbanian() {
         LanguageManager.setLocale(new Locale("sq"));
@@ -226,7 +222,6 @@ public class AktivitetetController {
         tfGrupiID.setPromptText(resources.getString("aktivitetet.promptGrupiID"));
     }
 
-    // Ky rifreskim i kolonave detyron TableView të ridraw-ojë titujt e kolonave
     private void refreshTableColumns() {
         tableAktivitetet.refresh();
     }

@@ -8,12 +8,7 @@
             fx:controller="controllers.PraniaController"
             style="-fx-background-color: #e8f5e9;">
 
-<!--  <top>-->
-<!--    <ToolBar style="-fx-background-color: transparent;">-->
-<!--      <Button fx:id="btnLanguage" text="%language"-->
-<!--              style="-fx-background-color: #64b5f6; -fx-text-fill: white; -fx-font-weight: bold;"/>-->
-<!--    </ToolBar>-->
-<!--  </top>-->
+
 
   <center>
     <TableView fx:id="tableView" style="-fx-background-color: white; -fx-border-color: #a5d6a7; -fx-border-radius: 5;">

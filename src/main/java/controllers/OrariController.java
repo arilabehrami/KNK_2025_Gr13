@@ -1,214 +1,216 @@
 package controllers;
 
-import services.UserSession;
-import javafx.beans.property.ReadOnlyObjectWrapper;
-import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.input.MouseEvent;
 import models.Dto.Orari.CreateOrariDto;
 import models.Dto.Orari.UpdateOrariDto;
 import models.domain.Orari;
 import services.OrariService;
-import services.LanguageManager;
 
-import java.util.Locale;
-import java.util.ResourceBundle;
+import java.time.LocalTime;
+import java.time.format.DateTimeParseException;
+import java.util.List;
+import java.util.Optional;
 
-public class OrariController extends BaseController {
+public class OrariController {
 
-    String username = UserSession.getInstance().getUsername();
-    int userId = UserSession.getInstance().getUserId();
+    @FXML
+    private TableView<Orari> tableOrari;
 
-    @FXML private TableView<Orari> tableOrari;
-    @FXML private TableColumn<Orari, Integer> colOrariID;
-    @FXML private TableColumn<Orari, Integer> colFemijaID;
-    @FXML private TableColumn<Orari, String> colDita;
-    @FXML private TableColumn<Orari, String> colOraHyrjes;
-    @FXML private TableColumn<Orari, String> colOraDaljes;
+    @FXML
+    private TableColumn<Orari, Integer> colOrariID;
 
-    @FXML private TextField tfFemijaID;
-    @FXML private TextField tfDita;
-    @FXML private TextField tfOraHyrjes;
-    @FXML private TextField tfOraDaljes;
+    @FXML
+    private TableColumn<Orari, Integer> colFemijaID;
 
-    @FXML private Button btnAdd;
-    @FXML private Button btnUpdate;
-    @FXML private Button btnDelete;
-    @FXML private Button btnClear;
+    @FXML
+    private TableColumn<Orari, String> colDita;
 
-    @FXML private Label lblFemijaID;
-    @FXML private Label lblDita;
-    @FXML private Label lblOraHyrjes;
-    @FXML private Label lblOraDaljes;
+    @FXML
+    private TableColumn<Orari, String> colOraHyrjes;
 
-    private OrariService orariService = new OrariService();
-    private final ObservableList<Orari> orariList = FXCollections.observableArrayList();
-    private Orari selectedOrari;
-    private ResourceBundle resources;
+    @FXML
+    private TableColumn<Orari, String> colOraDaljes;
+
+    @FXML
+    private TextField tfFemijaID;
+
+    @FXML
+    private TextField tfDita;
+
+    @FXML
+    private TextField tfOraHyrjes;
+
+    @FXML
+    private TextField tfOraDaljes;
+
+    @FXML
+    private Button btnAdd, btnUpdate, btnDelete, btnClear;
+
+    private final OrariService orariService = new OrariService();
+
+    private ObservableList<Orari> orariList = FXCollections.observableArrayList();
 
     @FXML
     public void initialize() {
-        resources = LanguageManager.getBundle();
+        // Setup table columns
+        colOrariID.setCellValueFactory(data ->
+                new javafx.beans.property.SimpleIntegerProperty(data.getValue().getOrariID()).asObject()
+        );
+        colFemijaID.setCellValueFactory(data ->
+                new javafx.beans.property.SimpleIntegerProperty(data.getValue().getFemijaID()).asObject()
+        );
+        colDita.setCellValueFactory(data -> new javafx.beans.property.SimpleStringProperty(data.getValue().getDita()));
+        colOraHyrjes.setCellValueFactory(data -> new javafx.beans.property.SimpleStringProperty(data.getValue().getOraHyrjes().toString()));
+        colOraDaljes.setCellValueFactory(data -> new javafx.beans.property.SimpleStringProperty(data.getValue().getOraDaljes().toString()));
 
-        colOrariID.setCellValueFactory(data -> new ReadOnlyObjectWrapper<>(data.getValue().getOrariID()));
-        colFemijaID.setCellValueFactory(data -> new ReadOnlyObjectWrapper<>(data.getValue().getFemijaID()));
-        colDita.setCellValueFactory(data -> new ReadOnlyStringWrapper(data.getValue().getDita()));
-        colOraHyrjes.setCellValueFactory(data -> new ReadOnlyStringWrapper(data.getValue().getOraHyrjes().toString()));
-        colOraDaljes.setCellValueFactory(data -> new ReadOnlyStringWrapper(data.getValue().getOraDaljes().toString()));
-
-        tableOrari.setOnMouseClicked(this::handleRowSelect);
-
-        refreshLanguage();
-
+        // Load data from DB
         loadOrariData();
+
+        // Handle table row selection to populate form
+        tableOrari.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+            if (newSelection != null) {
+                populateForm(newSelection);
+            }
+        });
+
+        // Initially disable update and delete buttons (nothing selected)
+        btnUpdate.setDisable(true);
+        btnDelete.setDisable(true);
     }
 
     private void loadOrariData() {
-        orariList.clear();
-        try {
-            orariList.addAll(orariService.getAllOrari());
-            tableOrari.setItems(orariList);
-        } catch (Exception e) {
-            showError(resources.getString("orari.error.load") + "\n" + e.getMessage());
-        }
+        List<Orari> allOrari = orariService.getAllOrari();
+        orariList.setAll(allOrari);
+        tableOrari.setItems(orariList);
     }
 
-    private void handleRowSelect(MouseEvent event) {
-        selectedOrari = tableOrari.getSelectionModel().getSelectedItem();
-        if (selectedOrari != null) {
-            tfFemijaID.setText(String.valueOf(selectedOrari.getFemijaID()));
-            tfDita.setText(selectedOrari.getDita());
-            tfOraHyrjes.setText(selectedOrari.getOraHyrjes().toString());
-            tfOraDaljes.setText(selectedOrari.getOraDaljes().toString());
-        }
-    }
+    private void populateForm(Orari orari) {
+        tfFemijaID.setText(String.valueOf(orari.getFemijaID()));
+        tfDita.setText(orari.getDita());
+        tfOraHyrjes.setText(orari.getOraHyrjes().toString());
+        tfOraDaljes.setText(orari.getOraDaljes().toString());
 
-    @FXML
-    public void addOrari() {
-        try {
-            int femijaID = Integer.parseInt(tfFemijaID.getText());
-            String dita = tfDita.getText();
-            String oraHyrjes = tfOraHyrjes.getText();
-            String oraDaljes = tfOraDaljes.getText();
+        // Enable update and delete buttons when a row is selected
+        btnUpdate.setDisable(false);
+        btnDelete.setDisable(false);
 
-            CreateOrariDto dto = new CreateOrariDto(femijaID, dita, oraHyrjes, oraDaljes);
-            orariService.addOrari(dto);
-            clearForm();
-            loadOrariData();
-            showInfo(resources.getString("orari.info.added"));
-        } catch (NumberFormatException nfe) {
-            showError(resources.getString("error.invalid_id"));
-        } catch (Exception e) {
-            showError(resources.getString("orari.error.add") + "\n" + e.getMessage());
-        }
+        // Disable add button to avoid duplicate inserts
+        btnAdd.setDisable(true);
     }
 
     @FXML
-    public void updateOrari() {
-        if (selectedOrari == null) {
-            showError(resources.getString("orari.warning.select"));
-            return;
-        }
-        try {
-            int orariID = selectedOrari.getOrariID();
-            int femijaID = Integer.parseInt(tfFemijaID.getText());
-            String dita = tfDita.getText();
-            String oraHyrjes = tfOraHyrjes.getText();
-            String oraDaljes = tfOraDaljes.getText();
-
-            UpdateOrariDto dto = new UpdateOrariDto(orariID, femijaID, dita, oraHyrjes, oraDaljes);
-            orariService.updateOrari(dto);
-            clearForm();
-            loadOrariData();
-            showInfo(resources.getString("orari.info.updated"));
-        } catch (NumberFormatException nfe) {
-            showError(resources.getString("error.invalid_id"));
-        } catch (Exception e) {
-            showError(resources.getString("orari.error.update") + "\n" + e.getMessage());
-        }
-    }
-
-    @FXML
-    public void deleteOrari() {
-        if (selectedOrari == null) {
-            showError(resources.getString("orari.warning.select"));
-            return;
-        }
-        try {
-            orariService.deleteOrari(selectedOrari.getOrariID());
-            clearForm();
-            loadOrariData();
-            showInfo(resources.getString("orari.info.deleted"));
-        } catch (Exception e) {
-            showError(resources.getString("orari.error.delete") + "\n" + e.getMessage());
-        }
-    }
-
-    @FXML
-    public void clearForm() {
+    private void clearForm() {
         tfFemijaID.clear();
         tfDita.clear();
         tfOraHyrjes.clear();
         tfOraDaljes.clear();
-        selectedOrari = null;
+
+        // Clear selection in table
         tableOrari.getSelectionModel().clearSelection();
-    }
 
-    @Override
-    protected void refreshLanguage() {
-        resources = LanguageManager.getBundle();
-        if (resources == null) return;
-
-        colOrariID.setText(resources.getString("orari.id"));
-        colFemijaID.setText(resources.getString("orari.femijaID"));
-        colDita.setText(resources.getString("orari.dita"));
-        colOraHyrjes.setText(resources.getString("orari.oraHyrjes"));
-        colOraDaljes.setText(resources.getString("orari.oraDaljes"));
-
-        btnAdd.setText(resources.getString("button.add"));
-        btnUpdate.setText(resources.getString("button.update"));
-        btnDelete.setText(resources.getString("button.delete"));
-        btnClear.setText(resources.getString("button.clear"));
-
-        lblFemijaID.setText(resources.getString("orari.lblFemijaID"));
-        lblDita.setText(resources.getString("orari.lblDita"));
-        lblOraHyrjes.setText(resources.getString("orari.lblOraHyrjes"));
-        lblOraDaljes.setText(resources.getString("orari.lblOraDaljes"));
-
-        tfFemijaID.setPromptText(resources.getString("orari.lblFemijaID"));
-        tfDita.setPromptText(resources.getString("orari.lblDita"));
-        tfOraHyrjes.setPromptText(resources.getString("orari.lblOraHyrjes"));
-        tfOraDaljes.setPromptText(resources.getString("orari.lblOraDaljes"));
-
-        tableOrari.refresh();
+        // Enable add button, disable update/delete
+        btnAdd.setDisable(false);
+        btnUpdate.setDisable(true);
+        btnDelete.setDisable(true);
     }
 
     @FXML
-    public void switchToAlbanian() {
-        LanguageManager.setLocale(new Locale("sq"));
-        refreshLanguage();
+    private void addOrari() {
+        try {
+            int femijaID = Integer.parseInt(tfFemijaID.getText().trim());
+            String dita = tfDita.getText().trim();
+            LocalTime oraHyrjes = LocalTime.parse(tfOraHyrjes.getText().trim());
+            LocalTime oraDaljes = LocalTime.parse(tfOraDaljes.getText().trim());
+
+            if (dita.isEmpty()) {
+                showAlert(Alert.AlertType.ERROR, "Validation Error", "Dita nuk mund të jetë e zbrazët.");
+                return;
+            }
+
+            CreateOrariDto dto = new CreateOrariDto(femijaID, dita, oraHyrjes.toString(), oraDaljes.toString());
+            Orari created = orariService.addOrari(dto);
+            if (created != null) {
+                orariList.add(created);
+                clearForm();
+                showAlert(Alert.AlertType.INFORMATION, "Sukses", "Orari u shtua me sukses.");
+            } else {
+                showAlert(Alert.AlertType.ERROR, "Gabim", "Nuk mund të shtohet Orari.");
+            }
+
+        } catch (NumberFormatException e) {
+            showAlert(Alert.AlertType.ERROR, "Gabim", "Femija ID duhet të jetë numër i vlefshëm.");
+        } catch (DateTimeParseException e) {
+            showAlert(Alert.AlertType.ERROR, "Gabim", "Format i gabuar për Ora Hyrjes ose Ora Daljes (duhet HH:mm:ss).");
+        }
     }
 
     @FXML
-    public void switchToEnglish() {
-        LanguageManager.setLocale(Locale.ENGLISH);
-        refreshLanguage();
+    private void updateOrari() {
+        Orari selected = tableOrari.getSelectionModel().getSelectedItem();
+        if (selected == null) {
+            showAlert(Alert.AlertType.WARNING, "Paralajmërim", "Asnjë Orar i përzgjedhur për përditësim.");
+            return;
+        }
+
+        try {
+            int femijaID = Integer.parseInt(tfFemijaID.getText().trim());
+            String dita = tfDita.getText().trim();
+            LocalTime oraHyrjes = LocalTime.parse(tfOraHyrjes.getText().trim());
+            LocalTime oraDaljes = LocalTime.parse(tfOraDaljes.getText().trim());
+
+            if (dita.isEmpty()) {
+                showAlert(Alert.AlertType.ERROR, "Validation Error", "Dita nuk mund të jetë e zbrazët.");
+                return;
+            }
+
+            UpdateOrariDto dto = new UpdateOrariDto(selected.getOrariID(), femijaID, dita, oraHyrjes.toString(), oraDaljes.toString());
+            Orari updated = orariService.updateOrari(dto);
+            if (updated != null) {
+                int idx = orariList.indexOf(selected);
+                orariList.set(idx, updated);
+                clearForm();
+                showAlert(Alert.AlertType.INFORMATION, "Sukses", "Orari u përditësua me sukses.");
+            } else {
+                showAlert(Alert.AlertType.ERROR, "Gabim", "Nuk mund të përditësohet Orari.");
+            }
+        } catch (NumberFormatException e) {
+            showAlert(Alert.AlertType.ERROR, "Gabim", "Femija ID duhet të jetë numër i vlefshëm.");
+        } catch (DateTimeParseException e) {
+            showAlert(Alert.AlertType.ERROR, "Gabim", "Format i gabuar për Ora Hyrjes ose Ora Daljes (duhet HH:mm:ss).");
+        }
     }
 
-    private void showError(String message) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle(resources != null ? resources.getString("alert.error") : "Error");
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-        alert.showAndWait();
+    @FXML
+    private void deleteOrari() {
+        Orari selected = tableOrari.getSelectionModel().getSelectedItem();
+        if (selected == null) {
+            showAlert(Alert.AlertType.WARNING, "Paralajmërim", "Asnjë Orar i përzgjedhur për fshirje.");
+            return;
+        }
+
+        Alert confirm = new Alert(Alert.AlertType.CONFIRMATION);
+        confirm.setTitle("Konfirmo fshirjen");
+        confirm.setHeaderText(null);
+        confirm.setContentText("A jeni të sigurt që dëshironi të fshini Orarin me ID: " + selected.getOrariID() + "?");
+        Optional<ButtonType> result = confirm.showAndWait();
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+            boolean deleted = orariService.deleteOrari(selected.getOrariID());
+            if (deleted) {
+                orariList.remove(selected);
+                clearForm();
+                showAlert(Alert.AlertType.INFORMATION, "Sukses", "Orari u fshi me sukses.");
+            } else {
+                showAlert(Alert.AlertType.ERROR, "Gabim", "Nuk mund të fshihet Orari.");
+            }
+        }
     }
 
-    private void showInfo(String message) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle(resources != null ? resources.getString("alert.info") : "Info");
+    private void showAlert(Alert.AlertType type, String title, String message) {
+        Alert alert = new Alert(type);
+        alert.setTitle(title);
         alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();

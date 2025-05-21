@@ -65,7 +65,7 @@ public class FemijetService {
         }
     }
 
-    // Kjo është metoda që mungonte në shërbim dhe që përdoret nga controller-i për fshirje:
+
     public boolean delete(int id) throws Exception {
         boolean success = femijetRepository.delete(id);
         if (!success) {

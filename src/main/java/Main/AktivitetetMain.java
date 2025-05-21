@@ -14,8 +14,7 @@ public class AktivitetetMain extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Locale.setDefault(Locale.ENGLISH); // opsional, për testim mund të përdorësh Locale.forLanguageTag("sq") për shqip
-
+        Locale.setDefault(Locale.ENGLISH);
         ResourceBundle bundle = ResourceBundle.getBundle("languages.messages", Locale.getDefault());
 
         FXMLLoader loader = new FXMLLoader(Pagesa.class.getResource("/Views/AktivitetetView.fxml"));

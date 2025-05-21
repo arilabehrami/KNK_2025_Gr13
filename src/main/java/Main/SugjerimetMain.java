@@ -1,21 +1,29 @@
 package Main;
 
-import helpers.LanguageContext;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import services.LanguageManager;
+import services.UserSession;
 
 import java.util.ResourceBundle;
 
 public class SugjerimetMain extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
-        ResourceBundle bundle = ResourceBundle.getBundle("languages.messages", LanguageContext.currentLocale);
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/SugjerimetView.fxml"), bundle);
+        // Inicializim testues i UserSession
+        UserSession.init(1, "admin");
 
-        primaryStage.setScene(new Scene(loader.load()));
-        primaryStage.setTitle(bundle.getString("label.title1"));
+        // Merr përkthimet nga gjuha e caktuar
+        ResourceBundle bundle = LanguageManager.getBundle();
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/SugjerimetView.fxml"), bundle);
+        Parent root = loader.load();
+
+        primaryStage.setScene(new Scene(root));
+        primaryStage.setTitle(bundle.getString("title.sugjerimet")); // nga fajlli i përkthimeve
         primaryStage.show();
     }
 

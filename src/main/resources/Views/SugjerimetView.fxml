@@ -7,43 +7,28 @@
 <?import javafx.collections.FXCollections?>
 <?import java.lang.String?>
 
-<AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="controllers.SugjerimetController"
+<AnchorPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="controllers.SugjerimetController"
             prefHeight="600" prefWidth="600">
   <children>
-    <VBox alignment="CENTER" spacing="10.0" layoutX="14.0" layoutY="14.0"
+    <VBox alignment="CENTER" spacing="10.0"
+          layoutX="14.0" layoutY="14.0"
           AnchorPane.topAnchor="10" AnchorPane.leftAnchor="10" AnchorPane.rightAnchor="10">
 
-      <!-- Zgjedhja e gjuhës -->
-      <HBox alignment="CENTER_RIGHT">
-        <Label text="Gjuha/Language:"/>
-        <ComboBox fx:id="languageSelector" onAction="#onLanguageChange"/>
-      </HBox>
-
-      <!-- Fushat për input -->
       <TextField fx:id="emriSugjeruesitField" promptText="%label.emrisugjeruesit"/>
 
-      <ComboBox fx:id="roliComboBox" promptText="%label.roli">
-        <items>
-          <FXCollections fx:factory="observableArrayList">
-            <String fx:value="%roli.prind"/>
-            <String fx:value="%roli.edukator"/>
-            <String fx:value="%roli.staf"/>
-          </FXCollections>
-        </items>
-      </ComboBox>
+      <ComboBox fx:id="roliComboBox" promptText="%label.roli"/>
 
       <DatePicker fx:id="dataPicker"/>
       <TextArea fx:id="pershkrimiField" promptText="%label.pershkrimi" prefRowCount="5"/>
 
-      <!-- Butonat e veprimeve -->
       <HBox spacing="10">
-        <Button text="%button.shto" onAction="#onShtoSugjerim"/>
-        <Button text="%button.update_note" onAction="#onPerditesoSugjerim"/>
+        <Button fx:id="shtoButton" onAction="#onShtoSugjerim"/>
+        <Button fx:id="perditesoButton" onAction="#onPerditesoSugjerim"/>
       </HBox>
 
       <Label fx:id="statusLabel" textFill="RED"/>
 
-      <!-- Tabela -->
       <TableView fx:id="sugjerimetTable" prefHeight="200">
         <columns>
           <TableColumn fx:id="colID" text="%table.id"/>
@@ -54,11 +39,9 @@
         </columns>
       </TableView>
 
-      <!-- Butonat për tabela -->
       <HBox spacing="10">
-        <Button text="%button.load_all" onAction="#onNgarkoSugjerimet"/>
-        <Button text="%button.delete_note" onAction="#onFshijSugjerim"/>
-        <Button text="%button.clear" onAction="#onPastroFushatETabelen"/>
+        <Button fx:id="fshijButton" onAction="#onFshijSugjerim"/>
+        <Button fx:id="pastroButton" onAction="#onPastroFushat"/>
       </HBox>
     </VBox>
   </children>

@@ -9,7 +9,6 @@ public class Aktivitetet {
     private LocalDate data;
     private int grupiID;
 
-    // Konstruktor bosh për raste të veçanta (opsionale)
     public Aktivitetet() {
     }
 
@@ -25,7 +24,6 @@ public class Aktivitetet {
         this(0, emriAktivitetit, pershkrimi, data, grupiID);
     }
 
-    // Getters & Setters
     public int getAktivitetiID() { return aktivitetiID; }
     public void setAktivitetiID(int aktivitetiID) { this.aktivitetiID = aktivitetiID; }
     public String getEmriAktivitetit() { return emriAktivitetit; }

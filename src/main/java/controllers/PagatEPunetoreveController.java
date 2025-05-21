@@ -55,35 +55,28 @@ public class PagatEPunetoreveController {
 
     @FXML
     public void initialize() {
-        // Merr instancën e UserSession
         UserSession session = UserSession.getInstance();
 
         if (session == null) {
-            // Nëse UserSession nuk është krijuar, shfaq paralajmërim dhe ç'aktivizo butonat që kërkojnë sesion
             showAlert("Gabim", "UserSession nuk është inicializuar. Ju lutem logohuni para se të përdorni këtë pamje.");
 
-            // Opsional: blloko butonat për të mos lejuar veprime pa sesion
             kerkoButton.setDisable(true);
             fshijButton.setDisable(true);
             ruajButton.setDisable(true);
 
-            // Pastro tabelën nga të dhënat
             tableView.setItems(FXCollections.observableArrayList());
             return;
         }
 
-        // Nëse UserSession ekziston, ruaj të dhënat e përdoruesit
         this.username = session.getUsername();
         this.userId = session.getUserId();
 
-        // Inicializo kolonat e tabelës
         idColumn.setCellValueFactory(new PropertyValueFactory<>("pagaID"));
         muajiColumn.setCellValueFactory(new PropertyValueFactory<>("muaji"));
         vitiColumn.setCellValueFactory(new PropertyValueFactory<>("viti"));
         shumaColumn.setCellValueFactory(new PropertyValueFactory<>("shumaPaga"));
         dataColumn.setCellValueFactory(new PropertyValueFactory<>("dataEPageses"));
 
-        // Ngarko dhe shfaq të dhënat
         refreshTable();
     }
 

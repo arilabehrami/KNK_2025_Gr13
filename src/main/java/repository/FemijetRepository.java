@@ -34,12 +34,12 @@ public class FemijetRepository extends BaseRepository<Femijet, CreateFemijetDto,
             pstm.setString(1, femijetDto.getEmri());
             pstm.setString(2, femijetDto.getMbiemri());
 
-            // Konverto LocalDate në java.sql.Date
-            LocalDate dataLindjes = LocalDate.parse(femijetDto.getDataLindjes()); // Sigurohu që kthen LocalDate
+
+            LocalDate dataLindjes = LocalDate.parse(femijetDto.getDataLindjes());
             pstm.setDate(3, java.sql.Date.valueOf(dataLindjes));
 
-            // Nëse gjinia është String, përdore setString, nëse boolean → përdor setBoolean
-            pstm.setString(4, femijetDto.isGjinia()); // ose setBoolean(4, femijetDto.isGjinia());
+
+            pstm.setString(4, femijetDto.isGjinia());
 
             pstm.setString(5, femijetDto.getAdresa());
             pstm.setString(6, femijetDto.getEmriPrindit());
@@ -70,10 +70,10 @@ public class FemijetRepository extends BaseRepository<Femijet, CreateFemijetDto,
             pstm.setString(2, femijetDto.getMbiemri());
 
             // Konverto LocalDate në java.sql.Date
-            LocalDate dataLindjes = LocalDate.parse(femijetDto.getDataLindjes()); // Sigurohu që kthen LocalDate
+            LocalDate dataLindjes = LocalDate.parse(femijetDto.getDataLindjes());
             pstm.setDate(3, java.sql.Date.valueOf(dataLindjes));
 
-            pstm.setString(4, femijetDto.isGjinia()); // ose setBoolean nëse është boolean
+            pstm.setString(4, femijetDto.isGjinia());
             pstm.setString(5, femijetDto.getAdresa());
             pstm.setString(6, femijetDto.getEmriPrindit());
             pstm.setString(7, femijetDto.getKontaktiPrindit());

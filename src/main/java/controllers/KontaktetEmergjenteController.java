@@ -1,68 +1,143 @@
 package controllers;
 
-import services.UserSession;
-import helpers.LanguageContext;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.stage.Stage;
-import models.Dto.KontatetEmergjente.CreateKontaktetEmergjenteDto;
+import javafx.scene.control.cell.PropertyValueFactory;
 import models.domain.KontaktiEmergjent;
+import models.Dto.KontatetEmergjente.CreateKontaktetEmergjenteDto;
+import models.Dto.KontatetEmergjente.UpdateKontaktetEmergjenteDto;
 import services.KontaktiEmergjentService;
+import services.LanguageManager;
 
-import java.io.IOException;
-import java.util.Locale;
 import java.util.ResourceBundle;
 
-public class KontaktetEmergjenteController {
+public class KontaktetEmergjenteController extends BaseController {
 
-    String username = UserSession.getInstance().getUsername();
-    int userId = UserSession.getInstance().getUserId();
-    @FXML private ComboBox<String> languageSelector;
-    @FXML private TextField femijaIdField, emriField, mbiemriField, telefoniField;
+    @FXML private TextField femijaIdField;
+    @FXML private TextField emriField;
+    @FXML private TextField mbiemriField;
+    @FXML private TextField telefoniField;
+
+    @FXML private Button shtoButton, perditesoButton, fshijButton, pastroButton;
     @FXML private Label statusLabel;
+
+    @FXML private TableView<KontaktiEmergjent> kontaktetTable;
+    @FXML private TableColumn<KontaktiEmergjent, Integer> idColumn, femijaIdColumn;
+    @FXML private TableColumn<KontaktiEmergjent, String> emriColumn, mbiemriColumn, telefoniColumn;
 
     private final KontaktiEmergjentService service = new KontaktiEmergjentService();
 
     @FXML
     public void initialize() {
-        languageSelector.getItems().addAll("Shqip", "English");
-        languageSelector.setValue(LanguageContext.currentLocale.getLanguage().equals("en") ? "English" : "Shqip");
+        idColumn.setCellValueFactory(new PropertyValueFactory<>("kontaktiID"));
+        femijaIdColumn.setCellValueFactory(new PropertyValueFactory<>("femijaID"));
+        emriColumn.setCellValueFactory(new PropertyValueFactory<>("emri"));
+        mbiemriColumn.setCellValueFactory(new PropertyValueFactory<>("mbiemri"));
+        telefoniColumn.setCellValueFactory(new PropertyValueFactory<>("telefoni"));
+
+        kontaktetTable.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
+            if (newVal != null) {
+                femijaIdField.setText(String.valueOf(newVal.getFemijaID()));
+                emriField.setText(newVal.getEmri());
+                mbiemriField.setText(newVal.getMbiemri());
+                telefoniField.setText(newVal.getTelefoni());
+            }
+        });
+
+        ngarkoKontaktet();
+        refreshLanguage();
+    }
+
+    @Override
+    protected void refreshLanguage() {
+        resources = LanguageManager.getBundle();
+
+        femijaIdField.setPromptText(resources.getString("label.femijaid"));
+        emriField.setPromptText(resources.getString("label.emri"));
+        mbiemriField.setPromptText(resources.getString("label.mbiemri"));
+        telefoniField.setPromptText(resources.getString("label.telefoni"));
+
+        idColumn.setText(resources.getString("table.id"));
+        femijaIdColumn.setText(resources.getString("label.femijaid"));
+        emriColumn.setText(resources.getString("label.emri"));
+        mbiemriColumn.setText(resources.getString("label.mbiemri"));
+        telefoniColumn.setText(resources.getString("label.telefoni"));
+
+        shtoButton.setText(resources.getString("button.shtokontakt"));
+        perditesoButton.setText(resources.getString("button.update_note"));
+        fshijButton.setText(resources.getString("button.delete_note"));
+        pastroButton.setText(resources.getString("button.clear"));
     }
 
     @FXML
-    public void onShtoKontakti() {
+    private void onShtoKontakti() {
         try {
             int femijaId = Integer.parseInt(femijaIdField.getText());
-            String emri = emriField.getText();
-            String mbiemri = mbiemriField.getText();
-            String telefoni = telefoniField.getText();
-
-            var dto = new CreateKontaktetEmergjenteDto(femijaId, emri, mbiemri, telefoni);
-            KontaktiEmergjent kontakti = service.create(dto);
-
-            statusLabel.setText("✔ " + kontakti.getEmri() + " " + kontakti.getMbiemri());
+            var dto = new CreateKontaktetEmergjenteDto(femijaId, emriField.getText(), mbiemriField.getText(), telefoniField.getText());
+            service.create(dto);
+            statusLabel.setText(resources.getString("message.shtuar_sukses"));
+            ngarkoKontaktet();
+            clearFields();
         } catch (Exception e) {
-            statusLabel.setText("❌ " + e.getMessage());
+            statusLabel.setText(resources.getString("message.gabim") + ": " + e.getMessage());
         }
     }
 
     @FXML
-    private void onLanguageChange() {
-        String selected = languageSelector.getValue();
-        Locale locale = selected.equals("English") ? new Locale("en") : new Locale("sq");
-        LanguageContext.currentLocale = locale;
+    private void onPerditesoKontakti() {
+        var selected = kontaktetTable.getSelectionModel().getSelectedItem();
+        if (selected == null) {
+            statusLabel.setText(resources.getString("message.zgjidh_rresht"));
+            return;
+        }
 
         try {
-            ResourceBundle bundle = ResourceBundle.getBundle("languages.messages", locale);
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/KontaktetEmergjenteView.fxml"), bundle);
-            Parent root = loader.load();
-            Stage stage = (Stage) languageSelector.getScene().getWindow();
-            stage.setScene(new Scene(root));
-        } catch (IOException e) {
-            e.printStackTrace();
+            var dto = new UpdateKontaktetEmergjenteDto(
+                    selected.getKontaktiID(),
+                    emriField.getText(),
+                    mbiemriField.getText(),
+                    telefoniField.getText()
+            );
+            service.update(dto);
+            statusLabel.setText(resources.getString("message.perditesuar_sukses"));
+            ngarkoKontaktet();
+            clearFields();
+        } catch (Exception e) {
+            statusLabel.setText(resources.getString("message.gabim") + ": " + e.getMessage());
         }
+    }
+
+    @FXML
+    private void onFshijKontakti() {
+        var selected = kontaktetTable.getSelectionModel().getSelectedItem();
+        if (selected == null) {
+            statusLabel.setText(resources.getString("message.zgjidh_rresht"));
+            return;
+        }
+
+        boolean deleted = service.delete(selected.getKontaktiID());
+        if (deleted) {
+            statusLabel.setText(resources.getString("message.fshire_sukses"));
+            ngarkoKontaktet();
+        } else {
+            statusLabel.setText(resources.getString("message.fshirja_deshtoi"));
+        }
+    }
+
+    @FXML
+    private void onPastroFushat() {
+        clearFields();
+        kontaktetTable.getSelectionModel().clearSelection();
+    }
+
+    private void clearFields() {
+        femijaIdField.clear();
+        emriField.clear();
+        mbiemriField.clear();
+        telefoniField.clear();
+    }
+
+    private void ngarkoKontaktet() {
+        kontaktetTable.getItems().setAll(service.getAll());
     }
 }
