@@ -101,13 +101,23 @@ public class LoginController {
 
     private void loadMainView(String username) {
         try {
+            // Ngarko FXML-in për MainView
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/MainView.fxml"));
             Parent root = loader.load();
 
-            // Dergo username ne MainController
+// Merr controller-in e MainView
             MainController controller = loader.getController();
+
+// Dërgo username-n te controller-i
             controller.setUsername(username);
-            controller.stage((Stage) usernameField.getScene().getWindow());
+
+// Ruaj referencën e Stage-it në controller për përdorime të mëtejshme
+            Stage currentStage = (Stage) usernameField.getScene().getWindow();
+            controller.setStage(currentStage);  // Përdor 'setStage' për ta ruajtur Stage-in
+
+// Ndrysho scene në Stage për të shfaqur MainView
+            currentStage.getScene().setRoot(root);
+
 
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
