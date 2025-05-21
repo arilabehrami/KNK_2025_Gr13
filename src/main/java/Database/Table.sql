@@ -5,12 +5,12 @@ CREATE TABLE users (
 );
 
 INSERT INTO users (username, password) VALUES
-('erisasollova', '12345678'),
-('elonabiringjiku', '12345678'),
-('arilabehrami', '12345678'),
-('agnesasuhodolli', '12345678'),
-('lizesyla', '12345678'),
-('erinamustafa', '12345678');
+('erisasollova', '123'),
+('elonabiringjiku', '123'),
+('arilabehrami', '123'),
+('agnesasuhodolli', '123'),
+('lizesyla', '123'),
+('erinamustafa', '123');
 
 
 INSERT INTO Femijet (Emri, Mbiemri, DataLindjes, Gjinia, Adresa, EmriPrindit, KontaktiPrindit) VALUES
@@ -96,6 +96,20 @@ INSERT INTO Prania (FemijaID, Data, Statusi) VALUES
 (8, '2024-05-01', 'Mungon'),
 (9, '2024-05-01', 'I pranishem'),
 (10, '2024-05-01', 'I pranishem');
+
+INSERT INTO Sugjerimet (EmriSugjeruesit, Roli, Data, Pershkrimi)
+VALUES
+('Arben Krasniqi', 'Prind', '2024-05-01', 'Të organizohen aktivitete në natyrë.'),
+('Elira Hoxha', 'Edukator', '2024-05-02', 'Më shumë lodra edukuese.'),
+('Besnik Berisha', 'Staf tjetër', '2024-05-03', 'Të kontrollohen më shpesh pajisjet elektrike.'),
+('Lindita Zeka', 'Prind', '2024-05-04', 'Të ketë një kënd leximi.'),
+('Driton Islami', 'Edukator', '2024-05-05', 'Kurs trajnimi për stafin e ri.'),
+('Arta Krasniqi', 'Prind', '2024-05-06', 'Shtim i aktiviteteve muzikore.'),
+('Fitore Dema', 'Staf tjetër', '2024-05-07', 'Mirëmbajtje më e rregullt e ambientit.'),
+('Valon Haliti', 'Edukator', '2024-05-08', 'Rifreskimi i lodrave të jashtme.'),
+('Donika Gashi', 'Prind', '2024-05-09', 'Më shumë komunikim me prindërit.'),
+('Petrit Maliqi', 'Staf tjetër', '2024-05-10', 'Kënde të qeta për fëmijët me nevoja të veçanta.');
+
 
 INSERT INTO Aktivitetet (EmriAktivitetit, Pershkrimi, Data, GrupiID) VALUES
 ('Vizitë në park', 'Ekskursion në parkun lokal', '2024-05-10', 1),
@@ -193,7 +207,7 @@ INSERT INTO Financat (Data, teArdhura, Shpenzime, Pershkrimi) VALUES
 ('2024-09-01', 4800.00, 2900.00, 'Pagesa për shërbime'),
 ('2024-10-01', 5300.00, 3100.00, 'Përgatitje për sezonin e ri');
 
-INSERT INTO PagatEPunetoreve (EdukatoriID, Muaji, Viti, ShumaPaga, DataPageses) VALUES
+INSERT INTO PagatPunetoreve (EdukatoriID, Muaji, Viti, ShumaPaga, DataPageses) VALUES
 (1, 'Janar', 2024, 1200.00, '2024-01-31'),
 (2, 'Janar', 2024, 1250.00, '2024-01-31'),
 (3, 'Janar', 2024, 1150.00, '2024-01-31'),
@@ -216,19 +230,6 @@ INSERT INTO Donacionet (EmriOrganizates, LlojiDonatori, Kontakti, Email, Adresa,
 ('Individi nga Diaspora', 'Individ', '044888777', 'diaspora@individ.com', 'Rr. Diaspora 7', '2024-08-15', 600.00, 'Financiar', 'Donacion personal'),
 ('Fondacioni i Shëndetit', 'Organizate', '045444555', 'info@shendeti.org', 'Rr. Shëndeti 2', '2024-09-20', 2500.00, 'Financiar', 'Donacion për shëndetësi'),
 ('Biznesi i Vogël', 'Biznes', '044111222', 'biznesvog@biz.com', 'Rr. Tregu 9', '2024-10-10', 1000.00, 'Financiar', 'Mbështetje për projekte');
-
-INSERT INTO Sugjerimet (EmriSugjeruesit, Roli, Data, Pershkrimi)
-VALUES
-('Arben Krasniqi', 'Prind', '2024-05-01', 'Të organizohen aktivitete në natyrë.'),
-('Elira Hoxha', 'Edukator', '2024-05-02', 'Më shumë lodra edukuese.'),
-('Besnik Berisha', 'Staf tjetër', '2024-05-03', 'Të kontrollohen më shpesh pajisjet elektrike.'),
-('Lindita Zeka', 'Prind', '2024-05-04', 'Të ketë një kënd leximi.'),
-('Driton Islami', 'Edukator', '2024-05-05', 'Kurs trajnimi për stafin e ri.'),
-('Arta Krasniqi', 'Prind', '2024-05-06', 'Shtim i aktiviteteve muzikore.'),
-('Fitore Dema', 'Staf tjetër', '2024-05-07', 'Mirëmbajtje më e rregullt e ambientit.'),
-('Valon Haliti', 'Edukator', '2024-05-08', 'Rifreskimi i lodrave të jashtme.'),
-('Donika Gashi', 'Prind', '2024-05-09', 'Më shumë komunikim me prindërit.'),
-('Petrit Maliqi', 'Staf tjetër', '2024-05-10', 'Kënde të qeta për fëmijët me nevoja të veçanta.');
 
 CREATE TABLE Femijet (
     FemijaID SERIAL PRIMARY KEY,
@@ -348,7 +349,7 @@ CREATE TABLE Financat (
     Pershkrimi TEXT
 );
 
-CREATE TABLE PagatEPunetoreve (
+CREATE TABLE PagatPunetoreve (
     PagaID SERIAL PRIMARY KEY,
     EdukatoriID INT NOT NULL REFERENCES Edukatoret(EdukatoriID) ON DELETE CASCADE,
     Muaji VARCHAR(50) NOT NULL,
@@ -378,3 +379,4 @@ CREATE TABLE Sugjerimet (
     Pershkrimi TEXT NOT NULL
 );
 
+SELECT * FROM Femijet WHERE FemijaID = 11;
