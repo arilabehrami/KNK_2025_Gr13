@@ -71,22 +71,14 @@
 
             <!-- Username -->
             <HBox spacing="10" alignment="CENTER">
-                <ImageView fitWidth="20" fitHeight="20">
-                    <image>
-                        <Image url="@../Images/Figura3.jpg" />
-                    </image>
-                </ImageView>
+
                 <TextField fx:id="usernameField" promptText="Emri i përdoruesit"
                            style="-fx-background-radius: 10; -fx-border-color: #c8e6c9; -fx-border-radius: 10; -fx-padding: 10;" />
             </HBox>
 
             <!-- Password -->
             <HBox spacing="20" alignment="CENTER">
-                <ImageView fitWidth="20" fitHeight="20">
-                    <image>
-                        <Image url="@../Images/Figura3.jpg" />
-                    </image>
-                </ImageView>
+
                 <PasswordField fx:id="passwordField" promptText="Fjalëkalimi"
                                style="-fx-background-radius: 10; -fx-border-color: #c8e6c9; -fx-border-radius: 10; -fx-padding: 10;" />
             </HBox>

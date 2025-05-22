@@ -12,28 +12,40 @@
 
 
     <top>
-        <HBox spacing="10" alignment="CENTER_LEFT"
-              style="-fx-padding: 10 20; -fx-background-color: linear-gradient(to right, #ffccbc, #ffab91);
-                 -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 0, 2);">
+        <HBox spacing="10" alignment="CENTER"
+              style="-fx-padding: 10 25;
+                 -fx-background-color: linear-gradient(to right, #ffccbc, #ffab91);
+                 -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 0, 2);"
+        >
 
-            <Label fx:id="emojiLabel" text="👶" style="-fx-font-size: 24px;" />
+            <!-- Welcome në majë -->
+            <Label fx:id="welcomeLabel"
+                   style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #e65100;" />
 
-            <VBox alignment="CENTER_LEFT">
-                <Label fx:id="appNameLabel" text="%app.name"
-                       style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #e65100;" />
-                <Label fx:id="quoteLabel" text="%app.quote"
-                       style="-fx-text-fill: #6d4c41;" />
-                <Label fx:id="welcomeLabel" text="%app.quote"
-                       style="-fx-text-fill: #6d4c41;" />
-            </VBox>
-
-
+            <!-- Pane për shtyrje -->
             <Pane HBox.hgrow="ALWAYS" />
 
+            <!-- Titulli në qendër -->
+            <VBox alignment="CENTER" spacing="3">
+                <Label fx:id="appNameLabel" text="%app.name"
+                       style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #e65100;" />
 
-            <Button fx:id="logoutBtn" text="%button.logout" />
+            </VBox>
+
+            <!-- Pane për shtyrje -->
+            <Pane HBox.hgrow="ALWAYS" />
+
+            <!-- Butoni në të djathtë -->
+            <Button fx:id="logoutBtn" text="%button.logout"
+                    style="-fx-background-color: #e65100;
+                       -fx-text-fill: white;
+                       -fx-font-weight: bold;
+                       -fx-padding: 6 18;
+                       -fx-background-radius: 15;
+                       -fx-cursor: hand;" />
         </HBox>
     </top>
+
 
 
     <left>
@@ -51,13 +63,19 @@
 
 
     <center>
-        <ScrollPane >
+        <ScrollPane prefWidth="400" prefHeight="300" fitToWidth="true" fitToHeight="true" >
             <AnchorPane fx:id="centerPane"
                         style="-fx-background-color: #ffffff;
                        -fx-background-radius: 20;
                        -fx-padding: 20;
-                       -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 10, 0.2, 0, 4);" />
+                       -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 10, 0.2, 0, 4);"
+                        AnchorPane.topAnchor="0.0"
+                        AnchorPane.bottomAnchor="0.0"
+                        AnchorPane.leftAnchor="0.0"
+                        AnchorPane.rightAnchor="0.0"/>
         </ScrollPane>
+
+
     </center>
 
 
