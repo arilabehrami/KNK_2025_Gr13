@@ -59,6 +59,7 @@ public class CreatePagesaController implements Initializable {
         colShuma.setCellValueFactory(new PropertyValueFactory<>("shuma"));
 
         tablePagesat.setItems(pagesaList);
+        refreshTable();
     }
 
     @FXML
