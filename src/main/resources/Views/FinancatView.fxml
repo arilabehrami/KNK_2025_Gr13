@@ -18,47 +18,7 @@
 <VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.FinancaController">
 
     <children>
-        <MenuBar VBox.vgrow="NEVER">
-            <menus>
-                <Menu mnemonicParsing="false" text="%menu.file">
-                    <items>
-                        <MenuItem mnemonicParsing="false" text="%menu.file.new" />
-                        <MenuItem mnemonicParsing="false" text="%menu.file.open" />
-                        <Menu mnemonicParsing="false" text="%menu.file.recent" />
-                        <SeparatorMenuItem />
-                        <MenuItem mnemonicParsing="false" text="%menu.file.close" />
-                        <MenuItem mnemonicParsing="false" text="%menu.file.save" />
-                        <MenuItem mnemonicParsing="false" text="%menu.file.saveas" />
-                        <MenuItem mnemonicParsing="false" text="%menu.file.revert" />
-                        <SeparatorMenuItem />
-                        <MenuItem mnemonicParsing="false" text="%menu.file.preferences" />
-                        <SeparatorMenuItem />
-                        <MenuItem mnemonicParsing="false" text="%menu.file.quit" />
-                    </items>
-                </Menu>
 
-                <Menu mnemonicParsing="false" text="%menu.edit">
-                    <items>
-                        <MenuItem mnemonicParsing="false" text="%menu.edit.undo" />
-                        <MenuItem mnemonicParsing="false" text="%menu.edit.redo" />
-                        <SeparatorMenuItem />
-                        <MenuItem mnemonicParsing="false" text="%menu.edit.cut" />
-                        <MenuItem mnemonicParsing="false" text="%menu.edit.copy" />
-                        <MenuItem mnemonicParsing="false" text="%menu.edit.paste" />
-                        <MenuItem mnemonicParsing="false" text="%menu.edit.delete" />
-                        <SeparatorMenuItem />
-                        <MenuItem mnemonicParsing="false" text="%menu.edit.selectall" />
-                        <MenuItem mnemonicParsing="false" text="%menu.edit.unselectall" />
-                    </items>
-                </Menu>
-
-                <Menu mnemonicParsing="false" text="%menu.help">
-                    <items>
-                        <MenuItem mnemonicParsing="false" text="%menu.help.about" />
-                    </items>
-                </Menu>
-            </menus>
-        </MenuBar>
 
         <AnchorPane VBox.vgrow="ALWAYS">
             <children>

@@ -17,6 +17,7 @@ public class FinancaController {
 
     String username = UserSession.getInstance().getUsername();
     int userId = UserSession.getInstance().getUserId();
+
     @FXML
     private TextField txtTeArdhura;
 
@@ -43,19 +44,27 @@ public class FinancaController {
 
     @FXML
     private TableView<Pagesa> tablePagesat;
+
     @FXML
     private TableView<Financat> tabelaFinancat;
+
     @FXML
     private TableColumn<Financat, Integer> colId;
+
     @FXML
     private TableColumn<Financat, String> colData;
+
     @FXML
     private TableColumn<Financat, Float> colTeArdhura;
+
     @FXML
     private TableColumn<Financat, Float> colShpenzime;
+
     @FXML
     private TableColumn<Financat, String> colPershkrimi;
 
+    @FXML
+    private Label lblInfo;
 
     private FinancaService financatService;
 
@@ -68,12 +77,28 @@ public class FinancaController {
         btnRuaj.setOnAction(e -> handleRuaj());
         btnFshij.setOnAction(e -> handleFshij());
         btnKerko.setOnAction(e -> handleKerko());
+
         colId.setCellValueFactory(data -> new javafx.beans.property.SimpleIntegerProperty(data.getValue().getFinancatID()).asObject());
         colData.setCellValueFactory(data -> new javafx.beans.property.SimpleStringProperty(data.getValue().getDate()));
         colTeArdhura.setCellValueFactory(data -> new javafx.beans.property.SimpleFloatProperty(data.getValue().getTeArdhura()).asObject());
         colShpenzime.setCellValueFactory(data -> new javafx.beans.property.SimpleFloatProperty(data.getValue().getShpenzime()).asObject());
         colPershkrimi.setCellValueFactory(data -> new javafx.beans.property.SimpleStringProperty(data.getValue().getPershkrimi()));
 
+        tabelaFinancat.setRowFactory(tv -> {
+            TableRow<Financat> row = new TableRow<>();
+            row.setOnMouseClicked(event -> {
+                if (!row.isEmpty() && event.getClickCount() == 1) {
+                    Financat financa = row.getItem();
+                    populateFields(financa);
+                    if (lblInfo != null) {
+                        lblInfo.setText(formatFinanca(financa));
+                    }
+                }
+            });
+            return row;
+        });
+
+        tabelaFinancat.getItems().setAll(financatService.getAllFinancat());
     }
 
     private void handleRuaj() {
@@ -104,7 +129,8 @@ public class FinancaController {
             Financat financa = financatService.create(dto);
             if (financa != null) {
                 showSuccess("Financa u ruajt me sukses!");
-                // Mund të shtosh ndonjë rifreskim të UI-së nëse dëshiron
+                tabelaFinancat.getItems().setAll(financatService.getAllFinancat());
+                clearFields();
             } else {
                 showError("Nuk u krye ruajtja e financave.");
             }
@@ -121,7 +147,8 @@ public class FinancaController {
             int id = Integer.parseInt(idStr);
             financatService.delete(id);
             showSuccess("Financa u fshi me sukses.");
-            // Mund të rifreskosh UI-në nëse ke nevojë
+            tabelaFinancat.getItems().setAll(financatService.getAllFinancat());
+            clearFields();
         } catch (NumberFormatException e) {
             showError("ID duhet të jetë numër.");
         } catch (Exception e) {
@@ -157,19 +184,38 @@ public class FinancaController {
                 tabelaFinancat.getItems().setAll(financatList);
             }
 
-
         } catch (Exception ex) {
-            showError("Gabim gjatë kërkimit: " + ex.getMessage());
+            showError("Gabim gjatë kërkimt: " + ex.getMessage());
         }
     }
 
-    // Metodë ndihmëse për formatimin e një objekti Financat në tekst
+    private void populateFields(Financat financa) {
+        txtId.setText(String.valueOf(financa.getFinancatID()));
+        txtTeArdhura.setText(String.valueOf(financa.getTeArdhura()));
+        txtShpenzime.setText(String.valueOf(financa.getShpenzime()));
+        txtPershkrimi.setText(financa.getPershkrimi());
+        datePicker.setValue(LocalDate.parse(financa.getDate()));
+
+        if (lblInfo != null) {
+            lblInfo.setText(formatFinanca(financa));
+        }
+    }
+
+    private void clearFields() {
+        txtId.clear();
+        txtTeArdhura.clear();
+        txtShpenzime.clear();
+        txtPershkrimi.clear();
+        datePicker.setValue(null);
+        if (lblInfo != null) lblInfo.setText("");
+    }
+
     private String formatFinanca(Financat f) {
-        return "ID: " + f.getFinancatID() +
-                "\nData: " + f.getDate() +
-                "\nTë Ardhura: " + f.getTeArdhura() +
-                "\nShpenzime: " + f.getShpenzime() +
-                "\nPërshkrimi: " + f.getPershkrimi();
+        return ":: ID: " + f.getFinancatID() +
+                "\n:: Data: " + f.getDate() +
+                "\n:: Të Ardhura: " + f.getTeArdhura() +
+                "\n:: Shpenzime: " + f.getShpenzime() +
+                "\n:: Përshkrimi: " + f.getPershkrimi();
     }
 
     private void showError(String message) {

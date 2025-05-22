@@ -74,7 +74,8 @@ public class MainController {
         addMenuItem("👥 " + bundle.getString("menu.grupet"), "GrupetView");
         addMenuItem("💳 " + bundle.getString("menu.financat"), "FinancatView");
         addMenuItem("🥦 " + bundle.getString("menu.ushqimet"), "UshqimetView");
-        addMenuItem("👪 " + bundle.getString("menu.prinderit"), "PrinderitView");}
+        addMenuItem("👪 " + bundle.getString("menu.prinderit"), "PrinderitView");
+        addMenuItem("💰 " + bundle.getString("menu.pagat"), "PagatView");}
 
     private void addMenuItem(String title, String fxmlName) {
         Label menuItem = new Label(title);
