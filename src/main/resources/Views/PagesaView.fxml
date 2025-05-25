@@ -16,45 +16,6 @@
 
 <VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.CreatePagesaController">
     <children>
-        <MenuBar VBox.vgrow="NEVER">
-            <menus>
-                <Menu mnemonicParsing="false" text="%menu.file">
-                    <items>
-                        <MenuItem mnemonicParsing="false" text="%menuitem.new" />
-                        <MenuItem mnemonicParsing="false" text="%menuitem.open" />
-                        <Menu mnemonicParsing="false" text="%menu.openRecent" />
-                        <SeparatorMenuItem mnemonicParsing="false" />
-                        <MenuItem mnemonicParsing="false" text="%menuitem.close" />
-                        <MenuItem mnemonicParsing="false" text="%menuitem.save" />
-                        <MenuItem mnemonicParsing="false" text="%menuitem.saveAs" />
-                        <MenuItem mnemonicParsing="false" text="%menuitem.revert" />
-                        <SeparatorMenuItem mnemonicParsing="false" />
-                        <MenuItem mnemonicParsing="false" text="%menuitem.preferences" />
-                        <SeparatorMenuItem mnemonicParsing="false" />
-                        <MenuItem mnemonicParsing="false" text="%menuitem.quit" />
-                    </items>
-                </Menu>
-                <Menu mnemonicParsing="false" text="%menu.edit">
-                    <items>
-                        <MenuItem mnemonicParsing="false" text="%menuitem.undo" />
-                        <MenuItem mnemonicParsing="false" text="%menuitem.redo" />
-                        <SeparatorMenuItem mnemonicParsing="false" />
-                        <MenuItem mnemonicParsing="false" text="%menuitem.cut" />
-                        <MenuItem mnemonicParsing="false" text="%menuitem.copy" />
-                        <MenuItem mnemonicParsing="false" text="%menuitem.paste" />
-                        <MenuItem mnemonicParsing="false" text="%menuitem.delete" />
-                        <SeparatorMenuItem mnemonicParsing="false" />
-                        <MenuItem mnemonicParsing="false" text="%menuitem.selectAll" />
-                        <MenuItem mnemonicParsing="false" text="%menuitem.unselectAll" />
-                    </items>
-                </Menu>
-                <Menu mnemonicParsing="false" text="%menu.help">
-                    <items>
-                        <MenuItem mnemonicParsing="false" text="%menuitem.aboutApp" />
-                    </items>
-                </Menu>
-            </menus>
-        </MenuBar>
         <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
             <children>
                 <Label layoutX="14.0" layoutY="9.0" text="%label.pagesat">
