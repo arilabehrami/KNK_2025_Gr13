@@ -37,13 +37,11 @@ public class LoginController {
 
     @FXML
     public void initialize() {
-        // Stilizimi i butonave me hover
         styleButtons();
 
         errorLabel.setText("");
         errorLabel.setVisible(false);
 
-        // Vendos tekstet sipas gjuhës aktuale nga resource bundle
         loginButton.setText(resources.getString("button.login"));
         signupButton.setText(resources.getString("button.signup"));
         switchLangButton.setText(resources.getString("button.switch_language"));
@@ -101,7 +99,6 @@ public class LoginController {
 
                 Stage stage = (Stage) loginButton.getScene().getWindow();
 
-                // Merr madhësinë ekzistuese të dritares
                 double width = stage.getWidth();
                 double height = stage.getHeight();
 
@@ -110,9 +107,7 @@ public class LoginController {
                 stage.setScene(scene);
                 stage.setTitle(currentBundle.getString("title.main"));
 
-                // E vendos dritaren në maximized ose full screen sipas dëshirës
                 stage.setMaximized(true);
-                // ose stage.setFullScreen(true);
 
                 stage.show();
 
@@ -136,7 +131,7 @@ public class LoginController {
     @FXML
     private void switchLanguage(ActionEvent event) {
         LanguageManager.toggleLanguage();
-        SceneManager.changeScene(SceneLocator.LOGIN_VIEW); // rifreskon skenën me gjuhën e re
+        SceneManager.changeScene(SceneLocator.LOGIN_VIEW);
     }
 
     @FXML
@@ -153,7 +148,7 @@ public class LoginController {
     @FXML
     public void forgotPassword(ActionEvent actionEvent) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle(resources.getString("forgot_password.title"));  // titulli i dritares (p.sh. "Forgot Password")
+        alert.setTitle(resources.getString("forgot_password.title"));
         alert.setHeaderText(null);
         alert.setContentText(resources.getString("forgot_password.instructions"));
         alert.showAndWait();

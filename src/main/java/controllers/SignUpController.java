@@ -74,11 +74,8 @@ public class SignUpController {
     private void onLoginButtonClick(ActionEvent event) {
         SceneManager.changeScene(SceneLocator.LOGIN_VIEW);
 
-        // Merr stage nga event-i dhe e maximizon
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setMaximized(true);
-        // ose për full screen:
-        // stage.setFullScreen(true);
     }
 
     @FXML
@@ -91,7 +88,7 @@ public class SignUpController {
 
             stage.setScene(scene);
             stage.setTitle("Kyçu");
-            stage.setMaximized(true);  // Maksimizo dritaren
+            stage.setMaximized(true);
             stage.show();
         } catch (Exception e) {
             e.printStackTrace();

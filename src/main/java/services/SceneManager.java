@@ -14,8 +14,7 @@ public class SceneManager {
 
     public static void setPrimaryStage(Stage stage) {
         primaryStage = stage;
-        primaryStage.setMaximized(true);  // e vendos dritaren në maximized që në fillim
-        // ose primaryStage.setFullScreen(true); nëse preferon full screen
+        primaryStage.setMaximized(true);
     }
 
     public static void changeScene(String fxmlPath) {
@@ -26,18 +25,14 @@ public class SceneManager {
             FXMLLoader loader = new FXMLLoader(SceneManager.class.getResource(fxmlPath), bundle);
             Parent root = loader.load();
 
-            // Merr madhësinë ekzistuese për të ruajtur
             double width = primaryStage.getWidth();
             double height = primaryStage.getHeight();
 
-            // Krijo scene me madhësinë ekzistuese të dritares
             Scene scene = new Scene(root, width, height);
 
             primaryStage.setScene(scene);
 
-            // Nëse do, mund të vendosësh përsëri maximized ose fullscreen
             primaryStage.setMaximized(true);
-            // ose primaryStage.setFullScreen(true);
 
             primaryStage.show();
 

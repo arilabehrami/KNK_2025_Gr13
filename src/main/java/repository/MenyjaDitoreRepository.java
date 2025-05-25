@@ -21,24 +21,33 @@ public class MenyjaDitoreRepository extends BaseRepository<MenyjaDitore, CreateM
 
     @Override
     public MenyjaDitore create(CreateMenyjaDitoreDto dto) {
-        String query = "INSERT INTO menyjaditore (Dita, GrupiID, UshqimiID) VALUES (?, ?, ?)";
-        try {
-            PreparedStatement pstm = this.connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
-            pstm.setString(1, dto.getDita());
-            pstm.setInt(2, dto.getGrupiID());
-            pstm.setInt(3, dto.getUshqimiID());
-            pstm.execute();
+        String getMaxIdQuery = "SELECT MAX(MenuID) FROM menyjaditore";
+        String insertQuery = "INSERT INTO menyjaditore (MenuID, Dita, GrupiID, UshqimiID) VALUES (?, ?, ?, ?)";
 
-            ResultSet res = pstm.getGeneratedKeys();
-            if (res.next()) {
-                int id = res.getInt(1);
-                return getById(id);
+        try {
+            // Merr ID më të madh aktual
+            PreparedStatement getMaxIdStmt = this.connection.prepareStatement(getMaxIdQuery);
+            ResultSet rs = getMaxIdStmt.executeQuery();
+            int newId = 1;
+            if (rs.next()) {
+                newId = rs.getInt(1) + 1; // e rrit me +1 nga më i madhi ekzistues
             }
+
+            // Fut rreshtin e ri me ID të llogaritur
+            PreparedStatement pstm = this.connection.prepareStatement(insertQuery);
+            pstm.setInt(1, newId);
+            pstm.setString(2, dto.getDita());
+            pstm.setInt(3, dto.getGrupiID());
+            pstm.setInt(4, dto.getUshqimiID());
+            pstm.executeUpdate();
+
+            return getById(newId);
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return null;
     }
+
 
     @Override
     public MenyjaDitore update(UpdateMenyjaDitoreDto dto) {
